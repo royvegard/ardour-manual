@@ -1,5 +1,10 @@
 \documentclass{book}
-\usepackage{ardour,graphicx}
+
+\usepackage{ardour,graphicx,afterpage}
+
+% XXX: format
+\newcommand{\button}[1]{#1}
+
 \title{Ardour 3 --- A users' manual}
 \author{The Ardour Community}
 \date{}
@@ -160,6 +165,9 @@ to make a basic recording, and describes how that can be achieved.
 
 \section{Starting Ardour and creating a session}
 
+When Ardour is run for the first time, it welcomes you with the dialogue box
+shown in Figure~\ref{fig:welcome-to-ardour}.  Click \button{Forward} to continue.
+
 \begin{figure}[ht]
 \begin{center}
 \includegraphics[scale=0.5]{screenshots/welcome-to-ardour.png}
@@ -167,6 +175,13 @@ to make a basic recording, and describes how that can be achieved.
 \caption{Welcome to Ardour!}
 \label{fig:welcome-to-ardour}
 \end{figure}
+
+As it is the first run, Ardour now asks a few basic questions about
+how it should be set up.  Its first question is about where to put
+sessions by default, as shown in
+Figure~\ref{fig:default-folder-for-new-sessions}.  The initial choice
+will be your home directory; other locations can be selected by
+clicking on the button and selecting an alternative directory.
 
 \begin{figure}[ht]
 \begin{center}
@@ -176,6 +191,17 @@ to make a basic recording, and describes how that can be achieved.
 \label{fig:default-folder-for-new-sessions}
 \end{figure}
 
+The next choice governs how Ardour will handle monitoring, as shown in
+Figure~\ref{fig:monitoring-choices}.  If your sound card or external
+audio equipment allows monitoring of things that are being recorded,
+select `Use an external mixer or the hardware mixer in your audio
+interface.'.  Otherwise, if Ardour must perform monitoring, choose
+`Ask Ardour to playback material as it is being recorded'.
+
+% XXX: link
+This choice is explained in more detail later in the manual.  If in
+doubt, choose the second option.
+
 \begin{figure}[ht]
 \begin{center}
 \includegraphics[scale=0.5]{screenshots/monitoring-choices.png}
@@ -183,6 +209,12 @@ to make a basic recording, and describes how that can be achieved.
 \caption{Monitoring choices}
 \label{fig:monitoring-choices}
 \end{figure}
+
+% XXX: link
+Following this, Ardour asks for a choice with respect to a monitor
+section (see Figure~\ref{fig:monitor-section}).  This is explained in
+more detail later; for now, just choose the default `use a master bus
+directly'.
 
 \begin{figure}[ht]
 \begin{center}
@@ -192,6 +224,17 @@ to make a basic recording, and describes how that can be achieved.
 \label{fig:monitor-section}
 \end{figure}
 
+At this point, if you have not already started JACK, Ardour will try
+to do it for you.  In order to do that, it asks about how JACK should
+be set up (Figure~\ref{fig:audio-midi-setup-device}.
+
+There are three pages to the Audio / MIDI setup dialogue; the first is
+`device', which allows you to choose the sound card that Ardour will
+use, the sampling rate at which it will operate, and the buffer size.
+For now, select the interface that you are using for recording and
+leave other options as they are.  For more information on the options
+here, consult chapter~\ref{ch:jack}.
+
 \begin{figure}[ht]
 \begin{center}
 \includegraphics[scale=0.5]{screenshots/audio-midi-setup-device.png}
@@ -200,21 +243,10 @@ to make a basic recording, and describes how that can be achieved.
 \label{fig:audio-midi-setup-device}
 \end{figure}
 
-\begin{figure}[ht]
-\begin{center}
-\includegraphics[scale=0.5]{screenshots/audio-midi-setup-options.png}
-\end{center}
-\caption{Audio/MIDI setup --- options}
-\label{fig:audio-midi-setup-options}
-\end{figure}
-
-\begin{figure}[ht]
-\begin{center}
-\includegraphics[scale=0.5]{screenshots/audio-midi-setup-advanced.png}
-\end{center}
-\caption{Audio/MIDI setup --- advanced}
-\label{fig:audio-midi-setup-advanced}
-\end{figure}
+The final step in creating our session is to give it a name, as in
+Figure~\ref{fig:new-session}.  Enter something like `test' or
+`frobozz', and click \button{Open}.  At last, the reward should be the
+editor window (Figure~\ref{fig:editor}).  The session is created!
 
 \begin{figure}[ht]
 \begin{center}
