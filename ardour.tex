@@ -4,6 +4,17 @@
 
 % XXX: format
 \newcommand{\button}[1]{#1}
+\newcommand{\menu}[1]{#1}
+
+\newcommand{\screenshot}[3]{%
+\begin{figure}[ht]%
+\begin{center}
+\includegraphics[scale=0.5]{screenshots/#1}
+\end{center}
+\caption{#2}
+\label{#3}
+\end{figure}}
+
 
 \title{Ardour 3 --- A users' manual}
 \author{The Ardour Community}
@@ -54,7 +65,7 @@ overview of Ardour.
 Ardour is built on another piece of software called JACK\footnote{JACK
   stands for the JACK Audio Connection Kit; a pleasingly recursive acronym}.
 JACK has two main functions; first, it moves audio and MIDI to
-and from your sound card, and second, it allows audio and MIDI to be
+and from a sound card, and second, it allows audio and MIDI to be
 routed between different applications.
 
 JACK provides a great deal of flexibility and power, especially when
@@ -92,8 +103,8 @@ It is also possible for Ardour sessions to reference sound and MIDI
 files outside the session directory.
 \end{danger}
 
-Ardour has a current session at all times; if you load Ardour without
-specifying one, it will offer to load or create one for you.
+Ardour has a current session at all times; if Ardour is started without
+specifying one, it will offer to load or create one.
 
 
 
@@ -171,7 +182,7 @@ Figure~\ref{fig:typical-jack-session} gives a diagram of a moderately
 complex JACK session.
 
 \begin{danger}
-JACK is not limited to the standard concept of the `sound card'.  You
+JACK is not limited to the standard concept of the `sound card'.  One
 may choose to have no sound card at all (in which case JACK can run in
 `dummy' mode).  It is also possible to send signals to and from JACK
 over TCP/IP networks using netjack.  For simplicity, this manual will
@@ -186,7 +197,7 @@ maintained, and can be used as drop-in replacements for each other.
 JACK1 has version numbers like 0.121.3, and JACK2 (also known as
 jackdmp) has version numbers like 1.9.8.  Both implementations have
 their advantages and disadvantages.  It does not matter a great deal
-which one you use.
+which one is used.
 
 % XXX: unless what?
 
@@ -208,8 +219,8 @@ important ones are discussed here.
 
 This is the number of samples per second that JACK will process, and
 is important as it will govern the sampling rate that all audio
-applications will run at.  The rate that you choose must be supported
-by your sound card, so values such as 44.1kHz, 48kHz, 96kHz
+applications will run at.  The chosen rate must be supported
+by the sound card, so values such as 44.1kHz, 48kHz, 96kHz
 et.\ cetera are typical choices.  The higher the sampling rate, the
 higher the theoretical audio frequency that the system can reproduce,
 but also the more disk space will be consumed by audio recordings, and
@@ -250,112 +261,86 @@ trying 3 here if problems are experienced.
 
 
 \chapter{Quick start}
+% XXX: links to things later on
 
 This chapter blithely assumes that the reader just wants to use Ardour
-to make a basic recording, and describes how that can be achieved.
+to make a basic audio recording from a sound card, and describes how
+that can be achieved.
 
 \section{Starting Ardour and creating a session}
 
-When Ardour is run for the first time, it welcomes you with the dialogue box
+When Ardour is run for the first time, it starts with the dialogue box
 shown in Figure~\ref{fig:welcome-to-ardour}.  Click \button{Forward} to continue.
 
-\begin{figure}[ht]
-\begin{center}
-\includegraphics[scale=0.5]{screenshots/welcome-to-ardour.png}
-\end{center}
-\caption{Welcome to Ardour!}
-\label{fig:welcome-to-ardour}
-\end{figure}
+\screenshot{welcome-to-ardour.png}{Welcome to Ardour!}{fig:welcome-to-ardour}
 
 As it is the first run, Ardour now asks a few basic questions about
 how it should be set up.  Its first question is about where to put
 sessions by default, as shown in
 Figure~\ref{fig:default-folder-for-new-sessions}.  The initial choice
-will be your home directory; other locations can be selected by
+will be the current user's home directory; other locations can be selected by
 clicking on the button and selecting an alternative directory.
 
-\begin{figure}[ht]
-\begin{center}
-\includegraphics[scale=0.5]{screenshots/default-folder-for-new-sessions.png}
-\end{center}
-\caption{Default folder for new sessions}
-\label{fig:default-folder-for-new-sessions}
-\end{figure}
+\screenshot{default-folder-for-new-sessions.png}{Default folder for new sessions}{fig:default-folder-for-new-sessions}
 
 The next choice governs how Ardour will handle monitoring, as shown in
-Figure~\ref{fig:monitoring-choices}.  If your sound card or external
+Figure~\ref{fig:monitoring-choices}.  If the sound card or external
 audio equipment allows monitoring of things that are being recorded,
 select `Use an external mixer or the hardware mixer in your audio
 interface.'.  Otherwise, if Ardour must perform monitoring, choose
 `Ask Ardour to playback material as it is being recorded'.
 
-% XXX: link
 This choice is explained in more detail later in the manual.  If in
 doubt, choose the second option.
 
-\begin{figure}[ht]
-\begin{center}
-\includegraphics[scale=0.5]{screenshots/monitoring-choices.png}
-\end{center}
-\caption{Monitoring choices}
-\label{fig:monitoring-choices}
-\end{figure}
+\screenshot{monitoring-choices.png}{Monitoring choices}{fig:monitoring-choices}
 
-% XXX: link
 Following this, Ardour asks for a choice with respect to a monitor
 section (see Figure~\ref{fig:monitor-section}).  This is explained in
 more detail later; for now, just choose the default `use a master bus
 directly'.
 
-\begin{figure}[ht]
-\begin{center}
-\includegraphics[scale=0.5]{screenshots/monitor-section.png}
-\end{center}
-\caption{Monitor section}
-\label{fig:monitor-section}
-\end{figure}
+\screenshot{monitor-section.png}{Monitor section}{fig:monitor-section}
 
-At this point, if you have not already started JACK, Ardour will try
+At this point, if JACK has not already been started, Ardour will try
 to do it for you.  In order to do that, it asks about how JACK should
 be set up (Figure~\ref{fig:audio-midi-setup-device}.
 
 There are three pages to the Audio / MIDI setup dialogue; the first is
-`device', which allows you to choose the sound card that Ardour will
+`device', which allows selection of the sound card that Ardour will
 use, the sampling rate at which it will operate, and the buffer size.
-For now, select the interface that you are using for recording and
+For now, select the interface that is being used for recording and
 leave other options as they are.  For more information on the options
 here, consult chapter~\ref{ch:jack}.
 
-\begin{figure}[ht]
-\begin{center}
-\includegraphics[scale=0.5]{screenshots/audio-midi-setup-device.png}
-\end{center}
-\caption{Audio/MIDI setup --- device}
-\label{fig:audio-midi-setup-device}
-\end{figure}
+\screenshot{audio-midi-setup-device.png}{Audio/MIDI setup --- device}{fig:audio-midi-setup-device}
 
 The final step in creating our session is to give it a name, as in
 Figure~\ref{fig:new-session}.  Enter something like `test' or
 `frobozz', and click \button{Open}.  At last, the reward should be the
 editor window (Figure~\ref{fig:editor}).  The session is created!
 
-\begin{figure}[ht]
-\begin{center}
-\includegraphics[scale=0.5]{screenshots/new-session.png}
-\end{center}
-\caption{New session}
-\label{fig:new-session}
-\end{figure}
+\screenshot{new-session.png}{New session}{fig:new-session}
 
 \begin{figure}[ht]
 \begin{center}
 \includegraphics[scale=0.3]{screenshots/editor.png}
-\end{center}
 \caption{\ldots and finally: the editor!}
 \label{fig:editor}
 \end{figure}
 
 \section{Adding a track and connecting it up}
+
+The next step is to add a track to our session so that we have
+something to record onto.  Choose \menu{Track,Add Track or Bus...}
+from the menu at the top of the editor window.  This will bring up a
+dialogue box, as shown in Figure~\ref{fig:add-track-or-bus}.
+
+\screenshot{add-track-or-bus.png}{Add Track or Bus dialogue}{fig:add-track-or-bus}
+
+For now, leave the options as they are; this will create a single
+monophonic audio track.  This track must now be connected to the sound
+card so that it can record incoming audio.
 
 \section{Recording}
 
