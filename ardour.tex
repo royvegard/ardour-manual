@@ -1,6 +1,6 @@
 \documentclass{book}
 
-\usepackage{ardour,graphicx,afterpage}
+\usepackage{ardour,graphicx,afterpage,url}
 
 % XXX: format
 \newcommand{\button}[1]{#1}
@@ -157,6 +157,97 @@ equalisation or compression) can be applied to the mix of all tracks.
 
 \chapter{JACK}
 \label{ch:jack}
+
+\section{Introduction}
+
+JACK is the JACK audio connection kit.  It is a piece of software that
+provides the low-level `plumbing' which allows Ardour to work.  Its
+setup is crucial to Ardour; Ardour will not work without it.
+
+JACK's essential task is to route audio and MIDI data to and from a
+sound card, and also between applications.  It manages a set of
+\emph{ports}, which it can connect together in arbitrary ways.
+Figure~\ref{fig:typical-jack-session} gives a diagram of a moderately
+complex JACK session.
+
+\begin{danger}
+JACK is not limited to the standard concept of the `sound card'.  You
+may choose to have no sound card at all (in which case JACK can run in
+`dummy' mode).  It is also possible to send signals to and from JACK
+over TCP/IP networks using netjack.  For simplicity, this manual will
+assume that the user has a sound card in the conventional sense.
+\end{danger}
+
+
+\subsection{JACK versions}
+
+For historical reasons, there are two `branches' of JACK that are both
+maintained, and can be used as drop-in replacements for each other.
+JACK1 has version numbers like 0.121.3, and JACK2 (also known as
+jackdmp) has version numbers like 1.9.8.  Both implementations have
+their advantages and disadvantages.  It does not matter a great deal
+which one you use.
+
+% XXX: unless what?
+
+
+\section{Starting JACK}
+
+Ardour can start JACK automatically when it starts; and indeed many
+users will find that this works perfectly well.  It is also possible
+to start JACK manually, either at the command line or using a tool
+such as QJackCtl\footnote{\url{http://qjackctl.sourceforge.net}} or
+JackPilot\footnote{\url{http://www.jackosx.com}}.
+
+\subsection{Parameters}
+
+JACK has many parameters which affect its operation.  Some of the more
+important ones are discussed here.
+
+\subsubsection{Sampling rate}
+
+This is the number of samples per second that JACK will process, and
+is important as it will govern the sampling rate that all audio
+applications will run at.  The rate that you choose must be supported
+by your sound card, so values such as 44.1kHz, 48kHz, 96kHz
+et.\ cetera are typical choices.  The higher the sampling rate, the
+higher the theoretical audio frequency that the system can reproduce,
+but also the more disk space will be consumed by audio recordings, and
+the more CPU power will be required to run audio plugins.
+
+\subsubsection{Frames per period}
+
+In a move necessary for efficiency, JACK does not process audio
+sample-by-sample, but in blocks of samples.  The size of these blocks
+can be selected when starting JACK\@.  If the frames per period count
+is made smaller, the latency sounds going into and coming out of the
+computer will be reduced; on the other hand, smaller buffers make the
+computer work harder, and may result in other problems if the computer
+is not well set-up.  It is usually difficult to get below 64 frames
+per period on a typical desktop computer, and values as high as 2048
+frames per buffer may be employed by users who do not particularly
+care about latency.
+
+\begin{danger}
+The frames per period value governs how often JACK will talk to the
+sound card.  If, for example, JACK is set to 64 frames per period, the
+sound card will tell JACK when it has 64 new frames ready; JACK must
+then respond before the next 64 frames arrives.  This has the
+consequences that JACK is awoken more often, causing a greater CPU
+load, and that the requirements for JACK's response time are much more
+critical with smaller period sizes.  Some systems will struggle to wake
+JACK up in time, making larger period sizes more reliable on those systems.
+\end{danger}
+
+\subsubsection{Number of periods}
+
+This is value related to the frames-per-period value above; 2 is
+typical, and will work for most sound cards and systems.  It is worth
+trying 3 here if problems are experienced.
+
+
+\section{Troubleshooting JACK}
+
 
 \chapter{Quick start}
 
