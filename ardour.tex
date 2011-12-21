@@ -1,5 +1,5 @@
 \documentclass{book}
-\usepackage{ardour}
+\usepackage{ardour,graphicx}
 \title{Ardour 3 --- A users' manual}
 \author{The Ardour Community}
 \date{}
@@ -16,6 +16,25 @@ Hello, and welcome to Ardour!
 \section{What is Ardour?}
 
 Ardour is an open-source digital audio workstation (DAW) for Linux and Mac OS~X.
+
+
+\section{Typographical conventions}
+
+This manual takes a cue from the \TeX{}book and uses special symbols
+to denote sections which contain advanced material.  Readers can
+skip these sections without any great loss.
+
+\begin{danger}
+Tricky parts of the text are marked with a `bend in the road' marker.
+They contain extra information which may be of interest to advanced
+users.
+\end{danger}
+
+\begin{ddanger}
+Especially tricky parts of the text are marked with a double
+bend-in-the-road marker.  Such sections will only be of interest to
+the completist or serious hacker.
+\end{ddanger}
 
 
 \chapter{Overview}
@@ -40,21 +59,21 @@ technology, though broader in scope.  It is even possible to use JACK
 to route audio and MIDI over network connections.
 
 JACK is so important to Ardour's operation that it earns its own
-discussion in Chapter~\ref{ch:jack}.
+discussion in chapter~\ref{ch:jack}.
 
 
 \section{Sessions}
 
 An Ardour \emph{session} is a container for an entire project.  A
 session may contain an arbitrary number of tracks and busses
-containing audio and MIDI data, along with information on processing
+consisting of audio and MIDI data, along with information on processing
 those tracks, a mix of levels, and everything else related to the
 project.  A session might typically contain a song, or perhaps an entire
 album or a complete live recording.
 
 Ardour sessions are held in directories; these directories contain one
 or more \emph{session files}, some or all of the audio and MIDI data
-and a number of other state files that Ardour maintains.  The session
+and a number of other state files that Ardour requires.  The session
 file describes the structure of the session, and holds automation data
 and other details.
 
@@ -126,9 +145,103 @@ input is obtained from other tracks or busses, rather than from disk.
 One might typically use a buss to collect together the outputs of
 related tracks.  Consider, for example, a 3-track recording of a
 drum-kit; given kick, snare and overhead tracks, it may be helpful to
-connect the output of each to a a bus called `drums', so that the
+connect the output of each to a bus called `drums', so that the
 drum-kit's level can be set as a unit, and processing (such as
 equalisation or compression) can be applied to the mix of all tracks.
+
+
+\chapter{JACK}
+\label{ch:jack}
+
+\chapter{Quick start}
+
+This chapter blithely assumes that the reader just wants to use Ardour
+to make a basic recording, and describes how that can be achieved.
+
+\section{Starting Ardour and creating a session}
+
+\begin{figure}[ht]
+\begin{center}
+\includegraphics[scale=0.5]{screenshots/welcome-to-ardour.png}
+\end{center}
+\caption{Welcome to Ardour!}
+\label{fig:welcome-to-ardour}
+\end{figure}
+
+\begin{figure}[ht]
+\begin{center}
+\includegraphics[scale=0.5]{screenshots/default-folder-for-new-sessions.png}
+\end{center}
+\caption{Default folder for new sessions}
+\label{fig:default-folder-for-new-sessions}
+\end{figure}
+
+\begin{figure}[ht]
+\begin{center}
+\includegraphics[scale=0.5]{screenshots/monitoring-choices.png}
+\end{center}
+\caption{Monitoring choices}
+\label{fig:monitoring-choices}
+\end{figure}
+
+\begin{figure}[ht]
+\begin{center}
+\includegraphics[scale=0.5]{screenshots/monitor-section.png}
+\end{center}
+\caption{Monitor section}
+\label{fig:monitor-section}
+\end{figure}
+
+\begin{figure}[ht]
+\begin{center}
+\includegraphics[scale=0.5]{screenshots/audio-midi-setup-device.png}
+\end{center}
+\caption{Audio/MIDI setup --- device}
+\label{fig:audio-midi-setup-device}
+\end{figure}
+
+\begin{figure}[ht]
+\begin{center}
+\includegraphics[scale=0.5]{screenshots/audio-midi-setup-options.png}
+\end{center}
+\caption{Audio/MIDI setup --- options}
+\label{fig:audio-midi-setup-options}
+\end{figure}
+
+\begin{figure}[ht]
+\begin{center}
+\includegraphics[scale=0.5]{screenshots/audio-midi-setup-advanced.png}
+\end{center}
+\caption{Audio/MIDI setup --- advanced}
+\label{fig:audio-midi-setup-advanced}
+\end{figure}
+
+\begin{figure}[ht]
+\begin{center}
+\includegraphics[scale=0.5]{screenshots/new-session.png}
+\end{center}
+\caption{New session}
+\label{fig:new-session}
+\end{figure}
+
+\begin{figure}[ht]
+\begin{center}
+\includegraphics[scale=0.3]{screenshots/editor.png}
+\end{center}
+\caption{\ldots and finally: the editor!}
+\label{fig:editor}
+\end{figure}
+
+\section{Adding a track and connecting it up}
+
+\section{Recording}
+
+\section{Adding another track as an overdub}
+
+\section{Mix-down}
+
+\section{Export}
+
 
 
 \end{document}
