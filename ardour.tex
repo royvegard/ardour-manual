@@ -412,6 +412,12 @@ controls (shown in Figures~ref{fig:track-controls} and
 
 \chapter{Unfiled miscellany}
 
+\section{The processor list}
+
+% XXX: sshot
+
+
+
 \section{Monitoring}
 
 The basic role of a track is to record and playback audio or MIDI
@@ -524,9 +530,96 @@ monitored.
 % XXX metering!
 
 
+\section{Tracks and busses in detail}
 
+\begin{ddanger}
+This section goes into somewhat unhealthy detail about how tracks and
+busses operate internally.  It may be of interest to almost nobody.
+\end{ddanger}
 
+Tracks and busses in Ardour share a common basis; they are both
+pathways through which audio and MIDI data can pass, experiencing
+various processing and distribution along the way.  The only real
+difference between a track and a bus is that a track can either obtain
+its input from a JACK port, or from files on disk; a bus has no disk
+files, so only processes signals coming from other parts of Ardour, or
+from other programs via JACK\@.
 
+Internally, Ardour uses the term `route' to describe a bus, with a
+track being a superset of the route's functionality (to include the
+parts which read from and write to disk).  This chapter uses the word
+`route' to indicate either a track or a bus, where the two have the
+same behaviour.
+
+Not all of the processing that signals experience as they travel
+through routes visible in the Ardour user-interface. The visible parts
+are the plugins, the fader, the meter and (if present) the panner.
+There are other invisible processes that happen to support Ardour's
+internal operation.  Figure~\ref{fig:route-in-detail} gives a
+representation of the entire pathway of a route.
+
+% XXX: panning
+\begin{figure}[ht]
+\begin{center}
+\includegraphics{diagrams/route-in-detail.pdf}
+\end{center}
+\caption{Detailed view of a route}
+\label{fig:route-in-detail}
+\end{figure}
+
+Audio or MIDI data starts from either a set of JACK ports or a disk
+file.  Busses always take their initial data from JACK ports, and
+tracks can do either depending on monitoring settings.  It is possible
+for tracks and busses to have no input, in which case the signal
+starts off as silence.
+
+If a track is recording, data is taken straight from the JACK input
+ports and recorded; no processing on track will have any effect on the
+recorded signal.
+
+The signal then enters the processing chain.  Internally, this chain
+is a set of `processors' connected in series.  
+
+\subsection{Export}
+
+% XXX
+
+\subsection{Internal return}
+
+This is the point at which internal send signals from other routes
+appears in the route being sent to.  This processor gathers signals
+from all its connected sends and mixes them with the signal in the
+route at that point.
+
+\subsection{Monitor control}
+
+% XXX
+
+\subsection{Monitor send}
+
+The monitor send is an internal send which sends the route's signal,
+whever it is located, to the monitor bus.  The monitor send is located
+in different places, depending on the settings for AFL and PFL\@.
+
+\subsection{Meter}
+
+The meter processor passes signals unaltered, but meters them on the
+way through.  It can be moved around depending on the meter point settings.
+
+\subsection{User processors}
+
+These are the `conventional' user-visible processors: plugins and
+internal sends to other tracks or busses.
+
+\subsection{Amp}
+
+This is a basic gain-control element which is controlled by the fader.
+
+\subsection{Main out}
+
+This processor takes the route's signal, optionally pans it, and then
+passes it to a set of JACK ports; this represents the main output of
+the route.
 
 \end{document}
 
