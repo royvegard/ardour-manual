@@ -5,6 +5,7 @@
 % XXX: format
 \newcommand{\button}[1]{#1}
 \newcommand{\menu}[1]{#1}
+\newcommand{\key}[1]{#1}
 
 \newcommand{\screenshot}[3]{%
 \begin{figure}[ht]%
@@ -33,7 +34,6 @@ Hello, and welcome to Ardour!
 
 Ardour is an open-source digital audio workstation (DAW) for Linux and Mac OS~X.
 
-
 \section{Typographical conventions}
 
 This manual takes a cue from the \TeX{}book and uses special symbols
@@ -51,6 +51,19 @@ Especially tricky parts of the text are marked with a double
 bend-in-the-road marker.  Such sections will only be of interest to
 the completist or serious hacker.
 \end{ddanger}
+
+
+\section{About this manual}
+
+This manual is a constantly-evolving work-in-progress.  Any
+suggestions for improvements, content, or comments on parts that do
+not make sense are welcome to \url{cth@carlh.net}.  
+
+\begin{danger}
+For those familiar with `git', the manual's \LaTeX\ source can be
+obtained from the git repository linked from
+\url{http://carlh.net/ardour}.  Patches to the manual are most welcome.
+\end{danger}
 
 
 \chapter{Overview}
@@ -284,14 +297,9 @@ clicking on the button and selecting an alternative directory.
 \screenshot{default-folder-for-new-sessions.png}{Default folder for new sessions}{fig:default-folder-for-new-sessions}
 
 The next choice governs how Ardour will handle monitoring, as shown in
-Figure~\ref{fig:monitoring-choices}.  If the sound card or external
-audio equipment allows monitoring of things that are being recorded,
-select `Use an external mixer or the hardware mixer in your audio
-interface.'.  Otherwise, if Ardour must perform monitoring, choose
-`Ask Ardour to playback material as it is being recorded'.
-
-This choice is explained in more detail later in the manual.  If in
-doubt, choose the second option.
+Figure~\ref{fig:monitoring-choices}.  For the purposes of this test,
+choose `Ask Ardour to playback material as it is being recorded', as
+this makes things slightly clearer in many cases.
 
 \screenshot{monitoring-choices.png}{Monitoring choices}{fig:monitoring-choices}
 
@@ -343,7 +351,57 @@ For now, leave the options as they are; this will create a single
 monophonic audio track.  This track must now be connected to the sound
 card so that it can record incoming audio.
 
+Perhaps the easiest way to connect up this new track is to open its
+\emph{editor mixer strip}.  Do this now by pressing \key{Shift,E} or
+choosing \menu{View,Show Editor Mixer} from the main menu.  The top of
+the mixer strip that appears looks like that in
+Figure~\ref{fig:top-of-mixer-strip}.
+
+\screenshot{top-of-mixer-strip.png}{Top part of a mixer strip}{fig:top-of-mixer-strip}
+
+At the top of this mixer strip there are three main buttons.  The
+first, labelled `Audio 1' (the name of the track) can be clicked on to
+open a menu of options for the track.  The second, marked `1' is the
+input selector, and the third, marked $\Phi$, is a button to invert
+the track's signal.
+
+In order to look at the connections to the input of this track,
+left-click on the button marked `1' to open the input \emph{port
+  matrix}, as shown in Figure~\ref{fig:input-port-matrix}.
+
+\screenshot{input-port-matrix.png}{Input port matrix}{fig:input-port-matrix}
+
+The port matrix is the main interface that Ardour offers for
+connecting things together.  In our example matrix, the left-hand side
+shows a set of ports that generate audio data; these correspond to the
+sound card inputs, outputs of Ardour busses and tracks, and other
+things that may exist on the system.  Different groups of these ports
+can be seen by choosing one of the tabs on the far left-hand side of
+the dialogue.
+
+At the bottom of the dialogue is the input to our track.
+
+In the example matrix, there is a green dot at the intersection of the
+`L' part of `in $1+2$' and the `Audio 1 in' port.  This means that the
+input of the `Audio 1' track hardware input 1.  Change this
+connection, if necessary, by clicking on the square which corresponds
+to the input to record from.  At this point, the Audio 1 meter should
+display any signal that is being sent into the sound card.  If this is
+not working, something has gone wrong.
+
 \section{Recording}
+
+At this point, Ardour is receiving a signal from some external sound
+source via the sound card.  It is now possible to make a test
+recording.  Click the record-enable buttons (red buttons with a pink
+circle) in both the `Audio 1' track controls and the main transport
+controls (shown in Figures~ref{fig:track-controls} and
+\ref{fig:transport-controls} respectively.
+
+\screenshot{track-controls.png}{Track controls area}{fig:track-controls}
+\screenshot{transport-controls.png}{Main transport controls}{fig:transport-controls}
+
+
 
 \section{Adding another track as an overdub}
 
