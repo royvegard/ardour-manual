@@ -37,7 +37,7 @@ Ardour is an open-source digital audio workstation (DAW) for Linux and Mac OS~X.
 \section{Typographical conventions}
 
 This manual takes a cue from the \TeX{}book and uses special symbols
-to denote sections which contain advanced material.  Readers can
+to denote sections which contain advanced material.  The reader can
 skip these sections without any great loss.
 
 \begin{danger}
@@ -195,7 +195,7 @@ Figure~\ref{fig:typical-jack-session} gives a diagram of a moderately
 complex JACK session.
 
 \begin{danger}
-JACK is not limited to the standard concept of the `sound card'.  One
+JACK is not limited to the standard concept of the `sound card'.  You
 may choose to have no sound card at all (in which case JACK can run in
 `dummy' mode).  It is also possible to send signals to and from JACK
 over TCP/IP networks using netjack.  For simplicity, this manual will
@@ -244,12 +244,12 @@ the more CPU power will be required to run audio plugins.
 In a move necessary for efficiency, JACK does not process audio
 sample-by-sample, but in blocks of samples.  The size of these blocks
 can be selected when starting JACK\@.  If the frames per period count
-is made smaller, the latency sounds going into and coming out of the
-computer will be reduced; on the other hand, smaller buffers make the
-computer work harder, and may result in other problems if the computer
-is not well set-up.  It is usually difficult to get below 64 frames
-per period on a typical desktop computer, and values as high as 2048
-frames per buffer may be employed by users who do not particularly
+is made smaller, the latency experienced by sounds going into and
+coming out of the computer will be reduced; on the other hand, smaller
+buffers make the computer work harder, and may result in other
+problems if the computer is not well set-up.  It is usually difficult
+to get below 64 frames per period on a typical desktop computer, and
+values as high as 2048 frames per buffer if you do not particularly
 care about latency.
 
 \begin{danger}
@@ -276,9 +276,9 @@ trying 3 here if problems are experienced.
 \chapter{Quick start}
 % XXX: links to things later on
 
-This chapter blithely assumes that the reader just wants to use Ardour
-to make a basic audio recording from a sound card, and describes how
-that can be achieved.
+This chapter blithely assumes that you just want to use Ardour to make
+a basic audio recording from a sound card, and describes how that can
+be achieved.
 
 \section{Starting Ardour and creating a session}
 
@@ -291,7 +291,7 @@ As it is the first run, Ardour now asks a few basic questions about
 how it should be set up.  Its first question is about where to put
 sessions by default, as shown in
 Figure~\ref{fig:default-folder-for-new-sessions}.  The initial choice
-will be the current user's home directory; other locations can be selected by
+will be the your home directory; other locations can be selected by
 clicking on the button and selecting an alternative directory.
 
 \screenshot{default-folder-for-new-sessions.png}{Default folder for new sessions}{fig:default-folder-for-new-sessions}
@@ -317,16 +317,16 @@ be set up (Figure~\ref{fig:audio-midi-setup-device}.
 There are three pages to the Audio / MIDI setup dialogue; the first is
 `device', which allows selection of the sound card that Ardour will
 use, the sampling rate at which it will operate, and the buffer size.
-For now, select the interface that is being used for recording and
+For now, select the interface that you are using for recording and
 leave other options as they are.  For more information on the options
 here, consult chapter~\ref{ch:jack}.
 
 \screenshot{audio-midi-setup-device.png}{Audio/MIDI setup --- device}{fig:audio-midi-setup-device}
 
 The final step in creating our session is to give it a name, as in
-Figure~\ref{fig:new-session}.  Enter something like `test' or
-`frobozz', and click \button{Open}.  At last, the reward should be the
-editor window (Figure~\ref{fig:editor}).  The session is created!
+Figure~\ref{fig:new-session}.  Enter something like `test' and click
+\button{Open}.  At last, the reward should be the editor window
+(Figure~\ref{fig:editor}).  The session is created!
 
 \screenshot{new-session.png}{New session}{fig:new-session}
 
@@ -458,8 +458,6 @@ There are three basic ways in which monitoring may be approached:
 \end{itemize}
 
 \subsection{Setting up monitoring}
-
-% XXX `you' from here on!
 
 There are three main settings which affect how monitoring is
 performed.  The first is `Record monitoring handled by' in the
