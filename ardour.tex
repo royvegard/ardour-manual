@@ -352,6 +352,125 @@ card so that it can record incoming audio.
 \section{Export}
 
 
+\chapter{Unfiled miscellany}
+
+\section{Monitoring}
+
+The basic role of a track is to record and playback audio or MIDI
+data.  In some situations, however, it is useful to be able to get a
+track to pass live audio or MIDI from its input to its output.
+Consider, for example, a track with a couple of plugins that is being
+used for a vocal recording.  It may be desirable to listen to the
+processed live vocal from the output of the track, either before or
+during recording.  Generally speaking, the passing of live input data
+around Ardour is called \emph{monitoring}.
+
+
+\subsection{Different ways of monitoring}
+
+There are three basic ways in which monitoring may be approached:
+
+\begin{itemize}
+\item External monitoring --- this is where Ardour plays no role in
+  monitoring at all.  Perhaps the recording set-up has an external
+  mixer which can be used to set up monitor mixes, or perhaps the
+  sound-card being used has some `listen to the input'-style feature.
+  This approach often has the advantage of zero or near-zero latency.
+  On the other hand it requires external hardware, and the monitoring
+  settings are not saved with the session.
+
+% XXX diagrams here
+
+\item JACK-based `hardware' monitoring --- some sound cards have the
+  ability to mix signals from their inputs to their outputs with zero-
+  or low-latency.  Furthermore, on some cards these features can be
+  controlled by JACK\@.  This is a nice arrangement, if the sound card
+  supports it, as it combines the convenience of having the monitoring
+  controlled by Ardour with the low latency operation of doing it
+  externally.
+
+\item Software monitoring --- this where all monitoring is performed
+  by Ardour; it makes track inputs available at track outputs, under
+  the influence of various controls.  This approach will almost always
+  have more routing flexibility than JACK-based monitoring.  The
+  disadvantage is that there will be a latency between the input and
+  the output which will depend mainly on the JACK buffer size that is
+  being used.
+
+\end{itemize}
+
+\subsection{Setting up monitoring}
+
+% XXX `you' from here on!
+
+There are three main settings which affect how monitoring is
+performed.  The first is `Record monitoring handled by' in the
+\emph{Audio} tab of the \emph{Ardour Preferences} dialogue.  There are
+two or three options here, depending on the capabilities of your
+hardware:
+
+\begin{itemize}
+\item \emph{ardour} --- Ardour handles monitoring itself (software monitoring).
+\item \emph{audio hardware} --- Ardour does no monitoring at all, and
+  assumes you will do it yourself (external monitoring)
+\item \emph{JACK} --- Ardour will ask JACK to, in turn, ask the sound
+  card to handle monitoring.  This option is only available if it is
+  supported by your sound card (hardware monitoring).
+\end{itemize}
+
+The other two settings are more complex; one is `Tape machine mode',
+in the same dialogue, and the other is `Monitoring automatically
+follows transport state (``auto-input'')' setting in \emph{Session
+  Properties}.
+
+Monitoring is also somewhat dependent on the state of the track's
+record-enable button, the session record enable button, and whether or
+not the transport is rolling.
+
+
+\subsection{Monitoring in software or hardware monitoring modes}
+
+If Ardour is set to `external monitoring', the explanation of Ardour's
+monitoring behaviour is simple: it does not do any.  In the other two
+modes, things are more complex.
+
+
+\subsection{Monitoring in non-tape-machine mode}
+
+This section describes what happens when Ardour is \emph{not} set to
+tape-machine mode.
+
+Consider first the case when a track is record-enabled.  In this
+situation, it will always monitor the live input \emph{unless} the
+session is \emph{not} record-enabled, auto-input is enabled, and the
+transport is rolling.  
+
+When a track is not record-enabled, the track will play back its
+contents from disc \emph{unless} the transport is stopped and
+auto-input is enabled.  In this case, the track monitors its live
+input.
+
+
+\subsection{Monitoring in tape-machine mode}
+
+In tape-machine mode, things are slightly simpler; when a track is
+record-enabled, its behaviour is the same as in non-tape-machine mode:
+it will always monitor the live input \emph{unless} the session is
+\emph{not} record-enabled, auto-input is enabled, and the transport is
+rolling.
+
+When a track is not record-enabled, however, the track will always
+just play back its contents from disk; the live input will never be
+monitored.
+
+
+% XXX some more rational explanation of why things are like this
+% XXX metering!
+
+
+
+
+
 
 \end{document}
 
