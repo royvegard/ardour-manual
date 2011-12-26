@@ -1,11 +1,11 @@
 \documentclass{book}
 
-\usepackage{ardour,graphicx,afterpage,url}
+\usepackage{ardour,graphicx,afterpage,url,xstring,xcolor}
 
 % XXX: format
 \newcommand{\button}[1]{#1}
-\newcommand{\menu}[1]{#1}
-\newcommand{\key}[1]{#1}
+\newcommand{\menu}[1]{\emph{\StrSubstitute{#1}{,}{ $\rightarrow$ }}}
+\newcommand{\key}[1]{\emph{\StrSubstitute{#1}{,}{ + }}}
 
 \newcommand{\screenshot}[3]{%
 \begin{figure}[ht]%
@@ -16,6 +16,12 @@
 \label{#3}
 \end{figure}}
 
+% Voodoo from http://answers.google.com/answers/threadview?id=282787
+\definecolor{ListingGrey}{rgb}{0.8,0.8,0.8}
+\makeatletter\newenvironment{listing}{%
+   \medskip\begin{lrbox}{\@tempboxa}\begin{minipage}{\columnwidth}\ttfamily}{\normalfont\end{minipage}\end{lrbox}%
+   \colorbox{ListingGrey}{\usebox{\@tempboxa}}\medskip%
+}\makeatother
 
 \title{Ardour 3 --- A users' manual}
 \author{The Ardour Community}
@@ -37,7 +43,7 @@ Ardour is an open-source digital audio workstation (DAW) for Linux and Mac OS~X.
 \section{Typographical conventions}
 
 This manual takes a cue from the \TeX{}book and uses special symbols
-to denote sections which contain advanced material.  Readers can
+to denote sections which contain advanced material.  The reader can
 skip these sections without any great loss.
 
 \begin{danger}
@@ -197,12 +203,27 @@ complex JACK session.
 \url{jackaudio.org/pulseaudio_and_jack}
 
 \begin{danger}
-JACK is not limited to the standard concept of the `sound card'.  One
-may choose to have no sound card at all (in which case JACK can run in
+JACK is not limited to the standard concept of the `sound card'.  You
+-may choose to have no sound card at all (in which case JACK can run in
 `dummy' mode).  It is also possible to send signals to and from JACK
 over TCP/IP networks using netjack.  For simplicity, this manual will
 assume that the user has a sound card in the conventional sense.
 \end{danger}
+
+
+\subsection{Will my sound card work?}
+
+For your sound card to work with JACK, must have a driver suitable for
+the operating system that you are running on.  For Linux, this means
+that your card must be supported by ALSA or FFADO; ALSA supports
+drivers using a wide variety of interfaces, and FFADO is for firewire
+soundcards only. 
+
+The easiest way to check on ALSA compatibility is to visit
+\url{http://www.alsa-project.org/main/index.php/Matrix:Main}.  This is
+the ALSA soundcard matrix and describes ALSA's support for a variety
+of cards.  For FFADO, consult
+\url{http://www.ffado.org/?q=devicesupport/list}.
 
 
 \subsection{JACK versions}
@@ -246,12 +267,12 @@ the more CPU power will be required to run audio plugins.
 In a move necessary for efficiency, JACK does not process audio
 sample-by-sample, but in blocks of samples.  The size of these blocks
 can be selected when starting JACK\@.  If the frames per period count
-is made smaller, the latency sounds going into and coming out of the
-computer will be reduced; on the other hand, smaller buffers make the
-computer work harder, and may result in other problems if the computer
-is not well set-up.  It is usually difficult to get below 64 frames
-per period on a typical desktop computer, and values as high as 2048
-frames per buffer may be employed by users who do not particularly
+is made smaller, the latency experienced by sounds going into and
+coming out of the computer will be reduced; on the other hand, smaller
+buffers make the computer work harder, and may result in other
+problems if the computer is not well set-up.  It is usually difficult
+to get below 64 frames per period on a typical desktop computer, and
+values as high as 2048 frames per buffer if you do not particularly
 care about latency.
 
 \begin{danger}
@@ -274,13 +295,71 @@ trying 3 here if problems are experienced.
 
 \section{Troubleshooting JACK}
 
+\subsection{I am getting lots of xruns!}
+
+An \emph{xrun} is JACK's way of saying that the sound card wanted
+attention, but JACK could not provide it quickly enough.  The causes
+of xruns are many and various.  The remainder of this section lists
+some common causes of xruns.
+
+
+\subsubsection{Buffer size or period count too small}
+
+The JACK `buffer size', or number of frames per period, governs how
+often JACK has to talk to the sound card; smaller buffer sizes require
+JACK to communicate with the sound card more often and with tighter
+deadlines.  Increasing buffer size can be a simple way to reduce
+xruns.
+
+Similarly, if you have a lot of xruns, particularly with a USB device,
+try increasing JACK's period count from 2 to 3.
+
+
+\subsubsection{JACK not running with real-time priviledges}
+
+JACK will try, by default, to obtain \emph{real-time} scheduling
+priviledges when it starts.  If it suceeds, it means that the
+operating system will treat JACK as higher priority than some other
+tasks when it needs to talk to the soundcard, which is very likely ton+
+reduce the incidence of xruns.
+
+JACK may fail to obtain real-time priviledges.  This is usually
+because the operating system does not, by default, allow it, and so
+its configuration must be altered.  For Debian- and Ubuntu-based
+distributions, the best way is usually to add your user to the `audio'
+group using
+
+\begin{listing}
+usermod -a -G audio fred
+\end{listing}
+
+where \texttt{fred} is your user ID\@.  After this, configure the audio
+group to be allowed appropriate settings by editing
+\texttt{/etc/security/limits.conf} and adding
+
+\begin{listing}
+@audio - rtprio 99\\
+@audio - memlock unlimited
+\end{listing}
+
+to the bottom of of the file.  This allows members of the audio group
+to start tasks with high real-time (RT) priority, and also allows them
+to lock their memory into `real' memory; this is another step that
+improves real-time performance.
+
+
+\subsection{I can play back but I cannot record, or vice versa}
+
+This is commonly caused by JACK's basic prediliction for using only
+one sound card.
+
 
 \chapter{Quick start}
 % XXX: links to things later on
 
-This chapter blithely assumes that the reader just wants to use Ardour
-to make a basic audio recording from a sound card, and describes how
-that can be achieved.
+This chapter blithely assumes that you just want to use Ardour to make
+a basic audio recording from a sound card, and describes how that can
+be achieved.
 
 \section{Starting Ardour and creating a session}
 
@@ -293,7 +372,7 @@ As it is the first run, Ardour now asks a few basic questions about
 how it should be set up.  Its first question is about where to put
 sessions by default, as shown in
 Figure~\ref{fig:default-folder-for-new-sessions}.  The initial choice
-will be the current user's home directory; other locations can be selected by
+will be the your home directory; other locations can be selected by
 clicking on the button and selecting an alternative directory.
 
 \screenshot{default-folder-for-new-sessions.png}{Default folder for new sessions}{fig:default-folder-for-new-sessions}
@@ -314,21 +393,21 @@ directly'.
 
 At this point, if JACK has not already been started, Ardour will try
 to do it for you.  In order to do that, it asks about how JACK should
-be set up (Figure~\ref{fig:audio-midi-setup-device}.
+be set up (Figure~\ref{fig:audio-midi-setup-device}).
 
 There are three pages to the Audio / MIDI setup dialogue; the first is
 `device', which allows selection of the sound card that Ardour will
 use, the sampling rate at which it will operate, and the buffer size.
-For now, select the interface that is being used for recording and
+For now, select the interface that you are using for recording and
 leave other options as they are.  For more information on the options
 here, consult chapter~\ref{ch:jack}.
 
 \screenshot{audio-midi-setup-device.png}{Audio/MIDI setup --- device}{fig:audio-midi-setup-device}
 
 The final step in creating our session is to give it a name, as in
-Figure~\ref{fig:new-session}.  Enter something like `test' or
-`frobozz', and click \button{Open}.  At last, the reward should be the
-editor window (Figure~\ref{fig:editor}).  The session is created!
+Figure~\ref{fig:new-session}.  Enter something like `test' and click
+\button{Open}.  At last, the reward should be the editor window
+(Figure~\ref{fig:editor}).  The session is created!
 
 \screenshot{new-session.png}{New session}{fig:new-session}
 
@@ -354,7 +433,7 @@ monophonic audio track.  This track must now be connected to the sound
 card so that it can record incoming audio.
 
 Perhaps the easiest way to connect up this new track is to open its
-\emph{editor mixer strip}.  Do this now by pressing \key{Shift,E} or
+editor mixer strip.  Do this now by pressing \key{Shift,E} or
 choosing \menu{View,Show Editor Mixer} from the main menu.  The top of
 the mixer strip that appears looks like that in
 Figure~\ref{fig:top-of-mixer-strip}.
@@ -364,7 +443,7 @@ Figure~\ref{fig:top-of-mixer-strip}.
 At the top of this mixer strip there are three main buttons.  The
 first, labelled `Audio 1' (the name of the track) can be clicked on to
 open a menu of options for the track.  The second, marked `1' is the
-input selector, and the third, marked $\Phi$, is a button to invert
+input selector, and the third, marked $\phi$, is a button to invert
 the track's signal.
 
 In order to look at the connections to the input of this track,
@@ -397,11 +476,12 @@ At this point, Ardour is receiving a signal from some external sound
 source via the sound card.  It is now possible to make a test
 recording.  Click the record-enable buttons (red buttons with a pink
 circle) in both the `Audio 1' track controls and the main transport
-controls (shown in Figures~ref{fig:track-controls} and
+controls (shown in Figures~\ref{fig:track-controls} and
 \ref{fig:transport-controls} respectively.
 
 \screenshot{track-controls.png}{Track controls area}{fig:track-controls}
 \screenshot{transport-controls.png}{Main transport controls}{fig:transport-controls}
+
 
 
 
@@ -412,6 +492,216 @@ controls (shown in Figures~ref{fig:track-controls} and
 \section{Export}
 
 
+\chapter{Unfiled miscellany}
+
+\section{The processor list}
+
+% XXX: sshot
+
+
+
+\section{Monitoring}
+
+The basic role of a track is to record and playback audio or MIDI
+data.  In some situations, however, it is useful to be able to get a
+track to pass live audio or MIDI from its input to its output.
+Consider, for example, a track with a couple of plugins that is being
+used for a vocal recording.  It may be desirable to listen to the
+processed live vocal from the output of the track, either before or
+during recording.  Generally speaking, the passing of live input data
+around Ardour is called \emph{monitoring}.
+
+
+\subsection{Different ways of monitoring}
+
+There are three basic ways in which monitoring may be approached:
+
+\begin{itemize}
+\item External monitoring --- this is where Ardour plays no role in
+  monitoring at all.  Perhaps the recording set-up has an external
+  mixer which can be used to set up monitor mixes, or perhaps the
+  sound-card being used has some `listen to the input'-style feature.
+  This approach often has the advantage of zero or near-zero latency.
+  On the other hand it requires external hardware, and the monitoring
+  settings are not saved with the session.
+
+% XXX diagrams here
+
+\item JACK-based `hardware' monitoring --- some sound cards have the
+  ability to mix signals from their inputs to their outputs with zero-
+  or low-latency.  Furthermore, on some cards these features can be
+  controlled by JACK\@.  This is a nice arrangement, if the sound card
+  supports it, as it combines the convenience of having the monitoring
+  controlled by Ardour with the low latency operation of doing it
+  externally.
+
+\item Software monitoring --- this where all monitoring is performed
+  by Ardour; it makes track inputs available at track outputs, under
+  the influence of various controls.  This approach will almost always
+  have more routing flexibility than JACK-based monitoring.  The
+  disadvantage is that there will be a latency between the input and
+  the output which will depend mainly on the JACK buffer size that is
+  being used.
+
+\end{itemize}
+
+\subsection{Setting up monitoring}
+
+There are three main settings which affect how monitoring is
+performed.  The first is `Record monitoring handled by' in the
+\emph{Audio} tab of the \emph{Ardour Preferences} dialogue.  There are
+two or three options here, depending on the capabilities of your
+hardware:
+
+\begin{itemize}
+\item \emph{ardour} --- Ardour handles monitoring itself (software monitoring).
+\item \emph{audio hardware} --- Ardour does no monitoring at all, and
+  assumes you will do it yourself (external monitoring)
+\item \emph{JACK} --- Ardour will ask JACK to, in turn, ask the sound
+  card to handle monitoring.  This option is only available if it is
+  supported by your sound card (hardware monitoring).
+\end{itemize}
+
+The other two settings are more complex; one is `Tape machine mode',
+in the same dialogue, and the other is `Monitoring automatically
+follows transport state (``auto-input'')' setting in \emph{Session
+  Properties}.
+
+Monitoring is also somewhat dependent on the state of the track's
+record-enable button, the session record enable button, and whether or
+not the transport is rolling.
+
+
+\subsection{Monitoring in software or hardware monitoring modes}
+
+If Ardour is set to `external monitoring', the explanation of Ardour's
+monitoring behaviour is simple: it does not do any.  In the other two
+modes, things are more complex.
+
+
+\subsection{Monitoring in non-tape-machine mode}
+
+This section describes what happens when Ardour is \emph{not} set to
+tape-machine mode.
+
+Consider first the case when a track is record-enabled.  In this
+situation, it will always monitor the live input \emph{unless} the
+session is \emph{not} record-enabled, auto-input is enabled, and the
+transport is rolling.  
+
+When a track is not record-enabled, the track will play back its
+contents from disc \emph{unless} the transport is stopped and
+auto-input is enabled.  In this case, the track monitors its live
+input.
+
+
+\subsection{Monitoring in tape-machine mode}
+
+In tape-machine mode, things are slightly simpler; when a track is
+record-enabled, its behaviour is the same as in non-tape-machine mode:
+it will always monitor the live input \emph{unless} the session is
+\emph{not} record-enabled, auto-input is enabled, and the transport is
+rolling.
+
+When a track is not record-enabled, however, the track will always
+just play back its contents from disk; the live input will never be
+monitored.
+
+
+% XXX some more rational explanation of why things are like this
+% XXX metering!
+
+
+\section{Tracks and busses in detail}
+
+\begin{ddanger}
+This section goes into somewhat unhealthy detail about how tracks and
+busses operate internally.  It may be of interest to almost nobody.
+\end{ddanger}
+
+Tracks and busses in Ardour share a common basis; they are both
+pathways through which audio and MIDI data can pass, experiencing
+various processing and distribution along the way.  The only real
+difference between a track and a bus is that a track can either obtain
+its input from a JACK port, or from files on disk; a bus has no disk
+files, so only processes signals coming from other parts of Ardour, or
+from other programs via JACK\@.
+
+Internally, Ardour uses the term `route' to describe a bus, with a
+track being a superset of the route's functionality (to include the
+parts which read from and write to disk).  This chapter uses the word
+`route' to indicate either a track or a bus, where the two have the
+same behaviour.
+
+Not all of the processing that signals experience as they travel
+through routes visible in the Ardour user-interface. The visible parts
+are the plugins, the fader, the meter and (if present) the panner.
+There are other invisible processes that happen to support Ardour's
+internal operation.  Figure~\ref{fig:route-in-detail} gives a
+representation of the entire pathway of a route.
+
+% XXX: panning
+\begin{figure}[ht]
+\begin{center}
+\includegraphics{diagrams/route-in-detail.pdf}
+\end{center}
+\caption{Detailed view of a route}
+\label{fig:route-in-detail}
+\end{figure}
+
+Audio or MIDI data starts from either a set of JACK ports or a disk
+file.  Busses always take their initial data from JACK ports, and
+tracks can do either depending on monitoring settings.  It is possible
+for tracks and busses to have no input, in which case the signal
+starts off as silence.
+
+If a track is recording, data is taken straight from the JACK input
+ports and recorded; no processing on track will have any effect on the
+recorded signal.
+
+The signal then enters the processing chain.  Internally, this chain
+is a set of `processors' connected in series.  
+
+\subsection{Export}
+
+% XXX
+
+\subsection{Internal return}
+
+This is the point at which internal send signals from other routes
+appears in the route being sent to.  This processor gathers signals
+from all its connected sends and mixes them with the signal in the
+route at that point.
+
+\subsection{Monitor control}
+
+% XXX
+
+\subsection{Monitor send}
+
+The monitor send is an internal send which sends the route's signal,
+whever it is located, to the monitor bus.  The monitor send is located
+in different places, depending on the settings for AFL and PFL\@.
+
+\subsection{Meter}
+
+The meter processor passes signals unaltered, but meters them on the
+way through.  It can be moved around depending on the meter point settings.
+
+\subsection{User processors}
+
+These are the `conventional' user-visible processors: plugins and
+internal sends to other tracks or busses.
+
+\subsection{Amp}
+
+This is a basic gain-control element which is controlled by the fader.
+
+\subsection{Main out}
+
+This processor takes the route's signal, optionally pans it, and then
+passes it to a set of JACK ports; this represents the main output of
+the route.
 
 \end{document}
 
