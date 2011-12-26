@@ -1,11 +1,11 @@
 \documentclass{book}
 
-\usepackage{ardour,graphicx,afterpage,url}
+\usepackage{ardour,graphicx,afterpage,url,xstring,xcolor}
 
 % XXX: format
 \newcommand{\button}[1]{#1}
-\newcommand{\menu}[1]{#1}
-\newcommand{\key}[1]{#1}
+\newcommand{\menu}[1]{\emph{\StrSubstitute{#1}{,}{ $\rightarrow$ }}}
+\newcommand{\key}[1]{\emph{\StrSubstitute{#1}{,}{ + }}}
 
 \newcommand{\screenshot}[3]{%
 \begin{figure}[ht]%
@@ -16,6 +16,12 @@
 \label{#3}
 \end{figure}}
 
+% Voodoo from http://answers.google.com/answers/threadview?id=282787
+\definecolor{ListingGrey}{rgb}{0.8,0.8,0.8}
+\makeatletter\newenvironment{listing}{%
+   \medskip\begin{lrbox}{\@tempboxa}\begin{minipage}{\columnwidth}\ttfamily}{\normalfont\end{minipage}\end{lrbox}%
+   \colorbox{ListingGrey}{\usebox{\@tempboxa}}\medskip%
+}\makeatother
 
 \title{Ardour 3 --- A users' manual}
 \author{The Ardour Community}
@@ -196,11 +202,26 @@ complex JACK session.
 
 \begin{danger}
 JACK is not limited to the standard concept of the `sound card'.  You
-may choose to have no sound card at all (in which case JACK can run in
+-may choose to have no sound card at all (in which case JACK can run in
 `dummy' mode).  It is also possible to send signals to and from JACK
 over TCP/IP networks using netjack.  For simplicity, this manual will
 assume that the user has a sound card in the conventional sense.
 \end{danger}
+
+
+\subsection{Will my sound card work?}
+
+For your sound card to work with JACK, must have a driver suitable for
+the operating system that you are running on.  For Linux, this means
+that your card must be supported by ALSA or FFADO; ALSA supports
+drivers using a wide variety of interfaces, and FFADO is for firewire
+soundcards only. 
+
+The easiest way to check on ALSA compatibility is to visit
+\url{http://www.alsa-project.org/main/index.php/Matrix:Main}.  This is
+the ALSA soundcard matrix and describes ALSA's support for a variety
+of cards.  For FFADO, consult
+\url{http://www.ffado.org/?q=devicesupport/list}.
 
 
 \subsection{JACK versions}
@@ -272,6 +293,64 @@ trying 3 here if problems are experienced.
 
 \section{Troubleshooting JACK}
 
+\subsection{I am getting lots of xruns!}
+
+An \emph{xrun} is JACK's way of saying that the sound card wanted
+attention, but JACK could not provide it quickly enough.  The causes
+of xruns are many and various.  The remainder of this section lists
+some common causes of xruns.
+
+
+\subsubsection{Buffer size or period count too small}
+
+The JACK `buffer size', or number of frames per period, governs how
+often JACK has to talk to the sound card; smaller buffer sizes require
+JACK to communicate with the sound card more often and with tighter
+deadlines.  Increasing buffer size can be a simple way to reduce
+xruns.
+
+Similarly, if you have a lot of xruns, particularly with a USB device,
+try increasing JACK's period count from 2 to 3.
+
+
+\subsubsection{JACK not running with real-time priviledges}
+
+JACK will try, by default, to obtain \emph{real-time} scheduling
+priviledges when it starts.  If it suceeds, it means that the
+operating system will treat JACK as higher priority than some other
+tasks when it needs to talk to the soundcard, which is very likely ton+
+reduce the incidence of xruns.
+
+JACK may fail to obtain real-time priviledges.  This is usually
+because the operating system does not, by default, allow it, and so
+its configuration must be altered.  For Debian- and Ubuntu-based
+distributions, the best way is usually to add your user to the `audio'
+group using
+
+\begin{listing}
+usermod -a -G audio fred
+\end{listing}
+
+where \texttt{fred} is your user ID\@.  After this, configure the audio
+group to be allowed appropriate settings by editing
+\texttt{/etc/security/limits.conf} and adding
+
+\begin{listing}
+@audio - rtprio 99\\
+@audio - memlock unlimited
+\end{listing}
+
+to the bottom of of the file.  This allows members of the audio group
+to start tasks with high real-time (RT) priority, and also allows them
+to lock their memory into `real' memory; this is another step that
+improves real-time performance.
+
+
+\subsection{I can play back but I cannot record, or vice versa}
+
+This is commonly caused by JACK's basic prediliction for using only
+one sound card.
+
 
 \chapter{Quick start}
 % XXX: links to things later on
@@ -312,7 +391,7 @@ directly'.
 
 At this point, if JACK has not already been started, Ardour will try
 to do it for you.  In order to do that, it asks about how JACK should
-be set up (Figure~\ref{fig:audio-midi-setup-device}.
+be set up (Figure~\ref{fig:audio-midi-setup-device}).
 
 There are three pages to the Audio / MIDI setup dialogue; the first is
 `device', which allows selection of the sound card that Ardour will
@@ -352,7 +431,7 @@ monophonic audio track.  This track must now be connected to the sound
 card so that it can record incoming audio.
 
 Perhaps the easiest way to connect up this new track is to open its
-\emph{editor mixer strip}.  Do this now by pressing \key{Shift,E} or
+editor mixer strip.  Do this now by pressing \key{Shift,E} or
 choosing \menu{View,Show Editor Mixer} from the main menu.  The top of
 the mixer strip that appears looks like that in
 Figure~\ref{fig:top-of-mixer-strip}.
@@ -362,7 +441,7 @@ Figure~\ref{fig:top-of-mixer-strip}.
 At the top of this mixer strip there are three main buttons.  The
 first, labelled `Audio 1' (the name of the track) can be clicked on to
 open a menu of options for the track.  The second, marked `1' is the
-input selector, and the third, marked $\Phi$, is a button to invert
+input selector, and the third, marked $\phi$, is a button to invert
 the track's signal.
 
 In order to look at the connections to the input of this track,
@@ -395,11 +474,12 @@ At this point, Ardour is receiving a signal from some external sound
 source via the sound card.  It is now possible to make a test
 recording.  Click the record-enable buttons (red buttons with a pink
 circle) in both the `Audio 1' track controls and the main transport
-controls (shown in Figures~ref{fig:track-controls} and
+controls (shown in Figures~\ref{fig:track-controls} and
 \ref{fig:transport-controls} respectively.
 
 \screenshot{track-controls.png}{Track controls area}{fig:track-controls}
 \screenshot{transport-controls.png}{Main transport controls}{fig:transport-controls}
+
 
 
 
