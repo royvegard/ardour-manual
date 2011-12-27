@@ -287,7 +287,7 @@ configuration you want to use and then start up JACK using that new
 \item OS X
 
 You must perform these steps as a user with administrative
-priviledges. The first thing to do is to open up
+privileges. The first thing to do is to open up
 \menu{Applications,Utilities,Audio/MIDI Setup}. Go to the main menu
 bar, click on \button{Audio} and then select \emph{Open aggregate device
 editor}. Follow the simple instructions to add the each desired
@@ -555,15 +555,15 @@ Similarly, if you have a lot of xruns, particularly with a USB device,
 try increasing JACK's period count from 2 to 3.
 
 
-\subsubsection{JACK not running with real-time priviledges}
+\subsubsection{JACK not running with real-time privileges}
 
 JACK will try, by default, to obtain \emph{real-time} scheduling
-priviledges when it starts.  If it suceeds, it means that the
+privileges when it starts.  If it suceeds, it means that the
 operating system will treat JACK as higher priority than some other
 tasks when it needs to talk to the soundcard, which is very likely ton+
 reduce the incidence of xruns.
 
-JACK may fail to obtain real-time priviledges.  This is usually
+JACK may fail to obtain real-time privileges.  This is usually
 because the operating system does not, by default, allow it, and so
 its configuration must be altered.  For Debian- and Ubuntu-based
 distributions, the best way is usually to add your user to the `audio'
