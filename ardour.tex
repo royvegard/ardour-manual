@@ -204,7 +204,7 @@ complex JACK session.
 
 \begin{danger}
 JACK is not limited to the standard concept of the `sound card'.  You
--may choose to have no sound card at all (in which case JACK can run in
+may choose to have no sound card at all (in which case JACK can run in
 `dummy' mode).  It is also possible to send signals to and from JACK
 over TCP/IP networks using netjack.  For simplicity, this manual will
 assume that the user has a sound card in the conventional sense.
@@ -745,7 +745,89 @@ controls (shown in Figures~\ref{fig:track-controls} and
 
 \section{The processor list}
 
-\screenshot{processor-box.png}
+Each track or bus in Ardour has a list of \emph{processors} that
+operate on the audio or MIDI signal passing through it.  The operation
+of the processor list is illustrated in
+Figure~\ref{fig:basic-processor-list}.
+
+\begin{figure}[ht]
+\begin{center}
+\includegraphics{diagrams/basic-processor-list.pdf}
+\end{center}
+\caption{Basic structure of a track or bus}
+\label{fig:basic-processor-list}
+\end{figure}
+
+Audio or MIDI data arrives from a file on disk, or from the input
+ports, depending on the monitoring settings that are in effect.  It is
+then passed through each processor in sequence, before being panned
+and sent to the output ports.
+
+The term `processor' is a very general one.  It includes:
+
+\begin{itemize}
+\item Plugins (LADSPA, LV2, VST etc.)
+\item Sends and returns
+\item The fader
+\item The meter
+\end{itemize}
+
+Some processors are shown in the Ardour's mixer strip, and some are
+hidden.  Consider the example mixer strip shown in Figure~\ref{fig:processor-box}.
+
+\screenshot{processor-box.png}{The processor box}{fig:processor-box}
+
+Here we see five visible processors; they are:
+
+\begin{enumerate}
+\item `Autotalent'; a plugin.  This is coloured red to indicate
+  that it is pre-fader.
+\item The fader.  This is where the mixer fader's gain is applied.
+\item Invada High Pass; a plugin.
+\item 4-band parameteric; another plugin.  The symbol between the
+  high-pass and the parametric indicates that the signal is being
+  split from mono to stereo, as the parametric is a stereo plugin.
+\item TAP dynamics; another plugin.
+\end{enumerate}
+
+Some processors are not shown on this list:
+
+\begin{itemize}
+\item The meter; a processor which assesses the level of the signal at
+  its point in the processor chain.
+\item A sned to the main output.
+\item A send to the monitor bus, if one is being used.
+\end{itemize}
+
+
+\section{Operations on the processor list}
+
+The processor list in each mixer strip can be manipulated in several
+different ways.
+
+Firstly, processors can be re-ordered using drag-and-drop.  Dragging a
+processor allows it to be moved around within the chain, or copied to
+another processor list on another track or bus.
+
+Secondly, processors can be enabled or disabled.  To the left of the
+name of each processor is a small LED symbol; if this is lit-up, the
+processor is active.  Clicking on it will deactivate the processor.
+It will still pass audio or MIDI signals, but they will not be
+affected.
+
+Finally, processors can be added to or removed from the chain.
+Right-clicking the processor list does three things:
+
+\begin{itemize}
+\item A gap is opened up to indicate the location of the click.  The
+  gap shows where any new processors will be inserted.
+\item The processor under the click is selected.
+\item A menu is presented giving options of what to do.
+\end{itemize}
+
+From the menu, some new processors can be inserted.  These can be
+plugins, sends or internal sends.  The selected processor can also be
+deleted or copied.
 
 
 
