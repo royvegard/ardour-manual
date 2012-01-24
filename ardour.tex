@@ -6,6 +6,7 @@
 \newcommand{\button}[1]{#1}
 \newcommand{\menu}[1]{\emph{\StrSubstitute{#1}{,}{ $\rightarrow$ }}}
 \newcommand{\key}[1]{\emph{\StrSubstitute{#1}{,}{ + }}}
+\newcommand{\directory}[1]{\texttt{#1}}
 
 \newcommand{\screenshot}[3]{%
 \begin{figure}[ht]%
@@ -70,6 +71,163 @@ For those familiar with `git', the manual's \LaTeX\ source can be
 obtained from the git repository linked from
 \url{http://carlh.net/ardour}.  Patches to the manual are most welcome.
 \end{danger}
+
+
+\section{Getting help with Ardour}
+
+There are several places that you can get help with using Ardour.
+
+\subsection{The website}
+
+Ardour's website (\url{http://ardour.org/}) contains many useful
+resources, including a list of frequently-asked questions, a forum and
+a bug and feature request tracker.
+
+\subsection{IRC}
+
+Ardour's core developers and several key users are usually to be found
+on Internet Relay Chat (IRC) on \url{irc.freenode.net} in \#ardour and
+\#ardour-osx at pretty much any hour of the day or night.  This is a
+live chat system that is great for dicussing Ardour's development,
+design, and also user problems.  There are IRC clients for most
+operating systems, or you can join in directly from your web browser
+by choosing \emph{Help,Chat} from within Ardour.
+
+If you join the IRC rooms, here are a few tips:
+
+\begin{itemize}
+\item \emph{Don't ask to ask, just ask} --- rather than saying `Is it
+  ok if I ask a question?', just ask your question --- it is not
+  considered rude to do so.  Then wait: your answer may come in
+  seconds, minutes, hours or never, depending on who is around and
+  what time of the day it is wherever they happen to be in the world.
+\item \emph{Don't paste large amounts of text into the channel} --- if
+  you have more than a couple of lines of output from some command
+  that you want to show everyone, use a site like \url{pastebin.com}.
+  You can copy your text into that site, and it will give you a web
+  address that you can paste into the channel.
+\item \emph{Be as detailed as possible} --- if you have a problem,
+  tell us what version of Ardour you are using, and what operating
+  system you are running on (Linux, OS X or Windows).
+\end{itemize}
+
+
+\subsection{Mailing lists}
+
+There is a Ardour users mailing list, where various discussions about
+Ardour (and recording in general) take place.  There are links to join
+the list on Ardour's website.
+
+
+\subsection{Support expectations}
+
+As Ardour evolves, it becomes a serious alternative to commercial
+products for more and more people. We see the download counts increase
+for each new release, and the volume of traffic on the mailing lists
+is growing. That's lovely, of course. We work on Ardour without the
+accoutrements of a `normal' software corporation, so whenever a new
+user finds our work useful and worthwile, it makes what we do seem
+meaningful and worth continuing with.
+
+Unfortunately, it's not all roses we receive.  With wider public
+interest and more users, there's bound to be people who are
+disappointed in Ardour. We believe, however, that it's only because
+most newcomers do not realize what to expect.
+
+
+\subsubsection{The Development Team}
+
+Many users probably don't realize it, but the development team driving
+Ardour forward is very small for the amazingly complex piece of
+software that is a contemporary DAW\@.
+
+At this time, the main force behind Ardour is delivered by one person,
+with core aid from two others, and contributions from on the order of
+a dozen others. Consider that we do support, web site maintenance,
+documentation, feature enhancements, debugging, as well as
+development.
+
+There's more people (perhaps another dozen) pitching in with
+translation, release engineering (preparing Ardour for users), Mantis
+triaging (`Mantis' is the bug database used to keep track of known
+problems, `triaging' the process of prioritizing and verifying bugs)
+and other necessary tasks.
+
+So we're always looking for new people to help. And while
+(unfortunately) a common misconception is that a project like Ardour
+would only benefit from more programmers, it is not the case! Whatever
+your ability, we'll be able to use it. If you are interested in
+spending a little time making Ardour a better DAW, please don't
+hesitate to join the developer mailing list and offer your services.
+Ardour Features and Polish
+
+As Ardour is getting more powerful and usable, we attract more and
+more users who expect the same feature set and product polish as
+they'll find in a commercial product such as DigiDesign's ProTools or
+Steinberg's Nuendo. This isn't the right way to think about Ardour at
+this time.
+
+Not that we don't want to get there, you understand, but it's simply
+not a reasonable comparison. DigiDesign has spent who knows how many
+man-hours worth of development on ProTools and can spend a lot on
+getting good documentation written, new features, debugging,
+installation process made smooth and generally polish the thing till
+it shines. In comparison, Ardour development is driven primarily by
+the interests of just a few people. Development is a full time job for
+the lead developer, who also raises a three kids, fixes up his house,
+has friends and even a relationship with a gorgeous woman.
+
+Do not read that as an excuse for why Ardour lacks in comparison with
+other products. Do read it as an explanation for why you should expect
+nothing more from Ardour than it actually delivers. And rest assured
+that the developers want and expect it to rival, or better yet, best
+the proprietary DAWs. That's why we're so committed to this
+development model --- because we believe it's the best way to get there.
+
+\subsubsection{Releases}
+
+Ardour releases are also put together by volunteers. This means that
+there's usually only prebuilt binaries available for a few select
+platforms. While we would like to see Ardour prebuilts for all the
+platforms (and operating system versions) Ardour runs on, it's simply
+not possible since the volunteers doing the release only have access
+to a subset of those platforms.
+
+Specifically about library dependencies: depending on the volunteer's
+machine configuration, the Ardour binary may require you to install
+additional or newer libraries before it will work. If so, the
+installation instructions should contain the necessary information for
+you to find those libraries. Please do not complain about the need for
+these libraries - just as you might dislike installing/upgrading the
+libraries, the volunteer doing the release may dislike
+removing/downgrading the libraries on her machine.
+
+If you find that there are no prebuilt binaries for your
+platform/configuration, and are willing to help provide prebuilts for
+coming releases, please join the developer mailing list and offer your
+services. It is not a requirement that you are a programmer, but there
+may be a requirement for (commercial) development tools which not
+everyone would have access to. If you have the time and tools, we can
+probably guide you through the process, even if you don't have the
+knowledge.
+
+\subsubsection{Support}
+
+You can join both the user and developer mailing lists and ask
+questions there. You can also ask for help on IRC, and you can file
+bug reports and feature requests in Mantis. However, since support is
+also provided on a volunteer basis, you must be careful not to have
+unreasonable expectations: you cannot demand your questions to be
+answered or bugs to be fixed. In short: the people volunteering time
+to Ardour only have so much time available, and they alone decide how
+to spend it. Please respect their choice.
+
+When that is said, you should know that the mailing list and the IRC
+channel are friendly places --- few requests go without reply. And we
+also do our best to fix all bugs reported, just as we strive to
+implement requested features. But as should be evident from the number
+of open bugs in Mantis, there's not enough hours in the day to allow
+us to address all issues in a timely manner.
 
 
 \chapter{Overview}
@@ -608,7 +766,10 @@ Section~\ref{sec:jack-multiple-cards}.
 
 This chapter blithely assumes that you just want to use Ardour to make
 a basic audio recording from a sound card, and describes how that can
-be achieved.
+be achieved.  We assume that you have some sound source (such as a
+microphone, guitar or whatever) plugged into one of your sound card's
+inputs, and a monitoring system (speakers or headphones) connected to
+its outputs.
 
 \section{Starting Ardour and creating a session}
 
@@ -726,19 +887,100 @@ source via the sound card.  It is now possible to make a test
 recording.  Click the record-enable buttons (red buttons with a pink
 circle) in both the `Audio 1' track controls and the main transport
 controls (shown in Figures~\ref{fig:track-controls} and
-\ref{fig:transport-controls} respectively.
+\ref{fig:transport-controls} respectively, then click `Play' to start
+the transport.
 
 \screenshot{track-controls.png}{Track controls area}{fig:track-controls}
 \screenshot{transport-controls.png}{Main transport controls}{fig:transport-controls}
 
+Ardour is now recording; the play-head will move, and a red rectangle
+will be drawn where the recording is taking place.  Make a noise with
+your external sound source!  When you have finished recording, click
+the Stop button in the transport controls area.  You should now have a
+region containing your recording on the `Audio 1' track, like in
+Figure~\ref{fig:recorded-one-region}.
 
+% \screenshot{recorded-one-region.png}{Editor window after recording a region}{fig:recorded-one-region}
 
+\section{Playing back your recording}
+
+Now we can play back the audio that you have just recorded.  First,
+you will need to move the playhead back to a point before your
+recorded region.  Perhaps the easiest way to do this is to click
+somewhere within the rulers area of the editor window.
+
+% some picture of where this is, or a back-link to the editor window
+
+Once the playhead is located before your recording, click the `Play'
+button (or press the spacebar on the keyboard) to start playback.  You
+should hear your recording through your monitor speakers or
+headphones.
 
 \section{Adding another track as an overdub}
 
+Now we can experiment further by adding an overdub to the first
+recording.  First, add a new track, as we did before, and connect it
+up to the input on your soundcard which your source is connected to.
+
+Now, record-enable the new track, move the playhead to before the
+previously recorded region, make sure the session is record-enabled
+and start the transport (by clicking `Play' or pressing the spacebar).
+You should hear the previously-recorded audio on your monitor system
+while the new recording is in progress.  Record something suitable
+over the top of your first region.
+
+We now have two tracks of recorded data; you might like to add some
+more!
+
 \section{Mix-down}
 
+We will now assume that you want to do a mix-down of your magnum opus
+into a stereo WAV file.  Such a file could later be converted to an
+MP3, or burned to CD, or simply played-back as-is by some other media
+player on your computer.  
+
+First, we need to mix the tracks that you have recorded so that they
+sound as you want them to.  We will cover much more advanced mixing
+and processing later, but for now we will just set the relative levels
+of the two tracks.  The easiest way to do this is to open the
+\emph{mixer} window, either by selecting \menu{Window,Mixer} or by
+pressing \key{Alt,M}.  The mixer window is shown in Figure~\ref{fig:mixer-window}.
+
+% \screenshot{mixer-window.png}{The mixer window}{fig:mixer-window}
+
+Here you will see a mixer strip for each track that you have recorded,
+and a `master' strip.  The signals for each track flow from the
+recordings on disk, through the appropriate strip, and they are then
+mixed together and passed through the master strip.  The bottom half
+of each mixer strip contains a \emph{fader}; this controls the level
+of each track.  You can adjust the levels of each of your recordings
+by dragging the mixer strip; the green marker indicates 0dB (`unity
+gain'), at which the level of the track will be unaltered from the
+recording.
+
+Play back your recordings from the editor window, and experiment with
+the levels in the mixer window until you have a sound that you are
+happy with.
+
+
 \section{Export}
+
+The final step is to export our recording into a stereo WAV file.
+Ardour's export options are extensive, and have many options, but for
+now we will keep it simple.  Choose \menu{Session,Export,Export to
+  Audio Files} from the editor menu, and the \emph{Export} dialogue
+will open, as shown in Figure~\ref{fig:export-dialogue}.
+
+First, we have to specify the format that we will export in.  Fill in
+the \emph{Label} field with some name like `WAV for CD', then click
+the \button{New} button beside the Format entry in the dialogue, and
+click on \button{CD}, \button{Lossless (linear PCM)}, \button{WAV} and
+\button{44.1kHz} entries.  Then click \button{Save} to save the export
+preset.  Enter some label for the export in the \emph{Location}
+section, then click \button{Export}.  Ardour will mix your session
+down to a WAV file and save it in the \directory{export} subdirectory of
+your session folder.
+
 
 
 \chapter{Unfiled miscellany}
