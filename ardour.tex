@@ -91,7 +91,7 @@ on Internet Relay Chat (IRC) on \url{irc.freenode.net} in \#ardour and
 live chat system that is great for dicussing Ardour's development,
 design, and also user problems.  There are IRC clients for most
 operating systems, or you can join in directly from your web browser
-by choosing \emph{Help,Chat} from within Ardour.
+by choosing \menu{Help,Chat} from within Ardour.
 
 If you join the IRC rooms, here are a few tips:
 
@@ -324,8 +324,8 @@ may be moved around, split, trimmed, copied, and so on.
 
 The details of what exactly each track should play back is described
 by a \emph{playlist}.  A playlist is simply a list of regions; each
-track always has an active playlist, and a track's current playlist
-can always be changed.
+track always has an active playlist, and can have other playlists
+which can be switched in and out as required.
 
 
 \section{Busses}
@@ -718,7 +718,7 @@ try increasing JACK's period count from 2 to 3.
 JACK will try, by default, to obtain \emph{real-time} scheduling
 privileges when it starts.  If it suceeds, it means that the
 operating system will treat JACK as higher priority than some other
-tasks when it needs to talk to the soundcard, which is very likely ton+
+tasks when it needs to talk to the soundcard, which is very likely to
 reduce the incidence of xruns.
 
 JACK may fail to obtain real-time privileges.  This is usually
