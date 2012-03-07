@@ -1,4 +1,4 @@
-\documentclass[a4paper]{book}
+\documentclass[10pt,a4paper]{book}
 
 \usepackage{ardour,graphicx,afterpage,url,xstring,xcolor}
 
@@ -984,6 +984,268 @@ your session folder.
 
 
 \chapter{Unfiled miscellany}
+
+\section{MIDI binding maps}
+
+MIDI binding maps provide a way to set up how a physical control
+surface (such as a Behringer BCF2000 or Mackie Control) interacts with
+Ardour.  An XML file is created to describe the mapping, and Ardour
+loads it.  Maps for several devices are supplied with Ardour:
+
+\begin{itemize}
+\item Behringer BCF2000 (in native and Mackie Control modes)
+\item Behringer DDX3216
+\item Korg nano-Kontrol
+\item M-Audio Oxygen 8 v2
+\item M-Audio Axiom 25
+\item Roland SI-24
+\item EMU Xboard61
+\end{itemize}
+
+This chapter describes the format of the maps and how to create your own.
+
+
+\subsection{File basics}
+
+MIDI bindings are stored in files with the suffix \texttt{.map}
+attached to their name. The minimal content looks like this:
+
+\begin{listing}
+<?xml version="1.0" encoding="UTF-8"?>\\
+<ArdourMIDIBindings version="1.0.0" name="The name of this set of bindings">\\
+</ArdourMIDIBindings>\\
+\end{listing}
+
+The remainder of the file gives the bindings themselves, describing
+the two parts of each binding: MIDI data that your controller sends,
+and things that Ardour does in response.
+
+A binding is an XML node called \texttt{<Binding>}.  The properties of the
+node give the details of the binding.  
+
+%The Basic Concept
+
+%Since the beginning of time (well, sometime early in the 2.X series), Ardour has had the concept of identifying each track and bus with a remote control ID. This ID uniquely identifies a track or bus so that when messages arrive from elsewhere (MIDI or OSC), we can determine which track or bus they are intended to control. Ardour has a number of ways of assigning remote control IDs, but they don't really matter very much when creating MIDI binding maps, so we won't discuss that here. You just need to know that there is a "first track" and its remote control ID is 1, and so on.
+
+\subsection{Finding out what your MIDI control surface sends}
+
+This is the most complex part of the job, but its still not very hard.
+You need to connect the control surface to an application that will
+show you the information that the device sends each time you modify a
+knob, slider, button etc.  There are a variety of such applications;
+most notably gmidimon and kmidimon.  You can also use Ardour for this:
+
+\begin{enumerate}
+\item Select \menu{Window,MIDI Tracer}.
+\item Choose `MIDI Control In' from the Port selector.
+\item Use the MIDI connection matrix to connect Ardour's
+MIDI Control In port to the MIDI port that your control surface is
+sending data in on.
+\item Then watch the control surface's MIDI data appear
+in the MIDI Tracer window as you twiddle knobs or push buttons.
+\end{enumerate}
+
+
+\subsection{Describing MIDI in the binding file}
+
+The properties for specifying the MIDI data in a \texttt{<Binding>}
+node are as follows:
+
+\begin{itemize}
+\item \texttt{channel="c" ctl="m"} --- a continuous controller message $m$ arriving on channel $c$.
+\item \texttt{channel="c" note="n"} --- a note-on message for note $n$ arriving on channel $c$.
+\item \texttt{channel="c" pgm="p"} --- a program change message to program $p$ arriving on channel $c$.
+\item \texttt{channel="c" pb="0"} --- a pitch bend message on channel $c$.
+\item \texttt{sysex="a b c ..."} --- a sequence of MIDI bytes $a$, $b$, $c$ and so on that make up a system-exclusive message (as hexadecimal bytes)
+\item \texttt{msg="a b c ..."} --- an arbitrary sequence of MIDI bytes $a$, $b$, $c$ and so on (as hexadecimal bytes)
+\end{itemize}
+
+\subsection{Binding to Ardour}
+
+There are two basic kinds of bindings you can make between a MIDI
+message and something inside Ardour. The first is a binding to a
+specific parameter of a track or bus. The second is a binding to a
+function that will change Ardour's state in some way. 
+
+
+\subsubsection{Binding to track/bus controls}
+
+A track/bus binding is a binding to an individual track or bus inside
+Ardour.  Such a binding requires the name of the property to control,
+which can be one of:
+
+\begin{itemize}
+\item \texttt{/route/gain}
+\item \texttt{/route/solo}
+\item \texttt{/route/mute}
+\item \texttt{/route/recenable}
+\item \texttt{/route/send/gain}
+\item \texttt{/route/plugin/parameter}
+\end{itemize}
+
+It then requires an address.  For track-level controls (solo, gain, mute, record-enable), the address is one of:
+
+\begin{itemize}
+\item A number --- the remote control ID of a track or bus
+\item The letter \emph{B} followed by a number --- the remote control ID of a track or bus within the current bank
+\item One or more words --- the name of a track or bus
+\end{itemize}
+
+For send, insert and plugin controls, the address consists of a track
+or bus address followed by a number identifying the plugin or send
+(starting from 1).  For plugin parameters, there is an additional third
+component: a number identifying the plugin parameter number (starting
+from 1).
+
+For solo and mute bindings, you can also add \texttt{momentary="yes"} after the
+control address. This is useful primarily for note-on bindings --- when
+Ardour gets the note-on it will solo or mute the targetted track or
+bus, but then when a note-off arrives, it will un-solo or un-mute it.
+
+The specification of a track or bus binding is put inside a \texttt{uri} property.  For example,
+
+\begin{listing}
+<Binding channel="1" ctl="20" uri="/route/gain 2">
+\end{listing}
+
+binds a control change on controller 20, channel 1 to the gain of track 2.  As another example
+
+\begin{listing}
+<Binding channel="4" note="20" uri="/route/recenable B5">
+\end{listing}
+
+binds a note-on for note 20 on channel 4 to the record-enable state of
+the 5th track in the current bank.
+
+
+
+\subsection{Binding to Ardour `functions'}
+
+Rather than binding to a specific track/bus control, it may be useful
+to have a MIDI controller able to alter some part of Ardour's state. A
+binding definition that does this looks like this:
+
+\begin{listing}
+<Binding channel="1" note="13" function="transport-roll"/>
+\end{listing}
+
+In this case, a note-on message for note number 13 (on channel 1) will
+start the transport rolling. The following function names are
+available:
+
+\begin{itemize}
+\item \texttt{transport-stop} --- stop the transport 
+\item \texttt{transport-roll} --- start the transport "rolling" 
+\item \texttt{transport-zero} --- move the playhead to the zero position 
+\item \texttt{transport-start} --- move the playhead to the start marker 
+\item \texttt{transport-end} --- move the playhead to the end marker 
+\item \texttt{loop-toggle} --- turn on loop playback 
+\item \texttt{rec-enable} --- enable the global record button 
+\item \texttt{rec-disable} --- disable the global record button 
+\item \texttt{next-bank} --- move track/bus mapping to the next bank (see `banks' below) 
+\item \texttt{prev-bank} --- move track/bus mapping to the previous bank (see `banks' below) 
+\end{itemize}
+
+\subsection{Binding to Ardour `actions'}
+
+You can also bind a sysex or arbitrary message to any of the items
+that occur in Ardour's main menu (and its submenus). The best place to
+look for the (long) list of how to address each item is in your
+keybindings file, which will contain lines that look like this:
+
+\begin{listing}
+(gtk\_accel\_path "<Actions>/Editor/temporal-zoom-in" "equal")
+\end{listing}
+
+To create a binding between an arbitrary MIDI message (we'll use a
+note-off on channel 1 of MIDI note 60 (hex) with release velocity 40
+(hex)), the binding file would contain:
+
+\begin{listing}
+<Binding msg="80 60 40" action="Editor/temporal-zoom-in"/>
+\end{listing}
+
+The general rule, when taken an item from the keybindings file and
+using it in a MIDI binding is to simply strip the <Action> prefix of
+the second field in the keybinding definition.
+
+\subsection{Banks and banking}
+
+Because many modern control surfaces offer per-track/bus controls for
+far fewer tracks and busses than many users want to control, Ardour
+offers the relatively common place concept of `banks'. Banks to allow
+you to relatively easily control any number of tracks and/or busses
+regardless of how many faders/knobs etc. your control surface has. To
+use banking, the control addresses must be specified using the bank
+relative format mentioned above (`B1' to identify the first track of a
+bank of tracks, rather than `1' to identify the first track).
+
+One very important extra piece of information is required to use
+banking: an extra line near the start of the list of bindings that
+specifies how many tracks/busses to use per bank. If the device has 8
+faders, then 8 would be a sensible value to use for this. The line
+looks like this:
+
+\begin{listing}
+<DeviceInfo bank-size="8"/>
+\end{listing}
+
+In addition, you probably want to ensure that you bind something on
+the control surface to the next-bank and prev-bank functions,
+otherwise you and other users will have to use the mouse and the GUI
+to change banks, which rather defeats the purpose of the bindings.
+
+\subsection{Motorised controls}
+
+If your surface's controls are motorised, so that Ardour can move your physical controls,
+add
+
+\begin{listing}
+motorised="yes"
+\end{listing}
+
+to your \texttt{<DeviceInfo>} node, so that it reads something like
+
+\begin{listing}
+<DeviceInfo bank-size="8" motorised="yes">
+\end{listing}
+
+This will make Ardour more efficient in handling your controls.
+
+\subsection{A complete (though muddled) example}
+
+\begin{listing}
+<?xml version="1.0" encoding="UTF-8"?>\\
+<ArdourMIDIBindings version="1.0.0" name="pc1600x transport controls">\\
+<DeviceInfo bank-size="16"/>\\
+<Binding channel="1" ctl="1"   uri="/route/gain B1"/>\\
+<Binding channel="1" ctl="2"   uri="/route/gain B2"/>\\
+<Binding channel="1" ctl="3"   uri="/route/send/gain B1 1"/>\\
+<Binding channel="1" ctl="4"   uri="/route/plugin/parameter B1 1 1"/>\\
+<Binding channel="1" ctl="6"   uri="/bus/gain master"/>\\
+\\
+<Binding channel="1" note="1"  uri="/route/solo B1"/>\\
+<Binding channel="1" note="2"  uri="/route/solo B2" momentary="yes"/>\\
+\\
+<Binding channel="1" note="15"  uri="/route/mute B1" momentary="yes"/>\\
+<Binding channel="1" note="16"  uri="/route/mute B2" momentary="yes"/>\\
+\\
+<Binding sysex="f0 0 0 e 9 0 5b f7" function="transport-start"/>\\
+<Binding sysex="f0 7f 0 6 7 f7" function="rec-disable"/>\\
+<Binding sysex="f0 7f 0 6 6 f7" function="rec-enable"/>\\
+<Binding sysex="f0 0 0 e 9 0 53 0 0 f7" function="loop-toggle"/>\\
+\\
+<Binding channel="1" note="13" function="transport-roll"/>\\
+<Binding channel="1" note="14" function="transport-stop"/>\\
+<Binding channel="1" note="12" function="transport-start"/>\\
+<Binding channel="1" note="11" function="transport-zero"/>\\
+<Binding channel="1" note="10" function="transport-end"/>\\
+</ArdourMIDIBindings>\\
+\end{listing}
+
+Please note that channel, controller and note numbers are specified as
+decimal numbers in the ranges 1-16, 0-127 and 0-127 respectively.
+
 
 \section{The processor list}
 
