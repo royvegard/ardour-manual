@@ -135,7 +135,7 @@ disappointed in Ardour. We believe, however, that it's only because
 most newcomers do not realize what to expect.
 
 
-\subsubsection{The Development Team}
+\subsubsection{The development team}
 
 Many users probably don't realize it, but the development team driving
 Ardour forward is very small for the amazingly complex piece of
@@ -159,7 +159,8 @@ would only benefit from more programmers, it is not the case! Whatever
 your ability, we'll be able to use it. If you are interested in
 spending a little time making Ardour a better DAW, please don't
 hesitate to join the developer mailing list and offer your services.
-Ardour Features and Polish
+
+\subsubsection{Ardour features and [olish}
 
 As Ardour is getting more powerful and usable, we attract more and
 more users who expect the same feature set and product polish as
@@ -203,7 +204,7 @@ libraries, the volunteer doing the release may dislike
 removing/downgrading the libraries on her machine.
 
 If you find that there are no prebuilt binaries for your
-platform/configuration, and are willing to help provide prebuilts for
+platform/configuration, and are willing to help provide packages for
 coming releases, please join the developer mailing list and offer your
 services. It is not a requirement that you are a programmer, but there
 may be a requirement for (commercial) development tools which not
@@ -390,224 +391,7 @@ are two cards; there will be two unsynchronised sample clocks.
 
 If you accept that using multiple sound cards is not going to make
 your life easy, and you want to do it anyway, there are a number of
-approaches:
-
-\begin{enumerate}
-
-\item Use the \texttt{alsa\_in} and \texttt{alsa\_out} clients (Linux and ALSA only)
-
-If you are using JACK on Linux and want to use additional devices that
-have ALSA driver support (i.e. most PCI, USB and Bluetooth devices),
-then this is the best option.
-
-\texttt{alsa\_in} and \texttt{alsa\_out} are two clients written by
-Torben Hohn that make a single ALSA device appear as a set
-of JACK ports. They both use Erik de Castro Lopo's libsamplerate
-library to do any resampling required to keep the audio in sync as the
-clocks of each device drift over time.
-
-To use them, you start JACK as normal. Then you start an instance of
-\texttt{alsa\_in} or \texttt{alsa\_out} for each additional device
-(and `direction') that you want to use. \texttt{alsa\_out} will create
-a set of ports representing the playback capabilities of the device,
-and \texttt{alsa\_in} will represent the capture/recording
-capabilities. These two clients must be run inside a terminal window; 
-there is no GUI for either of them. They both take arguments very much
-like those of the JACK ALSA backend, with some additional controls
-that affect the way that resampling is done. Full details are
-available in the manual pages for each client, which you can read in a
-terminal window with the command
-
-\begin{listing}
-man alsa\_in
-\end{listing}
-
-This page covers both clients, since their arguments are identical.
-
-Note that you can use these clients even if you are running JACK with
-a FFADO-supported device. The requirement for ALSA support only
-applies to the extra devices you want to use, not the one that JACK
-itself is using.
-
-\item Use the JACK2 audio adapter(s) (Jack2 only)
-
-% XXX More information is needed on this option
-
-\item Using OS facilities to merge devices into a single pseudo-device
-
-Both OS~X and Linux provide ways to configure your machine so that it
-appears to have a new audio device that is actually a combination of
-one or more real devices. You can use this approach to create the
-configuration you want to use and then start up JACK using that new
-`pseudo' device.
-
-\begin{itemize}
-\item OS X
-
-You must perform these steps as a user with administrative
-privileges. The first thing to do is to open up
-\menu{Applications,Utilities,Audio/MIDI Setup}. Go to the main menu
-bar, click on \button{Audio} and then select \emph{Open aggregate device
-editor}. Follow the simple instructions to add the each desired
-playback or capture device to your new aggregate device. Then pick a
-name for the new device. This is the name you will also use to choose
-the device for use with JACK\@.
-
-Note that there are quite a few subtle bugs with Apple's `aggregate
-device' facilities. Various things can happen that will cause the
-device to lose all of its playback channels or all of its capture
-channels, for example. If this happens, it is generally necessary to
-close all applications that are using any audio devices, and quite
-often a reboot is required.
-
-Starting with JACK2 version 1.9.6, the CoreAudio backend can now
-dynamically create `aggregate devices' when needed (like when the -C
-and -P arguments are used to specify the separated input and output
-devices).
-
-\item Linux
-
-You will need to use a text editor to create or add to your
-\texttt{~/.asoundrc} file. This file is read by any ALSA application
-(including JACK, if its using the ALSA backend) and can be used to
-define pseudo-devices of many different kinds. The key idea here is
-that you're going to define a new pseudo-device composed of 2 or more
-other devices. In our example, we'll just focus on 2 devices being
-merged into 1, where both devices have just 2 channels in and
-out. This is the text you need to make sure is in \texttt{~/.asoundrc} (below,
-we describe what this does):
-
-\begin{listing}
-pcm.merge \{\\
-    type multi;\\
-    slaves.a.pcm hw:0\\
-    slaves.a.channels 2;\\
-    slaves.b.pcm hw:1\\
-    slaves.b.channels 2;\\
-    bindings.0.slave a;\\
-    bindings.0.channel 0;\\
-    bindings.1.slave b;\\
-    bindings.1.channel 0;\\
-    bindings.2.slave a;\\
-    bindings.2.channel 1;\\
-    bindings.3.slave b;\\
-    bindings.3.channel 1;\\
-\}\\
-\end{listing}
-
-Lets see what this does:
-
-\begin{itemize}
-
-\item It defines a new audio pseudo-device called `merge'. You can use
-  this name anywhere you might use the name of an ALSA audio device,
-  such as \texttt{hw:0} or \texttt{hw:HDA} or \texttt{hw:DSP} or
-  \texttt{plughw:1}.
-\item It names \texttt{hw:0} as the first component (or `slave') of
-  this pseudo-device (\texttt{slave.a.pcm}) and \texttt{hw:1} as the
-  second component (\texttt{slave.b.pcm})
-\item It states that the pseudo-device will use 2 channels from the
-  first component and 2 channels from the 2nd component.
-\item The lines containing \texttt{binding.} list, in order, which
-  channel of which component will correspond to the 4 channels of the
-  pseudo-device. In the mapping shown above, the first channel comes
-  from the first component, then the 2nd channel from the 2nd
-  component, the 3rd from the first component and the 4th from the
-  second component.
-
-\end{itemize}
-
-Note that numbering of devices and channels in ALSA starts at zero,
-not one.
-
-The most important and complex part of the above definition is the
-channel mappings defined by the bindings lines. A full channel mapping
-definition consists of a pair of a lines of the following general
-form:
-
-\begin{listing}
-bindings.CHANNEL\_OF\_PSEUDO\_DEVICE.slave SLAVE\_DEVICE\_THAT\_WILL\_PROVIDE\_THIS\_CHANNEL\\
-bindings.CHANNEL\_OF\_PSEUDO\_DEVICE.channel CHANNEL\_OF\_SLAVE\_DEVICE\_THAT\_WILL\_PROVIDE\_THIS\_CHANNEL
-\end{listing}
-
-So the specific pair of lines:
-
-\begin{listing}
-bindings.0.slave a;\\
-bindings.0.channel 0;
-\end{listing}
-
-mean that `channel 0 of the pseudo-device will correspond to channel 0
-of the first slave device'. Obviously by playing with this definition
-you can create all sorts of wierd and wonderful mappings from the real
-physical device channels to the pseudo-device channels. You probably
-don't want to do that, though. The example above shows the most common
-example: take the first $N$ channels from the first device, and the
-second $M$ channels from the second device.
-
-In theory, the above is enough to define a new pseudo-device, but many
-applications, including JACK's ALSA backend, also want to open a
-"control device" associated with the audio playback device. This is
-where they can find out (and possibly control) various hardware
-parameters associated with the device. Unfortunately there is no way
-to merge these together in the same way, so we have to provide a
-"dummy" control device definition that will keep such applications
-happy. This definition looks like this:
-
-\begin{listing}
-ctl.merge \{\\
-    type hw\\
-    card 0\\
-\}
-\end{listing}
-
-Notice that name following the \texttt{ctl.} text must be the same as
-the name following \texttt{pcm.} in the device definition above. The
-control device definition we've given here effectively means `if you
-want to open the control device associated with ``merge'', open the
-control device associated with the first installed audio/MIDI
-device'. This probably isn't right of course --- `merge' involves two
-cards --- but it will generally work just fine.
-
-You can use this same approach to merge more than 2 devices - the
-resulting \texttt{pcm.DEVICE-NAME} specification will obviously
-include more lines. You can also use different devices than we did
-above, where we just used the first and second installed card.
-
-Note that you are likely to be better off using \texttt{hw:CARD} device names,
-rather than \texttt{hw:N} names, when defining a `multi' pseudo-device, as
-explained here. But further note that if you are using multiple
-instances of the same type of audio hardware (say, 4 RME Multiface
-devices), you will have to use \texttt{hw:N} because every card will have the
-same \texttt{CARD} name. In fact, with such hardware, it may be very
-difficult to ensure that \texttt{hw:0} always refers to the same audio
-interface, because there is no ALSA name that uniquely defines a
-particular PCI slot. This is currently an unsolved problem when using
-multiple identical devices. If you use PCI (or PCIe or PCIx or other
-derivatives of PCI) devices, the chances are that the first card will
-always be the same one, and so forth, so its not likely to be an
-issue. If you use several identical USB devices, it may be a more
-significant problem.
-
-\item Using the \texttt{-P} and \texttt{-C} arguments to a JACK backend
-
-Several JACK backends, including the ALSA, FFADO and CoreAudio
-versions, support the \texttt{-P} and \texttt{-C} arguments that can
-be used to specify two different devices, one for playback and one for
-capture/recording. You cannot use this to merge multiple devices for
-playback or capture. This approach will not do any clock drift
-correction, so as the two devices drift over time, you may get
-glitches in the audio stream. Nevertheless, it can be an easy if
-unreliable way to set up JACK so that, for example, it records from a
-USB microphone and plays back via a builtin audio device.
-
-When using \texttt{-P} or \texttt{-C} to specify different devices, do
-not use the \texttt{-d} argument (which specifies a single device) and
-do not use the \texttt{-D} argument (which tells JACK to configure a
-device for playback and capture).
-
-\end{itemize}
-\end{enumerate}
+approaches.  These are described in Appendix~\ref{ap:advanced-jack}.
 
 \subsection{Will my sound card work?}
 
@@ -664,14 +448,15 @@ the more CPU power will be required to run audio plugins.
 
 In a move necessary for efficiency, JACK does not process audio
 sample-by-sample, but in blocks of samples.  The size of these blocks
-can be selected when starting JACK\@.  If the frames per period count
-is made smaller, the latency experienced by sounds going into and
-coming out of the computer will be reduced; on the other hand, smaller
-buffers make the computer work harder, and may result in other
-problems if the computer is not well set-up.  It is usually difficult
-to get below 64 frames per period on a typical desktop computer, and
-values as high as 2048 frames per buffer if you do not particularly
-care about latency.
+can be selected when starting JACK\@.  A block is called a `period',
+and samples are often known as `frames' in the context of JACK\@.  If
+the frames per period count is made smaller, the latency experienced
+by sounds going into and coming out of the computer will be reduced;
+on the other hand, smaller buffers make the computer work harder, and
+may result in other problems if the computer is not well set-up.  It
+is usually difficult to get below 64 frames per period on a typical
+desktop computer, and values as high as 2048 frames per buffer are
+perfectly acceptable if you do not particularly care about latency.
 
 \begin{danger}
 The frames per period value governs how often JACK will talk to the
@@ -721,11 +506,13 @@ operating system will treat JACK as higher priority than some other
 tasks when it needs to talk to the soundcard, which is very likely to
 reduce the incidence of xruns.
 
-JACK may fail to obtain real-time privileges.  This is usually
-because the operating system does not, by default, allow it, and so
-its configuration must be altered.  For Debian- and Ubuntu-based
-distributions, the best way is usually to add your user to the `audio'
-group using
+Some versions of Linux are careful about which tasks are allowed
+real-time priviledges, as there is potential for such tasks to cause
+problems with the system.  As a result, JACK may fail to obtain
+real-time privileges, in which case your Linux configuration must be
+altered to allow JACK to get what it wants.  For Debian- and
+Ubuntu-based distributions, the best way is usually to add your user
+to the `audio' group using
 
 \begin{listing}
 usermod -a -G audio fred
@@ -753,12 +540,12 @@ again to see the effects.
 
 \subsection{I can play back but I cannot record, or vice versa}
 
-This is commonly caused by JACK's basic prediliction for using only
+This is commonly caused by JACK's prediliction for using only
 one sound card.  If you are using different sound cards for playback
 and record (which will be the case even if you are doing playback via
 HDMI and recording via an on-board sound-card) you will need to set
 JACK up to use multiple sound cards, as discussed in
-Section~\ref{sec:jack-multiple-cards}.
+Appendix~\ref{ap:advanced-jack}.
 
 
 \chapter{Quick start}
@@ -1029,7 +816,7 @@ node give the details of the binding.
 
 \subsection{Finding out what your MIDI control surface sends}
 
-This is the most complex part of the job, but its still not very hard.
+This is the most complex part of the job, but it's still not very hard.
 You need to connect the control surface to an application that will
 show you the information that the device sends each time you modify a
 knob, slider, button etc.  There are a variety of such applications;
@@ -1537,6 +1324,235 @@ This is a basic gain-control element which is controlled by the fader.
 This processor takes the route's signal, optionally pans it, and then
 passes it to a set of JACK ports; this represents the main output of
 the route.
+
+
+\appendix
+\chapter{Advanced JACK setup}
+\label{ap:advanced-jack}
+
+\section{Using JACK with multiple sound cards}
+
+If you want to set up JACK to use multiple sound cards at the same
+time, there are a number of options:
+
+\begin{enumerate}
+
+\item Use the \texttt{alsa\_in} and \texttt{alsa\_out} clients (Linux and ALSA only)
+
+If you are using JACK on Linux and want to use additional devices that
+have ALSA driver support (i.e. most PCI, USB and Bluetooth devices),
+then this is the best option.
+
+\texttt{alsa\_in} and \texttt{alsa\_out} are two clients written by
+Torben Hohn that make a single ALSA device appear as a set
+of JACK ports. They both use Erik de Castro Lopo's libsamplerate
+library to do any resampling required to keep the audio in sync as the
+clocks of each device drift over time.
+
+To use them, you start JACK as normal. Then you start an instance of
+\texttt{alsa\_in} or \texttt{alsa\_out} for each additional device
+(and `direction') that you want to use. \texttt{alsa\_out} will create
+a set of ports representing the playback capabilities of the device,
+and \texttt{alsa\_in} will represent the capture/recording
+capabilities. These two clients must be run inside a terminal window; 
+there is no GUI for either of them. They both take arguments very much
+like those of the JACK ALSA backend, with some additional controls
+that affect the way that resampling is done. Full details are
+available in the manual pages for each client, which you can read in a
+terminal window with the command
+
+\begin{listing}
+man alsa\_in
+\end{listing}
+
+This page covers both clients, since their arguments are identical.
+
+Note that you can use these clients even if you are running JACK with
+a FFADO-supported device. The requirement for ALSA support only
+applies to the extra devices you want to use, not the one that JACK
+itself is using.
+
+\item Use the JACK2 audio adapter(s) (Jack2 only)
+
+% XXX More information is needed on this option
+
+\item Using OS facilities to merge devices into a single pseudo-device
+
+Both OS~X and Linux provide ways to configure your machine so that it
+appears to have a new audio device that is actually a combination of
+one or more real devices. You can use this approach to create the
+configuration you want to use and then start up JACK using that new
+`pseudo' device.
+
+\begin{itemize}
+\item OS X
+
+You must perform these steps as a user with administrative
+privileges. The first thing to do is to open up
+\menu{Applications,Utilities,Audio/MIDI Setup}. Go to the main menu
+bar, click on \button{Audio} and then select \emph{Open aggregate device
+editor}. Follow the simple instructions to add the each desired
+playback or capture device to your new aggregate device. Then pick a
+name for the new device. This is the name you will also use to choose
+the device for use with JACK\@.
+
+Note that there are quite a few subtle bugs with Apple's `aggregate
+device' facilities. Various things can happen that will cause the
+device to lose all of its playback channels or all of its capture
+channels, for example. If this happens, it is generally necessary to
+close all applications that are using any audio devices, and quite
+often a reboot is required.
+
+Starting with JACK2 version 1.9.6, the CoreAudio backend can now
+dynamically create `aggregate devices' when needed (like when the -C
+and -P arguments are used to specify the separated input and output
+devices).
+
+\item Linux
+
+You will need to use a text editor to create or add to your
+\texttt{~/.asoundrc} file. This file is read by any ALSA application
+(including JACK, if its using the ALSA backend) and can be used to
+define pseudo-devices of many different kinds. The key idea here is
+that you're going to define a new pseudo-device composed of 2 or more
+other devices. In our example, we'll just focus on 2 devices being
+merged into 1, where both devices have just 2 channels in and
+out. This is the text you need to make sure is in \texttt{~/.asoundrc} (below,
+we describe what this does):
+
+\begin{listing}
+pcm.merge \{\\
+    type multi;\\
+    slaves.a.pcm hw:0\\
+    slaves.a.channels 2;\\
+    slaves.b.pcm hw:1\\
+    slaves.b.channels 2;\\
+    bindings.0.slave a;\\
+    bindings.0.channel 0;\\
+    bindings.1.slave b;\\
+    bindings.1.channel 0;\\
+    bindings.2.slave a;\\
+    bindings.2.channel 1;\\
+    bindings.3.slave b;\\
+    bindings.3.channel 1;\\
+\}\\
+\end{listing}
+
+Lets see what this does:
+
+\begin{itemize}
+
+\item It defines a new audio pseudo-device called `merge'. You can use
+  this name anywhere you might use the name of an ALSA audio device,
+  such as \texttt{hw:0} or \texttt{hw:HDA} or \texttt{hw:DSP} or
+  \texttt{plughw:1}.
+\item It names \texttt{hw:0} as the first component (or `slave') of
+  this pseudo-device (\texttt{slave.a.pcm}) and \texttt{hw:1} as the
+  second component (\texttt{slave.b.pcm})
+\item It states that the pseudo-device will use 2 channels from the
+  first component and 2 channels from the 2nd component.
+\item The lines containing \texttt{binding.} list, in order, which
+  channel of which component will correspond to the 4 channels of the
+  pseudo-device. In the mapping shown above, the first channel comes
+  from the first component, then the 2nd channel from the 2nd
+  component, the 3rd from the first component and the 4th from the
+  second component.
+
+\end{itemize}
+
+Note that numbering of devices and channels in ALSA starts at zero,
+not one.
+
+The most important and complex part of the above definition is the
+channel mappings defined by the bindings lines. A full channel mapping
+definition consists of a pair of a lines of the following general
+form:
+
+\begin{listing}
+bindings.CHANNEL\_OF\_PSEUDO\_DEVICE.slave SLAVE\_DEVICE\_THAT\_WILL\_PROVIDE\_THIS\_CHANNEL\\
+bindings.CHANNEL\_OF\_PSEUDO\_DEVICE.channel CHANNEL\_OF\_SLAVE\_DEVICE\_THAT\_WILL\_PROVIDE\_THIS\_CHANNEL
+\end{listing}
+
+So the specific pair of lines:
+
+\begin{listing}
+bindings.0.slave a;\\
+bindings.0.channel 0;
+\end{listing}
+
+mean that `channel 0 of the pseudo-device will correspond to channel 0
+of the first slave device'. Obviously by playing with this definition
+you can create all sorts of wierd and wonderful mappings from the real
+physical device channels to the pseudo-device channels. You probably
+don't want to do that, though. The example above shows the most common
+example: take the first $N$ channels from the first device, and the
+second $M$ channels from the second device.
+
+In theory, the above is enough to define a new pseudo-device, but many
+applications, including JACK's ALSA backend, also want to open a
+"control device" associated with the audio playback device. This is
+where they can find out (and possibly control) various hardware
+parameters associated with the device. Unfortunately there is no way
+to merge these together in the same way, so we have to provide a
+"dummy" control device definition that will keep such applications
+happy. This definition looks like this:
+
+\begin{listing}
+ctl.merge \{\\
+    type hw\\
+    card 0\\
+\}
+\end{listing}
+
+Notice that name following the \texttt{ctl.} text must be the same as
+the name following \texttt{pcm.} in the device definition above. The
+control device definition we've given here effectively means `if you
+want to open the control device associated with ``merge'', open the
+control device associated with the first installed audio/MIDI
+device'. This probably isn't right of course --- `merge' involves two
+cards --- but it will generally work just fine.
+
+You can use this same approach to merge more than 2 devices - the
+resulting \texttt{pcm.DEVICE-NAME} specification will obviously
+include more lines. You can also use different devices than we did
+above, where we just used the first and second installed card.
+
+Note that you are likely to be better off using \texttt{hw:CARD} device names,
+rather than \texttt{hw:N} names, when defining a `multi' pseudo-device, as
+explained here. But further note that if you are using multiple
+instances of the same type of audio hardware (say, 4 RME Multiface
+devices), you will have to use \texttt{hw:N} because every card will have the
+same \texttt{CARD} name. In fact, with such hardware, it may be very
+difficult to ensure that \texttt{hw:0} always refers to the same audio
+interface, because there is no ALSA name that uniquely defines a
+particular PCI slot. This is currently an unsolved problem when using
+multiple identical devices. If you use PCI (or PCIe or PCIx or other
+derivatives of PCI) devices, the chances are that the first card will
+always be the same one, and so forth, so its not likely to be an
+issue. If you use several identical USB devices, it may be a more
+significant problem.
+
+\item Using the \texttt{-P} and \texttt{-C} arguments to a JACK backend
+
+Several JACK backends, including the ALSA, FFADO and CoreAudio
+versions, support the \texttt{-P} and \texttt{-C} arguments that can
+be used to specify two different devices, one for playback and one for
+capture/recording. You cannot use this to merge multiple devices for
+playback or capture. This approach will not do any clock drift
+correction, so as the two devices drift over time, you may get
+glitches in the audio stream. Nevertheless, it can be an easy if
+unreliable way to set up JACK so that, for example, it records from a
+USB microphone and plays back via a builtin audio device.
+
+When using \texttt{-P} or \texttt{-C} to specify different devices, do
+not use the \texttt{-d} argument (which specifies a single device) and
+do not use the \texttt{-D} argument (which tells JACK to configure a
+device for playback and capture).
+
+\end{itemize}
+\end{enumerate}
+
+
 
 \end{document}
 
