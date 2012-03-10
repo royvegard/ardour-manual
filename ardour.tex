@@ -1,6 +1,6 @@
 \documentclass[10pt,a4paper]{book}
 
-\usepackage{ardour,graphicx,afterpage,url,xstring,xcolor}
+\usepackage{ardour,graphicx,afterpage,url,xstring,xcolor,titlepic}
 
 % XXX: format
 \newcommand{\button}[1]{#1}
@@ -25,13 +25,30 @@
 }\makeatother
 
 \title{Ardour 3 --- A users' manual}
+\titlepic{\includegraphics{graphics/ardour_bw.pdf}}
 \author{The Ardour Community}
 \date{}
 \begin{document}
 
 \maketitle
 
+
+\clearpage
+\thispagestyle{empty}
+\begin{quote}
+\emph{``One of the secrets of life is that all that is really worth the doing is what we do for others''} --- Lewis Carroll (perhaps)
+\end{quote}
+
+\bigskip
+
+\begin{quote}
+\emph{``If you want to build a ship, don't drum up the men to gather wood, divide the work and give orders.  Instead, teach them to yearn for the vast and endless sea''} --- Antoine de Sant Exup\'ery (possibly)
+\end{quote}
+
+\bigskip
+
 \tableofcontents
+
 
 \chapter{Introduction}
 
@@ -39,13 +56,14 @@ Hello, and welcome to Ardour!
 
 \section{What is Ardour?}
 
-Ardour is an open-source digital audio workstation (DAW) for Linux and Mac OS~X.
+Ardour is an open-source digital audio workstation (DAW) for Linux and
+Mac OS~X.
 
 \section{Typographical conventions}
 
-This manual takes a cue from the \TeX{}book and uses special symbols
-to denote sections which contain advanced material.  The reader can
-skip these sections without any great loss.
+This manual uses special symbols to denote sections which contain
+advanced material.  The reader can skip these sections without any
+great loss.
 
 \begin{danger}
 Tricky parts of the text are marked with a `bend in the road' marker.
@@ -147,18 +165,18 @@ a dozen others. Consider that we do support, web site maintenance,
 documentation, feature enhancements, debugging, as well as
 development.
 
-There's more people (perhaps another dozen) pitching in with
+There are more people (perhaps another dozen) pitching in with
 translation, release engineering (preparing Ardour for users), Mantis
 triaging (`Mantis' is the bug database used to keep track of known
 problems, `triaging' the process of prioritizing and verifying bugs)
 and other necessary tasks.
 
-So we're always looking for new people to help. And while
+So we are always looking for new people to help, and while
 (unfortunately) a common misconception is that a project like Ardour
 would only benefit from more programmers, it is not the case! Whatever
-your ability, we'll be able to use it. If you are interested in
-spending a little time making Ardour a better DAW, please don't
-hesitate to join the developer mailing list and offer your services.
+your ability, we can use it. If you are interested in spending a
+little time making Ardour a better DAW, please don't hesitate to join
+the developer mailing list and offer your services.
 
 \subsubsection{Ardour features and [olish}
 
@@ -181,7 +199,7 @@ has friends and even a relationship with a gorgeous woman.
 Do not read that as an excuse for why Ardour lacks in comparison with
 other products. Do read it as an explanation for why you should expect
 nothing more from Ardour than it actually delivers. And rest assured
-that the developers want and expect it to rival, or better yet, best
+that the developers want and expect it to rival, or better yet, beat
 the proprietary DAWs. That's why we're so committed to this
 development model --- because we believe it's the best way to get there.
 
@@ -189,18 +207,18 @@ development model --- because we believe it's the best way to get there.
 
 Ardour releases are also put together by volunteers. This means that
 there's usually only prebuilt binaries available for a few select
-platforms. While we would like to see Ardour prebuilts for all the
+platforms. While we would like to see Ardour prebuilt for all the
 platforms (and operating system versions) Ardour runs on, it's simply
 not possible since the volunteers doing the release only have access
 to a subset of those platforms.
 
-Specifically about library dependencies: depending on the volunteer's
-machine configuration, the Ardour binary may require you to install
-additional or newer libraries before it will work. If so, the
-installation instructions should contain the necessary information for
-you to find those libraries. Please do not complain about the need for
-these libraries - just as you might dislike installing/upgrading the
-libraries, the volunteer doing the release may dislike
+With specific regards to library dependencies: depending on the
+volunteer's machine configuration, the Ardour binary may require you
+to install additional or newer libraries before it will work. If so,
+the installation instructions should contain the necessary information
+for you to find those libraries. Please do not complain about the need
+for these libraries - just as you might dislike installing/upgrading
+the libraries, the volunteer doing the release may dislike
 removing/downgrading the libraries on her machine.
 
 If you find that there are no prebuilt binaries for your
@@ -253,7 +271,7 @@ technology, though broader in scope.  It is even possible to use JACK
 to route audio and MIDI over network connections.
 
 JACK is so important to Ardour's operation that it earns its own
-discussion in chapter~\ref{ch:jack}.
+discussion in Chapter~\ref{ch:jack}.
 
 
 \section{Sessions}
@@ -273,7 +291,7 @@ and other details.
 
 \begin{danger}
 Ardour's session file is kept in XML format, which is advantageous as
-it is somewhat human-readable, and human-editable in a crisis!  Sound
+it is somewhat human-readable, and human-editable in a crisis.  Sound
 files are stored in one of a number of optional formats, and MIDI
 files as SMF (standard MIDI format).
 
@@ -281,8 +299,8 @@ It is also possible for Ardour sessions to reference sound and MIDI
 files outside the session directory.
 \end{danger}
 
-Ardour has a current session at all times; if Ardour is started without
-specifying one, it will offer to load or create one.
+Ardour has a single current session at all times; if Ardour is started
+without specifying one, it will offer to load or create one.
 
 
 
@@ -343,6 +361,30 @@ connect the output of each to a bus called `drums', so that the
 drum-kit's level can be set as a unit, and processing (such as
 equalisation or compression) can be applied to the mix of all tracks.
 
+
+\section{Plugins}
+
+Ardour allows you to process audio and MIDI using any number of
+\emph{plugins}.  These are external pieces of code, commonly seen as
+VST plugins on Windows or AU plugins on Mac OS~X.  Generally speaking,
+a plugin is written using one (and maybe more) standards.  Ardour's
+plugin support is for the following standards:
+
+\begin{itemize}
+\item LADSPA\footnote{An acronym of ``Linux Audio Developers' Simple
+  Plugin API''} --- the first major plugin standard for Linux.  Many
+  LADSPA plugins are availble, mostly free and open-source.
+\item LV2 --- the successor to LADSPA.  Lots of plugins have been
+  `ported' from LADSPA to LV2, and also many new plugins written.
+\item VST --- Ardour supports VST plugins that have been compiled for Linux.
+\item AU --- Mac OS~X versions of Ardour support AudioUnit (AU) plugins.
+\end{itemize}
+
+Ardour has some support for running Windows~VST plugins on Linux, but
+this is rather complicated, extremely difficult for the Ardour
+developers to debug, and generally unreliable.  If it is at all
+possible, you are strongly advised to use native LADSPA, LV2 or Linux
+VST plugins on Linux, or AU on Mac OS~X\@.
 
 \chapter{JACK}
 \label{ch:jack}
@@ -425,8 +467,9 @@ which one is used.
 Ardour can start JACK automatically when it starts; and indeed many
 users will find that this works perfectly well.  It is also possible
 to start JACK manually, either at the command line or using a tool
-such as QJackCtl\footnote{\url{http://qjackctl.sourceforge.net}} or
-JackPilot\footnote{\url{http://www.jackosx.com}}.
+such as QJackCtl\footnote{\url{http://qjackctl.sourceforge.net}} (on
+Linux) or JackPilot\footnote{\url{http://www.jackosx.com}} (on Mac
+OS~X).
 
 \subsection{Parameters}
 
@@ -443,6 +486,11 @@ et.\ cetera are typical choices.  The higher the sampling rate, the
 higher the theoretical audio frequency that the system can reproduce,
 but also the more disk space will be consumed by audio recordings, and
 the more CPU power will be required to run audio plugins.
+
+The arguments about the best sampling rate are many, long and varied,
+but can (in the humble opinion of the author) be summarised as: `if in
+doubt, use 44.1kHz, as no-one can hear the difference (though they
+may think they can)'.
 
 \subsubsection{Frames per period}
 
@@ -471,7 +519,7 @@ JACK up in time, making larger period sizes more reliable on those systems.
 
 \subsubsection{Number of periods}
 
-This is value related to the frames-per-period value above; 2 is
+This value is related to the frames-per-period value above; 2 is
 typical, and will work for most sound cards and systems.  It is worth
 trying 3 here if problems are experienced.
 
@@ -558,6 +606,7 @@ microphone, guitar or whatever) plugged into one of your sound card's
 inputs, and a monitoring system (speakers or headphones) connected to
 its outputs.
 
+
 \section{Starting Ardour and creating a session}
 
 When Ardour is run for the first time, it starts with the dialogue box
@@ -597,7 +646,7 @@ There are three pages to the Audio / MIDI setup dialogue; the first is
 use, the sampling rate at which it will operate, and the buffer size.
 For now, select the interface that you are using for recording and
 leave other options as they are.  For more information on the options
-here, consult chapter~\ref{ch:jack}.
+here, consult Chapter~\ref{ch:jack}.
 
 \screenshot{audio-midi-setup-device.png}{Audio/MIDI setup --- device}{fig:audio-midi-setup-device}
 
@@ -684,7 +733,7 @@ Ardour is now recording; the play-head will move, and a red rectangle
 will be drawn where the recording is taking place.  Make a noise with
 your external sound source!  When you have finished recording, click
 the Stop button in the transport controls area.  You should now have a
-region containing your recording on the `Audio 1' track, like in
+region containing your recording on the `Audio 1' track, as in
 Figure~\ref{fig:recorded-one-region}.
 
 % \screenshot{recorded-one-region.png}{Editor window after recording a region}{fig:recorded-one-region}
@@ -741,7 +790,7 @@ recordings on disk, through the appropriate strip, and they are then
 mixed together and passed through the master strip.  The bottom half
 of each mixer strip contains a \emph{fader}; this controls the level
 of each track.  You can adjust the levels of each of your recordings
-by dragging the mixer strip; the green marker indicates 0dB (`unity
+by dragging the mixer strip; the green marker indicates 0dBFS (`unity
 gain'), at which the level of the track will be unaltered from the
 recording.
 
@@ -753,10 +802,10 @@ happy with.
 \section{Export}
 
 The final step is to export our recording into a stereo WAV file.
-Ardour's export options are extensive, and have many options, but for
-now we will keep it simple.  Choose \menu{Session,Export,Export to
-  Audio Files} from the editor menu, and the \emph{Export} dialogue
-will open, as shown in Figure~\ref{fig:export-dialogue}.
+Ardour's export options are extensive, but for now we will keep it
+simple.  Choose \menu{Session,Export,Export to Audio Files} from the
+editor menu, and the \emph{Export} dialogue will open, as shown in
+Figure~\ref{fig:export-dialogue}.
 
 First, we have to specify the format that we will export in.  Fill in
 the \emph{Label} field with some name like `WAV for CD', then click
@@ -922,7 +971,7 @@ available:
 
 \begin{itemize}
 \item \texttt{transport-stop} --- stop the transport 
-\item \texttt{transport-roll} --- start the transport "rolling" 
+\item \texttt{transport-roll} --- start the transport `rolling'
 \item \texttt{transport-zero} --- move the playhead to the zero position 
 \item \texttt{transport-start} --- move the playhead to the start marker 
 \item \texttt{transport-end} --- move the playhead to the end marker 
@@ -1186,7 +1235,7 @@ hardware:
 
 The other two settings are more complex; one is `Tape machine mode',
 in the same dialogue, and the other is `Monitoring automatically
-follows transport state (``auto-input'')' setting in \emph{Session
+follows transport state (`auto-input')' setting in \emph{Session
   Properties}.
 
 Monitoring is also somewhat dependent on the state of the track's
@@ -1256,7 +1305,7 @@ parts which read from and write to disk).  This chapter uses the word
 same behaviour.
 
 Not all of the processing that signals experience as they travel
-through routes visible in the Ardour user-interface. The visible parts
+through routes is visible in the Ardour user-interface. The visible parts
 are the plugins, the fader, the meter and (if present) the panner.
 There are other invisible processes that happen to support Ardour's
 internal operation.  Figure~\ref{fig:route-in-detail} gives a
@@ -1282,7 +1331,8 @@ ports and recorded; no processing on track will have any effect on the
 recorded signal.
 
 The signal then enters the processing chain.  Internally, this chain
-is a set of `processors' connected in series.  
+is a set of `processors' connected in series.  Some processors are put
+in place by Ardour, and some are at the whim of the user.
 
 \subsection{Export}
 
@@ -1317,7 +1367,7 @@ internal sends to other tracks or busses.
 
 \subsection{Amp}
 
-This is a basic gain-control element which is controlled by the fader.
+This is a gain-control element which is controlled by the fader.
 
 \subsection{Main out}
 
