@@ -281,7 +281,13 @@ JACK is so important to Ardour's operation that it earns its own
 discussion in Chapter~\ref{ch:jack}.
 
 
-\section{Sessions}
+\section{Ardour concepts}
+
+Ardour has its own names for the usual set of common DAW concepts.
+This section briefly describes some of these concepts.
+
+
+\subsection{Sessions}
 
 An Ardour \emph{session} is a container for an entire project.  A
 session may contain an arbitrary number of tracks and busses
@@ -311,7 +317,7 @@ without specifying one, it will offer to load or create one.
 
 
 
-\section{Tracks}
+\subsection{Tracks}
 
 A track is a concept common to most DAWs, and used also in Ardour.
 Tracks can record audio or MIDI data to disk, and then replay it with
@@ -336,7 +342,7 @@ MIDI, its output may be audio-only.
 \end{danger}
 
 
-\section{Regions}
+\subsection{Regions}
 
 A track may contain many segments of audio or MIDI\@.  Ardour contains
 these segments in things called \emph{regions}, which are
@@ -346,7 +352,7 @@ recording.  Regions can be subjected to many editing operations; they
 may be moved around, split, trimmed, copied, and so on.
 
 
-\section{Playlists}
+\subsection{Playlists}
 
 The details of what exactly each track should play back is described
 by a \emph{playlist}.  A playlist is simply a list of regions; each
@@ -354,7 +360,7 @@ track always has an active playlist, and can have other playlists
 which can be switched in and out as required.
 
 
-\section{Busses}
+\subsection{Busses}
 
 Busses are another common concept in both DAWs and hardware mixers.
 They are similar in many ways to tracks; they process audio or MIDI,
@@ -369,7 +375,7 @@ drum-kit's level can be set as a unit, and processing (such as
 equalisation or compression) can be applied to the mix of all tracks.
 
 
-\section{Plugins}
+\subsection{Plugins}
 
 Ardour allows you to process audio and MIDI using any number of
 \emph{plugins}.  These are external pieces of code, commonly seen as
@@ -392,6 +398,19 @@ this is rather complicated, extremely difficult for the Ardour
 developers to debug, and generally unreliable.  If it is at all
 possible, you are strongly advised to use native LADSPA, LV2 or Linux
 VST plugins on Linux, or AU on Mac OS~X\@.
+
+
+\section{The Ardour interface}
+
+This section gives an overview of Ardour's main interface elements.
+
+\subsection{The editor window}
+
+The first of Ardour's two main windows is the \emph{Editor}.  A
+typical editor window is shown in Figure~\ref{fig:typical-editor}.
+
+
+
 
 \chapter{JACK}
 \label{ch:jack}
