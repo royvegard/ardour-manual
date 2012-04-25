@@ -7,6 +7,7 @@
 \newcommand{\menu}[1]{\emph{\StrSubstitute{#1}{,}{ $\rightarrow$ }}}
 \newcommand{\key}[1]{\emph{\StrSubstitute{#1}{,}{ + }}}
 \newcommand{\directory}[1]{\texttt{#1}}
+\newcommand{\todo}[1]{\marginpar{\small\texttt{#1}}}
 
 \newcommand{\screenshot}[3]{%
 \begin{figure}[ht]%
@@ -84,12 +85,19 @@ bend-in-the-road marker.  Such sections will only be of interest to
 the completist or serious hacker.
 \end{ddanger}
 
+When a menu option is discussed, it will look like this:
+
+\menu{Menu option,Submenu option}
+
+
+
 
 \section{About this manual}
 
-This manual is a constantly-evolving work-in-progress.  Any
-suggestions for improvements, content, or comments on parts that do
-not make sense are welcome to \url{cth@carlh.net}.  
+This manual is a constantly-evolving work-in-progress.  In other
+words, it is not even close to being complete.  Any suggestions for
+improvements, content, or comments on parts that do not make sense are
+welcome to \url{cth@carlh.net}.
 
 \begin{danger}
 For those familiar with `git', the manual's \LaTeX\ source can be
@@ -128,6 +136,10 @@ If you join the IRC rooms, here are a few tips:
   what time of the day it is wherever they happen to be in the world.
   In particular, make sure you \emph{do} wait; do not get upset if you
   don't get an answer straight away.
+\item \emph{Don't be offended if no-one replies} --- although other
+  users may be logged into the channel, they may well be coding
+  Ardour, cooking, reading XKCD, cleaning their ostrabagalous devices,
+  or any number of other things.
 \item \emph{Don't paste large amounts of text into the channel} --- if
   you have more than a couple of lines of output from some command
   that you want to show everyone, use a site like \url{pastebin.com}.
@@ -411,6 +423,25 @@ This section gives an overview of Ardour's main interface elements.
 The first of Ardour's two main windows is the \emph{Editor}.  A
 typical editor window is shown in Figure~\ref{fig:typical-editor}.
 
+\begin{figure}[ht]
+\begin{center}
+\includegraphics[scale=0.75]{diagrams/editor-summary.pdf}
+\end{center}
+\caption{A typical editor window}
+\label{fig:typical-editor}
+\end{figure}
+
+The main bulk of the window is taken up with the timeline; this is the
+area in which regions and automation are displayed, with time moving
+from left to right.  The track controls area gives a set of controls
+for each track, for basic operations such as solo, mute and so on.
+The (optional) editor mixer is a single mixer strip which handles the
+currently-selected track, and is useful for tweaks to the mix without
+the need to move to the full mixer window.  At the bottom of the
+window is the `summary', which displays the whole session in a
+reduced-size form.
+
+\subsection{The mixer window}
 
 
 
@@ -459,8 +490,8 @@ that all sound cards and programs that it is connecting are running
 with synchronised sample clocks.  Arranging this is not easy if there
 are two cards; there will be two unsynchronised sample clocks.
 
-If you accept that using multiple sound cards is not going to make
-your life easy, and you want to do it anyway, there are a number of
+If you accept that using multiple sound cards is going to be
+difficult, and you want to do it anyway, there are a number of
 approaches.  These are described in Appendix~\ref{ap:advanced-jack}.
 
 \subsection{Will my sound card work?}
@@ -476,6 +507,9 @@ The easiest way to check on ALSA compatibility is to visit
 the ALSA soundcard matrix and describes ALSA's support for a variety
 of cards.  For FFADO, consult
 \url{http://www.ffado.org/?q=devicesupport/list}.
+
+For Mac OS~X, any card that is supported by the operating system
+should work fine.
 
 
 \subsection{JACK versions}
@@ -537,12 +571,13 @@ perfectly acceptable if you do not particularly care about latency.
 \begin{danger}
 The frames per period value governs how often JACK will talk to the
 sound card.  If, for example, JACK is set to 64 frames per period, the
-sound card will tell JACK when it has 64 new frames ready; JACK must
-then respond before the next 64 frames arrives.  This has the
-consequences that JACK is awoken more often, causing a greater CPU
-load, and that the requirements for JACK's response time are much more
-critical with smaller period sizes.  Some systems will struggle to wake
-JACK up in time, making larger period sizes more reliable on those systems.
+sound card will tell JACK when it has 64 new frames ready; JACK (and
+therefore Ardour) must then respond before the next 64 frames arrives.
+This has the consequences that JACK and Ardour are awoken more often,
+causing a greater CPU load, and that the requirements for JACK's
+response time are much more critical with smaller period sizes.  Some
+systems will struggle to wake JACK up in time, making larger period
+sizes more reliable on those systems.
 \end{danger}
 
 \subsubsection{Number of periods}
@@ -611,8 +646,8 @@ improves real-time performance.
 After making these changes you will need to log out and log back in
 again to see the effects.
 
-% Denormals
-% CPU frequency scaling
+\todo{Denormals?}
+\todo{CPU frequency scaling?}
 
 \subsection{I can play back but I cannot record, or vice versa}
 
@@ -700,7 +735,7 @@ something to record onto.  Choose \menu{Track,Add Track or Bus...}
 from the menu at the top of the editor window.  This will bring up a
 dialogue box, as shown in Figure~\ref{fig:quickstart-add-track-or-bus}.
 
-\screenshot{add-track-or-bus.png}{Add Track or Bus dialogue}{fig:quickstart-add-track-or-bus}
+\screenshot{add-track-or-bus.png}{`Add Track or Bus' dialogue}{fig:quickstart-add-track-or-bus}
 
 For now, leave the options as they are; this will create a single
 monophonic audio track.  This track must now be connected to the sound
@@ -896,7 +931,7 @@ These options are:
   number of input and outputs the track is set up with.  You can
   always change these counts later.
 \item Track mode (for audio tracks) --- this can be `normal', `non-layered' or `tape'.
-% XXX I don't know what non-layered or tape modes do
+\todo{I have no idea what non-layered nor tape modes do}
 \item Group --- tracks and busses can be put into groups so that a
   selected range of operations are applied to all members of a group
   at the same time (selecting record enable, or editing, for example).
@@ -1378,8 +1413,8 @@ just play back its contents from disk; the live input will never be
 monitored.
 
 
-% XXX some more rational explanation of why things are like this
-% XXX metering!
+\todo{Some more rational explanation of why things are like this}
+\todo{Metering!}
 
 
 \section{Tracks and busses in detail}
