@@ -126,6 +126,8 @@ If you join the IRC rooms, here are a few tips:
   considered rude to do so.  Then wait: your answer may come in
   seconds, minutes, hours or never, depending on who is around and
   what time of the day it is wherever they happen to be in the world.
+  In particular, make sure you \emph{do} wait; do not get upset if you
+  don't get an answer straight away.
 \item \emph{Don't paste large amounts of text into the channel} --- if
   you have more than a couple of lines of output from some command
   that you want to show everyone, use a site like \url{pastebin.com}.
@@ -483,7 +485,7 @@ maintained, and can be used as drop-in replacements for each other.
 JACK1 has version numbers like 0.121.3, and JACK2 (also known as
 jackdmp) has version numbers like 1.9.8.  Both implementations have
 their advantages and disadvantages.  It does not matter a great deal
-which one is used.
+which one you use.
 
 % XXX: unless what?
 
@@ -696,9 +698,9 @@ Figure~\ref{fig:new-session}.  Enter something like `test' and click
 The next step is to add a track to our session so that we have
 something to record onto.  Choose \menu{Track,Add Track or Bus...}
 from the menu at the top of the editor window.  This will bring up a
-dialogue box, as shown in Figure~\ref{fig:add-track-or-bus}.
+dialogue box, as shown in Figure~\ref{fig:quickstart-add-track-or-bus}.
 
-\screenshot{add-track-or-bus.png}{Add Track or Bus dialogue}{fig:add-track-or-bus}
+\screenshot{add-track-or-bus.png}{Add Track or Bus dialogue}{fig:quickstart-add-track-or-bus}
 
 For now, leave the options as they are; this will create a single
 monophonic audio track.  This track must now be connected to the sound
@@ -847,8 +849,74 @@ your session folder.
 \chapter{Tracks and busses}
 
 The basic building blocks of Ardour's signal flow are \emph{tracks}
-and \emph{busses}.  
+and \emph{busses}.
 
+Both are built on the same foundation; a bus's functionality is a
+subset of a track's.  Both can pass audio and MIDI data, apply
+processing and perform various signal routing operations.  The
+difference with a track is that can record and play back data.
+
+\section{Track and bus basics}
+
+\subsection{Types}
+
+An Ardour track can be either `audio' or `MIDI'.  The only real
+difference between the two is the type of data that the track will
+record and play back.  Either type of track can \emph{pass} either
+type of data.  Hence, for example, one might have a MIDI track that
+contains an instrument plugin; such a track would contain MIDI data,
+but would produce audio, since the instrument would turn the one into
+the other.
+
+In Ardour~3 busses are only used for audio.
+
+\subsection{Adding and removing tracks}
+
+A track or bus can be added to a session in various ways:
+
+\begin{itemize}
+\item Choose \menu{Track,Add Track or Bus\ldots} from the main menu.
+\item Right-click in an empty part of the track controls area.
+\item Click the $+$ button underneath the list of tracks in the mixer.
+\end{itemize}
+
+Any of these actions will open the \emph{Add Track or Bus} dialogue,
+as shown in Figure~\ref{fig:add-track-or-bus}.
+
+\screenshot{add-track-or-bus.png}{Add Track or Bus dialogue}{fig:add-track-or-bus}
+
+From here, you can select firstly the number of tracks or busses to
+add, and the type; audio track, MIDI track or bus.  There are also
+some options, which vary depending on the type of thing you are
+creating.
+
+These options are:
+\begin{itemize}
+\item Configuration (for audio tracks and busses) --- this is the
+  number of input and outputs the track is set up with.  You can
+  always change these counts later.
+\item Track mode (for audio tracks) --- this can be `normal', `non-layered' or `tape'.
+% XXX I don't know what non-layered or tape modes do
+\item Group --- tracks and busses can be put into groups so that a
+  selected range of operations are applied to all members of a group
+  at the same time (selecting record enable, or editing, for example).
+  This option allows you to specify an existing group to add the new
+  track(s) or bus(ses) to, or to create a new group to put the new
+  things in.
+\item Instrument (for MIDI tracks) --- this is a short-cut to allow you to create a MIDI
+  track with an instrument plugin already added to it.  You can
+  achieve the same effect by creating a MIDI track with no plugins and
+  adding it yourself; this option just makes things slightly quicker.
+\end{itemize}
+
+Adding tracks will add them to both the editor and mixer windows; the
+editor window shows the timeline, with any recorded data, and the
+mixer shows just the processing elements of the track (its plugins,
+fader and so on).
+
+Tracks and busses can be removed by selecting them, right-clicking and
+choosing `Remove' from the menu.  A warning dialogue will pop up, as
+\emph{track removal cannot be undone}; use this option with care!
 
 \chapter{Unfiled miscellany}
 
