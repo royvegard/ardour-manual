@@ -94,10 +94,10 @@ When a menu option is discussed, it will look like this:
 
 \section{About this manual}
 
-This manual is a constantly-evolving work-in-progress.  In other
-words, it is not even close to being complete.  Any suggestions for
-improvements, content, or comments on parts that do not make sense are
-welcome to \url{cth@carlh.net}.
+This manual is a work-in-progress.  In other words, it is not even
+close to being complete.  Any suggestions for improvements, content,
+or comments on parts that do not make sense are welcome to
+\url{cth@carlh.net}.
 
 \begin{danger}
 For those familiar with `git', the manual's \LaTeX\ source can be
@@ -442,19 +442,42 @@ window is the `summary', which displays the whole session in a
 reduced-size form.  At the top right is a bar of useful information
 about the state of the system.
 
-\subsubsection{The editor information bar}
+\subsubsection{The status bar}
 
 This contains the following things:
 \begin{itemize}
-\item DSP --- an estimate of the amount of time that Ardour is
+\item \textbf{File} --- the type of file that Ardour is using to record audio;
+  this can be change from the \emph{Media} tab of the Session
+  Properties dialogue (see Section
+  \ref{sec:session-properties-media}).
+\item \textbf{JACK} --- the sampling rate that JACK (and therefore Ardour) is
+  using, and the duration of one JACK period.
+\item \textbf{Buffers} --- how full the `playback buffers' are (prefixed `p'),
+  and how empty the `capture buffers' (prefixed `c').  The playback
+  buffers are areas of memory that Ardour uses to store audio and MIDI
+  data while it is being passed from the disk to the audio outputs;
+  Ardour tries to keep them full (so that there is always data
+  available for playback), but if you have a lot of tracks and (or)
+  slow disks, Ardour may not be able to keep up.  The higher the
+  playback buffer number is to 100\%, the better.  Similarly, as data
+  is being captured for record, Ardour tries to write it to disk; if
+  it cannot write the data quickly enough, the record buffers will
+  fill and problems will occur.
+\item \textbf{DSP} --- an estimate of the amount of time that Ardour is
   spending doing digital signal processing (DSP) of your session.  If
   this gets near 100\% it indicates that your system is being
-  overloaded, and you may get glitches or `pops' in your audio.  First steps to fixing this are:
+  overloaded, and you may get glitches or `pops' in your audio.  First
+  steps to fixing this are:
 \begin{itemize}
-\item Reduce the number of plugins you are using (especially complicated ones like reverbs).
+\item Reduce the number of plugins you are using (especially
+  complicated ones like reverbs).
 \item `Freeze' some tracks.
 \item Increase JACK's buffer size.
 \item Get a faster computer!
+\item \textbf{Disk} --- the amount of time for which you can record (on the
+  tracks that are currently record-enabled) given the amount of disk
+  space you have available.  If no tracks are record-enabled, the time
+  remaining is computed assuming that you are recording one track.
 \end{itemize}
 
 \begin{danger}
@@ -477,6 +500,9 @@ Many other things are involved in the timing of the sound-card / JACK
 system and kernel, the details of your hardware, and in some cases
 blind (good or bad) luck.
 \end{ddanger}
+
+\item And finally, the time (using the 24 hour clock), just in case
+  you have somewhere to be.
 \end{itemize}
 
 \subsection{The mixer window}
@@ -989,6 +1015,70 @@ Tracks and busses can be removed by selecting them, right-clicking and
 choosing `Remove' from the menu.  A warning dialogue will pop up, as
 \emph{track removal cannot be undone}; use this option with care!
 
+\chapter{Ardour Configuration}
+
+This chapter gives a reference to the ways in which Ardour's behaviour
+can be customised.
+
+\section{Per-session and global options}
+
+Options are split into two groups: \emph{session properties}
+(accessible from the \menu{Session,Properties} menu) and
+\emph{preferences} (accessible form the \menu{Edit,Preferences}).
+
+Session properties can be changed for each different session that you
+use.  The intention is that these properties are those whose best
+setting depends on the type of session you are working on.
+
+Preferences are options which apply to all sessions.  They are options
+which depend on your general style of working, and the set up of your
+audio system.
+
+\todo{You can make session properties sort of `sticky' by using template sessions}
+
+\section{Session properties}
+
+Session properties are arranged into five groups, whose contents are
+discussed below.
+
+\subsection{Timecode}
+\subsection{Fades}
+
+\subsection{Media}
+\label{sec:session-properties-media}
+
+The \emph{audio file format} section governs the sample format, bit
+depth and file type that Ardour will use when recording audio.  The
+sample format can be one of:
+
+\begin{itemize}
+\item 32-bit floating point --- this is the format that Ardour uses
+  internally for processing, and is the highest quality; it is,
+  arguably, of higher quality than is required for recording things.
+  The reason Ardour uses it internally is that processing 32-bit
+  floating point signals is efficient on modern processors, and the
+  high bit depth helps reduce potential problems caused by performing
+  processing operations on audio.
+\item 24-bit integer --- as the name suggests; this is a common
+  recording format as it offers a very high dynamic range (144dB,
+  without taking dither into account).
+\item 16-bit integer --- the bit depth used by standard audio CDs.
+\end{itemize}
+
+The file format can be one of:
+
+\begin{itemize}
+\item Broadcast WAVE --- an extension of the very common WAVE
+  (\texttt{.wav}) file format, often used in broadcast, which adds
+  some metadata to the standard WAVE format.
+\item WAVE --- the Microsoft WAVE format (commonly given a suffix of \texttt{.wav})
+\item WAVE-64 --- a version of WAVE that can handle files of greater than 4Gb in size.
+\item CAF --- Core Audio Format, as developed by Apple Computer for use on Mac OS~X.
+\end{itemize}
+
+\subsection{Monitoring}
+\subsection{Misc}
+
 \chapter{Unfiled miscellany}
 
 \section{MIDI binding maps}
@@ -1305,7 +1395,7 @@ Some processors are not shown on this list:
 \begin{itemize}
 \item The meter; a processor which assesses the level of the signal at
   its point in the processor chain.
-\item A sned to the main output.
+\item A send to the main output.
 \item A send to the monitor bus, if one is being used.
 \end{itemize}
 
