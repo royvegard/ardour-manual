@@ -8,6 +8,9 @@
 \newcommand{\key}[1]{\emph{\StrSubstitute{#1}{,}{ + }}}
 \newcommand{\directory}[1]{\texttt{#1}}
 \newcommand{\todo}[1]{\marginpar{\small\texttt{#1}}}
+\newcommand{\modone}{Control}
+\newcommand{\modtwo}{Alt}
+\newcommand{\modtertiary}{Shift}
 
 \newcommand{\screenshot}[3]{%
 \begin{figure}[ht]%
@@ -442,68 +445,8 @@ window is the `summary', which displays the whole session in a
 reduced-size form.  At the top right is a bar of useful information
 about the state of the system.
 
-\subsubsection{The status bar}
-
-This contains the following things:
-\begin{itemize}
-\item \textbf{File} --- the type of file that Ardour is using to record audio;
-  this can be change from the \emph{Media} tab of the Session
-  Properties dialogue (see Section
-  \ref{sec:session-properties-media}).
-\item \textbf{JACK} --- the sampling rate that JACK (and therefore Ardour) is
-  using, and the duration of one JACK period.
-\item \textbf{Buffers} --- how full the `playback buffers' are (prefixed `p'),
-  and how empty the `capture buffers' (prefixed `c').  The playback
-  buffers are areas of memory that Ardour uses to store audio and MIDI
-  data while it is being passed from the disk to the audio outputs;
-  Ardour tries to keep them full (so that there is always data
-  available for playback), but if you have a lot of tracks and (or)
-  slow disks, Ardour may not be able to keep up.  The higher the
-  playback buffer number is to 100\%, the better.  Similarly, as data
-  is being captured for record, Ardour tries to write it to disk; if
-  it cannot write the data quickly enough, the record buffers will
-  fill and problems will occur.
-\item \textbf{DSP} --- an estimate of the amount of time that Ardour is
-  spending doing digital signal processing (DSP) of your session.  If
-  this gets near 100\% it indicates that your system is being
-  overloaded, and you may get glitches or `pops' in your audio.  First
-  steps to fixing this are:
-\begin{itemize}
-\item Reduce the number of plugins you are using (especially
-  complicated ones like reverbs).
-\item `Freeze' some tracks.
-\item Increase JACK's buffer size.
-\item Get a faster computer!
-\item \textbf{Disk} --- the amount of time for which you can record (on the
-  tracks that are currently record-enabled) given the amount of disk
-  space you have available.  If no tracks are record-enabled, the time
-  remaining is computed assuming that you are recording one track.
-\end{itemize}
-
-\begin{danger}
-Every time JACK calls Ardour, to give it audio from inputs and take
-away audio from outputs, Ardour has until the next JACK call to do its
-processing.  The DSP load is the percentage of this available time
-that Ardour is taking up.  More than 100\% means that Ardour will not
-have performed one lot of processing before JACK asks it to do more,
-so the system is critically overloaded.  As suggested above, one can
-increase Ardour's chances of getting everything finished by increasing
-the period between JACK's calls (by increasing the JACK buffer size),
-or by reducing the amount of time Ardour requires to do its work (by
-reducing plugin count, or using faster hardware).
-\end{danger}
-
-\begin{ddanger}
-Note that DSP load will probably not vary predictably with CPU speed.
-Many other things are involved in the timing of the sound-card / JACK
-/ Ardour interaction; including the real-time performance of your
-system and kernel, the details of your hardware, and in some cases
-blind (good or bad) luck.
-\end{ddanger}
-
-\item And finally, the time (using the 24 hour clock), just in case
-  you have somewhere to be.
-\end{itemize}
+The operation of the editor window is described in more detail in
+Chapter~{\ref{ch:editor-window}.
 
 \subsection{The mixer window}
 
@@ -943,7 +886,210 @@ down to a WAV file and save it in the \directory{export} subdirectory of
 your session folder.
 
 
+\chapter{The editor window}
+\label{ch:editor-window}
+
+A typical Ardour editor window is shown in Figure~\ref{fig:typical-editor2}.
+
+\begin{figure}[ht]
+\begin{center}
+\includegraphics[scale=0.75]{diagrams/editor-summary.pdf}
+\end{center}
+\caption{A typical editor window}
+\label{fig:typical-editor2}
+\end{figure}
+
+This window is where audio and MIDI material can be viewed, edited and
+manipulated.  It offers a view of your session as it progresses in
+time, and allows the constituent parts (tracks, regions, playlists and
+so on) to be manipulated.  The contents of the main body of the window
+represent the session's tracks and busses, the functionality of which
+is discussed in Chapter~\ref{ch:tracks-and-busses}.
+
+The remainder of this chapter discusses the other parts of the editor window.
+
+
+\section{The playhead}
+
+The red vertical line with arrow heads at either end is the called the
+`playhead'.  The playhead position is used in a few different ways,
+but the most obvious is that it lies at the point in time at which
+Ardour is currently playing back or recording (or would be, were play
+or record to be started).  It is also used in some editing operations,
+as we will discuss later.
+
+
+\section{The toolbar}
+
+\section{Clocks}
+
+\section{Times area}
+
+\section{Zoom controls}
+
+\section{Grid controls}
+
+\section{Edit point selector}
+
+\section{Nudge controls}
+
+\section{The editor lists}
+
+\section{Other buttons}
+
+\todo{Metronome}
+\todo{Solo}
+\todo{Audition}
+\todo{Feedback}
+
+
+\section{The transport controls}
+
+Ardour uses the term `transport' in a sense that might be similar to
+those who have used tape machines.  The transport is said to be
+`moving' (or `rolling', \`a la tape) when Ardour is playing back or
+recording, and `stopped' when it is not.  The transport can be
+controlled using the buttons shown in
+Figure~\ref{fig:transport-controls2}.
+
+\screenshot{transport-controls.png}{Main transport controls}{fig:transport-controls2}
+
+From left to right, these controls are:
+\begin{itemize}
+\item \includegraphics[scale=0.5]{screenshots/midi-panic.png} ---
+  \textbf{MIDI panic} --- click this to send note-offs and reset
+  controller messages on all MIDI channels.  This is useful if, for
+  example, a MIDI synthesizer has a stuck note and you want to silence
+  it.
+\item \includegraphics[scale=0.5]{screenshots/go-to-start.png} ---
+  \textbf{Start of session} --- moves the playhead to the session
+  start marker.
+\item \includegraphics[scale=0.5]{screenshots/go-to-end.png} ---
+  \textbf{End of session} --- moves the playhead to the session
+  end marker.
+\item \includegraphics[scale=0.5]{screenshots/loop.png} ---
+  \textbf{Play loop} --- this starts playback in looped mode, so that
+  the current loop range will be played repeatedly.
+\item \includegraphics[scale=0.5]{screenshots/play-range.png} ---
+  \textbf{Play range or selection} --- \todo{I don't know what this
+    does exactly}.
+\item \includegraphics[scale=0.5]{screenshots/play.png} ---
+  \textbf{Play} --- this starts playback of the session from wherever
+  the playhead currently is (in other words, it sets the transport
+  `rolling', or moving)
+\item \includegraphics[scale=0.5]{screenshots/stop.png} ---
+  \textbf{Stop} --- this stops playback or record.
+\item \includegraphics[scale=0.5]{screenshots/record.png} ---
+  \textbf{Record} --- if this is clicked so that it flashes red,
+  Ardour will record onto record-enabled tracks when the transport is
+  moving.
+\end{itemize}
+
+
+\section{The summary}
+
+The summary area of the editor window gives an overview of your entire
+session.  No matter how long the session is, or how many tracks it
+has, the summary will arrange itself so that the entire session is
+represented within it.  Inside the summary, tracks are represented as
+light-grey bars, regions as coloured bars, the playhead as a vertical
+red line and the session start and end markers as vertical yellow
+lines.  On top of the summary is drawn a light-grey translucent box
+(the `view box') which indicates the part of the session that is
+currently visible in the main part of the editor window.
+
+The summary is intended for two main purposes: firstly, to get an idea
+of the whole session at a glance, and secondly to navigate around it
+easily.  You can use the summary to do the following things:
+
+\begin{itemize}
+\item Dragging the view box around will move the view of the session
+  in the main editor window.
+\item Resizing the view box (by clicking and dragging on its edges)
+  will zoom into or out of the session.
+\item Clicking with \modtwo\ held down will move the playhead to the
+  click position.
+\item Clicking with \modtertiary\ held down will centre the editor's
+  view at the click position.
+\item Moving the mouse's scroll-wheel will scroll the editor's view.
+\item Moving the mouse's scroll-wheel with \modone\ held down will
+  zoom the editor's view in or out.
+\item Moving the mouse's scroll-wheel with \modtwo\ held down will
+  scroll the editor's view left or right.
+\end{itemize}
+
+
+\subsubsection{The status bar}
+
+This contains the following things:
+\begin{itemize}
+\item \textbf{File} --- the type of file that Ardour is using to record audio;
+  this can be change from the \emph{Media} tab of the Session
+  Properties dialogue (see Section
+  \ref{sec:session-properties-media}).
+\item \textbf{JACK} --- the sampling rate that JACK (and therefore Ardour) is
+  using, and the duration of one JACK period.
+\item \textbf{Buffers} --- how full the `playback buffers' are (prefixed `p'),
+  and how empty the `capture buffers' (prefixed `c').  The playback
+  buffers are areas of memory that Ardour uses to store audio and MIDI
+  data while it is being passed from the disk to the audio outputs;
+  Ardour tries to keep them full (so that there is always data
+  available for playback), but if you have a lot of tracks and (or)
+  slow disks, Ardour may not be able to keep up.  The higher the
+  playback buffer number is to 100\%, the better.  Similarly, as data
+  is being captured for record, Ardour tries to write it to disk; if
+  it cannot write the data quickly enough, the record buffers will
+  fill and problems will occur.
+\item \textbf{DSP} --- an estimate of the amount of time that Ardour is
+  spending doing digital signal processing (DSP) of your session.  If
+  this gets near 100\% it indicates that your system is being
+  overloaded, and you may get glitches or `pops' in your audio.  First
+  steps to fixing this are:
+\begin{itemize}
+\item Reduce the number of plugins you are using (especially
+  complicated ones like reverbs).
+\item `Freeze' some tracks.
+\item Increase JACK's buffer size.
+\item Get a faster computer!
+\end{itemize}
+
+\begin{danger}
+Every time JACK calls Ardour, to give it audio from inputs and take
+away audio from outputs, Ardour has until the next JACK call to do its
+processing.  The DSP load is the percentage of this available time
+that Ardour is taking up.  More than 100\% means that Ardour will not
+have performed one lot of processing before JACK asks it to do more,
+so the system is critically overloaded.  As suggested above, one can
+increase Ardour's chances of getting everything finished by increasing
+the period between JACK's calls (by increasing the JACK buffer size),
+or by reducing the amount of time Ardour requires to do its work (by
+reducing plugin count, or using faster hardware).
+\end{danger}
+
+\begin{ddanger}
+Note that DSP load will probably not vary predictably with CPU speed.
+Many other things are involved in the timing of the sound-card / JACK
+/ Ardour interaction; including the real-time performance of your
+system and kernel, the details of your hardware, and in some cases
+blind (good or bad) luck.
+\end{ddanger}
+
+\item \textbf{Disk} --- the amount of time for which you can record (on the
+  tracks that are currently record-enabled) given the amount of disk
+  space you have available.  If no tracks are record-enabled, the time
+  remaining is computed assuming that you are recording one track.
+\item And finally, the time (using the 24 hour clock), just in case
+  you have somewhere to be.
+\end{itemize}
+
+
+\chapter{The mixer window}
+
+
+
+
 \chapter{Tracks and busses}
+\label{ch:tracks-and-busses}
 
 The basic building blocks of Ardour's signal flow are \emph{tracks}
 and \emph{busses}.
@@ -1024,7 +1170,7 @@ can be customised.
 
 Options are split into two groups: \emph{session properties}
 (accessible from the \menu{Session,Properties} menu) and
-\emph{preferences} (accessible form the \menu{Edit,Preferences}).
+\emph{preferences} (accessible from the \menu{Edit,Preferences}).
 
 Session properties can be changed for each different session that you
 use.  The intention is that these properties are those whose best
