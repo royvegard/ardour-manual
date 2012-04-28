@@ -1,6 +1,12 @@
 \documentclass[10pt,a4paper]{book}
 
-\usepackage{ardour,graphicx,afterpage,url,xstring,xcolor,titlepic}
+\usepackage{ardour,graphicx,afterpage,url,xstring,xcolor,titlepic,makeidx}
+\makeindex
+
+% XXX
+% solo/mute model
+% external sync
+% connection management/routing
 
 % XXX: format
 \newcommand{\button}[1]{#1}
@@ -120,6 +126,7 @@ resources, including a list of frequently-asked questions, a forum and
 a bug and feature request tracker.
 
 \subsection{IRC}
+\index{IRC}
 
 Ardour's core developers and several key users are usually to be found
 on Internet Relay Chat (IRC) on \url{irc.freenode.net} in \#ardour and
@@ -281,6 +288,7 @@ overview of Ardour.
 
 
 \section{JACK}
+\index{JACK}
 
 Ardour is built on another piece of software called JACK\footnote{JACK
   stands for the JACK Audio Connection Kit; a pleasingly recursive acronym}.
@@ -305,6 +313,7 @@ This section briefly describes some of these concepts.
 
 
 \subsection{Sessions}
+\index{session}
 
 An Ardour \emph{session} is a container for an entire project.  A
 session may contain an arbitrary number of tracks and busses
@@ -335,6 +344,7 @@ without specifying one, it will offer to load or create one.
 
 
 \subsection{Tracks}
+\index{track}
 
 A track is a concept common to most DAWs, and used also in Ardour.
 Tracks can record audio or MIDI data to disk, and then replay it with
@@ -360,6 +370,7 @@ MIDI, its output may be audio-only.
 
 
 \subsection{Regions}
+\index{region}
 
 A track may contain many segments of audio or MIDI\@.  Ardour contains
 these segments in things called \emph{regions}, which are
@@ -370,6 +381,7 @@ may be moved around, split, trimmed, copied, and so on.
 
 
 \subsection{Playlists}
+\index{playlist}
 
 The details of what exactly each track should play back is described
 by a \emph{playlist}.  A playlist is simply a list of regions; each
@@ -378,6 +390,7 @@ which can be switched in and out as required.
 
 
 \subsection{Busses}
+\index{bus}
 
 Busses are another common concept in both DAWs and hardware mixers.
 They are similar in many ways to tracks; they process audio or MIDI,
@@ -393,6 +406,7 @@ equalisation or compression) can be applied to the mix of all tracks.
 
 
 \subsection{Plugins}
+\index{plugin}
 
 Ardour allows you to process audio and MIDI using any number of
 \emph{plugins}.  These are external pieces of code, commonly seen as
@@ -403,11 +417,11 @@ plugin support is for the following standards:
 \begin{itemize}
 \item LADSPA\footnote{An acronym of ``Linux Audio Developers' Simple
   Plugin API''} --- the first major plugin standard for Linux.  Many
-  LADSPA plugins are availble, mostly free and open-source.
+  LADSPA plugins are availble, mostly free and open-source. \index{LADSPA}
 \item LV2 --- the successor to LADSPA.  Lots of plugins have been
-  `ported' from LADSPA to LV2, and also many new plugins written.
-\item VST --- Ardour supports VST plugins that have been compiled for Linux.
-\item AU --- Mac OS~X versions of Ardour support AudioUnit (AU) plugins.
+  `ported' from LADSPA to LV2, and also many new plugins written. \index{LV2}
+\item VST --- Ardour supports VST plugins that have been compiled for Linux. \index{VST}
+\item AU --- Mac OS~X versions of Ardour support AudioUnit (AU) plugins. \index{AU}
 \end{itemize}
 
 Ardour has some support for running Windows~VST plugins on Linux, but
@@ -422,6 +436,7 @@ VST plugins on Linux, or AU on Mac OS~X\@.
 This section gives an overview of Ardour's main interface elements.
 
 \subsection{The editor window}
+\index{editor}
 
 The first of Ardour's two main windows is the \emph{Editor}.  A
 typical editor window is shown in Figure~\ref{fig:typical-editor}.
@@ -449,9 +464,11 @@ The operation of the editor window is described in more detail in
 Chapter~{\ref{ch:editor-window}.
 
 \subsection{The mixer window}
+\index{mixer}
 
 \chapter{JACK}
 \label{ch:jack}
+\index{JACK}
 
 \section{Introduction}
 
@@ -596,10 +613,10 @@ trying 3 here if problems are experienced.
 
 \subsection{I am getting lots of xruns!}
 
-An \emph{xrun} is JACK's way of saying that the sound card wanted
-attention, but JACK could not provide it quickly enough.  The causes
-of xruns are many and various.  The remainder of this section lists
-some common causes of xruns.
+An \emph{xrun} \index{xrun} is JACK's way of saying that the sound
+card wanted attention, but JACK could not provide it quickly enough.
+The causes of xruns are many and various.  The remainder of this
+section lists some common causes of xruns.
 
 
 \subsubsection{Buffer size or period count too small}
@@ -888,6 +905,7 @@ your session folder.
 
 \chapter{The editor window}
 \label{ch:editor-window}
+\index{editor}
 
 A typical Ardour editor window is shown in Figure~\ref{fig:typical-editor2}.
 
@@ -910,6 +928,7 @@ The remainder of this chapter discusses the other parts of the editor window.
 
 
 \section{The playhead}
+\index{playhead}
 
 The red vertical line with arrow heads at either end is the called the
 `playhead'.  The playhead position is used in a few different ways,
@@ -920,6 +939,7 @@ as we will discuss later.
 
 
 \section{The toolbar}
+\index{toolbar}
 
 The toolbar is a set of buttons that change the way the mouse and
 keyboard interact with the regions on the tracks, in order to perform
@@ -967,6 +987,9 @@ more detail on their operation later.
   select and move MIDI notes rather than the regions that the notes
   are in.
 \end{itemize}
+
+\section{Rulers}
+
 
 \section{Clocks}
 
@@ -1018,6 +1041,7 @@ to indicate that the corresponding punch is switched on.
 \section{Edit point selector}
 
 \section{Zoom controls}
+\index{zoom}
 
 The zoom controls are shown in Figure~\ref{fig:zoom-controls}.
 
@@ -1049,17 +1073,170 @@ should display after the zoom.  These reference points are as follows:
 \end{itemize}
 
 \section{Grid controls}
+\index{grid}
+
+Ardour has an optional `grid' which can be used to align things
+precisely in time.  The grid can either be disabled (by choosing `No
+Grid' from the drop-down box), fully enabled (`Grid') or 'Magnetic'.
+When the grid is fully enabled, any object that is moved (regions,
+MIDI notes or automation points, for example) will be forcibly snapped
+to the grid.  In `magnetic' mode, it is possible to move things off
+the grid, but when they get close to a grid intersection they will be
+snapped.
+
+Next to the grid on/off drop-down box is a selector for the interval
+to snap to.  There are a large variety of options here, most of which
+are self explanatory.  `Region starts/ends/syncs/bounds' snaps to
+various parts of existing regions, which can be useful when alignment
+needs to be relative to existing material rather than some arbitrary
+grid.
 
 \section{Nudge controls}
+\index{nudge}
+
+The nudge controls allow objects to be `nudged', or moved by a fixed
+amount backward or forward.  The left and right buttons move currently
+selected things either backward or forward in time, and the small
+clock to the left of these buttons sets the amount of time to nudge
+by.  As with all other clocks, you can right-click on the clock to
+choose the time representation you want to use.
 
 \section{The editor lists}
 
+At the right of the editor is an optional area which provides one of a
+range of useful lists of parts of your session.  The list can be
+hidden or shown using the \menu{View,Show Editor List} menu item.  The
+very right-hand side of the list gives a selection of tabs which are
+used to choose the list to view.  The left-hand border of the list can
+be dragged to vary the width of the list.
+
+\subsection{Region list}
+\index{region list}
+
+The region list shows all the regions in the session.  The left-hand
+column gives the region name, and there are a range of times given for
+information.  At the right of the list are four columns of flags that can be altered:
+
+\begin{itemize}
+\item \textbf{L} --- whether the region position is locked, so that it
+  cannot be moved.
+\item \textbf{G} --- whether the region's position is `glued' to bars
+  and beats.  If so, the region will stay at the same position in bars
+  and beats even if the tempo and/or time signature change.
+\item \textbf{M} --- whether the region is muted, so that it will not be heard.
+\item \textbf{O} --- whether the region is opaque; opaque regions
+  `block' regions below them from being heard, whereas `transparent'
+  regions have their contents mixed with whatever is underneath.
+\end{itemize}
+
+Hovering the mouse pointer over a column heading shows a tool-tip
+which can be handy to remember what the columns are for.
+
+\subsection{Tracks \& Busses}
+
+This lists the tracks and busses that are present in the session.  The
+list order reflects the order in the editor, and you can drag-and-drop
+track or bus names in the editor list to re-order them in the editor.
+The columns in the list can all be clicked to alter the track/bus
+state, and they represent the following:
+
+\begin{itemize}
+\item \textbf{V} --- whether the track or bus is visible; they can be
+  hidden, in which case they will still play, but just not be visible
+  in the editor; this can be useful for keeping the display uncluttered.
+\item \textbf{A} --- whether the track or bus is active; unactive
+  tracks will not play, and will not consume any CPU\@.
+\item \textbf{I} --- for MIDI tracks, whether the MIDI input is
+  enabled; this dictates whether MIDI data from the track's inputs
+  ports will be passed through the track.
+\item \textbf{R} --- whether the track is record-enabled.
+\item \textbf{M} --- whether the track is muted.
+\item \textbf{S} --- track solo state.
+\item \textbf{SI} --- track solo-isolated state.
+\item \textbf{SS} --- solo safe state.
+\end{itemize}
+
+As with the region list, hovering the mouse pointer over a column
+heading shows a tool-tip which can be handy to remember what the
+columns are for.
+
+\subsection{Snapshots}
+\index{snapshot}
+
+This list gives the snapshots that exist of this session.  Clicking on
+a snapshot name will load that snapshot.
+
+\subsection{Track \& Bus Groups}
+
+This shows the track/bus groups that exist in the session.  These
+groups allow related tracks to share various properties (such as mute
+or record enable state).  For full details, see
+Section~\ref{sec:track-and-bus-groups}.
+
+The columns in this list are as follows:
+
+\begin{itemize}
+\item \textbf{Col} --- the colour that the group uses for its tab in
+  the editor.
+\item \textbf{Name} --- the group name.
+\item \textbf{V} --- whether the tracks and busses in the group are visible.
+\item \textbf{On} --- whether the group is enabled.
+\item \textbf{G} --- ticked if the constituents of the group are sharing gain settings.
+\item \textbf{Rel} --- ticked if shared gains are relative.
+\item \textbf{M} --- ticked if the constituents share mute status.
+\item \textbf{S} --- ticked if the constituents share solo status.
+\item \textbf{Rec} --- ticked if the constituents share record-enable status.
+\item \textbf{Mon} --- whether the constituents share monitor settings.
+\item \textbf{Sel} --- whether the constituents are selected together.
+\item \textbf{E} --- whether edits to the constituents are performed to all others.
+\item \textbf{A} --- whether the constituents share active status.
+\end{itemize}
+
+\subsection{Ranges \& Marks}
+
+This lists the ranges and markers that exist in the session, and
+allows them to be edited.  First, there is the current loop and punch
+range; there are three clocks, being the start of the range, the end
+of the range and the length of the range.  The start and end points
+have a `Use PH' button beside them, which you can click to set the
+corresponding position using the current position of the playhead.
+
+Following this is a list of the session's markers, and finally there
+is a list of the range markers.
+
+At the bottom of the list are buttons to add new markers or ranges.
+
+The $-$ button beside each marker and range allows that particular
+mark to be removed.
+
 \section{Other buttons}
 
+The editor window contains a few other buttons, which are described here.
+
+\subsection{Solo}
+
+This button flashes red if any tracks are soloed, and you can click it
+to turn off all solos.
+
+\subsection{Feedback}
+\index{feedback}
+
+It is possible to connect things up so that there are feedback loops;
+a simple example might be connecting the output of a track to its
+input, but obviously there are much more convoluted arrangements
+possible.  Ardour detects any feedback that exists, and will keep its
+signal processing pathways in the state they were in just before the
+feedback was introduced.  If Ardour is doing this, it flashes the
+feedback button to let you know that the routing in effect may not be
+what the user interface is showing.  You should remove the feedback
+path, upon which this light will stop flashing.
+
+
 \todo{Metronome}
-\todo{Solo}
 \todo{Audition}
-\todo{Feedback}
+\todo{Internal}
+\todo{Auto Play}
+\todo{Auto Return}
 
 
 \section{The transport controls}
@@ -1137,6 +1314,8 @@ easily.  You can use the summary to do the following things:
   scroll the editor's view left or right.
 \end{itemize}
 
+The left, right, up and down buttons to either side of the summary
+allow the editor window to be scrolled in each direction.
 
 \subsubsection{The status bar}
 
@@ -1200,6 +1379,11 @@ blind (good or bad) luck.
 \item And finally, the time (using the 24 hour clock), just in case
   you have somewhere to be.
 \end{itemize}
+
+The various parts of the status bar can be shown or hidden by
+right-clicking and choosing the elements that you want to see.  This
+can be useful for reducing the editor window's width for use on small
+screens.
 
 
 \chapter{The mixer window}
@@ -1279,6 +1463,9 @@ fader and so on).
 Tracks and busses can be removed by selecting them, right-clicking and
 choosing `Remove' from the menu.  A warning dialogue will pop up, as
 \emph{track removal cannot be undone}; use this option with care!
+
+\section{Track and bus groups}
+\label{sec:track-and-bus-groups}
 
 \chapter{Ardour Configuration}
 
@@ -2131,7 +2318,7 @@ device for playback and capture).
 \end{enumerate}
 
 
-
+\printindex
 \end{document}
 
 

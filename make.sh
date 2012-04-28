@@ -10,7 +10,10 @@ for f in graphics/*.svg; do
     inkscape -z -f $f --export-pdf $g --export-area-drawing
 done
 
-pdflatex ardour.tex && pdflatex ardour.tex && pdflatex ardour.tex
+pdflatex ardour.tex
+makeindex ardour
+pdflatex ardour.tex
+pdflatex ardour.tex
 
 if [ "$1" == "-d" ]; then
     evince ardour.pdf
