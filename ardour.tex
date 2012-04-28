@@ -921,15 +921,134 @@ as we will discuss later.
 
 \section{The toolbar}
 
+The toolbar is a set of buttons that change the way the mouse and
+keyboard interact with the regions on the tracks, in order to perform
+different tasks.
+
+Figure~\ref{fig:toolbar-annotated} shows the buttons on the toolbar.
+
+\begin{figure}[ht]
+\begin{center}
+\includegraphics{diagrams/toolbar-annotated.pdf}
+\end{center}
+\caption{The Ardour toolbar}
+\label{fig:toolbar-annotated}
+\end{figure}
+
+We will examine the broad function of these tools here, and go into
+more detail on their operation later.
+
+\begin{itemize}
+\item \textbf{Select/move objects} (shortcut key `o') --- used to mark
+  regions or MIDI notes as `selected', and to move them around (in
+  time, or to a different track, or to a different note in the case of
+  MIDI).
+\item \textbf{Smart mode} --- this provides a combination of the
+  functionality of `select/move objects' and `select/move ranges'
+  which may be familiar to users of Pro~Tools.
+\item \textbf{Select/move ranges} (shortcut key `r') --- used to mark
+  ranges of time and to manipulate them.
+\item \textbf{Zoom range} (shortcut key `z') --- this provides a mode whereby a time
+  range can be dragged with the mouse, and the editor window will zoom
+  to show that time range.
+\item \textbf{Region gain} (shortcut key `g') --- used to edit audio
+  gain curves on regions.
+\item \textbf{Stretch/shrink} (shortcut key `t') --- allows stretching
+  or shrinking of regions in time (using time-stretching /
+  pitch-shifting algorithms) or MIDI notes.
+\item \textbf{Listen} -- \todo{}
+\item \textbf{Draw/edit MIDI notes} --- used to draw new MIDI notes
+  into MIDI regions, or change the length of those that are already
+  there.
+\item \textbf{Edit region contents} (shortcut key `e') --- this is a
+  kind of `modifier' for the other tools.  When selected, it means
+  that the other tools will operate on region \emph{contents} rather
+  than the regions themselves.  For example, the select/move tool will
+  select and move MIDI notes rather than the regions that the notes
+  are in.
+\end{itemize}
+
 \section{Clocks}
+
+This area contains two clocks, the primary and secondary.  They both
+show the location of the playhead, but can be set to different time
+representations.  By default, for example, the primary clock shows
+position as a time-code, and the secondary shows bars, beats and
+ticks.
+
+Right-clicking on a clock pops up a menu from which you can choose the
+time representation from one of the following:
+
+\begin{itemize}
+\item \textbf{Timecode} --- shows time as
+  hours:minutes:seconds:frames.  The number of frames per second is
+  set by the session property `timecode frames-per-second' (see
+  Section~\ref{sec:session-properties-timecode}.
+\item \textbf{Bars:Beats} --- shows time as bars|beats|ticks (there
+  are 1920 ticks per beat).
+\item \textbf{Minutes:Seconds} --- shows time as
+  hours:minutes:seconds:milliseconds.
+\item \textbf{Samples} --- shows time as samples (according to the
+  sampling rate that JACK is using).
+\end{itemize}
+
+In addition to the time, the clock shows some other information.
+
+When set to `timecode', the clock also shows the timecode reference
+source; this defaults to `INT' for internal, but can also be `JACK' if
+JACK is the timecode reference, `MTC' if Ardour is syncing to MIDI
+time-code or `M-Clock' if Ardour is synced to MIDI clock.  To the
+right of the timecode reference is the number of frames per second
+(suffixed by `D') if drop-frame is being used.
+
+In `Bars:Beats' mode, the area underneath the time shows the tempo (in
+beats per minute) and time signature that are currently in effect.
 
 \section{Times area}
 
-\section{Zoom controls}
-
-\section{Grid controls}
+The times area of the editor window shows a few useful bits of
+information about any current selection and punch in/out range.  The
+`selection' area shows the start, end and length of anything that is
+currently selected (which may be a set of regions, a time range, or
+whatever).  The `punch' area shows the punch range, and also whether
+punch in and punch out are enabled; clicking `In' or `Out' will enable
+punch in and out respectively, and the buttons will turn red in colour
+to indicate that the corresponding punch is switched on.
 
 \section{Edit point selector}
+
+\section{Zoom controls}
+
+The zoom controls are shown in Figure~\ref{fig:zoom-controls}.
+
+\begin{figure}[ht]
+\begin{center}
+\includegraphics{diagrams/zoom-controls.pdf}
+\end{center}
+\caption{The zoom controls}
+\label{fig:zoom-controls}
+\end{figure}
+
+The zoom in and out controls zoom the editor window in and out in
+terms of time; the `zoom to session' button zooms the editor window so
+that the whole session is visible.  The `zoom focus button' selects
+a reference point to decide which part of the session the editor window
+should display after the zoom.  These reference points are as follows:
+\begin{itemize}
+\item \textbf{Left} --- the left-hand side of the editor window
+  remains at the same point in time.
+\item \textbf{Right} --- the right-hand side of the editor window
+  remains at the same point in time.
+\item \textbf{Center} --- the centre of the editor window
+  remains at the same point in time.
+\item \textbf{Playhead} --- the playhead will be kept in the centre of
+  the editor window (where possible).
+\item \textbf{Mouse} --- the point of the session that the mouse
+  pointer is over will be kept at the same point in the editor window.
+\item \textbf{Edit point} --- the current edit point will be used as a reference.
+\end{itemize}
+
+\section{Grid controls}
 
 \section{Nudge controls}
 
@@ -971,8 +1090,8 @@ From left to right, these controls are:
   \textbf{Play loop} --- this starts playback in looped mode, so that
   the current loop range will be played repeatedly.
 \item \includegraphics[scale=0.5]{screenshots/play-range.png} ---
-  \textbf{Play range or selection} --- \todo{I don't know what this
-    does exactly}.
+  \textbf{Play range or selection} --- if there is a selected time
+  range, it will be played back. 
 \item \includegraphics[scale=0.5]{screenshots/play.png} ---
   \textbf{Play} --- this starts playback of the session from wherever
   the playhead currently is (in other words, it sets the transport
@@ -1188,6 +1307,9 @@ Session properties are arranged into five groups, whose contents are
 discussed below.
 
 \subsection{Timecode}
+\label{sec:session-properties-timecode}
+
+
 \subsection{Fades}
 
 \subsection{Media}
