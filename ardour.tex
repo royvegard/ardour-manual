@@ -703,6 +703,7 @@ JACK up to use multiple sound cards, as discussed in
 Appendix~\ref{ap:advanced-jack}.
 
 
+
 % ====================================================================================
 % QUICK START
 % ====================================================================================
@@ -1491,7 +1492,7 @@ screens.
 % Audio vs. MIDI
 
 The second of Ardour's two main windows is the \emph{mixer}.  A
-typical editor window is shown in Figure~\ref{fig:mixer-summary}.
+typical mixer window is shown in Figure~\ref{fig:mixer-summary}.
 
 \begin{figure}[ht]
 \begin{center}
@@ -1839,13 +1840,21 @@ monitored.
 
 
 
+
+
+
+
+% ====================================================================================
+% TRACKS AND BUSSES
+% ====================================================================================
+
 \chapter{Tracks and busses}
 \label{ch:tracks-and-busses}
 
-The basic building blocks of Ardour's signal flow are \emph{tracks}
+The basic building blocks of Ardour's sessions are \emph{tracks}
 and \emph{busses}.
 
-Both are built on the same foundation; a bus's functionality is a
+Both are built on the same foundation; a bus functionality is a
 subset of a track's.  Both can pass audio and MIDI data, apply
 processing and perform various signal routing operations.  The
 difference with a track is that can record and play back data.
@@ -1897,10 +1906,11 @@ These options are:
   This option allows you to specify an existing group to add the new
   track(s) or bus(ses) to, or to create a new group to put the new
   things in.
-\item Instrument (for MIDI tracks) --- this is a short-cut to allow you to create a MIDI
-  track with an instrument plugin already added to it.  You can
-  achieve the same effect by creating a MIDI track with no plugins and
-  adding it yourself; this option just makes things slightly quicker.
+\item Instrument (for MIDI tracks) --- this is a short-cut to allow
+  you to create a MIDI track with an instrument plugin already added
+  to it.  You can achieve the same effect by creating a MIDI track
+  with no plugins and adding it yourself; this option just makes
+  things slightly quicker.
 \end{itemize}
 
 Adding tracks will add them to both the editor and mixer windows; the
@@ -1911,6 +1921,7 @@ fader and so on).
 Tracks and busses can be removed by selecting them, right-clicking and
 choosing `Remove' from the menu.  A warning dialogue will pop up, as
 \emph{track removal cannot be undone}; use this option with care!
+
 
 \section{Track and bus groups}
 \label{sec:track-and-bus-groups}
@@ -1987,15 +1998,302 @@ Finally, \menu{Fit to Window} will zoom the member tracks so that they
 fill the editor window.
 
 
+\section{Tracks and busses in the editor window}
+
+When a track or bus is added to a session it is given a representation
+in both the editor and the mixer windows.  Broadly speaking, the
+editor window shows the track's timeline, and the mixer window its
+signal processing.
+
+On the left of a track or bus in the editor is the controls area.  The
+contents of this area are different for audio tracks, MIDI tracks and busses.
+
+\subsection{Busses}
+
+A typical control area for a bus is shown in
+Figure~\ref{fig:typical-bus-controls}.
+
+\screenshot{typical-bus-controls.png}{Controls for a typical bus}{fig:typical-bus-controls}
+
+At the top-left of the controls is the name of the bus.  This can be
+edited directly to whatever is suitable, although the name must be
+unique within the session.  Underneath the name is a copy of the bus'
+main level fader.  The control buttons to the right-hand side are:
+
+\begin{itemize}
+\item \textbf{`m'} --- mute --- left-click to mute the bus.
+  Right-click to display a menu which dictates what particular parts
+  of the bus should be muted. \todo{detail of muting options}
+\item \textbf{`s'} --- solo --- solo the bus.  The behaviour of the
+  solo system is described in detail in Section~\ref{todo}.
+\item \textbf{`a'} --- automation --- click to open a menu related to
+  automation for the bus.  Automation is covered in Chapter~\ref{ch:automation}.
+\item \textbf{`g'} --- group --- click to open a menu related to the
+  bus' group, as discussed in Section~\ref{sec:track-and-bus-groups} above.
+\end{itemize}
+
+
+\subsection{Audio tracks}
+
+A typical control area for an audio track is shown in Figure~\ref{fig:typical-audio-track-controls}.
+
+\screenshot{typical-audio-track-controls.png}{Controls for a typical audio track}{fig:typical-audio-track-controls}
+
+An audio track has the same controls as a bus, with the addition of
+two extras.  The red button with the pink circle is the track's
+\emph{record enable}.  When this is clicked it will gain a bright red
+outline, and the track will then be recorded onto when the main
+session record enable is turned on with the transport rolling.
+
+The `p' control below the record enable will open a playlist menu when
+clicked.  The menu offers various operations related to the track's
+\emph{playlist}.  This, as you will recall, is simply a list of the
+regions that the track should play.  Playlists may be swapped on a
+given track, and may be used by more than one track at the same time.
+They are often useful to keep different takes, for example, or to
+allow one set of regions to be played off two tracks with different
+processing.
+
+\todo{playlist menu details}
+
+
+\subsection{MIDI tracks}
+
+A typical control area for a MIDI track is shown in Figure~\ref{fig:typical-midi-track-controls}.
+
+\begin{figure}[ht]
+\begin{center}
+\includegraphics{diagrams/typical-midi-track-controls.pdf}
+\end{center}
+\caption{Typical MIDI track controls}
+\label{fig:typical-midi-track-controls}
+\end{figure}
+
+The MIDI track example is shown at a greater height than the other
+examples, as with MIDI tracks there are some control elements which
+only appear when there is sufficient vertical space to fit them in.
+
+A MIDI track has the same basic controls as an audio track, with the
+addition of two extra elements.  The set of buttons below the main
+track controls controls the MIDI channels that should be visible in
+the editor.  A MIDI track's data may span any number of the 16
+available MIDI channels, and sometimes it is useful to view only a
+subset of those channels; different instruments may, for example, be
+put on different MIDI channels.  Clicking on a channel number toggles
+its visibility.
+
+\todo{What does Force do}
+
+To the right of the MIDI track controls is a representation of a piano
+keyboard called the `scroomer'.  This performs a couple of functions.
+Firstly, the scroll-bar controls the range of pitches that are visible
+on the track.  Dragging the scroll-bar body up and down scrolls up and
+down through the visible pitches, and dragging the scroll-bar
+`handles' zooms in and out, so that more or fewer pitches are visible.
+The piano keyboard gives a reference for the pitches that the track is
+displaying.  In addition, clicking on the notes will generate the
+corresponding MIDI note in the track.
+
+
+
+% ====================================================================================
+% EDITING
+% ====================================================================================
+
+\chapter{Editing}
+
+`Editing' is the name given to the process of manipulating recorded or
+imported audio and MIDI data.  There is some common ground between the
+two, but generally speaking things are quite different.  This chapter
+discusses Ardour's editing facilties; first the common ground between
+audio and MIDI, and then the details of the specifics.
+
+
+\section{Regions and sources}
+
+Everything really begins with the Ardour concepts of \emph{regions}
+and \emph{sources}.  A region is a snippet of audio or MIDI data of
+any length.  Regions are the things that get displayed in the editor
+window, and the things that we interact with directly when editing.  A
+region gets its actual data (audio or MIDI) from a \emph{source}.
+This is a thing which corresponds directly to a file on disk.  Regions
+may share sources, so that, for example, copying a region many times
+does not require copying of the source data.
+
+
+\section{Basic region operations}
+
+Figure~\ref{fig:audio-region} shows a typical audio region.
+
+\begin{figure}[ht]
+\begin{center}
+\includegraphics[scale=0.75]{diagrams/audio-region.pdf}
+\end{center}
+\caption{An audio region}
+\label{fig:audio-region}
+\end{figure}
+
+In the region we can see a representation of the waveform of the audio
+data for both the left and right channels (since this is a stereo
+region).  At the bottom is a coloured bar containing the name of the
+region.
+
+There are few basic operations that can be performed on a region.
+Left-clicking and dragging will move the region; regions can be moved
+in time, or to a different track.  \modone{}-dragging will make a copy
+of the region and start moving it.  
+
+Clicking and dragging towards the left or right side of the region, or
+anywhere within the `trim bar', trims the start or end of the region.
+Figure~\ref{fig:audio-region-trim} shows a trim in progress.
+
+\screenshot{region-trim-end.png}{Trimming the end of an audio region}{fig:audio-region-trim}
+
+Right-clicking anywhere on a track (including over a region) displays
+the track menu.  The top entry in this menu will be the name of the
+region that was clicked on, and this entry's submenu offers a large
+selection of operations which can be applied to the region.  These
+operations are described in Chapter~\ref{ch:region-ops}.
+
+
+
+
+\section{Overlapping regions}
+
+A track can have regions which overlap in time.  When this happens,
+several factors determine what output the track will generate.
+
+A track (or really, a playlist) is considered to have its regions in a
+stack.  That is, they are ordered, as if they were placed in a pile.
+Thus, with overlapping regions, there are regions which are above or
+beneath others.  
+
+
+
+% ====================================================================================
+% AUTOMATION
+% ====================================================================================
+
+\chapter{Automation}
+
+Automation is the means by which many controls in Ardour (faders,
+plugin controls, mute and solo, and so on) can be `automated', so that
+their values change over time.  This is commonly used to assist with
+mixing a track; vocal levels may be brought up and down as required,
+for example.  This chapter describes the ways in which automation may
+be set up and edited.
 
 
 
 
 % ====================================================================================
-% ARDOUR CONFIGURATION
+% REGION OPERATIONS
 % ====================================================================================
 
-\chapter{Ardour Configuration}
+\chapter{Region operations}
+
+This chapter provides a reference to the operations that can be
+performed on regions, accessible from the region submenu of the track
+context menu.
+
+\begin{itemize}
+\item \textbf{Play} --- start playback from the start of the region.
+\item \textbf{Loop} --- set the loop range to cover the region and begin looped playback.
+\item \textbf{Rename\ldots} --- open a dialogue box to rename the region.
+\item \textbf{Properties\ldots} --- open a dialogue box to view (and edit) the properties of the region.
+\item \textbf{Edit}
+\begin{itemize}
+\item Combine
+\item Uncombine
+\item Split
+\item Make Mono Regions
+\item \textbf{Opaque} --- tick to make the region `opaque', so that
+  regions underneath it on the playlist will not be heard.  If the
+  region is not opaque, its data will be mixed with regions underneath
+  it.
+\item \textbf{Mute} --- tick to mute the region; it will not be heard
+\item \textbf{Pitch Shift\ldots} --- open a dialogue box to
+  pitch-shift the region.
+\item \textbf{Reverse} --- flip the region backwards in time.
+\item Glose Gaps
+\item Place Transient
+\item Rhythm Ferret\ldots
+\item Strip Silence\ldots
+\end{itemize}
+\item Position
+\begin{itemize}
+\item Move to Original Position
+\item Lock
+\item Glue to Bars and Beats
+\item Snap Position To Grid
+\item Set Sync Position
+\item Remove Sync
+\item Nudge Forward
+\item Nudge Backward
+\item Nudge Forward by Capture Offset
+\item Nudge Backward by Capture Offset
+\end{itemize}
+\item Trim
+\begin{itemize}
+\item Trim Start at Edit Point
+\item Trim End at Edit Point
+\item Trim to Loop
+\item Trim to Punch
+\item Trim to Previous
+\item Trim to Next
+\end{itemize}
+\item Layering
+\begin{itemize}
+\item Raise to Top
+\item Raise
+\item Lower
+\item Lower to Bottom
+\end{itemize}
+\item Ranges
+\begin{itemize}
+\item Set Loop Range
+\item Set Punch
+\item Add Single Range Marker
+\item Add Range Marker Per Region
+\item Set Range Selection
+\end{itemize}
+\item Gain
+\begin{itemize}
+\item Normlize\ldots
+\item Boost Gain
+\item Cut Gain
+\item Reset Envelope
+\item Envelope Active
+\end{itemize}
+\item Fades
+\begin{itemize}
+\item Fade In
+\item Fade Out
+\item Fades
+\end{itemize}
+\item Duplicate
+\begin{itemize}
+\item Duplicate
+\item Multi-Duplicate\ldots
+\item Fill Track
+\end{itemize}
+\item Export\ldots
+\item Bounce (without processing)
+\item Bounce (with processing)
+\item Spectral Analysis\ldots
+\item Remove
+\end{itemize}
+
+
+
+
+
+
+% ====================================================================================
+% CONFIGURATION
+% ====================================================================================
+
+\chapter{Configuration}
 
 This chapter gives a reference to the ways in which Ardour's behaviour
 can be customised.
@@ -2082,11 +2380,11 @@ will only take effect once you re-start Ardour.
 
 Ardour saves information on the actions that you take in order that it
 can undo them on request.  This information is also stored with the
-session, so that is available after closing and re-opening a session.
-This is very useful in case you make some mistake, or change your mind
-about an edit.  Storing this information does require memory and disk
-space, however, so options here allow you to specify how many commands
-are stored in memory, and how many are written to disk.
+session, so that it is available after closing and re-opening a
+session.  This is very useful if make some mistake, or change your
+mind about an edit.  Storing this information does require memory and
+disk space, however, so these options allow you to specify how many
+commands are stored in memory and how many are written to disk.
 
 Tick \emph{verify removal of last capture} if you would like Ardour to
 require confirmation when you try to remove the last capture pass.
