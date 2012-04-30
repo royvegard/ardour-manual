@@ -2353,15 +2353,108 @@ other.
 
 
 \section{Audio region gain}
+\item{region gain,gain}
 
 In addition to the fade-in and fade-out curves, audio regions can also
 have variable gain throughout.  This overlaps somewhat with automation
 (discussed in Chapter~\ref{ch:automation}), but can be useful to alter
 the sound of particular features within the region.
 
-% XXX: this is pretty broken; document when fixed!
+If you want to modify audio region gain, it is important to ensure
+that the option `Show gain envelopes in audio regions' is ticked in
+the \emph{Editor} tab of Ardour's preferences (see
+Section~\label{sec:ardour-preferences-editor}).  This enables some
+useful functionality which is otherwise turned off.
 
-\section{Pitch shifting and time stretching}
+To edit audio region gain, first go into `draw region gain' mode by
+clicking the tool (\includegraphics{screenshots/tool-region-gain.png}).  Now,
+moving the mouse pointer over an audio region will show the gain
+curve; initially this will be a straight green line with two
+red-square points, one at each end.  The gain line can be edited in
+the following ways:
+
+\begin{itemize}
+\item Left-clicking in an empty area of the region will add a new
+  region gain line point.
+\item Dragging a point will move it.
+\item Dragging a line segment will move points at each end of the segment.
+\item Right-clicking on a point will offer a small
+  menu from which you can delete the point or edit its value
+  numerically.
+\item \modone{}-right-clicking on a point is a short-cut to opening
+  its edit dialogue box.
+\item \modtertiary{}-right-clicking on a point will delete it.
+\end{itemize}
+
+An example region with a gain line is shown in
+Figure~\ref{fig:region-with-gain-line}.
+
+\screenshot{region-gain-line.png}{An audio region with a gain line}{fig:region-with-gain-line}
+
+
+
+
+\section{Pitch shifting}
+
+Ardour provides algorithms to do pitch-shifting of audio.  As with any
+pitch-shifting method, the results can never be perfect, but they may
+be useful for correction or for artistic purposes.  To pitch-shift a
+region, choose \menu{Edit,Pitch Shift\ldots} from the context menu.
+This will open the \emph{Pitch Shift Audio} dialogue box, which allows
+you to specify the desired shift in octaves, semitones and cents.
+
+\todo{Preserve Formants?}
+
+
+\section{Time stretching}
+
+Time-stretching in Ardour has its own special tool.  Choose the
+stretch/shrink tool (\includegraphics{screenshots/tool-stretch.png}).
+With this tool, you can click and drag the size of regions, much as
+you would do when trimming them.  The difference is that after the
+drag, Ardour will time-stretch the region to the new size that you
+have requested.  For audio regions, a dialogue box will appear so that
+you can set up the parameters of the time-stretching algorithm.  For
+MIDI, of course, time-stretching is somewhat easier and requires no
+options.
+
+
+\section{Stripping silence}
+
+With some recordings, it is desirable to remove regions which are, or
+are `nearly', silent.  This can be done automatically using the
+\menu{Edit,Strip Silence\ldots} option on the region context menu.
+Selecting this option will open the dialogue shown in
+Figure~\ref{fig:strip-silence-dialogue}.
+
+\screenshot{strip-silence-dialogue.png}{The strip silence dialogue}{fig:strip-silence-dialogue}
+
+In addition, your target regions will be overlaid with light-blue
+areas which represent that the strip silence dialogue currently
+considers `silence'.  The main adjustment for this is the threshold;
+this is the level below which the region will be considered silent.
+In addition, the minimum length of a silent period can be specified,
+so that shorter below-threshold periods will be ignored.
+
+Finally, the dialogue offers a `fade length' option which specifies
+what length of fade in and out will be applied if `Apply' is pressed
+and some parts are stripped out of the region.
+
+Clicking `Apply' will split the target regions as required, leaving
+only those areas which it considers non-silent.
+
+
+\section{Rhythm Ferret}
+
+
+\section{Spectral analysis}
+\index{spectrum}
+
+Though not strictly an editing operation, Ardour provides a handy
+window which gives a spectral analysis of some part of your session.
+You can use this to see a spectral analysis of a region by choosing
+\menu{Spectral Analysis\ldots} from the region's context menu.
+
 
 \section{MIDI region editing}
 
@@ -2640,7 +2733,12 @@ beat of the bar.  The \emph{click gain level} adjusts the volume of
 the click.
 
 \subsection{Transport}
+
 \subsection{Editor}
+\label{sec:ardour-preferences-editor}
+
+
+
 \subsection{Audio}
 \subsection{Solo / mute}
 \subsection{MIDI}
