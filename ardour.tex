@@ -9,10 +9,33 @@
 % connection management/routing
 % snapshots
 
+
+% And may god bless the stackoverflow and all who sail in her
+% http://tex.stackexchange.com/questions/5226/keyboard-font-for-latex
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{tikz}
+\usetikzlibrary{shadows}
+
+\newcommand*\keystroke[1]{%
+  \tikz[baseline=(key.base)]
+    \node[%
+      draw,
+      fill=white,
+      drop shadow={shadow xshift=0.25ex,shadow yshift=-0.25ex,fill=black,opacity=0.75},
+      rectangle,
+      rounded corners=2pt,
+      inner sep=1pt,
+      line width=0.5pt,
+      font=\scriptsize\sffamily
+    ](key) {#1\strut}
+  ;
+}
+
 % XXX: format
 \newcommand{\button}[1]{#1}
 \newcommand{\menu}[1]{\emph{\StrSubstitute{#1}{,}{ $\rightarrow$ }}}
-\newcommand{\key}[1]{\emph{\StrSubstitute{#1}{,}{ + }}}
+\newcommand{\key}[1]{\keystroke{\StrSubstitute{#1}{,}{ + }}}
 \newcommand{\directory}[1]{\texttt{#1}}
 \newcommand{\todo}[1]{\marginpar{\small\texttt{#1}}}
 \newcommand{\modone}{Control}
@@ -288,6 +311,9 @@ also do our best to fix all bugs reported, just as we strive to
 implement requested features. But as should be evident from the number
 of open bugs in Mantis, there's not enough hours in the day to allow
 us to address all issues in a timely manner.
+
+
+
 
 
 % ====================================================================================
@@ -990,19 +1016,19 @@ We will examine the broad function of these tools here, and go into
 more detail on their operation later.
 
 \begin{itemize}
-\item \textbf{Select/move objects} (shortcut key `o') --- used to mark
+\item \textbf{Select/move objects} (\key{o}) --- used to mark
   regions or MIDI notes as `selected', and to move them around (in
   time, or to a different track, or to a different note in the case of
   MIDI).
 \item \textbf{Smart mode} --- this provides a combination of the
   functionality of `select/move objects' and `select/move ranges'
   which may be familiar to users of Pro~Tools.
-\item \textbf{Select/move ranges} (shortcut key `r') --- used to mark
+\item \textbf{Select/move ranges} (\key{r}) --- used to mark
   ranges of time and to manipulate them.
-\item \textbf{Zoom range} (shortcut key `z') --- this provides a mode whereby a time
+\item \textbf{Zoom range} (\key{z}) --- this provides a mode whereby a time
   range can be dragged with the mouse, and the editor window will zoom
   to show that time range.
-\item \textbf{Region gain} (shortcut key `g') --- used to edit audio
+\item \textbf{Region gain} (\key{g}) --- used to edit audio
   gain curves on regions.
 \item \textbf{Stretch/shrink} (shortcut key `t') --- allows stretching
   or shrinking of regions in time (using time-stretching /
@@ -1011,9 +1037,9 @@ more detail on their operation later.
 \item \textbf{Draw/edit MIDI notes} --- used to draw new MIDI notes
   into MIDI regions, or change the length of those that are already
   there.
-\item \textbf{Edit region contents} (shortcut key `e') --- this is a
+\item \textbf{Edit region contents} (\key{e}) --- this is a
   kind of `modifier' for the other tools.  When selected, it means
-  that the other tools will operate on region \emph{contents} rather
+  that the other tools will operate on region contents rather
   than the regions themselves.  For example, the select/move tool will
   select and move MIDI notes rather than the regions that the notes
   are in.
@@ -1129,6 +1155,7 @@ punch in and out respectively, and the buttons will turn red in colour
 to indicate that the corresponding punch is switched on.
 
 \section{Edit point selector}
+\label{sec:edit-point-selector}
 \index{edit point}
 
 The `edit point' is a point in time within the session that is used
@@ -1384,7 +1411,7 @@ From left to right, these controls are:
 The summary area of the editor window gives an overview of your entire
 session.  No matter how long the session is, or how many tracks it
 has, the summary will arrange itself so that the entire session is
-represented within it.  Inside the summary, tracks are represented as
+drawn within it.  Inside the summary tracks are represented as
 light-grey bars, regions as coloured bars, the playhead as a vertical
 red line and the session start and end markers as vertical yellow
 lines.  On top of the summary is drawn a light-grey translucent box
@@ -1400,14 +1427,14 @@ easily.  You can use the summary to do the following things:
   in the main editor window.
 \item Resizing the view box (by clicking and dragging on its edges)
   will zoom into or out of the session.
-\item Clicking with \modtwo\ held down will move the playhead to the
+\item Clicking with \key{\modtwo} held down will move the playhead to the
   click position.
-\item Clicking with \modtertiary\ held down will centre the editor's
+\item Clicking with \key{\modtertiary} held down will centre the editor's
   view at the click position.
 \item Moving the mouse's scroll-wheel will scroll the editor's view.
-\item Moving the mouse's scroll-wheel with \modone\ held down will
+\item Moving the mouse's scroll-wheel with \key{\modone} held down will
   zoom the editor's view in or out.
-\item Moving the mouse's scroll-wheel with \modtwo\ held down will
+\item Moving the mouse's scroll-wheel with \key{\modtwo} held down will
   scroll the editor's view left or right.
 \end{itemize}
 
@@ -1430,7 +1457,7 @@ This contains the following things:
   data while it is being passed from the disk to the audio outputs;
   Ardour tries to keep them full (so that there is always data
   available for playback), but if you have a lot of tracks and (or)
-  slow disks, Ardour may not be able to keep up.  The higher the
+  slow disks, Ardour may not be able to keep up.  The closer the
   playback buffer number is to 100\%, the better.  Similarly, as data
   is being captured for record, Ardour tries to write it to disk; if
   it cannot write the data quickly enough, the record buffers will
@@ -1473,7 +1500,7 @@ blind (good or bad) luck.
   tracks that are currently record-enabled) given the amount of disk
   space you have available.  If no tracks are record-enabled, the time
   remaining is computed assuming that you are recording one track.
-\item And finally, the time (using the 24 hour clock), just in case
+\item And finally, the time (using the 24-hour clock), just in case
   you have somewhere to be.
 \end{itemize}
 
@@ -1598,12 +1625,12 @@ common choices for your strip's input ports.
 
 \subsection{Processors}
 
-The `processors' in the signal flow is a general name for a collection
-of things which treat the signal in some way.  Ardour provides several
-processors, some of which are for internal use and are not seen in the
-mixer strip.  In addition, processors can also be plugins.  The
-arrangement of processors is arbitrary, and there is no limit to how
-many there can be.
+A `processor' in the signal flow is a general name for something which
+treats the signal in some way.  Ardour provides several processors,
+some of which are for internal use and are not seen in the mixer
+strip.  In addition, processors can also be plugins.  The arrangement
+of processors is arbitrary, and there is no limit to how many there
+can be.
 
 The main box in the top half of the mixer strip shows the processor
 list.  Processors are shown as coloured rectangles, with a small `LED'
@@ -1645,18 +1672,18 @@ extra facilities for quickly finding the right plugin.  Once a plugin
 is selected, it will appear in the strip and start processing the
 signals that flow down the strip.  Double-clicking on a plugin's name
 in the processor box will open its editor window, which will typically
-allow you to alter its parameters to your heart's content.
-Alternatively, right-clicking on the plugin and selecting
-\menu{Controls,Show All Controls} adds the plugins controls directly
-to the processor box.  This may be convenient for relatively simple
-plugins, such as the plate reverb shown in the example screenshot.
+allow you to alter its parameters.  Alternatively, right-clicking on
+the plugin and selecting \menu{Controls,Show All Controls} adds the
+plugins controls directly to the processor box.  This may be
+convenient for relatively simple plugins, such as the plate reverb
+shown in the example screenshot.
 
 \subsubsection{Sends}
 
 Another type of processor that is available is the \emph{send}.  A
 send sits in the processor list, passing signals through untouched,
 but also splits off (or `sends') the signal somewhere else.  That
-`somewhere else' can be a set of JACK ports, or an Ardour bus.  Sends
+`somewhere else' can be a set of JACK ports or an Ardour bus.  Sends
 are typically used for passing a track's signal to a reverb unit, or
 perhaps to set up a headphone mix for an artist.
 
@@ -1709,11 +1736,10 @@ which to use at any given time is usually made automatically by
 Ardour, depending on the configuration of its monitoring options.
 
 `Monitoring' in Ardour is the general term used for the frequent need
-to listen to signals that are coming intto the computer, perhaps as
+to listen to signals that are coming into the computer, perhaps as
 they are being recorded.  Often, for example, one might be playing an
-instrument for a recording and might want to hear what is being
-recorded at the same time, perhaps along with some other
-previously-recorded tracks.
+instrument for a recording and might want to hear what one is doing at
+the same time, perhaps along with some other existing tracks.
 
 
 \subsection{Different ways of monitoring}
@@ -1728,7 +1754,7 @@ There are three basic ways in which monitoring may be approached:
   This approach often has the advantage of zero or near-zero latency.
   On the other hand it requires external hardware, and the monitoring
   settings are not saved with the session.  See
-  Figure~\ref{fig:external-monitoring}.
+  Figure~\ref{fig:external-monitoring} for a simple example setup.
 
 \begin{figure}[ht]
 \begin{center}
@@ -2045,9 +2071,9 @@ two extras.  The red button with the pink circle is the track's
 outline, and the track will then be recorded onto when the main
 session record enable is turned on with the transport rolling.
 
-The `p' control below the record enable will open a playlist menu when
+The `p' button below the record enable will open a playlist menu when
 clicked.  The menu offers various operations related to the track's
-\emph{playlist}.  This, as you will recall, is simply a list of the
+playlist.  This, as you will recall, is simply a list of the
 regions that the track should play.  Playlists may be swapped on a
 given track, and may be used by more than one track at the same time.
 They are often useful to keep different takes, for example, or to
@@ -2104,26 +2130,14 @@ corresponding MIDI note in the track.
 
 `Editing' is the name given to the process of manipulating recorded or
 imported audio and MIDI data.  There is some common ground between the
-two, but generally speaking things are quite different.  This chapter
-discusses Ardour's editing facilties; first the common ground between
-audio and MIDI, and then the details of the specifics.
-
-
-\section{Regions and sources}
-
-Everything really begins with the Ardour concepts of \emph{regions}
-and \emph{sources}.  A region is a snippet of audio or MIDI data of
-any length.  Regions are the things that get displayed in the editor
-window, and the things that we interact with directly when editing.  A
-region gets its actual data (audio or MIDI) from a \emph{source}.
-This is a thing which corresponds directly to a file on disk.  Regions
-may share sources, so that, for example, copying a region many times
-does not require copying of the source data.
+two, but of course there are also differences.  This chapter discusses
+Ardour's editing facilities for the two types of data.
 
 
 \section{Basic region operations}
 
-Figure~\ref{fig:audio-region} shows a typical audio region.
+The region is the basic component of Ardour that we are concerned with
+editing.  Figure~\ref{fig:audio-region} shows a typical audio region.
 
 \begin{figure}[ht]
 \begin{center}
@@ -2156,6 +2170,41 @@ selection of operations which can be applied to the region.  These
 operations are described in Chapter~\ref{ch:region-ops}.
 
 
+\subsection{Splitting regions}
+
+Regions can be split into two or more new regions using the `split'
+command.  This is available from the region context menu
+(\menu{Edit,Split}), or bound to \key{S}.  The split will happen
+at the edit point (see Section~\ref{sec:edit-point-selector}).
+
+% This logic is in the comment for Editor::get_regions_from_selection_and_edit_point()
+
+The way in which Ardour decides \emph{which} regions to split is a
+little involved as it depends on the edit point that is being used.
+
+If the edit point is `mouse' and you are pointing at an unselected
+region, that region will be split; otherwise, regions on any tracks
+with selected regions will be split if they lie at the time that the
+mouse pointer is at.
+
+If the edit point is `playhead' or `marker', any regions underneath
+the edit point on tracks that are either themselves selected, or
+contain selected regions, will be split.
+
+This makes more sense in practice than it does written down!  In
+general, the easiest approach to getting the split you want is often
+to select the regions that you want to split, put the edit point at
+the split, then hit `S'.
+
+If tracks which have regions to be split are themselves members of
+groups (see Section~\ref{sec:track-and-bus-groups}) that have the
+`share edit' property set, the other members of the group will also be
+examined for regions to split.
+
+
+
+\section{Duplicating regions}
+
 
 
 \section{Overlapping regions}
@@ -2166,7 +2215,135 @@ several factors determine what output the track will generate.
 A track (or really, a playlist) is considered to have its regions in a
 stack.  That is, they are ordered, as if they were placed in a pile.
 Thus, with overlapping regions, there are regions which are above or
-beneath others.  
+beneath others.  With the default settings, Ardour will play the
+topmost region in the stack at any particular point in time.  This is
+shown in Figure~\ref{fig:overlapping-regions}.
+
+\begin{figure}[ht]
+\begin{center}
+\includegraphics[scale=0.75]{diagrams/overlapping-regions.pdf}
+\end{center}
+\caption{Some overlapping regions}
+\label{fig:overlapping-regions}
+\end{figure}
+
+The diagram shows a collection of regions, expanded so that you can
+see how they are stacked.  The green areas show the bits that Ardour
+will play by default.
+
+The initial stacking order of regions is simple: the more recently the
+region was added to the track (by whatever means: recording,
+importing, copying etc.) the higher in the stack it will be.  If this
+intial stacking is not what you need, there are a few ways that it can
+be manipulated.  Note that the initial stacking is just that:
+\emph{initial}.  Any modifications that you make to stacking order
+will be remembered by Ardour.
+
+
+
+\subsection{Raising and lowering overlapping regions}
+
+Most simply, regions can be raised or lowered in the stack using
+options in the region context menu under \menu{Layering}; regions can
+be raised or lowered either by one level or right to the top or bottom
+of the stack.
+
+Another option is to put a region's track into \emph{stacked} mode.
+To do this, right-click on the track controls area and choose
+\menu{Layers,Stacked}.  In this mode, rather than overlapping regions
+being drawn on top of each other, regions are drawn more like those in
+Figure~\ref{fig:overlapping-regions}.  This makes the arrangement of
+the track's regions a little more obvious.  Areas of regions that will
+not be played back are shaded dark-grey to make things clearer.
+
+In this mode, it is possible to move regions up and down in the stack
+just as you would move them around normally.  Dragging a region makes
+all the regions on the track `jump' apart on the display; at this
+point, the region that you are dragging can be moved anywhere within
+the stack.
+
+
+
+\section{Audio region fades}
+
+Audio regions have a few properties of their own, with respect to
+MIDI\@.  One is that they have optional \emph{fades} at their
+beginning and end.  A fade is effectively a change in gain; the start
+of the region fades from $-\infty$dB to $0$dB and the end fades from
+$0$dB out to $-\infty$dB.  
+
+These fades can be of any length and a variety of shapes.
+Figure~\ref{fig:region-fades} shows some regions with some examples of fades.
+
+\screenshot{region-fades.png}{Some regions with fades}{fig:region-fades}
+
+When the mouse pointer is over an audio region, fade handles will
+appear and the fades' lengths can be changed, as shown in
+Figure~\ref{fig:dragging-fades}.
+
+\begin{figure}[ht]
+\begin{center}
+\includegraphics[scale=0.75]{diagrams/dragging-fades.pdf}
+\end{center}
+\caption{Dragging a fade-in}
+\label{fig:dragging-fades}
+\end{figure}
+
+The shape of the fade can be changed by right-clicking over the fade;
+this will pop up a menu as in Figure~\ref{fig:fades-menu}.
+
+\screenshot{fades-menu.png}{Fade shape menu}{fig:fades-menu}
+
+
+\subsection{Cross-fading}
+
+Region fades have an important consequence in addition to fading their
+subject region.  At the same time as providing a gain change to the
+target region, the fades also cause an \emph{inverse} fade to any
+regions that lie beneath the target region in the stack.
+
+Consider, for example, the simple case in Figure~\ref{fig:crossfades}.
+
+\begin{figure}[ht]
+\begin{center}
+\includegraphics[scale=0.75]{diagrams/crossfades.pdf}
+\end{center}
+\caption{Simple cross-fade}
+\label{fig:crossfades}
+\end{figure}
+
+We have two regions, $A$ and $B$.  For the first part of this time,
+region $A$ plays (its area marked green).  Then we have region $B$,
+which overlaps $A$, and has a fade-in.  Ardour sees this fade-in and
+automatically performs a fade-out on region $A$ which is the inverse
+of $B$'s fade-in.  During the period of $B$'s fade in, both region $A$
+and $B$ will be heard.  This fade-in/fade-out arrangement has the
+important effect that no `click' will be heard due to the
+discontinuity between the waveforms of regions $A$ and $B$.  This
+arrangement, where one thing is fading out at the same time that
+another is fading in, is called \emph{cross-fading}.
+
+So useful is this property that Ardour will arrange for cross-fades to
+be present whenever regions overlap.  There are some options to decide
+what form these automatically-generated crossfades will take, as
+described in Section~\ref{sec:session-properties-fades}.  The
+automatic crossfades can be set to span the entire overlap of the
+regions involved, or to be short.  In general, if you want the basic
+property of `de-clicking' region overlaps, crossfades can be set to be
+created `short'.  The long-crossfade options are perhaps more useful for
+artistic use of fades, where two regions must merge slowly into each
+other.
+
+
+
+
+\section{Audio region gain}
+
+\section{Pitch shifting and time stretching}
+
+\section{MIDI region editing}
+
+
 
 
 
@@ -2175,6 +2352,7 @@ beneath others.
 % ====================================================================================
 
 \chapter{Automation}
+\label{ch:automation}
 
 Automation is the means by which many controls in Ardour (faders,
 plugin controls, mute and solo, and so on) can be `automated', so that
@@ -2191,6 +2369,7 @@ be set up and edited.
 % ====================================================================================
 
 \chapter{Region operations}
+\label{ch:region-operations}
 
 This chapter provides a reference to the operations that can be
 performed on regions, accessible from the region submenu of the track
@@ -2324,6 +2503,7 @@ discussed below.
 
 
 \subsection{Fades}
+\label{sec:session-properties-fades}
 
 \subsection{Media}
 \label{sec:session-properties-media}
