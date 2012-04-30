@@ -281,7 +281,7 @@ volunteer's machine configuration, the Ardour binary may require you
 to install additional or newer libraries before it will work. If so,
 the installation instructions should contain the necessary information
 for you to find those libraries. Please do not complain about the need
-for these libraries - just as you might dislike installing/upgrading
+for these libraries --- just as you might dislike installing/upgrading
 the libraries, the volunteer doing the release may dislike
 removing/downgrading the libraries on her machine.
 
@@ -1235,6 +1235,7 @@ used to choose the list to view.  The left-hand border of the list can
 be dragged to vary the width of the list.
 
 \subsection{Region list}
+\label{sec:region-list}
 \index{region list}
 
 The region list shows all the regions in the session.  The left-hand
@@ -1255,6 +1256,9 @@ information.  At the right of the list are four columns of flags that can be alt
 
 Hovering the mouse pointer over a column heading shows a tool-tip
 which can be handy to remember what the columns are for.
+
+A handy feature of the region list is that its regions can be dragged
+and dropped into a suitable track in the session.
 
 \subsection{Tracks \& Busses}
 
@@ -1407,6 +1411,7 @@ From left to right, these controls are:
 
 
 \section{The summary}
+\index{summary}
 
 The summary area of the editor window gives an overview of your entire
 session.  No matter how long the session is, or how many tracks it
@@ -1462,11 +1467,11 @@ This contains the following things:
   is being captured for record, Ardour tries to write it to disk; if
   it cannot write the data quickly enough, the record buffers will
   fill and problems will occur.
-\item \textbf{DSP} --- an estimate of the amount of time that Ardour is
-  spending doing digital signal processing (DSP) of your session.  If
-  this gets near 100\% it indicates that your system is being
-  overloaded, and you may get glitches or `pops' in your audio.  First
-  steps to fixing this are:
+\item \index{DSP} \textbf{DSP} --- an estimate of the amount of time
+  that Ardour is spending doing digital signal processing (DSP) of
+  your session.  If this gets near 100\% it indicates that your system
+  is being overloaded, and you may get glitches or `pops' in your
+  audio.  First steps to fixing this are:
 \begin{itemize}
 \item Reduce the number of plugins you are using (especially
   complicated ones like reverbs).
@@ -1508,6 +1513,11 @@ The various parts of the status bar can be shown or hidden by
 right-clicking and choosing the elements that you want to see.  This
 can be useful for reducing the editor window's width for use on small
 screens.
+
+
+
+
+
 
 
 % ====================================================================================
@@ -1679,6 +1689,7 @@ convenient for relatively simple plugins, such as the plate reverb
 shown in the example screenshot.
 
 \subsubsection{Sends}
+\index{send}
 
 Another type of processor that is available is the \emph{send}.  A
 send sits in the processor list, passing signals through untouched,
@@ -1729,6 +1740,7 @@ and a right-click will open a menu of common options.
 
 
 \subsection{Monitoring}
+\index{monitoring}
 
 As we discussed earlier, there are two places that a track's signal
 may come from: its JACK ports, or its files on disk.  The choice of
@@ -2208,6 +2220,8 @@ examined for regions to split.
 
 
 \section{Overlapping regions}
+\label{sec:overlapping-regions}
+\index{overlap}
 
 A track can have regions which overlap in time.  When this happens,
 several factors determine what output the track will generate.
@@ -2265,6 +2279,7 @@ the stack.
 
 
 \section{Audio region fades}
+\index{fade}
 
 Audio regions have a few properties of their own, with respect to
 MIDI\@.  One is that they have optional \emph{fades} at their
@@ -2296,6 +2311,7 @@ this will pop up a menu as in Figure~\ref{fig:fades-menu}.
 
 
 \subsection{Cross-fading}
+\index{crossfade}
 
 Region fades have an important consequence in addition to fading their
 subject region.  At the same time as providing a gain change to the
@@ -2336,8 +2352,14 @@ other.
 
 
 
-
 \section{Audio region gain}
+
+In addition to the fade-in and fade-out curves, audio regions can also
+have variable gain throughout.  This overlaps somewhat with automation
+(discussed in Chapter~\ref{ch:automation}), but can be useful to alter
+the sound of particular features within the region.
+
+% XXX: this is pretty broken; document when fixed!
 
 \section{Pitch shifting and time stretching}
 
@@ -2372,7 +2394,7 @@ be set up and edited.
 \label{ch:region-operations}
 
 This chapter provides a reference to the operations that can be
-performed on regions, accessible from the region submenu of the track
+---performed on regions, accessible from the region submenu of the track
 context menu.
 
 \begin{itemize}
@@ -2384,8 +2406,15 @@ context menu.
 \begin{itemize}
 \item Combine
 \item Uncombine
-\item Split
-\item Make Mono Regions
+\item \textbf{Split} --- split the region at the current edit point;
+  this will only work from the menu if the edit point is not `mouse'
+  (as if you are selecting a menu option, the mouse position at the
+  time is not particularly relevant to where an edit point should be).
+\item \textbf{Make Mono Regions} --- given a multi-channel (stereo or
+  more) region, this option creates a new region per channel and adds
+  those regions to the session's region list.  These regions can then
+  be dragged from the editor region list (see
+  Section~\ref{sec:region-list}) into mono tracks as required.
 \item \textbf{Opaque} --- tick to make the region `opaque', so that
   regions underneath it on the playlist will not be heard.  If the
   region is not opaque, its data will be mixed with regions underneath
@@ -2402,7 +2431,7 @@ context menu.
 \item Position
 \begin{itemize}
 \item Move to Original Position
-\item Lock
+\item \textbf{Lock} --- this will prevent the region from being moved.
 \item Glue to Bars and Beats
 \item Snap Position To Grid
 \item Set Sync Position
@@ -2414,19 +2443,33 @@ context menu.
 \end{itemize}
 \item Trim
 \begin{itemize}
-\item Trim Start at Edit Point
-\item Trim End at Edit Point
-\item Trim to Loop
-\item Trim to Punch
-\item Trim to Previous
-\item Trim to Next
+\item \textbf{Trim Start at Edit Point} --- trims the region so that
+  it starts at the edit point, if that makes sense.
+\item \textbf{Trim End at Edit Point} --- trims the region so that
+  it ends at the edit point, if that makes sense.
+\item \textbf{Trim to Loop} --- trims the region's start and end so
+  that they are at the time of the loop range's start and end
+  respectively.
+\item \textbf{Trim to Punch} --- much as `Trim to Loop' except with
+  reference to the loop range.
+\item \textbf{Trim to Previous} --- trims the region's start point so
+  that it lies at the end point of the previous region in time (if
+  possible).
+\item \textbf{Trim to Next} --- trims the region's end point so
+  that it lies at the start point of the next region in time (if
+  possible).
 \end{itemize}
-\item Layering
+\item Layering; manipulates region layers, as discussed in
+  Section~\ref{sec:overlapping-regions}
 \begin{itemize}
-\item Raise to Top
-\item Raise
-\item Lower
-\item Lower to Bottom
+\item \textbf{Raise to Top} --- moves the region to the top layer of
+  the stack.
+\item \textbf{Raise} --- moves the region one step closer to the top
+  of the stack.
+\item \textbf{Lower} --- moves the region one step closer to the
+  bottom of the stack.
+\item \textbf{Lower to Bottom} --- moves the region to the bottom
+  layer of the stack.
 \end{itemize}
 \item Ranges
 \begin{itemize}
@@ -2438,7 +2481,10 @@ context menu.
 \end{itemize}
 \item Gain
 \begin{itemize}
-\item Normlize\ldots
+\item \textbf{Normlize\ldots} --- examines the contents of the region
+  and sets the region's gain so that the peak value of the region is
+  scaled to 0dbFS; in other words, this makes the region as loud as it
+  can be without introducing distortion.
 \item Boost Gain
 \item Cut Gain
 \item Reset Envelope
