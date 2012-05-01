@@ -8,6 +8,8 @@
 % external sync
 % connection management/routing
 % snapshots
+% undo/redo, how it doesn't work with, say, mixer settings
+% control surfaces
 
 
 % And may god bless the stackoverflow and all who sail in her
@@ -2353,7 +2355,7 @@ other.
 
 
 \section{Audio region gain}
-\item{region gain,gain}
+\index{region gain,gain}
 
 In addition to the fade-in and fade-out curves, audio regions can also
 have variable gain throughout.  This overlaps somewhat with automation
@@ -2446,6 +2448,33 @@ only those areas which it considers non-silent.
 
 \section{Rhythm Ferret}
 
+Rhythm Ferret is a tool which can analyse regions in a couple of
+different ways, looking for particular features (like note onsets or
+transients like percussion hits).  It can then perform various
+operations on the region based on these features.
+
+To open the Rhythm Ferret dialogue, choose \menu{Edit,Rhythm Ferret}.
+This will open the dialogue box shown in
+Figure~\ref{fig:rhythm-ferret-dialogue}.
+
+\screenshot{rhythm-ferret-dialogue.png}{The Rhythm Ferret dialogue}{fig:rhythm-ferret-dialogue}
+
+First, choose the features that you want to look for; either note
+onset or percussive onset.  Then, clicking `Analyse' will examine
+region and place light grey markers at the detected features in the
+region.  If the features have been detected incorrectly, you can
+adjust the parameters and click `Analyse' to try again.  Once the
+correct features have been found, you can choose what to do with them
+using the `Operation' drop-down:
+
+\todo{Not sure what the parameters do}
+
+\begin{itemize}
+\item \textbf{Split region} --- this will split the region into
+  smaller regions at the feature points.
+\item \textbf{Snap region} --- \todo{don't know what these do}
+\item \textbf{Conform regions} --- 
+
 
 \section{Spectral analysis}
 \index{spectrum}
@@ -2458,7 +2487,135 @@ You can use this to see a spectral analysis of a region by choosing
 
 \section{MIDI region editing}
 
+MIDI regions are somewhat different to audio regions in that Ardour
+allows you to edit their contents, as well as just their position and
+size.  With a midi region's tools you can add, move, delete and modify
+notes, control changes and so on directly inside the editor window.
 
+The first step to editing a MIDI region's contents is to click the
+`edit region contents' tool (\includegraphics{tool-region-contents}).
+On doing this, the bodies of the regions in the session will fade out
+to indicate that you are now editing their contents.  You can also
+edit this mode by double-clicking on a MIDI region.
+
+Figure~\ref{fig:midi-edit1} shows a region with `edit region contents'
+disabled, and Figure~\ref{fig:midi-edit2} after `edit region contents'
+has been switched on.
+
+\screenshot{midi-edit1.png}{A MIDI region with `edit region contents' switched off'}{fig:midi-edit1}
+\screenshot{midi-edit2.png}{A MIDI region with `edit region contents' switched on}{fig:midi-edit2}
+
+Once in this mode, many of the tools for altering regions become tools
+for altering notes.  With the `select/move objects' tool
+(\includegraphics{tool-objects.png}) you can select notes, move them
+around and trim their starts and ends.  Hovering the mouse over a note
+will display information about its note value, channel and velocity.
+
+Right-clicking on a selected note will display a channel selector, as
+shown in Figure~\ref{fig:midi-edit5.png}.
+
+\screenshot{midi-edit5.png}{Altering a note's channel}{fig:midi-edit5.png}
+
+Once this is displayed, click on the MIDI channel that you want the
+note to be played back on.
+
+The full gory details of a note can be edited numerically by
+\modone{}-right-clicking a selected note.  This opens a dialogue box
+with all the notes details; modifying the values in the dialogue box
+will change the note.
+
+
+\subsection{Cutting, copying and pasting notes}
+
+Selected notes can be cut using \key{\modone{}-X}, copied with
+\key{\modone{}-C} and deleted with \key{Delete}, just as regions can.
+Once cut or copied they can also be pasted; pastes will be placed at
+the current edit point (see Section~\ref{sec:edit-point-selector}.
+
+
+\subsection{Adding notes}
+
+Notes can be added to MIDI regions using the `draw MIDI' tool
+(\includegraphics{tool-draw-midi.png}).  Select this tool, then click
+to add a note which is the same length as the current grid interval,
+or click and drag to add a note of any length.
+
+
+\section{Other MIDI operations}
+
+When outside of `edit region contents mode', some other (region-wide)
+MIDI operations are available from the \menu{MIDI} submenu of the
+region context menu.
+
+\subsection{Transpose}
+
+This opens a dialogue box to allow transposition (shifts in pitch) of
+the notes in the region.
+
+\subsection{Insert Patch Change}
+
+\todo{hmm}
+
+\subsection{Quantize}
+
+The Quantize feature allows notes in the region to be snapped to a
+grid, to make their timing more accurate.  The \menu{Quantize\ldots}
+option opens the dialogue shown in Figure~\ref{fig:quantize}.
+
+\screenshot{quantize.png}{The quantization dialogue}{fig:quantize}
+
+The quantization options are as follows:
+
+\begin{itemize}
+\item \textbf{Snap note start} --- tick the box to quantize note
+  starts, and select the grid that they should be snapped to.
+\item \textbf{Snap note end} --- tick the box to quantize note
+  ends, and select the grid that they should be snapped to.
+\item \textbf{Threshold} --- if a note start or end is more than this
+  threshold (in ticks) away from a grid line, it will not be snapped.
+  There are 1920 ticks per beat.
+\item \textbf{Strength} --- this is a percentage by which note starts
+  or ends will be pulled towards the grid; if strength is set to 100,
+  they will be snapped completely; any less, and they will be snapped
+  less accurately.  This can be used to maintain some of the `human'
+  inaccuracies in timing from a recording of a real player.
+\item \textbf{Swing} --- if ticked, this option will attempt to
+  quantize notes so that they `swing'.  Speaking mathematically, given
+  two input notes as shown in Figure~\ref{fig:swing-maths}, the
+  quantizer will put the second note at a time $t$ where
+
+\begin{eqnarray}
+t &= q + \frac{2}{3} \frac{F_S}{100} L
+\end{eqnarray}
+
+where $F_S$ is the swing factor specified in the quantize dialogue
+box.  Hence if $F_S$ is positive, the note will be placed later than
+it would be with `straight' timing, and if $F_S$ is negative the note
+is placed earlier.
+
+This feature is probably most easily explored by listening!
+
+\end{itemize}
+
+
+\subsection{Fork}
+
+By default, when a region is copied its contents are a `clone' of the
+thing it was copied from.  That is to say, if you copy some region $A$
+as region $B$, then edit region $A$, the same edits will happen to
+region $B$.  This is not apparent for audio, since the actual contents
+of audio regions cannot be changed, but it is important for MIDI.  If
+you copy a region which you then want to be independent of other
+regions in the session, select the region to make independent and
+choose \menu{MIDI,Fork} from the context menu.
+
+
+\subsection{List Editor}
+
+To look at the MIDI note events in a region numerically, select the
+region and choose \menu{MIDI,List Editor\ldots} from the context menu.
+This opens a dialogue box containing all the region's note details,
+and edits you make to the numbers will be reflected in the region.
 
 
 
