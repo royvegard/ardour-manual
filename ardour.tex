@@ -58,6 +58,8 @@
 \label{#3}
 \end{figure}}
 
+\newcommand{\inlinetool}[1]{\includegraphics[scale=0.45]{screenshots/tool-#1.png}}
+
 % Voodoo from http://answers.google.com/answers/threadview?id=282787
 \definecolor{ListingGrey}{rgb}{0.8,0.8,0.8}
 \makeatletter\newenvironment{listing}{%
@@ -662,6 +664,7 @@ trying 3 here if problems are experienced.
 \section{Troubleshooting JACK}
 
 \subsection{I am getting lots of xruns!}
+\label{sec:xruns}
 
 An \emph{xrun} \index{xrun} is JACK's way of saying that the sound
 card wanted attention, but JACK could not provide it quickly enough.
@@ -1413,6 +1416,7 @@ From left to right, these controls are:
 
 
 \section{The summary}
+\label{sec:summary}
 \index{summary}
 
 The summary area of the editor window gives an overview of your entire
@@ -1785,6 +1789,7 @@ There are three basic ways in which monitoring may be approached:
   supports it, as it combines the convenience of having the monitoring
   controlled by Ardour with the low latency operation of doing it
   externally.  See Figure~\ref{fig:jack-monitoring}.
+\index{JACK!monitoring}
 
 \begin{figure}[ht]
 \begin{center}
@@ -2355,7 +2360,8 @@ other.
 
 
 \section{Audio region gain}
-\index{region gain,gain}
+\label{sec:audio-region-gain}
+\index{gain!region}
 
 In addition to the fade-in and fade-out curves, audio regions can also
 have variable gain throughout.  This overlaps somewhat with automation
@@ -2369,7 +2375,7 @@ Section~\label{sec:ardour-preferences-editor}).  This enables some
 useful functionality which is otherwise turned off.
 
 To edit audio region gain, first go into `draw region gain' mode by
-clicking the tool (\includegraphics{screenshots/tool-region-gain.png}).  Now,
+clicking the tool (\inlinetool{region-gain}).  Now,
 moving the mouse pointer over an audio region will show the gain
 curve; initially this will be a straight green line with two
 red-square points, one at each end.  The gain line can be edited in
@@ -2411,7 +2417,7 @@ you to specify the desired shift in octaves, semitones and cents.
 \section{Time stretching}
 
 Time-stretching in Ardour has its own special tool.  Choose the
-stretch/shrink tool (\includegraphics{screenshots/tool-stretch.png}).
+stretch/shrink tool (\inlinetool{stretch}).
 With this tool, you can click and drag the size of regions, much as
 you would do when trimming them.  The difference is that after the
 drag, Ardour will time-stretch the region to the new size that you
@@ -2474,7 +2480,7 @@ using the `Operation' drop-down:
   smaller regions at the feature points.
 \item \textbf{Snap region} --- \todo{don't know what these do}
 \item \textbf{Conform regions} --- 
-
+\end{itemize}
 
 \section{Spectral analysis}
 \index{spectrum}
@@ -2493,7 +2499,7 @@ size.  With a midi region's tools you can add, move, delete and modify
 notes, control changes and so on directly inside the editor window.
 
 The first step to editing a MIDI region's contents is to click the
-`edit region contents' tool (\includegraphics{tool-region-contents}).
+`edit region contents' tool (\inlinetool{region-contents}).
 On doing this, the bodies of the regions in the session will fade out
 to indicate that you are now editing their contents.  You can also
 edit this mode by double-clicking on a MIDI region.
@@ -2507,7 +2513,7 @@ has been switched on.
 
 Once in this mode, many of the tools for altering regions become tools
 for altering notes.  With the `select/move objects' tool
-(\includegraphics{tool-objects.png}) you can select notes, move them
+(\inlinetool{objects}) you can select notes, move them
 around and trim their starts and ends.  Hovering the mouse over a note
 will display information about its note value, channel and velocity.
 
@@ -2530,13 +2536,13 @@ will change the note.
 Selected notes can be cut using \key{\modone{}-X}, copied with
 \key{\modone{}-C} and deleted with \key{Delete}, just as regions can.
 Once cut or copied they can also be pasted; pastes will be placed at
-the current edit point (see Section~\ref{sec:edit-point-selector}.
+the current edit point (see Section~\ref{sec:edit-point-selector}).
 
 
 \subsection{Adding notes}
 
 Notes can be added to MIDI regions using the `draw MIDI' tool
-(\includegraphics{tool-draw-midi.png}).  Select this tool, then click
+(\inlinetool{draw-midi}).  Select this tool, then click
 to add a note which is the same length as the current grid interval,
 or click and drag to add a note of any length.
 
@@ -2548,6 +2554,7 @@ MIDI operations are available from the \menu{MIDI} submenu of the
 region context menu.
 
 \subsection{Transpose}
+\index{transpose}
 
 This opens a dialogue box to allow transposition (shifts in pitch) of
 the notes in the region.
@@ -2557,6 +2564,7 @@ the notes in the region.
 \todo{hmm}
 
 \subsection{Quantize}
+\index{quantize}
 
 The Quantize feature allows notes in the region to be snapped to a
 grid, to make their timing more accurate.  The \menu{Quantize\ldots}
@@ -2584,9 +2592,9 @@ The quantization options are as follows:
   two input notes as shown in Figure~\ref{fig:swing-maths}, the
   quantizer will put the second note at a time $t$ where
 
-\begin{eqnarray}
-t &= q + \frac{2}{3} \frac{F_S}{100} L
-\end{eqnarray}
+\begin{equation}
+t = q + \frac{2}{3} \frac{F_S}{100} L
+\end{equation}
 
 where $F_S$ is the swing factor specified in the quantize dialogue
 box.  Hence if $F_S$ is positive, the note will be placed later than
@@ -2595,10 +2603,12 @@ is placed earlier.
 
 This feature is probably most easily explored by listening!
 
+\index{swing}
 \end{itemize}
 
 
 \subsection{Fork}
+\index{fork}
 
 By default, when a region is copied its contents are a `clone' of the
 thing it was copied from.  That is to say, if you copy some region $A$
@@ -2611,11 +2621,27 @@ choose \menu{MIDI,Fork} from the context menu.
 
 
 \subsection{List Editor}
+\index{list editor}
 
 To look at the MIDI note events in a region numerically, select the
 region and choose \menu{MIDI,List Editor\ldots} from the context menu.
 This opens a dialogue box containing all the region's note details,
 and edits you make to the numbers will be reflected in the region.
+
+
+\section{MIDI data other than notes}
+\label{sec:midi-non-note}
+
+Ardour treats all MIDI note data differently to other types of
+messages (control changes, pitch bends and so on).  All the other
+types of data are represented as automation data, drawn with
+continuous lines.  The resulting `automation' is converted back to
+MIDI and played back in the same stream as the note data, and MIDI
+automation data is always attached to a region, so it moves in time
+and is copied and pasted with its region.
+
+Automation is covered full in Chapter~\ref{ch:automation}, with
+reference to audio as well as MIDI automation.
 
 
 
@@ -2625,6 +2651,7 @@ and edits you make to the numbers will be reflected in the region.
 
 \chapter{Automation}
 \label{ch:automation}
+\index{automation}
 
 Automation is the means by which many controls in Ardour (faders,
 plugin controls, mute and solo, and so on) can be `automated', so that
@@ -2633,6 +2660,100 @@ mixing a track; vocal levels may be brought up and down as required,
 for example.  This chapter describes the ways in which automation may
 be set up and edited.
 
+\section{Adding an automation lane}
+
+By default, a track has no automation.  To add some, the first step is
+to open an automation `lane' for the track.  This looks much like an
+additional track, but can be considered a `child' of its parent track.
+
+To create an automation lane for an audio track, click the `a' button
+in the track controls area.  A menu will open which contains a list of
+the things which can be automated for the track.  By default, this
+will just be `fader' and `pan', but if the track has any plugins,
+their controls will also be listed in this menu.
+
+Choosing, for example, `fader' opens a new automation lane, as shown
+in Figure~\ref{fig:automation-lane}.
+
+\screenshot{automation-lane.png}{An automation lane}{fig:automation-lane}
+
+We now have an automation lane for the track `up\_with\_people.stereo'
+which controls its fader level.  The automation lane's controls area
+includes the name of the parameter being automated, a handy fader for
+adjusting the level of the parameter, a button to select the
+automation mode, and a `cross' button to hide the automation lane.
+Hiding the automation lane merely removes it from sight; it does not
+have any effect on the automation that the lane contains.
+
+
+\section{Automation modes}
+
+Clicking on the automation lane's mode button (which initially says `Manual') offers four options:
+
+\begin{itemize}
+\item \textbf{Manual} --- in this mode the automation will be ignored on playback.
+\item \textbf{Play} --- in this mode the automation will be `played
+  back'; in other words, when the session is playing back, the track's
+  controls will be manipulated by any automation that has been set up.
+\item \textbf{Write} --- when the session is being played back, any
+  automation lanes in `write' mode will store data from the current
+  value of their parameter at each instant.  In other words, one way
+  to create automation data is to set `write' mode, play the session
+  back, then adjust the parameter (in this case the fader) of the
+  track as required.  Your movements will be recorded and written as
+  automation.
+\item \textbf{Touch} --- \todo{doesn't seem to work right now}
+\end{itemize}
+
+
+\section{Creating automation}
+
+There are two basic ways to create automation data.  Firstly, one may
+use the `write' mode, as discussed in the previous section.  To see
+this in action for our example fader lane, simply select `write',
+start the session, and move the track's fader around a bit.  When you
+stop the transport, an automation line will appear on the lane to show
+you the moves that you made on the fader.
+
+The other option is to draw the automation with the mouse.  Clicking
+in an automation lane with in `select/move objects' mode
+(\inlinetool{objects}) will create a new automation point.
+
+
+\section{Editing automation}
+
+Automation may be edited using the mouse in the automation lane.
+Hovering the mouse over an automation line will put red squares at
+each node of the line; these can be dragged around to move them.
+
+You can also \modone{}-right-click to display a dialogue box to change
+the precise value of an automation point, or
+\modtertiary{}-right-click to delete a point.
+
+Multiple points can be selected so that they can be moved as a group;
+either \modone{}-left-click to select additional points, or drag a
+`lassoo' rectangle over a group of points to select several at once.
+
+Finally, points may be cut, copied and pasted, just as regions, by
+selecting them and using the standard key shortcuts (\key{\modone{}-X}
+for cut, \key{\modone{}-C} for copy or \key{\modone{}-V} for paste).
+Pastes are made at the edit point.
+
+
+\section{MIDI `automation'}
+
+As discussed in Section~\ref{sec:midi-non-note}, a variety of MIDI
+message types are presented in Ardour as automation.  Lanes for these
+messages can be opened, just as with audio tracks, by clicking on the
+`a' button in a MIDI track's control area and selecting a parameter.
+The menu is much more extensive for MIDI, since there is an option for
+each parameter on each MIDI channel.
+
+Note that because of the way MIDI automation is stored (with the
+region), it is not possible to draw MIDI automation in an area of the
+lane where its parent track does not have a region.  If you want to
+add automation without any note data, simply create an empty region
+before adding the automation.
 
 
 
@@ -2889,15 +3010,132 @@ for the click; the `emphasis' audio file will be used for the first
 beat of the bar.  The \emph{click gain level} adjusts the volume of
 the click.
 
+\subsubsection{Automation}
+
+
 \subsection{Transport}
+
+\begin{itemize}
+\item \textbf{Keep record-enable engaged on stop} --- selecting this
+  option will mean that after a recording pass, the main session
+  record-enable will remain switched on; otherwise it will be switched
+  off when the transport stops.
+\item \textbf{Stop recording when an xrun occurs} --- an xrun (see
+  Section~\ref{sec:xrun}) during recording could well mean that the
+  recording has been corrupted by a small (or not-so-small) pop or
+  click.  If this option is enabled, recording will stop if an xrun is
+  detected, which may be useful to draw the fact to your attention.
+  It may \emph{not} be desirable on long or unattended recording
+  sessions!
+\item \textbf{Create markers where xruns occur} --- a less drastic
+  option for observing xruns is to enable this option, which creates a
+  marker wherever in a session an xrun occurs during recording.  The
+  marker makes it easy to check out the area later and inspect the
+  damage.
+\item \textbf{Stop at the end of the session} --- if this is enabled,
+  the transport will stop at the end-of-session marker (\todo{does it
+    stop during record too?})
+\item \textbf{Do seamless looping} --- \todo{hmm!}
+\item \textbf{Primary clock delta to edit cursor}
+\item \textbf{Secondary clock delta to edit cursor}
+\item \textbf{Disable per-track record disarm while rolling} --- if
+  this is enabled it will be impossible to disarm a track from
+  recording while the transport is moving.  This may be useful as a
+  safety feature to prevent unwitting clicks on record enable buttons
+  from dropping tracks out of record.
+\item \textbf{12dB gain reduction during fast-forward and fast-rewind}
+  --- fast-forward/rewind can, by their nature, generate
+  unpleasant-sounding transients and high-frequency content which may
+  be trying to tired ears.  With this option enabled, Ardour will drop
+  the output by 12dB when doing `winds'.
+\end{itemize}
 
 \subsection{Editor}
 \label{sec:ardour-preferences-editor}
 
-
+\begin{itemize}
+\item \textbf{Link selection of regions and tracks} --- with this
+  enabled, when a region is seleted its track will be too.
+\item \textbf{Move relevant automation when audio regions are moved}
+  --- when enabled, this means that moving a region will also move any
+  automation at the same time as that region.
+\item \textbf{Show meters on tracks in the editor} --- enable this to
+  show meters next to the track controls area for each track.
+  Disabling it will provide a slight drop in CPU load.
+\item \textbf{Use overlap equivalency for regions} --- \todo{?!}
+\item \textbf{Make rubberband selection rectangle snap to the grid}
+  --- when selecting things by dragging a `rubberband' or `lassoo'
+  rectangle, this option makes that rectangle snap to any active grid.
+\item \textbf{Show waveforms in regions} --- this option draws
+  waveforms within audio regions.  Disable it to ease the load on your
+  CPU a bit.
+\item \textbf{Show gain envelopes in audio regions} --- enable this to
+  display region gain lines (see Section~\ref{sec:audio-region-gain})
+\item \textbf{Waveform scale} --- this alters the scale used to plot
+  audio waveforms within regions between linear and logarithmic (ie in
+  dBs).
+\item \textbf{Waveform shape} --- waveforms can either be plotted
+  traditionally (so that negative excursions of the waveform are
+  plotted as such), or rectified (so that negative excursions are
+  drawn as positive ones).
+\item \textbf{Show waveforms for audio while it is being recorded} ---
+  disabling this will prevent Ardour from generating waveforms for
+  regions during record; again, this will lighten the load on your CPU
+  a bit.
+\item \textbf{Show zoom toolbar} --- disable this to hide the zoom
+  toolbar, which may help the editor window to fit better on small
+  screens.
+\item \textbf{Color regions using their track's color} --- this will
+  draw the trim bar of each region using the same colour as has been
+  assigned to its track. \todo{if not?}
+\item \textbf{Update editor window during drags of the summary} --- if
+  this option is on, as you drag the view rectangle in the summary
+  (see Section~\ref{sec:summary}) the editor will be updated
+  instantly.  This can be a bit slow for complicated sessions; turning
+  this option off will mean that the editor only updates when you
+  finish the drag.
+\item \textbf{Synchronise editor and mixer track order} --- with this
+  option enabled the order of the tracks in the editor window will
+  match the order in the mixer; with it turned off, the track order
+  can be different.
+\item \textbf{Synchronise editor and mixer selection} --- with this
+  option turned on, selecting a track in the editor will select it in
+  the mixer, and vice-versa; otherwise selections are independent.
+\item \textbf{Name new markers} --- if this is set, when you click on
+  `New Marker' in the \emph{Locations} window (or the locations editor
+  list), the newly-created marker's name will be set to get the
+  keyboard focus so that you can name it easily.
+\end{itemize}
 
 \subsection{Audio}
+
+\subsubsection{Buffering}
+
+\subsubsection{Monitoring}
+
+\subsubsection{Connection of tracks and busses}
+
+\subsubsection{Denormals}
+
+\subsubsection{Plugins}
+
+
 \subsection{Solo / mute}
+
+Solo-in-place mute cut (dB)
+Solo controls are Listen controls
+Listen Position (AFL, PFL)
+PFL signals come from (before pre-fader procs, pre-fader but after pre-fader procs)
+AFL signals come from (immediately post-fader, after post-fader processors before pan)
+Exclusive solo
+Show solo muting
+Soloing overrides muting
+Mute affects pre-fader sends
+Mute affects post-fader sends
+Mute affects control outputs
+Mute affects main outputs
+
+
 \subsection{MIDI}
 \subsection{User interaction}
 \subsection{Interface}
@@ -3261,21 +3499,6 @@ Right-clicking the processor list does three things:
 From the menu, some new processors can be inserted.  These can be
 plugins, sends or internal sends.  The selected processor can also be
 deleted or copied.
-
-
-
-\section{Monitoring}
-
-The basic role of a track is to record and playback audio or MIDI
-data.  In some situations, however, it is useful to be able to get a
-track to pass live audio or MIDI from its input to its output.
-Consider, for example, a track with a couple of plugins that is being
-used for a vocal recording.  It may be desirable to listen to the
-processed live vocal from the output of the track, either before or
-during recording.  Generally speaking, the passing of live input data
-around Ardour is called \emph{monitoring}.
-
-
 
 \section{Tracks and busses in detail}
 
