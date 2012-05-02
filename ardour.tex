@@ -4,7 +4,6 @@
 \makeindex
 
 % XXX
-% solo/mute model
 % external sync
 % connection management/routing
 % snapshots
@@ -36,11 +35,13 @@
 
 % XXX: format
 \newcommand{\button}[1]{#1}
+\newcommand{\dialogue}[1]{#1}
+\newcommand{\tab}[1]{#1}
 \newcommand{\menu}[1]{\emph{\StrSubstitute{#1}{,}{ $\rightarrow$ }}}
 \newcommand{\key}[1]{\keystroke{\StrSubstitute{#1}{,}{ + }}}
 \newcommand{\directory}[1]{\texttt{#1}}
 \newcommand{\todo}[1]{\marginpar{\small\texttt{#1}}}
-\newcommand{\modone}{Control}
+\newcommand{\modone}{Ctrl}
 \newcommand{\modtwo}{Alt}
 \newcommand{\modtertiary}{Shift}
 
@@ -1457,7 +1458,7 @@ allow the editor window to be scrolled in each direction.
 This contains the following things:
 \begin{itemize}
 \item \textbf{File} --- the type of file that Ardour is using to record audio;
-  this can be change from the \emph{Media} tab of the Session
+  this can be change from the \tab{Media} tab of the Session
   Properties dialogue (see Section
   \ref{sec:session-properties-media}).
 \item \textbf{JACK} --- the sampling rate that JACK (and therefore Ardour) is
@@ -2073,7 +2074,7 @@ There are three basic ways in which monitoring may be approached:
 
 There are three main settings which affect how monitoring is
 performed.  The first is `Record monitoring handled by' in the
-\emph{Audio} tab of the \emph{Ardour Preferences} dialogue.  There are
+\tab{Audio} tab of the \dialogue{Ardour Preferences} dialogue.  There are
 two or three options here, depending on the capabilities of your
 hardware:
 
@@ -2088,7 +2089,7 @@ hardware:
 
 The other two settings are more complex; one is `Tape machine mode',
 in the same dialogue, and the other is `Monitoring automatically
-follows transport state (`auto-input')' setting in \emph{Session
+follows transport state (`auto-input')' setting in \dialogue{Session
   Properties}.
 
 Monitoring is also somewhat dependent on the state of the track's
@@ -2167,8 +2168,8 @@ out into the real world to be listened to.
 
 The monitor bus is an additional, optional, and more specialised type
 of bus.  Ardour can configured to use a monitor bus by ticking the
-`Use a monitor bus' option in the `Audio tab of the \emph{Ardour
-  Preferences'} dialogue.
+`Use a monitor bus' option in the \tab{Audio} tab of the \dialogue{Ardour
+  Preferences} dialogue.
 
 %% XXX?
 %% If you are using a monitor bus, an extra `monitor control' section will appear in the mixer window.
@@ -2209,7 +2210,7 @@ one way in which mute and solo will work.  Without a monitor bus:
 
 For setups \emph{with} a monitor bus, you have more options, mostly
 governed by the setting of the `Solo controls are Listen controls'
-option in the `Solo / mute' tab of `Ardour Preferences'.
+option in the \tab{Solo / mute} tab of `Ardour Preferences'.
 
 With `Solo controls are Listen controls' unticked, behaviour is almost
 exactly the same as the situation without a monitor bus.  Mute and
@@ -2477,8 +2478,8 @@ what form these automatically-generated crossfades will take, as
 described in Section~\ref{sec:session-properties-fades}.  The
 automatic crossfades can be set to span the entire overlap of the
 regions involved, or to be short.  In general, if you want the basic
-property of `de-clicking' region overlaps, crossfades can be set to be
-created `short'.  The long-crossfade options are perhaps more useful for
+property of `de-clicking' region overlaps, crossfades should be set to be
+`short'.  The long-crossfade options are more useful for
 artistic use of fades, where two regions must merge slowly into each
 other.
 
@@ -2495,7 +2496,7 @@ the sound of particular features within the region.
 
 If you want to modify audio region gain, it is important to ensure
 that the option `Show gain envelopes in audio regions' is ticked in
-the \emph{Editor} tab of Ardour's preferences (see
+the \tab{Editor} tab of Ardour's preferences (see
 Section~\ref{sec:ardour-preferences-editor}).  This enables some
 useful functionality which is otherwise turned off.
 
@@ -2533,7 +2534,7 @@ Ardour provides algorithms to do pitch-shifting of audio.  As with any
 pitch-shifting method, the results can never be perfect, but they may
 be useful for correction or for artistic purposes.  To pitch-shift a
 region, choose \menu{Edit,Pitch Shift\ldots} from the context menu.
-This will open the \emph{Pitch Shift Audio} dialogue box, which allows
+This will open the \dialogue{Pitch Shift Audio} dialogue box, which allows
 you to specify the desired shift in octaves, semitones and cents.
 
 \todo{Preserve Formants?}
@@ -2584,8 +2585,8 @@ different ways, looking for particular features (like note onsets or
 transients like percussion hits).  It can then perform various
 operations on the region based on these features.
 
-To open the Rhythm Ferret dialogue, choose \menu{Edit,Rhythm Ferret}.
-This will open the dialogue box shown in
+To open the \dialogue{Rhythm Ferret} dialogue, choose
+\menu{Edit,Rhythm Ferret}.  This will open the dialogue box shown in
 Figure~\ref{fig:rhythm-ferret-dialogue}.
 
 \screenshot{rhythm-ferret-dialogue.png}{The Rhythm Ferret dialogue}{fig:rhythm-ferret-dialogue}
@@ -2609,6 +2610,7 @@ using the `Operation' drop-down:
 
 \section{Spectral analysis}
 \index{spectrum}
+\label{sec:spectral-analysis}
 
 Though not strictly an editing operation, Ardour provides a handy
 window which gives a spectral analysis of some part of your session.
@@ -2721,10 +2723,10 @@ The quantization options are as follows:
 t = q + \frac{2}{3} \frac{F_S}{100} L
 \end{equation}
 
-where $F_S$ is the swing factor specified in the quantize dialogue
-box.  Hence if $F_S$ is positive, the note will be placed later than
-it would be with `straight' timing, and if $F_S$ is negative the note
-is placed earlier.
+where $F_S$ is the swing factor specified in the \dialogue{Quantize}
+dialogue box.  Hence if $F_S$ is positive, the note will be placed
+later than it would be with `straight' timing, and if $F_S$ is
+negative the note is placed earlier.
 
 This feature is probably most easily explored by listening!
 
@@ -2733,7 +2735,7 @@ This feature is probably most easily explored by listening!
 \includegraphics[scale=0.75]{diagrams/swing.pdf}
 \end{center}
 \caption{The mathematics of swing}
-\label{fig:swing}
+\label{fig:swing-maths}
 \end{figure}
 
 \index{swing}
@@ -2989,7 +2991,7 @@ context menu.
 \begin{itemize}
 \item \textbf{Normlize\ldots} --- examines the contents of the region
   and sets the region's gain so that the peak value of the region is
-  scaled to 0dbFS; in other words, this makes the region as loud as it
+  scaled to just under 0dbFS; in other words, this makes the region as loud as it
   can be without introducing distortion.
 \item Boost Gain
 \item Cut Gain
@@ -3011,7 +3013,8 @@ context menu.
 \item Export\ldots
 \item Bounce (without processing)
 \item Bounce (with processing)
-\item Spectral Analysis\ldots
+\item \textbf{Spectral Analysis\ldots} --- show a frequency spectrum
+  of the region (see Section~\ref{sec:spectral-analysis}.
 \item Remove
 \end{itemize}
 
