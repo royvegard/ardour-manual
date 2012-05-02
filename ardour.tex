@@ -1525,6 +1525,258 @@ screens.
 
 
 
+% ====================================================================================
+% TRACKS AND BUSSES
+% ====================================================================================
+
+\chapter{Tracks and busses}
+\label{ch:tracks-and-busses}
+
+The basic building blocks of Ardour's sessions are \emph{tracks}
+and \emph{busses}.
+
+Both are built on the same foundation; a bus functionality is a
+subset of a track's.  Both can pass audio and MIDI data, apply
+processing and perform various signal routing operations.  The
+difference with a track is that can record and play back data.
+
+\section{Track and bus basics}
+
+\subsection{Types}
+
+An Ardour track can be either `audio' or `MIDI'.  The only real
+difference between the two is the type of data that the track will
+record and play back.  Either type of track can \emph{pass} either
+type of data.  Hence, for example, one might have a MIDI track that
+contains an instrument plugin; such a track would contain MIDI data,
+but would produce audio, since the instrument would turn the one into
+the other.
+
+In Ardour~3 busses are only used for audio.
+
+\subsection{Adding and removing tracks}
+
+A track or bus can be added to a session in various ways:
+
+\begin{itemize}
+\item Choose \menu{Track,Add Track or Bus\ldots} from the main menu.
+\item Right-click in an empty part of the track controls area.
+\item Click the $+$ button underneath the list of tracks in the mixer.
+\end{itemize}
+
+Any of these actions will open the \emph{Add Track or Bus} dialogue,
+as shown in Figure~\ref{fig:add-track-or-bus}.
+
+\screenshot{add-track-or-bus.png}{Add Track or Bus dialogue}{fig:add-track-or-bus}
+
+From here, you can select firstly the number of tracks or busses to
+add, and the type; audio track, MIDI track or bus.  There are also
+some options, which vary depending on the type of thing you are
+creating.
+
+These options are:
+\begin{itemize}
+\item Configuration (for audio tracks and busses) --- this is the
+  number of input and outputs the track is set up with.  You can
+  always change these counts later.
+\item Track mode (for audio tracks) --- this can be `normal', `non-layered' or `tape'.
+\todo{I have no idea what non-layered nor tape modes do}
+\item Group --- tracks and busses can be put into groups so that a
+  selected range of operations are applied to all members of a group
+  at the same time (selecting record enable, or editing, for example).
+  This option allows you to specify an existing group to add the new
+  track(s) or bus(ses) to, or to create a new group to put the new
+  things in.
+\item Instrument (for MIDI tracks) --- this is a short-cut to allow
+  you to create a MIDI track with an instrument plugin already added
+  to it.  You can achieve the same effect by creating a MIDI track
+  with no plugins and adding it yourself; this option just makes
+  things slightly quicker.
+\end{itemize}
+
+Adding tracks will add them to both the editor and mixer windows; the
+editor window shows the timeline, with any recorded data, and the
+mixer shows just the processing elements of the track (its plugins,
+fader and so on).
+
+Tracks and busses can be removed by selecting them, right-clicking and
+choosing `Remove' from the menu.  A warning dialogue will pop up, as
+\emph{track removal cannot be undone}; use this option with care!
+
+
+\section{Track and bus groups}
+\label{sec:track-and-bus-groups}
+\index{group}
+
+Tracks and busses can be put into \emph{groups}. The members of a
+group can be set to share various settings, which can be useful for
+managing tracks which are closely related to each other.  Examples
+might include tracks that contain multiple-microphone recordings of a
+single source (an acoustic guitar, perhaps, or a drum-kit).
+
+You can put tracks and busses into groups in various ways.  In the
+editor window, a track's controls might look like those in
+Figure~\ref{fig:track-in-group}.
+
+\screenshot{track-in-group.png}{The header of a track in a group}{fig:track-in-group}
+
+The green tab to the left of the track header indicates that this
+track is in a group called `Fred'.  These tabs can be dragged in the
+editor window to add to or remove tracks from groups.  Alternatively,
+clicking the `g' button opens a menu which gives a list of the
+available groups; selecting one of these groups will add the track or
+bus to that group.  This menu also allows a new group to be created.
+
+The properties of a group can be edited by right-clicking on its tab
+and choosing \menu{Edit Group...}.  This will open the track/bus group
+dialogue, which is also used when creating new groups, as shown in
+Figure~\ref{fig:route-group-dialogue}.
+
+\screenshot{route-group-dialogue.png}{The track/bus group dialogue}{fig:route-group-dialogue}
+
+`Active' means that the group is being obeyed, so that the sharing of
+properties is applied to its members.  The colour can be changed, and
+affects the colour of the group's tab in the editor and mixer windows.
+
+Following these options are a list of the things that the members of
+the group can share.  `Gain' means that the track faders will be
+synced to always have the same value; `Relative' means that the gain
+changes are applied relative to each member's current value.  If, for
+example, there are two tracks in a group with relative gain sharing,
+and their faders are set to $-3$dB and $-1$dB, a change of the first
+track to a gain of $-6$dB will result in the second track having a
+gain of $-4$dB (so that the difference in gains is the same).
+
+`Muting', `soloing', `record enable', `route active state', `colour'
+and `monitoring' are all straightforward; they simply mean that all
+member tracks or busses will share the same settings in these
+respects.
+
+`Selection' means that if a region is selected or deselected on one
+constituent track, corresponding regions on other member tracks will
+be similarly selected.  Corresponding regions are those that are at
+the same position and have the same length.  Similarly, `Editing'
+means that edits applied to one track will be applied at the same
+place on other tracks in the group.  These options are particularly
+useful for multi-microphone recordings, where you always want to apply
+the same edits to each track.
+
+Right-clicking on the group tab offers a further menu of group-related
+actions.  \menu{Create a New Group} does as its name suggests, and
+there is also an option to create a new group and automatically put
+particular tracks into it.  \emph{Collect Group} moves all the member
+tracks so that they are together in the editor window, and
+\menu{Remove Group} removes the group (and only the group, not its
+members).
+
+\menu{Add New Subgroup Bus} creates a bus (giving it the name of the
+group) and connects the output of each member to the new bus.  In a
+similar way, \menu{Add New Aux Bus} adds a bus and gives each member a
+send to that bus.  There are two options for this, specifying whether
+the sends should be placed pre- or post-fader.
+
+Finally, \menu{Fit to Window} will zoom the member tracks so that they
+fill the editor window.
+
+
+\section{Tracks and busses in the editor window}
+
+When a track or bus is added to a session it is given a representation
+in both the editor and the mixer windows.  Broadly speaking, the
+editor window shows the track's timeline, and the mixer window its
+signal processing.
+
+On the left of a track or bus in the editor is the controls area.  The
+contents of this area are different for audio tracks, MIDI tracks and busses.
+
+\subsection{Busses}
+
+A typical control area for a bus is shown in
+Figure~\ref{fig:typical-bus-controls}.
+
+\screenshot{typical-bus-controls.png}{Controls for a typical bus}{fig:typical-bus-controls}
+
+At the top-left of the controls is the name of the bus.  This can be
+edited directly to whatever is suitable, although the name must be
+unique within the session.  Underneath the name is a copy of the bus'
+main level fader.  The control buttons to the right-hand side are:
+
+\begin{itemize}
+\item \textbf{`m'} --- mute --- left-click to mute the bus.
+  Right-click to display a menu which dictates what particular parts
+  of the bus should be muted. \todo{detail of muting options}
+\item \textbf{`s'} --- solo --- solo the bus.  The behaviour of the
+  solo system is described in detail in Section~\ref{todo}.
+\item \textbf{`a'} --- automation --- click to open a menu related to
+  automation for the bus.  Automation is covered in Chapter~\ref{ch:automation}.
+\item \textbf{`g'} --- group --- click to open a menu related to the
+  bus' group, as discussed in Section~\ref{sec:track-and-bus-groups} above.
+\end{itemize}
+
+
+\subsection{Audio tracks}
+
+A typical control area for an audio track is shown in Figure~\ref{fig:typical-audio-track-controls}.
+
+\screenshot{typical-audio-track-controls.png}{Controls for a typical audio track}{fig:typical-audio-track-controls}
+
+An audio track has the same controls as a bus, with the addition of
+two extras.  The red button with the pink circle is the track's
+\emph{record enable}.  When this is clicked it will gain a bright red
+outline, and the track will then be recorded onto when the main
+session record enable is turned on with the transport rolling.
+
+The `p' button below the record enable will open a playlist menu when
+clicked.  The menu offers various operations related to the track's
+playlist.  This, as you will recall, is simply a list of the
+regions that the track should play.  Playlists may be swapped on a
+given track, and may be used by more than one track at the same time.
+They are often useful to keep different takes, for example, or to
+allow one set of regions to be played off two tracks with different
+processing.
+
+\todo{playlist menu details}
+
+
+\subsection{MIDI tracks}
+
+A typical control area for a MIDI track is shown in Figure~\ref{fig:typical-midi-track-controls}.
+
+\begin{figure}[ht]
+\begin{center}
+\includegraphics{diagrams/typical-midi-track-controls.pdf}
+\end{center}
+\caption{Typical MIDI track controls}
+\label{fig:typical-midi-track-controls}
+\end{figure}
+
+The MIDI track example is shown at a greater height than the other
+examples, as with MIDI tracks there are some control elements which
+only appear when there is sufficient vertical space to fit them in.
+
+A MIDI track has the same basic controls as an audio track, with the
+addition of two extra elements.  The set of buttons below the main
+track controls controls the MIDI channels that should be visible in
+the editor.  A MIDI track's data may span any number of the 16
+available MIDI channels, and sometimes it is useful to view only a
+subset of those channels; different instruments may, for example, be
+put on different MIDI channels.  Clicking on a channel number toggles
+its visibility.
+
+\todo{What does Force do}
+
+To the right of the MIDI track controls is a representation of a piano
+keyboard called the `scroomer'.  This performs a couple of functions.
+Firstly, the scroll-bar controls the range of pitches that are visible
+on the track.  Dragging the scroll-bar body up and down scrolls up and
+down through the visible pitches, and dragging the scroll-bar
+`handles' zooms in and out, so that more or fewer pitches are visible.
+The piano keyboard gives a reference for the pitches that the track is
+displaying.  In addition, clicking on the notes will generate the
+corresponding MIDI note in the track.
+
+
+
 
 % ====================================================================================
 % SIGNAL FLOW AND THE MIXER
@@ -1889,34 +2141,34 @@ monitored.
 
 The previous section explores how signals flow within individual mixer
 strips.  This section discusses the wider picture of signal flow
-within Ardour as a whole, particularly in respect of track soloing and
+within Ardour as a whole, particularly with regard to track soloing and
 muting.
 
 
 \subsection{The master bus}
 
-Ardour session always contain a special bus called the \emph{master
+Ardour sessions always contain a special bus called the \emph{master
   bus}.  Mostly, this is like a normal bus, but it has some special properties:
 
 \begin{itemize}
-\item Ardour can be configured to automatically connect other tracks
-  and busses to the master bus.
+\item Ardour can be configured to connect other tracks
+  and busses to the master bus automatically.
 \item The master bus' mixer strip is always displayed at the
   right-hand-side of the mixer window.
 \end{itemize}
 
 Typically, most of a session's tracks will send their output to the
 master bus, and the output from the master bus will be connected to
-some ports on a physical sound card so that the session's mix makes it
+some ports on a physical sound card so that the mix makes it
 out into the real world to be listened to.
 
 
 \subsection{The monitor bus}
 
 The monitor bus is an additional, optional, and more specialised type
-of bus.  A session can be given a monitor bus by ticking the `Use a
-monitor bus' option in the `Audio tab of the \emph{Ardour Preferences'}
-dialogue.
+of bus.  Ardour can configured to use a monitor bus by ticking the
+`Use a monitor bus' option in the `Audio tab of the \emph{Ardour
+  Preferences'} dialogue.
 
 %% XXX?
 %% If you are using a monitor bus, an extra `monitor control' section will appear in the mixer window.
@@ -1956,7 +2208,7 @@ one way in which mute and solo will work.  Without a monitor bus:
 \subsection{With a monitor bus}
 
 For setups \emph{with} a monitor bus, you have more options, mostly
-goverened by the setting of the `Solo controls are Listen controls'
+governed by the setting of the `Solo controls are Listen controls'
 option in the `Solo / mute' tab of `Ardour Preferences'.
 
 With `Solo controls are Listen controls' unticked, behaviour is almost
@@ -1975,7 +2227,7 @@ master bus.  Also:
 
 \begin{itemize}
 \item \textbf{Mute} will mute the track or bus, so that it will not be
-  heard anywhere (neither the master nor monitor busses), much as before.
+  heard anywhere (neither on the master nor monitor busses), much as before.
 \item \textbf{Listen} will disconnect the monitor bus from the master
   bus, so that the monitor bus now only receives things that are
   `listened'.  Listen will not perform any muting, and hence the
@@ -2012,259 +2264,6 @@ time, the monitor out is fed from the master bus.
 In this scheme Solo has no effect other than to mute other non-soloed
 tracks; with solo (rather then listen), the monitor out is fed from
 the master bus.
-
-
-
-% ====================================================================================
-% TRACKS AND BUSSES
-% ====================================================================================
-
-\chapter{Tracks and busses}
-\label{ch:tracks-and-busses}
-
-The basic building blocks of Ardour's sessions are \emph{tracks}
-and \emph{busses}.
-
-Both are built on the same foundation; a bus functionality is a
-subset of a track's.  Both can pass audio and MIDI data, apply
-processing and perform various signal routing operations.  The
-difference with a track is that can record and play back data.
-
-\section{Track and bus basics}
-
-\subsection{Types}
-
-An Ardour track can be either `audio' or `MIDI'.  The only real
-difference between the two is the type of data that the track will
-record and play back.  Either type of track can \emph{pass} either
-type of data.  Hence, for example, one might have a MIDI track that
-contains an instrument plugin; such a track would contain MIDI data,
-but would produce audio, since the instrument would turn the one into
-the other.
-
-In Ardour~3 busses are only used for audio.
-
-\subsection{Adding and removing tracks}
-
-A track or bus can be added to a session in various ways:
-
-\begin{itemize}
-\item Choose \menu{Track,Add Track or Bus\ldots} from the main menu.
-\item Right-click in an empty part of the track controls area.
-\item Click the $+$ button underneath the list of tracks in the mixer.
-\end{itemize}
-
-Any of these actions will open the \emph{Add Track or Bus} dialogue,
-as shown in Figure~\ref{fig:add-track-or-bus}.
-
-\screenshot{add-track-or-bus.png}{Add Track or Bus dialogue}{fig:add-track-or-bus}
-
-From here, you can select firstly the number of tracks or busses to
-add, and the type; audio track, MIDI track or bus.  There are also
-some options, which vary depending on the type of thing you are
-creating.
-
-These options are:
-\begin{itemize}
-\item Configuration (for audio tracks and busses) --- this is the
-  number of input and outputs the track is set up with.  You can
-  always change these counts later.
-\item Track mode (for audio tracks) --- this can be `normal', `non-layered' or `tape'.
-\todo{I have no idea what non-layered nor tape modes do}
-\item Group --- tracks and busses can be put into groups so that a
-  selected range of operations are applied to all members of a group
-  at the same time (selecting record enable, or editing, for example).
-  This option allows you to specify an existing group to add the new
-  track(s) or bus(ses) to, or to create a new group to put the new
-  things in.
-\item Instrument (for MIDI tracks) --- this is a short-cut to allow
-  you to create a MIDI track with an instrument plugin already added
-  to it.  You can achieve the same effect by creating a MIDI track
-  with no plugins and adding it yourself; this option just makes
-  things slightly quicker.
-\end{itemize}
-
-Adding tracks will add them to both the editor and mixer windows; the
-editor window shows the timeline, with any recorded data, and the
-mixer shows just the processing elements of the track (its plugins,
-fader and so on).
-
-Tracks and busses can be removed by selecting them, right-clicking and
-choosing `Remove' from the menu.  A warning dialogue will pop up, as
-\emph{track removal cannot be undone}; use this option with care!
-
-
-\section{Track and bus groups}
-\label{sec:track-and-bus-groups}
-\index{group}
-
-Tracks and busses can be put into \emph{groups}. The members of a
-group can be set to share various settings, which can be useful for
-managing tracks which are closely related to each other.  Examples
-might include tracks that contain multiple-microphone recordings of a
-single source (an acoustic guitar, perhaps, or a drum-kit).
-
-You can put tracks and busses into groups in various ways.  In the
-editor window, a track's controls might look like those in
-Figure~\ref{fig:track-in-group}.
-
-\screenshot{track-in-group.png}{The header of a track in a group}{fig:track-in-group}
-
-The green tab to the left of the track header indicates that this
-track is in a group called `Fred'.  These tabs can be dragged in the
-editor window to add to or remove tracks from groups.  Alternatively,
-clicking the `g' button opens a menu which gives a list of the
-available groups; selecting one of these groups will add the track or
-bus to that group.  This menu also allows a new group to be created.
-
-The properties of a group can be edited by right-clicking on its tab
-and choosing \menu{Edit Group...}.  This will open the track/bus group
-dialogue, which is also used when creating new groups, as shown in
-Figure~\ref{fig:route-group-dialogue}.
-
-\screenshot{route-group-dialogue.png}{The track/bus group dialogue}{fig:route-group-dialogue}
-
-`Active' means that the group is being obeyed, so that the sharing of
-properties is applied to its members.  The colour can be changed, and
-affects the colour of the group's tab in the editor and mixer windows.
-
-Following these options are a list of the things that the members of
-the group can share.  `Gain' means that the track faders will be
-synced to always have the same value; `Relative' means that the gain
-changes are applied relative to each member's current value.  If, for
-example, there are two tracks in a group with relative gain sharing,
-and their faders are set to $-3$dB and $-1$dB, a change of the first
-track to a gain of $-6$dB will result in the second track having a
-gain of $-4$dB (so that the difference in gains is the same).
-
-`Muting', `soloing', `record enable', `route active state', `colour'
-and `monitoring' are all straightforward; they simply mean that all
-member tracks or busses will share the same settings in these
-respects.
-
-`Selection' means that if a region is selected or deselected on one
-constituent track, corresponding regions on other member tracks will
-be similarly selected.  Corresponding regions are those that are at
-the same position and have the same length.  Similarly, `Editing'
-means that edits applied to one track will be applied at the same
-place on other tracks in the group.  These options are particularly
-useful for multi-microphone recordings, where you always want to apply
-the same edits to each track.
-
-Right-clicking on the group tab offers a further menu of group-related
-actions.  \menu{Create a New Group} does as its name suggests, and
-there is also an option to create a new group and automatically put
-particular tracks into it.  \emph{Collect Group} moves all the member
-tracks so that they are together in the editor window, and
-\menu{Remove Group} removes the group (and only the group, not its
-members).
-
-\menu{Add New Subgroup Bus} creates a bus (giving it the name of the
-group) and connects the output of each member to the new bus.  In a
-similar way, \menu{Add New Aux Bus} adds a bus and gives each member a
-send to that bus.  There are two options for this, specifying whether
-the sends should be placed pre- or post-fader.
-
-Finally, \menu{Fit to Window} will zoom the member tracks so that they
-fill the editor window.
-
-
-\section{Tracks and busses in the editor window}
-
-When a track or bus is added to a session it is given a representation
-in both the editor and the mixer windows.  Broadly speaking, the
-editor window shows the track's timeline, and the mixer window its
-signal processing.
-
-On the left of a track or bus in the editor is the controls area.  The
-contents of this area are different for audio tracks, MIDI tracks and busses.
-
-\subsection{Busses}
-
-A typical control area for a bus is shown in
-Figure~\ref{fig:typical-bus-controls}.
-
-\screenshot{typical-bus-controls.png}{Controls for a typical bus}{fig:typical-bus-controls}
-
-At the top-left of the controls is the name of the bus.  This can be
-edited directly to whatever is suitable, although the name must be
-unique within the session.  Underneath the name is a copy of the bus'
-main level fader.  The control buttons to the right-hand side are:
-
-\begin{itemize}
-\item \textbf{`m'} --- mute --- left-click to mute the bus.
-  Right-click to display a menu which dictates what particular parts
-  of the bus should be muted. \todo{detail of muting options}
-\item \textbf{`s'} --- solo --- solo the bus.  The behaviour of the
-  solo system is described in detail in Section~\ref{todo}.
-\item \textbf{`a'} --- automation --- click to open a menu related to
-  automation for the bus.  Automation is covered in Chapter~\ref{ch:automation}.
-\item \textbf{`g'} --- group --- click to open a menu related to the
-  bus' group, as discussed in Section~\ref{sec:track-and-bus-groups} above.
-\end{itemize}
-
-
-\subsection{Audio tracks}
-
-A typical control area for an audio track is shown in Figure~\ref{fig:typical-audio-track-controls}.
-
-\screenshot{typical-audio-track-controls.png}{Controls for a typical audio track}{fig:typical-audio-track-controls}
-
-An audio track has the same controls as a bus, with the addition of
-two extras.  The red button with the pink circle is the track's
-\emph{record enable}.  When this is clicked it will gain a bright red
-outline, and the track will then be recorded onto when the main
-session record enable is turned on with the transport rolling.
-
-The `p' button below the record enable will open a playlist menu when
-clicked.  The menu offers various operations related to the track's
-playlist.  This, as you will recall, is simply a list of the
-regions that the track should play.  Playlists may be swapped on a
-given track, and may be used by more than one track at the same time.
-They are often useful to keep different takes, for example, or to
-allow one set of regions to be played off two tracks with different
-processing.
-
-\todo{playlist menu details}
-
-
-\subsection{MIDI tracks}
-
-A typical control area for a MIDI track is shown in Figure~\ref{fig:typical-midi-track-controls}.
-
-\begin{figure}[ht]
-\begin{center}
-\includegraphics{diagrams/typical-midi-track-controls.pdf}
-\end{center}
-\caption{Typical MIDI track controls}
-\label{fig:typical-midi-track-controls}
-\end{figure}
-
-The MIDI track example is shown at a greater height than the other
-examples, as with MIDI tracks there are some control elements which
-only appear when there is sufficient vertical space to fit them in.
-
-A MIDI track has the same basic controls as an audio track, with the
-addition of two extra elements.  The set of buttons below the main
-track controls controls the MIDI channels that should be visible in
-the editor.  A MIDI track's data may span any number of the 16
-available MIDI channels, and sometimes it is useful to view only a
-subset of those channels; different instruments may, for example, be
-put on different MIDI channels.  Clicking on a channel number toggles
-its visibility.
-
-\todo{What does Force do}
-
-To the right of the MIDI track controls is a representation of a piano
-keyboard called the `scroomer'.  This performs a couple of functions.
-Firstly, the scroll-bar controls the range of pitches that are visible
-on the track.  Dragging the scroll-bar body up and down scrolls up and
-down through the visible pitches, and dragging the scroll-bar
-`handles' zooms in and out, so that more or fewer pitches are visible.
-The piano keyboard gives a reference for the pitches that the track is
-displaying.  In addition, clicking on the notes will generate the
-corresponding MIDI note in the track.
-
 
 
 % ====================================================================================
@@ -2497,7 +2496,7 @@ the sound of particular features within the region.
 If you want to modify audio region gain, it is important to ensure
 that the option `Show gain envelopes in audio regions' is ticked in
 the \emph{Editor} tab of Ardour's preferences (see
-Section~\label{sec:ardour-preferences-editor}).  This enables some
+Section~\ref{sec:ardour-preferences-editor}).  This enables some
 useful functionality which is otherwise turned off.
 
 To edit audio region gain, first go into `draw region gain' mode by
@@ -2729,6 +2728,14 @@ is placed earlier.
 
 This feature is probably most easily explored by listening!
 
+\begin{figure}[ht]
+\begin{center}
+\includegraphics[scale=0.75]{diagrams/swing.pdf}
+\end{center}
+\caption{The mathematics of swing}
+\label{fig:swing}
+\end{figure}
+
 \index{swing}
 \end{itemize}
 
@@ -2768,6 +2775,8 @@ and is copied and pasted with its region.
 
 Automation is covered full in Chapter~\ref{ch:automation}, with
 reference to audio as well as MIDI automation.
+
+
 
 
 
@@ -3147,7 +3156,7 @@ the click.
   record-enable will remain switched on; otherwise it will be switched
   off when the transport stops.
 \item \textbf{Stop recording when an xrun occurs} --- an xrun (see
-  Section~\ref{sec:xrun}) during recording could well mean that the
+  Section~\ref{sec:xruns}) during recording could well mean that the
   recording has been corrupted by a small (or not-so-small) pop or
   click.  If this option is enabled, recording will stop if an xrun is
   detected, which may be useful to draw the fact to your attention.
