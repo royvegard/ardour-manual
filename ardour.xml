@@ -1850,7 +1850,7 @@ In Ardour~3 busses are only used for audio.
 A track or bus can be added to a session in various ways:
 
 <itemizedlist>
-<listitem> Choose \menu{Track,Add Track or Bus\ldots} from the main menu.
+<listitem> Choose \menu{Track,Add Track or Bus&hellip;} from the main menu.
 </listitem><listitem> Right-click in an empty part of the track controls area.
 </listitem><listitem> Click the $+$ button underneath the list of tracks in the mixer.
 </listitem>
@@ -2884,7 +2884,7 @@ Figure <xref linkend="fig-region-with-gain-line"/>.
 Ardour provides algorithms to do pitch-shifting of audio.  As with any
 pitch-shifting method, the results can never be perfect, but they may
 be useful for correction or for artistic purposes.  To pitch-shift a
-region, choose \menu{Edit,Pitch Shift\ldots} from the context menu.
+region, choose \menu{Edit,Pitch Shift&hellip;} from the context menu.
 This will open the \dialogue{Pitch Shift Audio} dialogue box, which allows
 you to specify the desired shift in octaves, semitones and cents.
 
@@ -2908,7 +2908,7 @@ options.
 
 With some recordings, it is desirable to remove regions which are, or
 are `nearly', silent.  This can be done automatically using the
-\menu{Edit,Strip Silence\ldots} option on the region context menu.
+\menu{Edit,Strip Silence&hellip;} option on the region context menu.
 Selecting this option will open the dialogue shown in
 Figure <xref linkend="fig-strip-silence-dialogue"/>.
 
@@ -2967,7 +2967,7 @@ using the `Operation' drop-down:
 Though not strictly an editing operation, Ardour provides a handy
 window which gives a spectral analysis of some part of your session.
 You can use this to see a spectral analysis of a region by choosing
-\menu{Spectral Analysis\ldots} from the region's context menu.
+\menu{Spectral Analysis&hellip;} from the region's context menu.
 
 </section>
 <section><title>MIDI region editing</title>
@@ -3050,7 +3050,7 @@ the notes in the region.
 <indexterm><primary>quantize</primary></indexterm>
 
 The Quantize feature allows notes in the region to be snapped to a
-grid, to make their timing more accurate.  The \menu{Quantize\ldots}
+grid, to make their timing more accurate.  The \menu{Quantize&hellip;}
 option opens the dialogue shown in Figure <xref linkend="fig-quantize"/>.
 
 \screenshot{quantize.png}{The quantization dialogue}{fig-quantize}
@@ -3120,7 +3120,7 @@ choose \menu{MIDI,Fork} from the context menu.
 <indexterm><primary>list editor</primary></indexterm>
 
 To look at the MIDI note events in a region numerically, select the
-region and choose \menu{MIDI,List Editor\ldots} from the context menu.
+region and choose \menu{MIDI,List Editor&hellip;} from the context menu.
 This opens a dialogue box containing all the region's note details,
 and edits you make to the numbers will be reflected in the region.
 
@@ -3277,10 +3277,10 @@ context menu.
 <emphasis>Loop</emphasis> &mdash; set the loop range to cover the region and begin looped playback.
 </listitem>
 <listitem>
-<emphasis>Rename\ldots</emphasis> &mdash; open a dialogue box to rename the region.
+<emphasis>Rename&hellip;</emphasis> &mdash; open a dialogue box to rename the region.
 </listitem>
 <listitem>
-<emphasis>Properties\ldots</emphasis> &mdash; open a dialogue box to view (and edit) the properties of the region.
+<emphasis>Properties&hellip;</emphasis> &mdash; open a dialogue box to view (and edit) the properties of the region.
 </listitem>
 
 <listitem><emphasis>Edit</emphasis>
@@ -3311,7 +3311,7 @@ context menu.
   </listitem>
   <listitem> <emphasis>Mute</emphasis> &mdash; tick to mute the region; it will not be heard
   </listitem>
-  <listitem> <emphasis>Pitch Shift\ldots</emphasis> &mdash; open a dialogue box to
+  <listitem> <emphasis>Pitch Shift&hellip;</emphasis> &mdash; open a dialogue box to
   pitch-shift the region.
   </listitem>
   <listitem> <emphasis>Reverse</emphasis> &mdash; flip the region backwards in time.
@@ -3320,9 +3320,9 @@ context menu.
   </listitem>
   <listitem> Place Transient
   </listitem>
-  <listitem> Rhythm Ferret\ldots
+  <listitem> Rhythm Ferret&hellip;
   </listitem>
-  <listitem> Strip Silence\ldots
+  <listitem> Strip Silence&hellip;
   </listitem>
   </itemizedlist>
 
@@ -3433,7 +3433,7 @@ context menu.
 
 <listitem> Gain
   <itemizedlist>
-  <listitem><emphasis>Normlize\ldots</emphasis> &mdash; examines the contents of the region
+  <listitem><emphasis>Normlize&hellip;</emphasis> &mdash; examines the contents of the region
   and sets the region's gain so that the peak value of the region is
   scaled to just under 0dbFS; in other words, this makes the region as loud as it
   can be without introducing distortion.
@@ -3457,14 +3457,14 @@ context menu.
 <listitem> Duplicate
   <itemizedlist>
   <listitem> Duplicate
-  </listitem><listitem> Multi-Duplicate\ldots
+  </listitem><listitem> Multi-Duplicate&hellip;
   </listitem><listitem> Fill Track
   </listitem>
   </itemizedlist>
 </listitem>
 
 <listitem>
-Export\ldots
+Export&hellip;
 </listitem>
 <listitem>
 Bounce (without processing)
@@ -3473,7 +3473,7 @@ Bounce (without processing)
 Bounce (with processing)
 </listitem>
 <listitem>
-<emphasis>Spectral Analysis\ldots</emphasis> &mdash; show a frequency spectrum
+<emphasis>Spectral Analysis&hellip;</emphasis> &mdash; show a frequency spectrum
   of the region (see Section <xref linkend="sec:spectral-analysis"/>.
 </listitem>
 <listitem>
@@ -3899,7 +3899,7 @@ If this is enabled, a track or bus that is both soloed and muted will
 behave as if it is soloed.
 
 </section>
-<section><title>Mute affects\ldots</title>
+<section><title>Mute affects&hellip;</title>
 
 These options dictate whether muting the track will affect various
 routes out of the track; through the sends, through the control
@@ -4196,7 +4196,8 @@ Appendix <xref linkend="ap:advanced-jack"/>.
 % UNFILED MISCELLANY
 % ====================================================================================
 
-\chapter{Unfiled miscellany}
+<chapter>
+<title>Unfiled miscellany</title>
 
 <section><title>MIDI binding maps</title>
 
