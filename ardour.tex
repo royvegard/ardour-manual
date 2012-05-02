@@ -69,7 +69,7 @@
 
 \title{Ardour 3 --- A users' manual}
 \titlepic{\includegraphics{graphics/ardour_bw.pdf}}
-\author{The Ardour Community}
+\author{Paul Davis\\Carl Hetherington}
 \date{}
 \begin{document}
 
@@ -1885,7 +1885,133 @@ monitored.
 
 
 
+\section{Overall signal flow and solo / mute}
 
+The previous section explores how signals flow within individual mixer
+strips.  This section discusses the wider picture of signal flow
+within Ardour as a whole, particularly in respect of track soloing and
+muting.
+
+
+\subsection{The master bus}
+
+Ardour session always contain a special bus called the \emph{master
+  bus}.  Mostly, this is like a normal bus, but it has some special properties:
+
+\begin{itemize}
+\item Ardour can be configured to automatically connect other tracks
+  and busses to the master bus.
+\item The master bus' mixer strip is always displayed at the
+  right-hand-side of the mixer window.
+\end{itemize}
+
+Typically, most of a session's tracks will send their output to the
+master bus, and the output from the master bus will be connected to
+some ports on a physical sound card so that the session's mix makes it
+out into the real world to be listened to.
+
+
+\subsection{The monitor bus}
+
+The monitor bus is an additional, optional, and more specialised type
+of bus.  A session can be given a monitor bus by ticking the `Use a
+monitor bus' option in the `Audio tab of the \emph{Ardour Preferences'}
+dialogue.
+
+%% XXX?
+%% If you are using a monitor bus, an extra `monitor control' section will appear in the mixer window.
+
+The monitor bus provides a quite large degree of extra control, and is
+an approximation to the setup of a moderately complex mixing desk,
+which often has a separate \emph{mix bus} and \emph{monitor bus}.  In
+a live situation, for example, it is common for the mix bus to be
+connected to the front-of-house speakers and the monitor bus to be
+listened to on headphones.  In a studio, one might have the monitor
+bus connected to the control room outputs and the mix bus connected to
+a 2-track output recorder.
+
+
+\subsection{Mute and solo}
+
+Each track and bus has two buttons which have important implications
+for signal flow: \emph{mute} and \emph{solo}.  The behaviour of these
+buttons is configurable in Ardour, so that they can behave in one of a
+few different ways to suit different studio set-ups.
+
+
+\subsection{Without a monitor bus}
+
+If you are using Ardour \emph{without} a monitor bus, there is only
+one way in which mute and solo will work.  Without a monitor bus:
+
+\begin{itemize}
+\item \textbf{Mute} on a track or bus will mute that track on the
+  master bus, so that it will not be heard.
+\item \textbf{Solo} on a track or bus will solo that track or bus and
+  mute all others \emph{except that} soloing a bus will also solo any
+  tracks or busses that feed that bus.
+\end{itemize}
+
+
+\subsection{With a monitor bus}
+
+For setups \emph{with} a monitor bus, you have more options, mostly
+goverened by the setting of the `Solo controls are Listen controls'
+option in the `Solo / mute' tab of `Ardour Preferences'.
+
+With `Solo controls are Listen controls' unticked, behaviour is almost
+exactly the same as the situation without a monitor bus.  Mute and
+solo behave the same, and the monitor bus is fed from the master bus,
+so it sees the same thing.
+
+With `Solo controls are Listen controls' ticked, things change; the
+master and monitor busses behave differently.  In this mode, solo
+controls are more properly called `listen' controls, and Ardour's solo
+buttons will change their legend from `S' to either `A' or `P' (we'll
+come to that shortly) to reflect this.
+
+Now, without any mute or listen, the monitor bus remains fed by the
+master bus.  Also:
+
+\begin{itemize}
+\item \textbf{Mute} will mute the track or bus, so that it will not be
+  heard anywhere (neither the master nor monitor busses), much as before.
+\item \textbf{Listen} will disconnect the monitor bus from the master
+  bus, so that the monitor bus now only receives things that are
+  `listened'.  Listen will not perform any muting, and hence the
+  master bus will not be affected by a listened track or bus.
+\end{itemize}
+
+There are further options with when solo controls are listen controls:
+the part of the track or bus from which the listen signal is obtained
+can be configured.  Underneath the `Solo controls are Listen controls'
+option in `Ardour Preferences' is an option for `listen position',
+which can be either After-Fade Listen (AFL) or Pre-Fade Listen (PFL).
+AFL, as its name suggests, obtains its signal from some point after
+the track or bus' fader, and PFL from before it.  The precise point to
+get the signal from can further be configured using the `PFL signals
+come from' and `AFL signals come from' options.
+
+The solo-mute arrangement with a monitor bus is shown in Figure~\ref{fig:solo-mute}.
+
+\begin{figure}[ht]
+\begin{center}
+\includegraphics{diagrams/solo-mute.pdf}
+\end{center}
+\caption{Solo and mute with a monitor bus}
+\label{fig:solo-mute}
+\end{figure}
+
+Here we have a number of tracks or busses (in orange).  Each one has
+an output which feeds the master bus.  In addition, each has PFL and
+AFL outputs; we have a choice of which to use.  PFL/AFL from each
+track or bus are mixed.  Then, whenever anything is set to AFL/PFL,
+the monitor out becomes just those AFL/PFL feeds; the rest of the
+time, the monitor out is fed from the master bus.
+
+In this scheme Solo has no effect other than to mute other non-soloed
+tracks; with solo (rather then listen), the monitor out is fed from
+the master bus.
 
 
 
