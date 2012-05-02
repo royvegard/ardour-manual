@@ -351,8 +351,11 @@ the same time as Ardour.  It is somewhat similar to Steinberg's Rewire
 technology, though broader in scope.  It is even possible to use JACK
 to route audio and MIDI over network connections.
 
-JACK is so important to Ardour's operation that it earns its own
-discussion in Chapter~\ref{ch:jack}.
+JACK must be running when Ardour is, though it is possible (if you
+wish) to almost ignore its existance.  At first we will let Ardour
+start JACK, and not get too involved in its complications.
+Chapter~\ref{ch:jack} gets into more detail for those that are
+interested.
 
 
 \section{Ardour concepts}
@@ -510,233 +513,32 @@ reduced-size form.  At the top right is a bar of useful information
 about the state of the system.
 
 The operation of the editor window is described in more detail in
-Chapter~{\ref{ch:editor-window}.
+Chapter~\ref{ch:editor-window}.
 
 \subsection{The mixer window}
 \index{mixer}
 
+The other main Ardour window is the \emph{Mixer}.  A typical mixer
+window is shown in Figure~\ref{fig:typical-mixer}.
+
+\begin{figure}[ht]
+\begin{center}
+\includegraphics[scale=0.75]{diagrams/mixer-summary.pdf}
+\end{center}
+\caption{A typical mixer window}
+\label{fig:typical-mixer}
+\end{figure}
+
+The main part of the window is taken up with \emph{mixer strips}, one
+for each track or bus in the session, which correspond roughly to the
+channel strips on a conventional mixing desk.  This window allows you
+to process audio, route signals around and balance your mix.
+
+The operation of the mixer window is described in more detail in
+Chapter~\ref{ch:signal-flow-and-the-mixer}.
 
 
 
-
-% ====================================================================================
-% JACK
-% ====================================================================================
-
-\chapter{JACK}
-\label{ch:jack}
-\index{JACK}
-
-\section{Introduction}
-
-JACK is the JACK audio connection kit.  It is a piece of software that
-provides the low-level `plumbing' which allows Ardour to work.  Its
-setup is crucial to Ardour; Ardour will not work without it.
-
-JACK's essential task is to route audio and MIDI data to and from a
-sound card, and also between applications.  It manages a set of
-\emph{ports}, which it can connect together in arbitrary ways.
-Figure~\ref{fig:typical-jack-session} gives a diagram of a moderately
-complex JACK session.
-
-\url{jackaudio.org/pulseaudio_and_jack}
-
-\begin{danger}
-JACK is not limited to the standard concept of the `sound card'.  You
-may choose to have no sound card at all (in which case JACK can run in
-`dummy' mode).  It is also possible to send signals to and from JACK
-over TCP/IP networks using netjack.  For simplicity, this manual will
-assume that the user has a sound card in the conventional sense.
-\end{danger}
-
-\subsection{JACK and other audio software}
-
-JACK is designed so that it uses a single sound-card, and has
-exclusive control of that sound-card while it is running.  This is a
-couple of consequences.  Firstly, if the sound card used to capture
-audio is different from the one used to play it back, complications
-arise.  Secondly, other software which tries to obtain exclusive
-control of your sound-card, most notably `pulseaudio', may interfere
-with JACK's operation.
-
-\subsubsection{JACK with multiple sound cards}
-\label{sec:jack-multiple-cards}
-
-If at all possible, it is a good idea to use JACK with a single sound
-card.  Correctly using more than one card at the same time is
-difficult.  The main reason for this difficulty is that JACK assumes
-that all sound cards and programs that it is connecting are running
-with synchronised sample clocks.  Arranging this is not easy if there
-are two cards; there will be two unsynchronised sample clocks.
-
-If you accept that using multiple sound cards is going to be
-difficult, and you want to do it anyway, there are a number of
-approaches.  These are described in Appendix~\ref{ap:advanced-jack}.
-
-\subsection{Will my sound card work?}
-
-For your sound card to work with JACK, must have a driver suitable for
-the operating system that you are running on.  For Linux, this means
-that your card must be supported by ALSA or FFADO; ALSA supports
-drivers using a wide variety of interfaces, and FFADO is for firewire
-soundcards only. 
-
-The easiest way to check on ALSA compatibility is to visit
-\url{http://www.alsa-project.org/main/index.php/Matrix:Main}.  This is
-the ALSA soundcard matrix and describes ALSA's support for a variety
-of cards.  For FFADO, consult
-\url{http://www.ffado.org/?q=devicesupport/list}.
-
-For Mac OS~X, any card that is supported by the operating system
-should work fine.
-
-
-\subsection{JACK versions}
-
-For historical reasons, there are two `branches' of JACK that are both
-maintained, and can be used as drop-in replacements for each other.
-JACK1 has version numbers like 0.121.3, and JACK2 (also known as
-jackdmp) has version numbers like 1.9.8.  Both implementations have
-their advantages and disadvantages.  It does not matter a great deal
-which one you use.
-
-% XXX: unless what?
-
-
-\section{Starting JACK}
-
-Ardour can start JACK automatically when it starts; and indeed many
-users will find that this works perfectly well.  It is also possible
-to start JACK manually, either at the command line or using a tool
-such as QJackCtl\footnote{\url{http://qjackctl.sourceforge.net}} (on
-Linux) or JackPilot\footnote{\url{http://www.jackosx.com}} (on Mac
-OS~X).
-
-\subsection{Parameters}
-
-JACK has many parameters which affect its operation.  Some of the more
-important ones are discussed here.
-
-\subsubsection{Sampling rate}
-
-This is the number of samples per second that JACK will process, and
-is important as it will govern the sampling rate that all audio
-applications will run at.  The chosen rate must be supported
-by the sound card, so values such as 44.1kHz, 48kHz, 96kHz
-et.\ cetera are typical choices.  The higher the sampling rate, the
-higher the theoretical audio frequency that the system can reproduce,
-but also the more disk space will be consumed by audio recordings, and
-the more CPU power will be required to run audio plugins.
-
-The arguments about the best sampling rate are many, long and varied,
-but can (in the humble opinion of the author) be summarised as: `if in
-doubt, use 44.1kHz, as no-one can hear the difference between that and
-anything higher (though they may think they can)'.
-
-\subsubsection{Frames per period}
-
-In a move necessary for efficiency, JACK does not process audio
-sample-by-sample, but in blocks of samples.  The size of these blocks
-can be selected when starting JACK\@.  A block is called a `period',
-and samples are often known as `frames' in the context of JACK\@.  If
-the frames per period count is made smaller, the latency experienced
-by sounds going into and coming out of the computer will be reduced;
-on the other hand, smaller buffers make the computer work harder, and
-may result in other problems if the computer is not well set-up.  It
-is usually difficult to get below 64 frames per period on a typical
-desktop computer, and values as high as 2048 frames per buffer are
-perfectly acceptable if you do not particularly care about latency.
-
-\begin{danger}
-The frames per period value governs how often JACK will talk to the
-sound card.  If, for example, JACK is set to 64 frames per period, the
-sound card will tell JACK when it has 64 new frames ready; JACK (and
-therefore Ardour) must then respond before the next 64 frames arrives.
-This has the consequences that JACK and Ardour are awoken more often,
-causing a greater CPU load, and that the requirements for JACK's
-response time are much more critical with smaller period sizes.  Some
-systems will struggle to wake JACK up in time, making larger period
-sizes more reliable on those systems.
-\end{danger}
-
-\subsubsection{Number of periods}
-
-This value is related to the frames-per-period value above; 2 is
-typical, and will work for most sound cards and systems.  It is worth
-trying 3 here if problems are experienced.
-
-
-\section{Troubleshooting JACK}
-
-\subsection{I am getting lots of xruns!}
-\label{sec:xruns}
-
-An \emph{xrun} \index{xrun} is JACK's way of saying that the sound
-card wanted attention, but JACK could not provide it quickly enough.
-The causes of xruns are many and various.  The remainder of this
-section lists some common causes of xruns.
-
-
-\subsubsection{Buffer size or period count too small}
-
-The JACK `buffer size', or number of frames per period, governs how
-often JACK has to talk to the sound card; smaller buffer sizes require
-JACK to communicate with the sound card more often and with tighter
-deadlines.  Increasing buffer size can be a simple way to reduce
-xruns.
-
-Similarly, if you have a lot of xruns, particularly with a USB device,
-try increasing JACK's period count from 2 to 3.
-
-
-\subsubsection{JACK not running with real-time privileges}
-
-JACK will try, by default, to obtain \emph{real-time} scheduling
-privileges when it starts.  If it suceeds, it means that the
-operating system will treat JACK as higher priority than some other
-tasks when it needs to talk to the soundcard, which is very likely to
-reduce the incidence of xruns.
-
-Some versions of Linux are careful about which tasks are allowed
-real-time priviledges, as there is potential for such tasks to cause
-problems with the system.  As a result, JACK may fail to obtain
-real-time privileges, in which case your Linux configuration must be
-altered to allow JACK to get what it wants.  For Debian- and
-Ubuntu-based distributions, the best way is usually to add your user
-to the `audio' group using
-
-\begin{listing}
-usermod -a -G audio fred
-\end{listing}
-
-where \texttt{fred} is your user ID\@.  After this, configure the audio
-group to be allowed appropriate settings by editing
-\texttt{/etc/security/limits.conf} and adding
-
-\begin{listing}
-@audio - rtprio 99\\
-@audio - memlock unlimited
-\end{listing}
-
-to the bottom of of the file.  This allows members of the audio group
-to start tasks with high real-time (RT) priority, and also allows them
-to lock their memory into `real' memory; this is another step that
-improves real-time performance.
-
-After making these changes you will need to log out and log back in
-again to see the effects.
-
-\todo{Denormals?}
-\todo{CPU frequency scaling?}
-
-\subsection{I can play back but I cannot record, or vice versa}
-
-This is commonly caused by JACK's prediliction for using only
-one sound card.  If you are using different sound cards for playback
-and record (which will be the case even if you are doing playback via
-HDMI and recording via an on-board sound-card) you will need to set
-JACK up to use multiple sound cards, as discussed in
-Appendix~\ref{ap:advanced-jack}.
 
 
 
@@ -1788,6 +1590,7 @@ corresponding MIDI note in the track.
 % ====================================================================================
 
 \chapter{Signal flow and the mixer}
+\label{ch:signal-flow-and-the-mixer}
 
 % Audio vs. MIDI
 
@@ -2003,6 +1806,7 @@ and a right-click will open a menu of common options.
 
 
 \subsection{Monitoring}
+\label{sec:monitoring}
 \index{monitoring}
 
 As we discussed earlier, there are two places that a track's signal
@@ -2189,6 +1993,7 @@ a 2-track output recorder.
 
 
 \subsection{Mute and solo}
+\label{sec:mute-and-solo}
 
 Each track and bus has two buttons which have important implications
 for signal flow: \emph{mute} and \emph{solo}.  The behaviour of these
@@ -3251,31 +3056,166 @@ the click.
 
 \subsection{Audio}
 
+\subsubsection{Replicate missing region channels}
+
 \subsubsection{Buffering}
+
+These options govern how much memory Ardour will use to buffer signals
+going out for playback, and coming in for record.  Larger buffers
+provide more `safety', in that there is more data prepared to cope
+with temporary slowness with your hard discs, but require more memory.
+It is not uncommon to set rather long capture buffer lengths (around a
+minute or more) to help ensure trouble-free recordings.
 
 \subsubsection{Monitoring}
 
+The options here are:
+\begin{itemize}
+\item \textbf{Use a monitor bus} --- as discussed in
+  Section~\ref{sec:mute-and-solo}, this instructs Ardour to use a
+  monitor bus, allowing the AFL/PFL features and the more advanced `monitor section' in the mixer window.
+\item \textbf{Record monitoring handled by} --- this dictates how
+  monitoring of incoming signals should be handled; this can be by the
+  audio hardware (in which case Ardour does nothing), by JACK (in
+  which case Ardour tells JACK how the monitoring should be) or by
+  Ardour (in which case Ardour does things itself).  See
+  Section~\ref{sec:monitoring} for a full discussion.
+\end{itemize}
+
 \subsubsection{Connection of tracks and busses}
+
+These options provide some control of how Ardour helpfully tries to
+automatically connect tracks and busses to appropriate places.
+
+`Auto-connect master/monitor busses' will, if enabled, instruct Ardour to
+automatically connect the outputs of the master and monitor busses to the first
+$N$ `physical' JACK ports, where $N$ is the number of channels in
+your master bus (e.g.\ 2 for stereo).  `Physical' JACK ports are
+those that correspond to sound card outputs that get sound out into
+the real world.
+
+\todo{there is the monitor\_bus\_preferred\_bundle but no-one sets it}
+
+`Connect track inputs' sets how new track inputs should be set up;
+they can either be automatically connected to physical inputs or left
+alone for you to connect yourself.
+
+`Connect track and bus outputs' sets how new track and bus outputs
+should be set up; they can either be connected automatically to
+physical outputs, or to the master bus, or can be left alone for you to connect manually.
+
 
 \subsubsection{Denormals}
 
+`Denormals' are very small floating point numbers which can be
+generated on occasion by Ardour and also by plugins.  On some CPUs, in
+some situations, these can cause processing to slow down by a very
+large factor (10 times or more).  This in turn can cause problems with
+high CPU loads and xruns.
+
+\begin{danger}
+The reason CPUs slow down is that in some cases they think it more
+important to maintain precision with very small numbers than to
+process them quickly.  This is true for many applications, but not for
+audio.  The numbers involved are so small (usually around the
+$10^{-16}$ range) that small errors in their processing are, in most
+cases, inaudible.  For audio applications it is generally preferable
+to lose some precision in order to keep things moving quickly.
+\end{danger}
+
+Ardour has a few strategies to deal with denormals, controlled by
+these settings:
+
+\begin{itemize}
+\item \textbf{Use DC bias to protect against denormals} --- this adds a
+small DC value to strategic points in the signal processing chain.
+This is not the most efficient way to do things, but can be helpful in
+some circumstances.
+\item \textbf{Processor handling} --- most modern (post
+year 2000) CPUs have configuration options themselves to help with
+denormals.  These are called `Flush to zero' and 'Denormals are zero'.
+If these options are available on your machine (they will be
+desensitized if not), it is worth enabling them both as they are
+likely to solve the problem efficiently.
+\end{itemize}
+
 \subsubsection{Plugins}
 
+\begin{itemize}
+\item \textbf{Silence plugins when the transport is stopped} --- when
+  enabled, this option will `flush' all plugins when the transport is
+  stopped.  This will prevent plugins such as delays and reverbs from
+  continuing to sound when stop is pressed.
+\item \textbf{Disable plugins during recording} --- this will turn off
+  all plugins during recording, which may help to ensure trouble-free
+  recordings if you have a complicated session which is running on the
+  limits of your CPU power.
+\item \textbf{Make new plugins active} --- enabling this option will
+  make newly-added plugins active by default.
+\item \textbf{Enable automatic analysis of audio} --- \todo{think this
+  should be reworked}
+\end{itemize}
 
 \subsection{Solo / mute}
 
-Solo-in-place mute cut (dB)
-Solo controls are Listen controls
-Listen Position (AFL, PFL)
-PFL signals come from (before pre-fader procs, pre-fader but after pre-fader procs)
-AFL signals come from (immediately post-fader, after post-fader processors before pan)
-Exclusive solo
-Show solo muting
-Soloing overrides muting
-Mute affects pre-fader sends
-Mute affects post-fader sends
-Mute affects control outputs
-Mute affects main outputs
+\subsubsection{Solo-in-place mute cut}
+
+When using `solo-in-place' (SiP), in other words when soloed tracks
+are being listened to on the master bus, this fader specifies the gain
+that will be applied to other tracks in order to mute them.  Setting
+this level to $-\infty$dB will mean that other tracks will not be
+heard at all; setting to some higher value less than 0dB means that
+other non-soloed tracks will be heard, just reduced in volume compared
+to the soloed tracks.
+
+\subsubsection{Solo controls are Listen controls}
+
+As discussed in detail in Section~\ref{sec:mute-and-solo}, enabling
+this option makes solo buttons into listen controls (AFL or PFL).
+This means that the `solo' (or now `listen') buttons will not affect
+the master bus, but instead will send the soloed tracks to the monitor
+bus.
+
+This option is desensitised if you are not using a monitor bus.
+
+\subsubsection{Listen Position}
+
+If `Solo Controls are Listen controls' is enabled, this option
+specifies where the solo feed comes from; it can either be pre- or
+post-fader.
+
+\subsection{PFL signals come from}
+
+If PFL is selected for the listen position, this drop-down specifies
+precisely where the pre-fader signals come from.
+
+\subsection{AFL signals come from}
+
+If AFL is selected for the listen position, this drop-down specifies
+precisely where the post-fader signals come from.
+
+\subsection{Exclusive solo}
+
+If this is enabled, only one track or bus will ever be soloed at once;
+soloing track $B$ while track $A$ is currently soloed will un-solo
+track $A$ before soloing track $B$.
+
+\subsection{Show solo muting}
+
+If this is enabled, the mute button of tracks and busses will be drawn
+outlined to indicate that the track or bus is muted because something
+else is soloed.
+
+\subsection{Soloing overrides muting}
+
+If this is enabled, a track or bus that is both soloed and muted will
+behave as if it is soloed.
+
+\subsection{Mute affects\ldots}
+
+These options dictate whether muting the track will affect various
+routes out of the track; through the sends, through the control
+outputs (to the monitor bus) and to the main outputs.
 
 
 \subsection{MIDI}
@@ -3285,6 +3225,260 @@ Mute affects main outputs
 
 
 
+% ====================================================================================
+% JACK
+% ====================================================================================
+
+\chapter{JACK}
+\label{ch:jack}
+\index{JACK}
+
+\section{Introduction}
+
+JACK is the JACK audio connection kit.  It is a piece of software that
+provides the low-level `plumbing' which allows Ardour to work.  Its
+setup is crucial to Ardour; Ardour will not work without it.
+
+JACK's essential task is to route audio and MIDI data to and from a
+sound card, and also between applications.  It manages a set of
+\emph{ports}, which it can connect together in arbitrary ways.
+Figure~\ref{fig:typical-jack-session} gives a diagram of a vaguely
+typical small JACK session.
+
+\begin{figure}[ht]
+\begin{center}
+\includegraphics[scale=0.75]{diagrams/typical-jack-session.pdf}
+\end{center}
+\caption{An example JACK session}
+\label{fig:typical-jack-session}
+\end{figure}
+
+In this diagram, the blue squares represent JACK \emph{ports}.  These
+are points which can be connected to, and are either input (they
+accept data) or output (they produce data).  The black curved lines
+represent connections between these ports.  The coloured boxes which
+group things together are just for ease of viewing: to JACK,
+everything is just a port.
+
+The arrangement in the diagram shows some important features of JACK.
+Firstly, any input can be connected to any output, without
+restriction, and multiple inputs can be connected to a single output
+(or vice versa).  Secondly, Ardour uses JACK for some of its
+`internal' connections; we connect, for example, a track to the master
+bus using JACK\@.  Thirdly, any JACK-supporting application can be
+connected to any other; Ardour is just one of many.
+
+\begin{danger}
+JACK is not limited to the standard concept of the `sound card'.  You
+may choose to have no sound card at all (in which case JACK can run in
+`dummy' mode).  It is also possible to send signals to and from JACK
+over TCP/IP networks using netjack.  For simplicity, this manual will
+assume that the user has a sound card in the conventional sense.
+\end{danger}
+
+
+\subsection{JACK and other audio software}
+
+JACK is designed so that it uses a single sound-card, and has
+exclusive control of that sound-card while it is running.  This is a
+couple of consequences.  Firstly, if the sound card used to capture
+audio is different from the one used to play it back, complications
+arise.  Secondly, other software which tries to obtain exclusive
+control of your sound-card, most notably `pulseaudio', may interfere
+with JACK's operation.
+
+
+\subsubsection{JACK with multiple sound cards}
+\label{sec:jack-multiple-cards}
+
+If at all possible, it is a good idea to use JACK with a single sound
+card.  Correctly using more than one card at the same time is
+difficult.  The main reason for this difficulty is that JACK assumes
+that all sound cards and programs that it is connecting are running
+with synchronised sample clocks.  Arranging this is not easy if there
+are two cards; there will be two unsynchronised sample clocks.
+
+If you accept that using multiple sound cards is going to be
+difficult, and you want to do it anyway, there are a number of
+approaches.  These are described in Appendix~\ref{ap:advanced-jack}.
+
+
+\subsection{Will my sound card work?}
+
+For your sound card to work with JACK, must have a driver suitable for
+the operating system that you are running on.  For Linux, this means
+that your card must be supported by ALSA or FFADO; ALSA supports
+drivers using a wide variety of interfaces, and FFADO is for firewire
+soundcards only. 
+
+The easiest way to check on ALSA compatibility is to visit
+\url{http://www.alsa-project.org/main/index.php/Matrix:Main}.  This is
+the ALSA soundcard matrix and describes ALSA's support for a variety
+of cards.  For FFADO, consult
+\url{http://www.ffado.org/?q=devicesupport/list}.
+
+For Mac OS~X, any card that is supported by the operating system
+should work fine.
+
+
+\subsection{JACK versions}
+
+For historical reasons, there are two `branches' of JACK that are both
+maintained, and can be used as drop-in replacements for each other.
+JACK1 has version numbers like 0.121.3, and JACK2 (also known as
+jackdmp) has version numbers like 1.9.8.  Both implementations have
+their advantages and disadvantages.  It does not matter a great deal
+which one you use.
+
+\section{Starting JACK}
+
+Ardour can start JACK automatically when it starts; and indeed many
+users will find that this works perfectly well.  It is also possible
+to start JACK manually, either at the command line or using a tool
+such as QJackCtl\footnote{\url{http://qjackctl.sourceforge.net}} (on
+Linux) or JackPilot\footnote{\url{http://www.jackosx.com}} (on Mac
+OS~X).
+
+\subsection{Parameters}
+
+JACK has many parameters which affect its operation.  Some of the more
+important ones are discussed here.
+
+\subsubsection{Sampling rate}
+
+This is the number of samples per second that JACK will process, and
+is important as it will govern the sampling rate that all audio
+applications will run at.  The chosen rate must be supported
+by the sound card, so values such as 44.1kHz, 48kHz, 96kHz
+et.\ cetera are typical choices.  The higher the sampling rate, the
+higher the theoretical audio frequency that the system can reproduce,
+but also the more disk space will be consumed by audio recordings, and
+the more CPU power will be required to run audio plugins.
+
+The arguments about the best sampling rate are many, long and varied,
+but can (in the humble opinion of the author) be summarised as: `if in
+doubt, use 44.1kHz for projects going to CD, or 48kHz for projects
+going to film / video, as no-one can hear the difference between those
+and anything higher (although they probably think they can)'.
+
+\subsubsection{Frames per period}
+
+In a move necessary for efficiency, JACK does not process audio
+sample-by-sample, but in blocks of samples.  The size of these blocks
+can be selected when starting JACK\@.  A block is called a `period',
+and samples are often known as `frames' in the context of JACK\@.  If
+the frames per period count is made smaller, the latency experienced
+by sounds going into and coming out of the computer will be reduced;
+on the other hand, smaller buffers make the computer work harder, and
+may result in other problems if the computer is not well set-up.  It
+is usually difficult to get below 64 frames per period on a typical
+desktop computer, and values as high as 2048 frames per buffer are
+perfectly acceptable if you do not particularly care about latency.
+
+\begin{danger}
+The frames per period value governs how often JACK will talk to the
+sound card.  If, for example, JACK is set to 64 frames per period, the
+sound card will tell JACK when it has 64 new frames ready; JACK (and
+therefore Ardour) must then respond before the next 64 frames arrives.
+This has the consequences that JACK and Ardour are awoken more often,
+causing a greater CPU load, and that the requirements for JACK's
+response time are much more critical with smaller period sizes.  Some
+systems will struggle to wake JACK up in time, making larger period
+sizes more reliable on those systems.
+\end{danger}
+
+\subsubsection{Number of periods}
+
+This value is related to the frames-per-period value above; 2 is
+typical, and will work for most sound cards and systems.  It is worth
+trying 3 here if problems are experienced.
+
+
+\section{Troubleshooting JACK}
+
+\subsection{I am getting lots of xruns!}
+\label{sec:xruns}
+
+An \emph{xrun} \index{xrun} is JACK's way of saying that the sound
+card wanted attention, but JACK could not provide it quickly enough.
+The causes of xruns are many and various.  The remainder of this
+section lists some common causes of xruns.
+
+
+\subsubsection{Buffer size or period count too small}
+
+The JACK `buffer size', or number of frames per period, governs how
+often JACK has to talk to the sound card; smaller buffer sizes require
+JACK to communicate with the sound card more often and with tighter
+deadlines.  Increasing buffer size can be a simple way to reduce
+xruns.  Generally speaking, the more advanced the sound card, the
+lower the period size that it can be run with, but this does not
+universally hold true.
+
+Similarly, if you have a lot of xruns, particularly with a USB device,
+try increasing JACK's period count from 2 to 3.
+
+
+\subsubsection{JACK not running with real-time privileges}
+
+JACK will try, by default, to obtain \emph{real-time} scheduling
+privileges when it starts.  If it suceeds, it means that the
+operating system will treat JACK as higher priority than some other
+tasks when it needs to talk to the soundcard, which is very likely to
+reduce the incidence of xruns.
+
+Some versions of Linux are careful about which tasks are allowed
+real-time priviledges, as there is potential for such tasks to cause
+problems with the system.  As a result, JACK may fail to obtain
+real-time privileges, in which case your Linux configuration must be
+altered to allow JACK to get what it wants.  For Debian- and
+Ubuntu-based distributions, the best way is usually to add your user
+to the `audio' group using
+
+\begin{listing}
+usermod -a -G audio fred
+\end{listing}
+
+where \texttt{fred} is your user ID\@.  After this, configure the audio
+group to be allowed appropriate settings by editing
+\texttt{/etc/security/limits.conf} and adding
+
+\begin{listing}
+@audio - rtprio 99\\
+@audio - memlock unlimited
+\end{listing}
+
+to the bottom of of the file.  This allows members of the audio group
+to start tasks with high real-time (RT) priority, and also allows them
+to lock their memory into `real' memory; this is another step that
+improves real-time performance.
+
+After making these changes you will need to log out and log back in
+again to see the effects.
+
+
+\subsubsection{CPU frequency scaling}
+
+Modern CPUs often have a feature called `frequency scaling'.  This is
+the ability to lower the CPU's clock rate when it does not have much
+to do, in order to save power.  This is especially useful in laptops
+and mobile phones, as it can dramatically increase efficiency and
+therefore battery life.
+
+It is, however, known to be problematic if you are attempting
+low-latency audio.  You should turn off frequency scaling if in any
+doubt, and set your computer to run in a `performance' mode, where the
+CPU is run at full speed constantly.
+
+
+\subsection{I can play back but I cannot record, or vice versa}
+
+This is commonly caused by JACK's prediliction for using only
+one sound card.  If you are using different sound cards for playback
+and record (which will be the case even if you are doing playback via
+HDMI and recording via an on-board sound-card) you will need to set
+JACK up to use multiple sound cards, as discussed in
+Appendix~\ref{ap:advanced-jack}.
 
 
 
