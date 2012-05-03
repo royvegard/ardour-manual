@@ -8,6 +8,8 @@
 <!ENTITY modone "Ctrl">
 <!ENTITY modtwo "Alt">
 <!ENTITY modtertiary "Shift">
+<!ENTITY % extensions SYSTEM "extensions.ent">
+%extensions;
 ]>
 <book xmlns="http://docbook.org/ns/docbook" version="5.0" xml:lang="en">
 
@@ -569,7 +571,7 @@ typical editor window is shown in <xref linkend="fig-typical-editor"/>.
   <title>A typical editor window</title> 
   <mediaobject>
     <imageobject> 
-      <imagedata fileref="diagrams/editor-summary.pdf"/>
+      <imagedata fileref="diagrams/editor-summary&dia;"/>
     </imageobject> 
   </mediaobject>
 </figure>
@@ -606,7 +608,7 @@ window is shown in <xref linkend="fig-typical-mixer"/>.
   <title>A typical mixer window</title> 
   <mediaobject>
     <imageobject> 
-      <imagedata fileref="diagrams/mixer-summary.pdf"/>
+      <imagedata fileref="diagrams/mixer-summary&dia;"/>
     </imageobject> 
   </mediaobject>
 </figure>
@@ -660,7 +662,7 @@ shown in <xref linkend="fig-welcome-to-ardour"/>.  Click <guibutton>Forward</gui
   <title>Welcome to Ardour!</title> 
   <mediaobject>
     <imageobject> 
-      <imagedata fileref="screenshots/welcome-to-ardour.png"/>
+      <imagedata fileref="screenshots/welcome-to-ardour&scs;"/>
     </imageobject> 
   </mediaobject>
 </figure>
@@ -678,7 +680,7 @@ clicking on the button and selecting an alternative directory.
   <title>Default folder for new sessions</title> 
   <mediaobject>
     <imageobject> 
-      <imagedata fileref="screenshots/default-folder-for-new-sessions.png"/>
+      <imagedata fileref="screenshots/default-folder-for-new-sessions&scs;"/>
     </imageobject> 
   </mediaobject>
 </figure>
@@ -694,7 +696,7 @@ this makes things slightly clearer in many cases.
   <title>Default folder for new sessions</title> 
   <mediaobject>
     <imageobject> 
-      <imagedata fileref="screenshots/monitoring-choices.png"/>
+      <imagedata fileref="screenshots/monitoring-choices&scs;"/>
     </imageobject> 
   </mediaobject>
 </figure>
@@ -710,7 +712,7 @@ directly'.
   <title>Monitor section</title> 
   <mediaobject>
     <imageobject> 
-      <imagedata fileref="screenshots/monitor-section.png"/>
+      <imagedata fileref="screenshots/monitor-section&scs;"/>
     </imageobject> 
   </mediaobject>
 </figure>
@@ -734,7 +736,7 @@ here, consult <xref linkend="ch:jack"/>.
   <title>Audio/MIDI setup &mdash; device</title> 
   <mediaobject>
     <imageobject> 
-      <imagedata fileref="screenshots/audio-midi-setup-device.png"/>
+      <imagedata fileref="screenshots/audio-midi-setup-device&scs;"/>
     </imageobject> 
   </mediaobject>
 </figure>
@@ -750,7 +752,7 @@ The final step in creating our session is to give it a name, as in
   <title>New session</title>
   <mediaobject>
     <imageobject> 
-      <imagedata fileref="screenshots/new-session.png"/>
+      <imagedata fileref="screenshots/new-session&scs;"/>
     </imageobject> 
   </mediaobject>
 </figure>
@@ -759,7 +761,7 @@ The final step in creating our session is to give it a name, as in
   <title>And finally: the editor!</title>
   <mediaobject>
     <imageobject>
-      <imagedata fileref="screenshots/editor.png"/>
+      <imagedata fileref="screenshots/editor&scs;" scale="85"/>
     </imageobject>
   </mediaobject>
 </figure>
@@ -769,16 +771,17 @@ The final step in creating our session is to give it a name, as in
 
 <para>
 The next step is to add a track to our session so that we have
-something to record onto.  Choose \menu{Track,Add Track or Bus...}
-from the menu at the top of the editor window.  This will bring up a
-dialogue box, as shown in <xref linkend="fig-quickstart-add-track-or-bus"/>.
+something to record onto.  Choose <guimenuitem>Add Track or
+Bus&hellip;</guimenuitem> from <guimenu>Track</guimenu> at the top of
+the editor window.  This will bring up a dialogue box, as shown in
+<xref linkend="fig-quickstart-add-track-or-bus"/>.
 </para>
 
 <figure id="fig-quickstart-add-track-or-bus">
   <title><guilabel>Add Track or Bus</guilabel> dialogue</title>
   <mediaobject>
     <imageobject>
-      <imagedata fileref="screenshots/add-track-or-bus.png"/>
+      <imagedata fileref="screenshots/add-track-or-bus&scs;"/>
     </imageobject>
   </mediaobject>
 </figure>
@@ -802,7 +805,7 @@ linkend="fig-top-of-mixer-strip"/>.
   <title>Top part of a mixer strip</title>
   <mediaobject>
     <imageobject>
-      <imagedata fileref="screenshots/top-of-mixer-strip.png"/>
+      <imagedata fileref="screenshots/top-of-mixer-strip&scs;"/>
     </imageobject>
   </mediaobject>
 </figure>
@@ -826,7 +829,7 @@ linkend="fig-input-port-matrix"/>.
   <title>Input port matrix</title>
   <mediaobject>
     <imageobject>
-      <imagedata fileref="screenshots/input-port-matrix.png"/>
+      <imagedata fileref="screenshots/input-port-matrix&scs;"/>
     </imageobject>
   </mediaobject>
 </figure>
@@ -870,7 +873,7 @@ the transport.
   <title>Track controls area</title>
   <mediaobject>
     <imageobject>
-      <imagedata fileref="screenshots/track-controls.png"/>
+      <imagedata fileref="screenshots/track-controls&scs;"/>
     </imageobject>
   </mediaobject>
 </figure>
@@ -879,7 +882,7 @@ the transport.
   <title>Main transport controls</title>
   <mediaobject>
     <imageobject>
-      <imagedata fileref="screenshots/transport-controls.png"/>
+      <imagedata fileref="screenshots/transport-controls&scs;"/>
     </imageobject>
   </mediaobject>
 </figure>
@@ -897,7 +900,7 @@ region containing your recording on the 'Audio 1' track, as in
   <title>Editor window after recording a region</title>
   <mediaobject>
     <imageobject>
-      <imagedata fileref="screenshots/recorded-one-region.png"/>
+      <imagedata fileref="screenshots/recorded-one-region&scs;"/>
     </imageobject>
   </mediaobject>
 </figure>
@@ -971,7 +974,7 @@ shown in <xref linkend="fig-mixer-window"/>.
 </para>
 
 <!--
-% \screenshot{mixer-window.png}{The mixer window}{fig-mixer-window}
+% \screenshot{mixer-window&scs;}{The mixer window}{fig-mixer-window}
 -->
 
 <para>
@@ -1038,7 +1041,7 @@ A typical Ardour editor window is shown in <xref linkend="fig-typical-editor2"/>
   <title>A typical editor window</title>
   <mediaobject>
     <imageobject>
-      <imagedata fileref="diagrams/editor-summary.pdf"/>
+      <imagedata fileref="diagrams/editor-summary&dia;"/>
     </imageobject>
   </mediaobject>
 </figure>
@@ -1087,7 +1090,7 @@ different tasks.
   <title>The Ardour toolbar</title>
   <mediaobject>
     <imageobject>
-      <imagedata fileref="diagrams/toolbar-annotated.pdf"/>
+      <imagedata fileref="diagrams/toolbar-annotated&dia;"/>
     </imageobject>
   </mediaobject>
 </figure>
@@ -1331,7 +1334,7 @@ The zoom controls are shown in <xref linkend="fig-zoom-controls"/>.
   <title>The zoom controls</title> 
   <mediaobject>
     <imageobject> 
-      <imagedata fileref="diagrams/zoom-controls.pdf"/>
+      <imagedata fileref="diagrams/zoom-controls&dia;"/>
     </imageobject> 
   </mediaobject>
 </figure>
@@ -1644,7 +1647,7 @@ controlled using the buttons shown in
   <title>Main transport controls</title> 
   <mediaobject>
     <imageobject> 
-      <imagedata fileref="screenshots/transport-controls.png"/>
+      <imagedata fileref="screenshots/transport-controls&scs;"/>
     </imageobject> 
   </mediaobject>
 </figure>
@@ -1652,44 +1655,44 @@ controlled using the buttons shown in
 From left to right, these controls are:
 <itemizedlist>
 <listitem>
-<imagedata fileref="screenshots/midi-panic.png"/> &mdash;
+<imagedata fileref="screenshots/midi-panic&scs;"/> &mdash;
   <emphasis>MIDI panic</emphasis> &mdash; click this to send note-offs and reset
   controller messages on all MIDI channels.  This is useful if, for
   example, a MIDI synthesizer has a stuck note and you want to silence
   it.
 </listitem>
 <listitem>
-<imagedata fileref="screenshots/go-to-start.png"/> &mdash;
+<imagedata fileref="screenshots/go-to-start&scs;"/> &mdash;
   <emphasis>Start of session</emphasis> &mdash; moves the playhead to the session
   start marker.
 </listitem>
 <listitem>
-<imagedata fileref="screenshots/go-to-end.png"/> &mdash; <emphasis>End
+<imagedata fileref="screenshots/go-to-end&scs;"/> &mdash; <emphasis>End
 of session</emphasis> &mdash; moves the playhead to the session end
 marker.
 </listitem>
 <listitem>
-<imagedata fileref="screenshots/loop.png"/> &mdash; <emphasis>Play
+<imagedata fileref="screenshots/loop&scs;"/> &mdash; <emphasis>Play
 loop</emphasis> &mdash; this starts playback in looped mode, so that
 the current loop range will be played repeatedly.
 </listitem>
 <listitem>
-<imagedata fileref="screenshots/play-range.png"/> &mdash;
+<imagedata fileref="screenshots/play-range&scs;"/> &mdash;
 <emphasis>Play range or selection</emphasis> &mdash; if there is a
 selected time range, it will be played back.
 </listitem>
 <listitem>
-<imagedata fileref="screenshots/play.png"/> &mdash;
+<imagedata fileref="screenshots/play&scs;"/> &mdash;
 <emphasis>Play</emphasis> &mdash; this starts playback of the session
 from wherever the playhead currently is (in other words, it sets the
 transport 'rolling', or moving)
 </listitem>
 <listitem> 
-<imagedata fileref="screenshots/stop.png"/> &mdash;
+<imagedata fileref="screenshots/stop&scs;"/> &mdash;
 <emphasis>Stop</emphasis> &mdash; this stops playback or record.
 </listitem>
 <listitem>
-<imagedata fileref="screenshots/record.png"/> &mdash;
+<imagedata fileref="screenshots/record&scs;"/> &mdash;
 <emphasis>Record</emphasis> &mdash; if this is clicked so that it
 flashes red, Ardour will record onto record-enabled tracks when the
 transport is moving.
@@ -1904,7 +1907,7 @@ as shown in <xref linkend="fig-add-track-or-bus"/>.
   <title>Add Track or Bus dialogue</title> 
   <mediaobject>
     <imageobject> 
-      <imagedata fileref="screenshots/add-track-or-bus.png"/>
+      <imagedata fileref="screenshots/add-track-or-bus&scs;"/>
     </imageobject> 
   </mediaobject>
 </figure>
@@ -1983,7 +1986,7 @@ editor window, a track's controls might look like those in
   <title>The header of a track in a group</title> 
   <mediaobject>
     <imageobject> 
-      <imagedata fileref="screenshots/track-in-group.png"/>
+      <imagedata fileref="screenshots/track-in-group&scs;"/>
     </imageobject> 
   </mediaobject>
 </figure>
@@ -2009,7 +2012,7 @@ linkend="fig-route-group-dialogue"/>.
   <title>The track/bus group dialogue</title> 
   <mediaobject>
     <imageobject> 
-      <imagedata fileref="screenshot/route-group-dialogue.png"/>
+      <imagedata fileref="screenshot/route-group-dialogue&scs;"/>
     </imageobject> 
   </mediaobject>
 </figure>
@@ -2103,7 +2106,7 @@ linkend="fig-typical-bus-controls"/>.
   <title>Controls for a typical bus</title> 
   <mediaobject>
     <imageobject> 
-      <imagedata fileref="screenshot/typical-bus-controls.png"/>
+      <imagedata fileref="screenshot/typical-bus-controls&scs;"/>
     </imageobject> 
   </mediaobject>
 </figure>
@@ -2150,7 +2153,7 @@ A typical control area for an audio track is shown in <xref linkend="fig-typical
   <title>Controls for a typical audio track</title> 
   <mediaobject>
     <imageobject> 
-      <imagedata fileref="screenshots/typical-audio-track-controls.png"/>
+      <imagedata fileref="screenshots/typical-audio-track-controls&scs;"/>
     </imageobject> 
   </mediaobject>
 </figure>
@@ -2185,7 +2188,7 @@ A typical control area for a MIDI track is shown in <xref linkend="fig-typical-m
   <title>Typical MIDI track controls</title> 
   <mediaobject>
     <imageobject> 
-      <imagedata fileref="diagrams/typical-midi-track-controls.pdf"/>
+      <imagedata fileref="diagrams/typical-midi-track-controls&dia;"/>
     </imageobject> 
   </mediaobject>
 </figure>
@@ -2241,7 +2244,7 @@ typical mixer window is shown in <xref linkend="fig-mixer-summary"/>.
 <!--
 \begin{figure}[ht]
 \begin{center}
-\includegraphics[scale=0.75]{diagrams/mixer-summary.pdf}
+\includegraphics[scale=0.75]{diagrams/mixer-summary&dia;}
 \end{center}
 \caption{A typical mixer window}
 \label{fig-mixer-summary}
@@ -2267,7 +2270,7 @@ master bus.  An annotated single mixer strip is shown in
 <!--
 \begin{figure}[ht]
 \begin{center}
-\includegraphics[scale=0.75]{diagrams/mixer-strip-summary.pdf}
+\includegraphics[scale=0.75]{diagrams/mixer-strip-summary&dia;}
 \end{center}
 \caption{A typical mixer strip}
 \label{fig-mixer-strip-summary}
@@ -2289,7 +2292,7 @@ The basic signal flow for a track is shown in
 <!--
 \begin{figure}[ht]
 \begin{center}
-\includegraphics[scale=0.75]{diagrams/basic-track-signal-flow.pdf}
+\includegraphics[scale=0.75]{diagrams/basic-track-signal-flow&dia;}
 \end{center}
 \caption{Basic track signal flow}
 \label{fig-basic-track-signal-flow}
@@ -2322,7 +2325,7 @@ the inputs for the strip.  A typical connection editor is shown in
 <xref linkend="fig-input-connection-matrix"/>.
 
 <!--
-\screenshot{input-connection-matrix.png}{A mixer strip input connection editor}{fig-input-connection-matrix}
+\screenshot{input-connection-matrix&scs;}{A mixer strip input connection editor}{fig-input-connection-matrix}
 -->
 
 In this case, we have an audio track called 'Audio 2' which has a
@@ -2490,7 +2493,7 @@ There are three basic ways in which monitoring may be approached:
 <!--
 \begin{figure}[ht]
 \begin{center}
-\includegraphics[scale=0.75]{diagrams/external-monitoring.pdf}
+\includegraphics[scale=0.75]{diagrams/external-monitoring&dia;}
 \end{center}
 \caption{External monitoring}
 \label{fig-external-monitoring}
@@ -2510,7 +2513,7 @@ There are three basic ways in which monitoring may be approached:
 <!--
 \begin{figure}[ht]
 \begin{center}
-\includegraphics[scale=0.75]{diagrams/jack-monitoring.pdf}
+\includegraphics[scale=0.75]{diagrams/jack-monitoring&dia;}
 \end{center}
 \caption{JACK-based 'hardware' monitoring}
 \label{fig-jack-monitoring}
@@ -2528,7 +2531,7 @@ There are three basic ways in which monitoring may be approached:
 <!--
 \begin{figure}[ht]
 \begin{center}
-\includegraphics[scale=0.75]{diagrams/ardour-monitoring.pdf}
+\includegraphics[scale=0.75]{diagrams/ardour-monitoring&dia;}
 \end{center}
 \caption{Software monitoring}
 \label{fig-ardour-monitoring}
@@ -2726,7 +2729,7 @@ The solo-mute arrangement with a monitor bus is shown in <xref linkend="fig-solo
 <!--
 \begin{figure}[ht]
 \begin{center}
-\includegraphics{diagrams/solo-mute.pdf}
+\includegraphics{diagrams/solo-mute&dia;}
 \end{center}
 \caption{Solo and mute with a monitor bus}
 \label{fig-solo-mute}
@@ -2770,7 +2773,7 @@ editing.  <xref linkend="fig-audio-region"/> shows a typical audio region.
 <!--
 \begin{figure}[ht]
 \begin{center}
-\includegraphics[scale=0.75]{diagrams/audio-region.pdf}
+\includegraphics[scale=0.75]{diagrams/audio-region&dia;}
 \end{center}
 \caption{An audio region}
 \label{fig-audio-region}
@@ -2791,7 +2794,7 @@ Clicking and dragging towards the left or right side of the region, or
 anywhere within the 'trim bar', trims the start or end of the region.
 <xref linkend="fig-audio-region-trim"/> shows a trim in progress.
 
-\screenshot{region-trim-end.png}{Trimming the end of an audio region}{fig-audio-region-trim}
+\screenshot{region-trim-end&scs;}{Trimming the end of an audio region}{fig-audio-region-trim}
 
 Right-clicking anywhere on a track (including over a region) displays
 the track menu.  The top entry in this menu will be the name of the
@@ -2854,7 +2857,7 @@ shown in <xref linkend="fig-overlapping-regions"/>.
 <!--
 \begin{figure}[ht]
 \begin{center}
-\includegraphics[scale=0.75]{diagrams/overlapping-regions.pdf}
+\includegraphics[scale=0.75]{diagrams/overlapping-regions&dia;}
 \end{center}
 \caption{Some overlapping regions}
 \label{fig-overlapping-regions}
@@ -2911,7 +2914,7 @@ $0$dB out to $-\infty$dB.
 These fades can be of any length and a variety of shapes.
 <xref linkend="fig-region-fades"/> shows some regions with some examples of fades.
 
-\screenshot{region-fades.png}{Some regions with fades}{fig-region-fades}
+\screenshot{region-fades&scs;}{Some regions with fades}{fig-region-fades}
 
 When the mouse pointer is over an audio region, fade handles will
 appear and the fades' lengths can be changed, as shown in
@@ -2920,7 +2923,7 @@ appear and the fades' lengths can be changed, as shown in
 <!--
 \begin{figure}[ht]
 \begin{center}
-\includegraphics[scale=0.75]{diagrams/dragging-fades.pdf}
+\includegraphics[scale=0.75]{diagrams/dragging-fades&dia;}
 \end{center}
 \caption{Dragging a fade-in}
 \label{fig-dragging-fades}
@@ -2930,7 +2933,7 @@ appear and the fades' lengths can be changed, as shown in
 The shape of the fade can be changed by right-clicking over the fade;
 this will pop up a menu as in <xref linkend="fig-fades-menu"/>.
 
-\screenshot{fades-menu.png}{Fade shape menu}{fig-fades-menu}
+\screenshot{fades-menu&scs;}{Fade shape menu}{fig-fades-menu}
 
 <section><title>Cross-fading</title>
 <indexterm><primary>crossfade</primary></indexterm>
@@ -2945,7 +2948,7 @@ Consider, for example, the simple case in <xref linkend="fig-crossfades"/>.
 <!--
 \begin{figure}[ht]
 \begin{center}
-\includegraphics[scale=0.75]{diagrams/crossfades.pdf}
+\includegraphics[scale=0.75]{diagrams/crossfades&dia;}
 \end{center}
 \caption{Simple cross-fade}
 \label{fig-crossfades}
@@ -3015,7 +3018,7 @@ the following ways:
 An example region with a gain line is shown in
 <xref linkend="fig-region-with-gain-line"/>.
 
-\screenshot{region-gain-line.png}{An audio region with a gain line}{fig-region-with-gain-line}
+\screenshot{region-gain-line&scs;}{An audio region with a gain line}{fig-region-with-gain-line}
 
 
 
@@ -3053,7 +3056,7 @@ are 'nearly', silent.  This can be done automatically using the
 Selecting this option will open the dialogue shown in
 <xref linkend="fig-strip-silence-dialogue"/>.
 
-\screenshot{strip-silence-dialogue.png}{The strip silence dialogue}{fig-strip-silence-dialogue}
+\screenshot{strip-silence-dialogue&scs;}{The strip silence dialogue}{fig-strip-silence-dialogue}
 
 In addition, your target regions will be overlaid with light-blue
 areas which represent that the strip silence dialogue currently
@@ -3081,7 +3084,7 @@ To open the \dialogue{Rhythm Ferret} dialogue, choose
 \menu{Edit,Rhythm Ferret}.  This will open the dialogue box shown in
 <xref linkend="fig-rhythm-ferret-dialogue"/>.
 
-\screenshot{rhythm-ferret-dialogue.png}{The Rhythm Ferret dialogue}{fig-rhythm-ferret-dialogue}
+\screenshot{rhythm-ferret-dialogue&scs;}{The Rhythm Ferret dialogue}{fig-rhythm-ferret-dialogue}
 
 First, choose the features that you want to look for; either note
 onset or percussive onset.  Then, clicking 'Analyse' will examine
@@ -3128,8 +3131,8 @@ edit this mode by double-clicking on a MIDI region.
 disabled, and <xref linkend="fig-midi-edit2"/> after 'edit region contents'
 has been switched on.
 
-\screenshot{midi-edit1.png}{A MIDI region with 'edit region contents' switched off'}{fig-midi-edit1}
-\screenshot{midi-edit2.png}{A MIDI region with 'edit region contents' switched on}{fig-midi-edit2}
+\screenshot{midi-edit1&scs;}{A MIDI region with 'edit region contents' switched off'}{fig-midi-edit1}
+\screenshot{midi-edit2&scs;}{A MIDI region with 'edit region contents' switched on}{fig-midi-edit2}
 
 Once in this mode, many of the tools for altering regions become tools
 for altering notes.  With the 'select/move objects' tool
@@ -3138,9 +3141,9 @@ around and trim their starts and ends.  Hovering the mouse over a note
 will display information about its note value, channel and velocity.
 
 Right-clicking on a selected note will display a channel selector, as
-shown in <xref linkend="fig-midi-edit5.png"/>.
+shown in <xref linkend="fig-midi-edit5&scs;"/>.
 
-\screenshot{midi-edit5.png}{Altering a note's channel}{fig-midi-edit5.png}
+\screenshot{midi-edit5&scs;}{Altering a note's channel}{fig-midi-edit5&scs;}
 
 Once this is displayed, click on the MIDI channel that you want the
 note to be played back on.
@@ -3194,7 +3197,7 @@ The Quantize feature allows notes in the region to be snapped to a
 grid, to make their timing more accurate.  The \menu{Quantize&hellip;}
 option opens the dialogue shown in <xref linkend="fig-quantize"/>.
 
-\screenshot{quantize.png}{The quantization dialogue}{fig-quantize}
+\screenshot{quantize&scs;}{The quantization dialogue}{fig-quantize}
 
 The quantization options are as follows:
 
@@ -3232,7 +3235,7 @@ This feature is probably most easily explored by listening!
 <!--
 \begin{figure}[ht]
 \begin{center}
-\includegraphics[scale=0.75]{diagrams/swing.pdf}
+\includegraphics[scale=0.75]{diagrams/swing&dia;}
 \end{center}
 \caption{The mathematics of swing}
 \label{fig-swing-maths}
@@ -3314,7 +3317,7 @@ their controls will also be listed in this menu.
 Choosing, for example, 'fader' opens a new automation lane, as shown
 in <xref linkend="fig-automation-lane"/>.
 
-\screenshot{automation-lane.png}{An automation lane}{fig-automation-lane}
+\screenshot{automation-lane&scs;}{An automation lane}{fig-automation-lane}
 
 We now have an automation lane for the track 'up_with_people.stereo'
 which controls its fader level.  The automation lane's controls area
@@ -4081,7 +4084,7 @@ typical small JACK session.
   <title>An example JACK session</title> 
   <mediaobject>
     <imageobject> 
-      <imagedata fileref="diagrams/typical-jack-session.pdf"/>
+      <imagedata fileref="diagrams/typical-jack-session&dia;"/>
     </imageobject> 
   </mediaobject>
 </figure>
@@ -4652,7 +4655,7 @@ of the processor list is illustrated in
 <!--
 \begin{figure}[ht]
 \begin{center}
-\includegraphics{diagrams/basic-processor-list.pdf}
+\includegraphics{diagrams/basic-processor-list&dia;}
 \end{center}
 \caption{Basic structure of a track or bus}
 \label{fig-basic-processor-list}
@@ -4677,7 +4680,7 @@ The term 'processor' is a very general one.  It includes:
 Some processors are shown in the Ardour's mixer strip, and some are
 hidden.  Consider the example mixer strip shown in <xref linkend="fig-processor-box"/>.
 
-\screenshot{processor-box.png}{The processor box}{fig-processor-box}
+\screenshot{processor-box&scs;}{The processor box}{fig-processor-box}
 
 Here we see five visible processors; they are:
 
@@ -4772,7 +4775,7 @@ representation of the entire pathway of a route.
 <!--% XXX: panning
 \begin{figure}[ht]
 \begin{center}
-\includegraphics{diagrams/route-in-detail.pdf}
+\includegraphics{diagrams/route-in-detail&dia;y}
 \end{center}
 \caption{Detailed view of a route}
 \label{fig-route-in-detail}

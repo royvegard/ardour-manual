@@ -8,3 +8,6 @@
 *.ilg
 *.ind
 html
+diagrams/*.png
+graphics/*.png
+extensions.ent
