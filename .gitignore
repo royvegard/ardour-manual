@@ -7,6 +7,11 @@
 *.idx
 *.ilg
 *.ind
+*.cb
+*.cb2
+*.glo
+*.lof
+*.out
 diagrams/*.png
 graphics/*.png
 extensions.ent

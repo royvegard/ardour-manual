@@ -1,16 +1,12 @@
-\font\manual=manfnt
-\def\dbend{{\manual\char127}} % dangerous bend sign
+%%
+%% This style is derivated from the docbook one
+%%
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{ardour}[2007/04/04 My DocBook Style]
 
-% Danger, Will Robinson!
-\def\danger{\begin{trivlist}\item[]\noindent%
-\begingroup\hangindent=2pc\hangafter=-2%\clubpenalty=10000%
-\def\par{\endgraf\endgroup}%
-\hbox to0pt{\hskip-\hangindent\dbend\hfill}\ignorespaces}
-\def\enddanger{\par\end{trivlist}}
+%% Just use the original package and pass the options
+\RequirePackageWithOptions{docbook}
 
-% Danger! Danger!
-\def\ddanger{\begin{trivlist}\item[]\noindent%
-\begingroup\hangindent=3.5pc\hangafter=-2%\clubpenalty=10000%
-\def\par{\endgraf\endgroup}%
-\hbox to0pt{\hskip-\hangindent\dbend\kern2pt\dbend\hfill}\ignorespaces}
-\def\endddanger{\par\end{trivlist}}
+% Use a nice font
+\usepackage{lmodern}
+
