@@ -68,8 +68,10 @@ great loss.
 </para>
 
 <sidebar>
+<para>
 Tricky parts of the text are formatted like this.  They contain extra
 information which may be of interest to advanced users.
+</para>
 </sidebar>
 
 </section>
@@ -88,10 +90,12 @@ or comments on parts that do not make sense are welcome to
 </para>
 
 <sidebar>
+<para>
 For those familiar with &lsquo;git', the manual's DocBook source can be
 obtained from the git repository linked from <ulink
 url="http://carlh.net/ardour">http://carlh.net/ardour</ulink>.
 Patches to the manual are most welcome.
+</para>
 </sidebar>
 
 </section>
@@ -352,7 +356,7 @@ overview of Ardour.
 
 <para>
 Ardour is built on another piece of software called JACK
-<footnote><para>JACK stands for the JACK Audio Connection Kit; a pleasingly recursive acronym.</para></footnote>
+<footnote><para>JACK stands for the JACK Audio Connection Kit; a pleasingly recursive acronym.</para></footnote>.
 JACK has two main functions; first, it moves audio and MIDI to
 and from a sound card, and second, it allows audio and MIDI to be
 routed between different applications.
@@ -407,13 +411,17 @@ and other details.
 </para>
 
 <sidebar>
+<para>
 Ardour's session file is kept in XML format, which is advantageous as
 it is somewhat human-readable, and human-editable in a crisis.  Sound
 files are stored in one of a number of optional formats, and MIDI
 files as SMF (standard MIDI format).
+</para>
 
+<para>
 It is also possible for Ardour sessions to reference sound and MIDI
 files outside the session directory.
+</para>
 </sidebar>
 
 <para>
@@ -449,11 +457,13 @@ suitable mix.
 </para>
 
 <sidebar>
+<para>
 A track's type is really only related to the type of data that it
 stores on disk.  It is possible, for example, to have a MIDI track
 with a synthesizer plugin which converts MIDI to audio.  Even though
 the track remains &lsquo;MIDI', in the sense that its on-disk recordings are
 MIDI, its output may be audio-only.
+</para>
 </sidebar>
 
 </section>
@@ -512,7 +522,7 @@ equalisation or compression) can be applied to the mix of all tracks.
 <para>
 Ardour allows you to process audio and MIDI using any number of
 <emphasis>plugins</emphasis>.  These are external pieces of code, commonly seen as
-VST plugins on Windows or AU plugins on Mac OS~X.  Generally speaking,
+VST plugins on Windows or AU plugins on Mac OS X.  Generally speaking,
 a plugin is written using one (and maybe more) standards.  Ardour's
 plugin support is for the following standards:
 </para>
@@ -537,7 +547,7 @@ VST
 </listitem>
 <listitem>
 AU
-&mdash; Mac OS~X versions of Ardour support AudioUnit (AU) plugins. <indexterm><primary>AU</primary></indexterm>
+&mdash; Mac OS X versions of Ardour support AudioUnit (AU) plugins. <indexterm><primary>AU</primary></indexterm>
 </listitem>
 </itemizedlist>
 
@@ -1629,11 +1639,11 @@ what the user interface is showing.  You should remove the feedback
 path, upon which this light will stop flashing.
 
 <!-- XXX
-\todo{Metronome}
-\todo{Audition}
-\todo{Internal}
-\todo{Auto Play}
-\todo{Auto Return}
+Metronome
+Audition}
+Internal
+Auto Play
+Auto Return
 -->
 
 </section>
@@ -1807,24 +1817,26 @@ Get a faster computer!
 </itemizedlist>
 
 <sidebar>
+<para>
 Every time JACK calls Ardour, to give it audio from inputs and take
 away audio from outputs, Ardour has until the next JACK call to do its
 processing.  The DSP load is the percentage of this available time
-that Ardour is taking up.  More than 100\% means that Ardour will not
+that Ardour is taking up.  More than 100% means that Ardour will not
 have performed one lot of processing before JACK asks it to do more,
 so the system is critically overloaded.  As suggested above, one can
 increase Ardour's chances of getting everything finished by increasing
 the period between JACK's calls (by increasing the JACK buffer size),
 or by reducing the amount of time Ardour requires to do its work (by
 reducing plugin count, or using faster hardware).
-</sidebar>
+</para>
 
-<sidebar>
+<para>
 Note that DSP load will probably not vary predictably with CPU speed.
 Many other things are involved in the timing of the sound-card / JACK
 / Ardour interaction; including the real-time performance of your
 system and kernel, the details of your hardware, and in some cases
 blind (good or bad) luck.
+</para>
 </sidebar>
 
 <listitem>
@@ -1935,7 +1947,7 @@ These options are:
 <listitem>
 Track mode (for audio tracks) &mdash; this can be &lsquo;normal',
 'non-layered&rsquo; or &lsquo;tape'.
-<!--  \todo{I have no idea what non-layered nor tape modes do} -->
+<!--  I have no idea what non-layered nor tape modes do -->
 </listitem>
 <listitem>
  Group &mdash; tracks and busses can be put into groups so that a
@@ -2128,8 +2140,7 @@ main level fader.  The control buttons to the right-hand side are:
 <listitem>
 <emphasis>'m'</emphasis> &mdash; mute &mdash; left-click to mute the
 bus.  Right-click to display a menu which dictates what particular
-parts of the bus should be muted. <!-- \todo{detail of muting options}
--->
+parts of the bus should be muted. <!-- detail of muting options -->
 </listitem>
 <listitem>
 <emphasis>'s'</emphasis> &mdash; solo &mdash; solo the bus.  The
@@ -2183,7 +2194,7 @@ allow one set of regions to be played off two tracks with different
 processing.
 </para>
 
-<!-- \todo{playlist menu details} -->
+<!-- playlist menu details -->
 
 </section>
 <section><title>MIDI tracks</title>
@@ -2218,7 +2229,7 @@ put on different MIDI channels.  Clicking on a channel number toggles
 its visibility.
 </para>
 
-<!-- \todo{What does Force do} -->
+<!-- What does Force do -->
 
 <para>
 To the right of the MIDI track controls is a representation of a piano
@@ -2694,8 +2705,8 @@ monitored.
 </para>
 
 <!--
-\todo{Some more rational explanation of why things are like this}
-\todo{Metering!}
+Some more rational explanation of why things are like this
+Metering!
 -->
 
 </section>
@@ -2791,7 +2802,7 @@ one way in which mute and solo will work.  Without a monitor bus:
 <para>
 For setups <emphasis>with</emphasis> a monitor bus, you have more options, mostly
 governed by the setting of the &lsquo;Solo controls are Listen controls'
-option in the \tab{Solo / mute} tab of &lsquo;Ardour Preferences'.
+option in the <guilabel>Solo / mute</guilabel> tab of &lsquo;Ardour Preferences'.
 </para>
 
 <para>
@@ -3136,7 +3147,7 @@ Consider, for example, the simple case in <xref linkend="fig-crossfades"/>.
   <title>Simple cross-fade</title>
   <mediaobject>
     <imageobject> 
-      <imagedata fileref="diagram/crossfades&dia;"/>
+      <imagedata fileref="diagrams/crossfades&dia;"/>
     </imageobject> 
   </mediaobject>
 </figure>
@@ -3183,14 +3194,14 @@ the sound of particular features within the region.
 <para>
 If you want to modify audio region gain, it is important to ensure
 that the option &lsquo;Show gain envelopes in audio regions&rsquo; is ticked in
-the \tab{Editor} tab of Ardour's preferences (see
+the <guilabel>Editor</guilabel> tab of Ardour's preferences (see
 Section <xref linkend="sec-ardour-preferences-editor"/>).  This enables some
 useful functionality which is otherwise turned off.
 </para>
 
 <para>
 To edit audio region gain, first go into &lsquo;draw region gain&rsquo; mode by
-clicking the tool (\inlinetool{region-gain}).  Now,
+clicking the tool (<imagedata scale="75" fileref="screenshots/tool-region-gain&scs;"/>).  Now,
 moving the mouse pointer over an audio region will show the gain
 curve; initially this will be a straight green line with two
 red-square points, one at each end.  The gain line can be edited in
@@ -3205,9 +3216,9 @@ the following ways:
 </listitem><listitem> Right-clicking on a point will offer a small
   menu from which you can delete the point or edit its value
   numerically.
-</listitem><listitem> \modone{}-right-clicking on a point is a short-cut to opening
+</listitem><listitem> &modone;-right-clicking on a point is a short-cut to opening
   its edit dialogue box.
-</listitem><listitem> \modtertiary{}-right-clicking on a point will delete it.
+</listitem><listitem> &modtertiary;-right-clicking on a point will delete it.
 </listitem>
 </itemizedlist>
 
@@ -3239,14 +3250,14 @@ the <guilabel>Pitch Shift Audio</guilabel> dialogue box, which allows you to
 specify the desired shift in octaves, semitones and cents.
 </para>
 
-<!-- \todo{Preserve Formants?} -->
+<!-- Preserve Formants? -->
 
 </section>
 <section><title>Time stretching</title>
 
 <para>
 Time-stretching in Ardour has its own special tool.  Choose the
-stretch/shrink tool (\inlinetool{stretch}).
+stretch/shrink tool (<imagedata scale="75" fileref="screenshots/tool-stretch&scs;"/>).
 With this tool, you can click and drag the size of regions, much as
 you would do when trimming them.  The difference is that after the
 drag, Ardour will time-stretch the region to the new size that you
@@ -3334,7 +3345,7 @@ correct features have been found, you can choose what to do with them
 using the &lsquo;Operation&rsquo; drop-down:
 </para>
 
-<!--\todo{Not sure what the parameters do} -->
+<!--Not sure what the parameters do -->
 
 <itemizedlist>
 <listitem>
@@ -3342,7 +3353,7 @@ using the &lsquo;Operation&rsquo; drop-down:
 into smaller regions at the feature points.
 </listitem>
 <listitem>
-<emphasis>Snap region &mdash; <!-- \todo{don't know what these do --> </emphasis>
+<emphasis>Snap region &mdash; <!-- don't know what these do --> </emphasis>
 </listitem>
 <listitem>
 <emphasis>Conform regions</emphasis> &mdash; 
@@ -3372,7 +3383,7 @@ notes, control changes and so on directly inside the editor window.
 
 <para>
 The first step to editing a MIDI region's contents is to click the
-'edit region contents&rsquo; tool (\inlinetool{region-contents}).
+'edit region contents&rsquo; tool (<imagedata scale="75" fileref="screenshots/tool-region-contents&scs;"/>).
 On doing this, the bodies of the regions in the session will fade out
 to indicate that you are now editing their contents.  You can also
 edit this mode by double-clicking on a MIDI region.
@@ -3405,7 +3416,7 @@ has been switched on.
 <para>
 Once in this mode, many of the tools for altering regions become tools
 for altering notes.  With the &lsquo;select/move objects&rsquo; tool
-(\inlinetool{objects}) you can select notes, move them
+(<imagedata scale="75" fileref="screenshots/tool-objects&scs;"/>) you can select notes, move them
 around and trim their starts and ends.  Hovering the mouse over a note
 will display information about its note value, channel and velocity.
 </para>
@@ -3452,7 +3463,7 @@ the current edit point (see Section <xref linkend="sec-edit-point-selector"/>).
 
 <para>
 Notes can be added to MIDI regions using the &lsquo;draw MIDI&rsquo; tool
-(\inlinetool{draw-midi}).  Select this tool, then click
+(<imagedata scale="75" fileref="screenshots/tool-draw-midi&scs;"/>).  Select this tool, then click
 to add a note which is the same length as the current grid interval,
 or click and drag to add a note of any length.
 </para>
@@ -3479,7 +3490,7 @@ the notes in the region.
 </section>
 <section><title>Insert Patch Change</title>
 
-<!-- \todo{hmm} -->
+<!-- hmm -->
 
 </section>
 <section><title>Quantize</title>
@@ -3537,7 +3548,7 @@ t = q + \frac{2}{3} \frac{F_S}{100} L
 -->
 
 <para>
-where F<subscript>S</subscript> is the swing factor specified in the \dialogue{Quantize}
+where F<subscript>S</subscript> is the swing factor specified in the <guilabel>Quantize</guilabel>
 dialogue box.  Hence if F<subscript>S</subscript> is positive, the note will be placed
 later than it would be with &lsquo;straight&rsquo; timing, and if F<subscript>S</subscript> is
 negative the note is placed earlier.
@@ -3551,7 +3562,7 @@ This feature is probably most easily explored by listening!
   <title>The mathematics of swing</title> 
   <mediaobject>
     <imageobject> 
-      <imagedata fileref="diagram/swing&dia;"/>
+      <imagedata fileref="diagrams/swing&dia;"/>
     </imageobject> 
   </mediaobject>
 </figure>
@@ -3686,7 +3697,7 @@ Clicking on the automation lane's mode button (which initially says &lsquo;Manua
   back, then adjust the parameter (in this case the fader) of the
   track as required.  Your movements will be recorded and written as
   automation.
-</listitem><listitem> <emphasis>Touch} &mdash; \todo{doesn't seem to work right now</emphasis>
+</listitem><listitem> <emphasis>Touch &mdash; <!-- doesn't seem to work right now --></emphasis>
 </listitem>
 </itemizedlist>
 
@@ -3705,7 +3716,7 @@ you the moves that you made on the fader.
 <para>
 The other option is to draw the automation with the mouse.  Clicking
 in an automation lane with in &lsquo;select/move objects&rsquo; mode
-(\inlinetool{objects}) will create a new automation point.
+(<imagedata scale="75" fileref="screenshots/tool-objects&scs;"/>) will create a new automation point.
 </para>
 
 </section>
@@ -3731,7 +3742,7 @@ either &modone;-left-click to select additional points, or drag a
 
 <para>
 Finally, points may be cut, copied and pasted, just as regions, by
-selecting them and using the standard key shortcuts (\key{\modone{}-X}
+selecting them and using the standard key shortcuts <keycap>&modone;-X</keycap>
 for cut, <keycap>&modone;-C</keycap> for copy or
 <keycap>&modone;-V</keycap> for paste).  Pastes are made at the edit
 point.
@@ -4052,7 +4063,7 @@ which depend on your general style of working, and the set up of your
 audio system.
 </para>
 
-<!-- \todo{You can make session properties sort of &lsquo;sticky&rsquo; by using template sessions} -->
+<!-- You can make session properties sort of &lsquo;sticky&rsquo; by using template sessions -->
 
 </section>
 <section><title>Session properties</title>
@@ -4111,7 +4122,7 @@ WAVE &mdash; the Microsoft WAVE format (commonly given a suffix of <code>.wav</c
 WAVE-64 &mdash; a version of WAVE that can handle files of greater than 4Gb in size.
 </listitem>
 <listitem>
-CAF &mdash; Core Audio Format, as developed by Apple Computer for use on Mac OS~X.
+CAF &mdash; Core Audio Format, as developed by Apple Computer for use on Mac OS X.
 </listitem>
 </itemizedlist>
 
@@ -4221,9 +4232,9 @@ the click.
   marker makes it easy to check out the area later and inspect the
   damage.
 </listitem><listitem> <emphasis>Stop at the end of the session</emphasis> &mdash; if this is enabled,
-  the transport will stop at the end-of-session marker (\todo{does it
-    stop during record too?})
-</listitem><listitem> <emphasis>Do seamless looping} &mdash; \todo{hmm!</emphasis>
+  the transport will stop at the end-of-session marker <!-- (does it
+    stop during record too?) -->
+</listitem><listitem> <emphasis>Do seamless looping} &mdash; <!-- hmm! --></emphasis>
 </listitem><listitem> <emphasis>Primary clock delta to edit cursor</emphasis>
 </listitem><listitem> <emphasis>Secondary clock delta to edit cursor</emphasis>
 </listitem><listitem> <emphasis>Disable per-track record disarm while rolling</emphasis> &mdash; if
@@ -4258,7 +4269,7 @@ the click.
   Disabling it will provide a slight drop in CPU load.
 </listitem>
 <listitem>
-<emphasis>Use overlap equivalency for regions} &mdash; \todo{?!</emphasis>
+<emphasis>Use overlap equivalency for regions} &mdash; <!-- ?! --></emphasis>
 </listitem><listitem> <emphasis>Make rubberband selection rectangle snap to the grid</emphasis>
   &mdash; when selecting things by dragging a &lsquo;rubberband&rsquo; or &lsquo;lassoo'
   rectangle, this option makes that rectangle snap to any active grid.
@@ -4283,7 +4294,7 @@ the click.
   screens.
 </listitem><listitem> <emphasis>Color regions using their track's color</emphasis> &mdash; this will
   draw the trim bar of each region using the same colour as has been
-  assigned to its track. \todo{if not?}
+  assigned to its track. <!-- if not? -->
 </listitem><listitem> <emphasis>Update editor window during drags of the summary</emphasis> &mdash; if
   this option is on, as you drag the view rectangle in the summary
   (see Section <xref linkend="sec-summary"/>) the editor will be updated
@@ -4364,7 +4375,7 @@ those that correspond to sound card outputs that get sound out into
 the real world.
 </para>
 
-<!-- \todo{there is the monitor_bus_preferred_bundle but no-one sets it} -->
+<!-- there is the monitor_bus_preferred_bundle but no-one sets it -->
 
 <para>
 &lsquo;'Connect track inputs&rsquo; sets how new track inputs should be set up;
@@ -4390,6 +4401,7 @@ high CPU loads and xruns.
 </para>
 
 <sidebar>
+<para>
 The reason CPUs slow down is that in some cases they think it more
 important to maintain precision with very small numbers than to
 process them quickly.  This is true for many applications, but not for
@@ -4397,6 +4409,7 @@ audio.  The numbers involved are so small (usually around the
 1e-16 range) that small errors in their processing are, in most
 cases, inaudible.  For audio applications it is generally preferable
 to lose some precision in order to keep things moving quickly.
+</para>
 </sidebar>
 
 <para>
@@ -4435,8 +4448,8 @@ likely to solve the problem efficiently.
   limits of your CPU power.
 </listitem><listitem> <emphasis>Make new plugins active</emphasis> &mdash; enabling this option will
   make newly-added plugins active by default.
-</listitem><listitem> <emphasis>Enable automatic analysis of audio</emphasis> &mdash; \todo{think this
-  should be reworked}
+</listitem><listitem> <emphasis>Enable automatic analysis of audio</emphasis> &mdash; <!-- think this
+  should be reworked -->
   </listitem>
 </itemizedlist>
 
@@ -4596,11 +4609,13 @@ connected to any other; Ardour is just one of many.
 </para>
 
 <sidebar>
+<para>
 JACK is not limited to the standard concept of the &lsquo;sound card'.  You
 may choose to have no sound card at all (in which case JACK can run in
 'dummy&rsquo; mode).  It is also possible to send signals to and from JACK
 over TCP/IP networks using netjack.  For simplicity, this manual will
 assume that the user has a sound card in the conventional sense.
+</para>
 </sidebar>
 
 <section>
@@ -4697,7 +4712,7 @@ This is the number of samples per second that JACK will process, and
 is important as it will govern the sampling rate that all audio
 applications will run at.  The chosen rate must be supported
 by the sound card, so values such as 44.1kHz, 48kHz, 96kHz
-et.\ cetera are typical choices.  The higher the sampling rate, the
+et. cetera are typical choices.  The higher the sampling rate, the
 higher the theoretical audio frequency that the system can reproduce,
 but also the more disk space will be consumed by audio recordings, and
 the more CPU power will be required to run audio plugins.
@@ -4729,6 +4744,7 @@ perfectly acceptable if you do not particularly care about latency.
 </para>
 
 <sidebar>
+<para>
 The frames per period value governs how often JACK will talk to the
 sound card.  If, for example, JACK is set to 64 frames per period, the
 sound card will tell JACK when it has 64 new frames ready; JACK (and
@@ -4738,6 +4754,7 @@ causing a greater CPU load, and that the requirements for JACK's
 response time are much more critical with smaller period sizes.  Some
 systems will struggle to wake JACK up in time, making larger period
 sizes more reliable on those systems.
+</para>
 </sidebar>
 
 </section>
@@ -5355,8 +5372,10 @@ deleted or copied.
 <section><title>Tracks and busses in detail</title>
 
 <sidebar>
+<para>
 This section goes into somewhat unhealthy detail about how tracks and
 busses operate internally.  It may be of interest to almost nobody.
+</para>
 </sidebar>
 
 <para>
@@ -5390,7 +5409,7 @@ representation of the entire pathway of a route.
   <title>Detailed view of a route</title> 
   <mediaobject>
     <imageobject> 
-      <imagedata fileref="diagram/route-in-detail&dia;"/>
+      <imagedata fileref="diagrams/route-in-detail&dia;"/>
     </imageobject> 
   </mediaobject>
 </figure>
@@ -5541,7 +5560,7 @@ itself is using.
 </listitem>
 <listitem> Using OS facilities to merge devices into a single pseudo-device
 
-Both OS~X and Linux provide ways to configure your machine so that it
+Both OS X and Linux provide ways to configure your machine so that it
 appears to have a new audio device that is actually a combination of
 one or more real devices. You can use this approach to create the
 configuration you want to use and then start up JACK using that new
@@ -5552,12 +5571,14 @@ configuration you want to use and then start up JACK using that new
 
 You must perform these steps as a user with administrative
 privileges. The first thing to do is to open up
-\menu{Applications,Utilities,Audio/MIDI Setup}. Go to the main menu
-bar, click on <guibutton>Audio</guibutton> and then select <guimenu>Open aggregate device
-editor</guimenu>. Follow the simple instructions to add the each desired
-playback or capture device to your new aggregate device. Then pick a
-name for the new device. This is the name you will also use to choose
-the device for use with JACK.
+<guimenuitem>Audio/MIDI Setup</guimenuitem> in the
+<guimenu>Utilities</guimenu> submenu of
+<guimenu>Applications</guimenu>. Go to the main menu bar, click on
+<guibutton>Audio</guibutton> and then select <guimenu>Open aggregate
+device editor</guimenu>. Follow the simple instructions to add the
+each desired playback or capture device to your new aggregate
+device. Then pick a name for the new device. This is the name you will
+also use to choose the device for use with JACK.
 
 <para>
 Note that there are quite a few subtle bugs with Apple's &lsquo;aggregate
