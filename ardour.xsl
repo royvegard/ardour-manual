@@ -4,7 +4,4 @@
 <!-- colour links in black -->
 <xsl:param name="latex.hyperparam">colorlinks,linkcolor=black,urlcolor=black</xsl:param>
 
-
 </xsl:stylesheet>
-
-
