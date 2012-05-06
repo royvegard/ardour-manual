@@ -854,7 +854,9 @@ can be seen by choosing one of the tabs on the far left-hand side of
 the dialogue.
 </para>
 
-<para>At the bottom of the dialogue is the input to our track.</para>
+<para>
+At the bottom of the dialogue is the input to our track.
+</para>
 
 <para>
 In the example matrix, there is a green dot at the intersection of the
@@ -3749,12 +3751,12 @@ point.
 </para>
 
 </section>
-<section><title>MIDI &lsquo;automation'</title>
+<section><title>MIDI &lsquo;automation&rsquo;</title>
 
 As discussed in Section <xref linkend="sec-midi-non-note"/>, a variety of MIDI
 message types are presented in Ardour as automation.  Lanes for these
 messages can be opened, just as with audio tracks, by clicking on the
-'a&rsquo; button in a MIDI track's control area and selecting a parameter.
+&lsquo;a&rsquo; button in a MIDI track's control area and selecting a parameter.
 The menu is much more extensive for MIDI, since there is an option for
 each parameter on each MIDI channel.
 
@@ -3775,7 +3777,7 @@ before adding the automation.
 <title>Region operations</title>
 
 This chapter provides a reference to the operations that can be
-&mdash;performed on regions, accessible from the region submenu of the track
+performed on regions, accessible from the region submenu of the track
 context menu.
 
 <itemizedlist>
@@ -3795,84 +3797,94 @@ context menu.
 
 <listitem><emphasis>Edit</emphasis>
 
-  <itemizedlist>
-  <listitem>
-  Combine
-  </listitem>
-  <listitem>
-  Uncombine
-  </listitem>
-  <listitem>
-  <emphasis>Split</emphasis> &mdash; split the region at the current edit point;
-  this will only work from the menu if the edit point is not &lsquo;mouse'
-  (as if you are selecting a menu option, the mouse position at the
-  time is not particularly relevant to where an edit point should be).
-  </listitem>
-  <listitem> <emphasis>Make Mono Regions</emphasis> &mdash; given a multi-channel (stereo or
-  more) region, this option creates a new region per channel and adds
-  those regions to the session's region list.  These regions can then
-  be dragged from the editor region list (see
-  Section <xref linkend="sec-region-list"/>) into mono tracks as required.
-  </listitem>
-  <listitem> <emphasis>Opaque</emphasis> &mdash; tick to make the region &lsquo;opaque', so that
-  regions underneath it on the playlist will not be heard.  If the
-  region is not opaque, its data will be mixed with regions underneath
-  it.
-  </listitem>
-  <listitem> <emphasis>Mute</emphasis> &mdash; tick to mute the region; it will not be heard
-  </listitem>
-  <listitem> <emphasis>Pitch Shift&hellip;</emphasis> &mdash; open a dialogue box to
-  pitch-shift the region.
-  </listitem>
-  <listitem> <emphasis>Reverse</emphasis> &mdash; flip the region backwards in time.
-  </listitem>
-  <listitem> Glose Gaps
-  </listitem>
-  <listitem> Place Transient
-  </listitem>
-  <listitem> Rhythm Ferret&hellip;
-  </listitem>
-  <listitem> Strip Silence&hellip;
-  </listitem>
-  </itemizedlist>
+<itemizedlist>
+<listitem>
+Combine
+</listitem>
+<listitem>
+Uncombine
+</listitem>
+<listitem>
+<emphasis>Split</emphasis> &mdash; split the region at the current
+edit point; this will only work from the menu if the edit point is not
+&lsquo;mouse&rsquo; (as if you are selecting a menu option, the mouse
+position at the time is not particularly relevant to where an edit
+point should be).
+</listitem>
+<listitem>
+<emphasis>Make Mono Regions</emphasis> &mdash; given a multi-channel
+(stereo or more) region, this option creates a new region per channel
+and adds those regions to the session's region list.  These regions
+can then be dragged from the editor region list (see Section <xref
+linkend="sec-region-list"/>) into mono tracks as required.
+</listitem>
+<listitem>
+<emphasis>Opaque</emphasis> &mdash; tick to make the region
+&lsquo;opaque&rsquo;, so that regions underneath it on the playlist
+will not be heard.  If the region is not opaque, its data will be
+mixed with regions underneath it.
+</listitem>
+<listitem>
+<emphasis>Mute</emphasis> &mdash; tick to mute the region; it will not be heard
+</listitem>
+<listitem>
+<emphasis>Pitch Shift&hellip;</emphasis> &mdash; open a dialogue box
+to pitch-shift the region.
+</listitem>
+<listitem>
+<emphasis>Reverse</emphasis> &mdash; flip the region backwards in time.
+</listitem>
+<listitem>
+Glose Gaps
+</listitem>
+<listitem>
+Place Transient
+</listitem>
+<listitem>
+Rhythm Ferret&hellip;
+</listitem>
+<listitem>
+Strip Silence&hellip;
+</listitem>
+</itemizedlist>
 
 </listitem>
 
 
 <listitem>Position
 
-  <itemizedlist>
-  <listitem>
-  Move to Original Position
-  </listitem>
-  <listitem>
-  <emphasis>Lock</emphasis> &mdash; this will prevent the region from being moved.
-  </listitem>
-  <listitem>
-  Glue to Bars and Beats
-  </listitem>
-  <listitem>
-  Snap Position To Grid
-  </listitem>
-  <listitem>
-  Set Sync Position
-  </listitem>
-  <listitem>
-  Remove Sync
-  </listitem>
-  <listitem>
-  Nudge Forward
-  </listitem>
-  <listitem>
-  Nudge Backward
-  </listitem>
-  <listitem>
-  Nudge Forward by Capture Offset
-  </listitem>
-  <listitem>
-  Nudge Backward by Capture Offset
-  </listitem>
-  </itemizedlist>
+<itemizedlist>
+<listitem>
+Move to Original Position
+</listitem>
+<listitem>
+<emphasis>Lock</emphasis> &mdash; this will prevent the region from being moved.
+</listitem>
+<listitem>
+Glue to Bars and Beats
+</listitem>
+<listitem>
+Snap Position To Grid
+</listitem>
+<listitem>
+Set Sync Position
+</listitem>
+<listitem>
+Remove Sync
+</listitem>
+<listitem>
+Nudge Forward
+</listitem>
+<listitem>
+Nudge Backward
+</listitem>
+<listitem>
+Nudge Forward by Capture Offset
+</listitem>
+<listitem>
+Nudge Backward by Capture Offset
+</listitem>
+</itemizedlist>
 
 </listitem>
  
@@ -3881,31 +3893,32 @@ context menu.
 Trim
 
 <itemizedlist>
-<listitem> <emphasis>Trim Start at Edit Point</emphasis> &mdash; trims the region so that
-  it starts at the edit point, if that makes sense.
+<listitem>
+<emphasis>Trim Start at Edit Point</emphasis> &mdash; trims the region
+so that it starts at the edit point, if that makes sense.
 </listitem>
 <listitem>
-<emphasis>Trim End at Edit Point</emphasis> &mdash; trims the region so that
-  it ends at the edit point, if that makes sense.
+<emphasis>Trim End at Edit Point</emphasis> &mdash; trims the region
+so that it ends at the edit point, if that makes sense.
 </listitem>
 <listitem>
-<emphasis>Trim to Loop</emphasis> &mdash; trims the region's start and end so
-  that they are at the time of the loop range's start and end
-  respectively.
+<emphasis>Trim to Loop</emphasis> &mdash; trims the region's start and
+end so that they are at the time of the loop range's start and end
+respectively.
 </listitem>
 <listitem>
-<emphasis>Trim to Punch</emphasis> &mdash; much as &lsquo;Trim to Loop&rsquo; except with
-  reference to the loop range.
+<emphasis>Trim to Punch</emphasis> &mdash; much as &lsquo;Trim to
+Loop&rsquo; except with reference to the loop range.
 </listitem>
 <listitem>
-<emphasis>Trim to Previous</emphasis> &mdash; trims the region's start point so
-  that it lies at the end point of the previous region in time (if
-  possible).
+<emphasis>Trim to Previous</emphasis> &mdash; trims the region's start
+point so that it lies at the end point of the previous region in time
+(if possible).
 </listitem>
 <listitem>
-<emphasis>Trim to Next</emphasis> &mdash; trims the region's end point so
-  that it lies at the start point of the next region in time (if
-  possible).
+<emphasis>Trim to Next</emphasis> &mdash; trims the region's end point
+so that it lies at the start point of the next region in time (if
+possible).
 </listitem>
 </itemizedlist>
 
@@ -3913,95 +3926,105 @@ Trim
 
 <listitem>Layering; manipulates region layers, as discussed in Section <xref linkend="sec-overlapping-regions"/>
 
-  <itemizedlist>
-  <listitem>
-  <emphasis>Raise to Top</emphasis> &mdash; moves the region to the top layer of
-  the stack.
-  </listitem>
-  <listitem><emphasis>Raise</emphasis> &mdash; moves the region one step closer to the top
-  of the stack.
-  </listitem>
-  <listitem><emphasis>Lower</emphasis> &mdash; moves the region one step closer to the
-  bottom of the stack.
-  </listitem>
-  <listitem> <emphasis>Lower to Bottom</emphasis> &mdash; moves the region to the bottom
-  layer of the stack.
-  </listitem>
-  </itemizedlist>
-
+<itemizedlist>
+<listitem>
+<emphasis>Raise to Top</emphasis> &mdash; moves the region to the top
+layer of the stack.
 </listitem>
+<listitem>
+<emphasis>Raise</emphasis> &mdash; moves the region one step closer to
+the top of the stack.
+</listitem>
+<listitem>
+<emphasis>Lower</emphasis> &mdash; moves the region one step closer to
+the bottom of the stack.
+</listitem>
+<listitem>
+<emphasis>Lower to Bottom</emphasis> &mdash; moves the region to the
+bottom layer of the stack.
+</listitem>
+</itemizedlist>
 
-<listitem> Ranges
-  <itemizedlist>
-  <listitem>
-  Set Loop Range
-  </listitem>
-  <listitem>
-  Set Punch
-  </listitem>
-  <listitem>
-  Add Single Range Marker
-  </listitem>
-  <listitem> 
-  Add Range Marker Per Region
-  </listitem>
-  <listitem>
-  Set Range Selection
-  </listitem>
-  </itemizedlist>
 </listitem>
 
 <listitem>
-  Gain
-  <itemizedlist>
-  <listitem>
-  <emphasis>Normlize&hellip;</emphasis> &mdash; examines the contents
-  of the region and sets the region's gain so that the peak value of
-  the region is scaled to just under 0dbFS; in other words, this makes
-  the region as loud as it can be without introducing distortion.
-  </listitem>
-  <listitem>
-  Boost Gain
-  </listitem>
-  <listitem>
-  Cut Gain
-  </listitem>
-  <listitem>
-  Reset Envelope
-  </listitem>
-  <listitem> 
-  Envelope Active
-  </listitem>
-  </itemizedlist>
-</listitem>
+Ranges
 
-<listitem> Fades
-  <itemizedlist>
-  <listitem>
-  Fade In
-  </listitem>
-  <listitem>
-  Fade Out
-  </listitem>
-  <listitem>
-  Fades
-  </listitem>
-  </itemizedlist>
+<itemizedlist>
+<listitem>
+et Loop Range
+</listitem>
+<listitem>
+Set Punch
+</listitem>
+<listitem>
+Add Single Range Marker
+</listitem>
+<listitem> 
+Add Range Marker Per Region
+</listitem>
+<listitem>
+Set Range Selection
+</listitem>
+</itemizedlist>
+
 </listitem>
 
 <listitem>
-  Duplicate
-  <itemizedlist>
-  <listitem>
-  Duplicate
-  </listitem>
-  <listitem>
-  Multi-Duplicate&hellip;
-  </listitem>
-  <listitem>
-  Fill Track
-  </listitem>
-  </itemizedlist>
+Gain
+<itemizedlist>
+<listitem>
+<emphasis>Normlize&hellip;</emphasis> &mdash; examines the contents of
+the region and sets the region's gain so that the peak value of the
+region is scaled to just under 0dbFS; in other words, this makes the
+region as loud as it can be without introducing distortion.
+</listitem>
+<listitem>
+Boost Gain
+</listitem>
+<listitem>
+Cut Gain
+</listitem>
+<listitem>
+Reset Envelope
+</listitem>
+<listitem> 
+Envelope Active
+</listitem>
+</itemizedlist>
+
+</listitem>
+
+<listitem>
+Fades
+
+<itemizedlist>
+<listitem>
+Fade In
+</listitem>
+<listitem>
+Fade Out
+</listitem>
+<listitem>
+Fades
+</listitem>
+</itemizedlist>
+</listitem>
+
+<listitem>
+Duplicate
+
+<itemizedlist>
+<listitem>
+Duplicate
+</listitem>
+<listitem>
+Multi-Duplicate&hellip;
+</listitem>
+<listitem>
+Fill Track
+</listitem>
+</itemizedlist>
 </listitem>
 
 <listitem>
@@ -4014,8 +4037,9 @@ Bounce (without processing)
 Bounce (with processing)
 </listitem>
 <listitem>
-<emphasis>Spectral Analysis&hellip;</emphasis> &mdash; show a frequency spectrum
-  of the region (see Section <xref linkend="sec-spectral-analysis"/>.
+<emphasis>Spectral Analysis&hellip;</emphasis> &mdash; show a
+frequency spectrum of the region (see <xref
+linkend="sec-spectral-analysis"/>.
 </listitem>
 <listitem>
 Remove
@@ -4220,7 +4244,7 @@ the click.
   record-enable will remain switched on; otherwise it will be switched
   off when the transport stops.
 </listitem><listitem> <emphasis>Stop recording when an xrun occurs</emphasis> &mdash; an xrun (see
-  Section <xref linkend="sec-xruns"/>) during recording could well mean that the
+  <xref linkend="sec-xruns"/>) during recording could well mean that the
   recording has been corrupted by a small (or not-so-small) pop or
   click.  If this option is enabled, recording will stop if an xrun is
   detected, which may be useful to draw the fact to your attention.
@@ -4277,7 +4301,7 @@ the click.
   waveforms within audio regions.  Disable it to ease the load on your
   CPU a bit.
 </listitem><listitem> <emphasis>Show gain envelopes in audio regions</emphasis> &mdash; enable this to
-  display region gain lines (see Section <xref linkend="sec-audio-region-gain"/>)
+  display region gain lines (see <xref linkend="sec-audio-region-gain"/>)
 </listitem><listitem> <emphasis>Waveform scale</emphasis> &mdash; this alters the scale used to plot
   audio waveforms within regions between linear and logarithmic (ie in
   dBs).
@@ -4297,7 +4321,7 @@ the click.
   assigned to its track. <!-- if not? -->
 </listitem><listitem> <emphasis>Update editor window during drags of the summary</emphasis> &mdash; if
   this option is on, as you drag the view rectangle in the summary
-  (see Section <xref linkend="sec-summary"/>) the editor will be updated
+  (see <xref linkend="sec-summary"/>) the editor will be updated
   instantly.  This can be a bit slow for complicated sessions; turning
   this option off will mean that the editor only updates when you
   finish the drag.
@@ -4473,7 +4497,7 @@ to the soloed tracks.
 <section><title>Solo controls are Listen controls</title>
 
 <para>
-As discussed in detail in Section <xref linkend="sec-mute-and-solo"/>, enabling
+As discussed in detail in <xref linkend="sec-mute-and-solo"/>, enabling
 this option makes solo buttons into listen controls (AFL or PFL).
 This means that the &lsquo;solo&rsquo; (or now &lsquo;listen') buttons will not affect
 the master bus, but instead will send the soloed tracks to the monitor
