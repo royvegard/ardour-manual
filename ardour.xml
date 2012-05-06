@@ -29,13 +29,6 @@ control surfaces
 
 -->
 
-<dedication>
-<quote>One of the secrets of life is that all that is really worth the doing is what we do for others</quote> &mdash; Lewis Carroll (perhaps)
-
-<quote>If you want to build a ship, don't drum up the men to gather wood, divide the work and give orders.  Instead, teach them to yearn for the vast and endless sea</quote> &mdash; Antoine de Sant Exup&eacute;ry (possibly)
-</dedication>
-
-
 
 <!-- ====================================================================================
      INTRODUCTION
@@ -529,12 +522,10 @@ plugin support is for the following standards:
 
 <itemizedlist>
 <listitem>
-LADSPA
-<footnote>
-<para>An acronym of "Linux Audio Developers&rsquo; Simple Plugin API"</para>
-</footnote>
-&mdash; the first major plugin standard for Linux.  Many
-  LADSPA plugins are availble, mostly free and open-source. <indexterm><primary>LADSPA</primary></indexterm>
+LADSPA<footnote><para>An acronym of "Linux Audio Developers&rsquo;
+Simple Plugin API"</para></footnote> &mdash; the first major plugin
+standard for Linux.  Many LADSPA plugins are availble, mostly free and
+open-source. <indexterm><primary>LADSPA</primary></indexterm>
 </listitem>
 <listitem>
 LV2
