@@ -15,7 +15,7 @@ done
 
 # The DocBook needs to know what file extensions to look for
 # for screenshots (scs) and diagrams (dia), so write a file
-# to tell it
+# to tell it.
 cat > extensions.ent <<EOF
 <?xml version="1.0" encoding="utf-8"?>
 <!ENTITY scs ".png">
@@ -23,6 +23,8 @@ cat > extensions.ent <<EOF
 EOF
 
 mkdir -p pdf
-dblatex -s ardour.sty -T simple ardour.xml -t pdf -o pdf/ardour.pdf
+
+# -P <foo> removes the revhistory table
+dblatex -P doc.collab.show=0 -P latex.output.revhistory=0 -p ardour.xsl -s ardour.sty -r pptex.py -T simple ardour.xml -t pdf -o pdf/ardour.pdf
 
 
