@@ -11,7 +11,7 @@ SCREENSHOTS := add-track-or-bus.png audio-midi-setup-advanced.png audio-midi-set
 	automation-lane.png default-folder-for-new-sessions.png editor.png export-dialogue.png fades-menu.png go-to-end.png \
 	go-to-start.png input-connection-matrix.png input-port-matrix.png loop.png midi-edit1.png midi-edit2.png midi-edit5.png \
 	midi-panic.png mixer.png monitoring-choices.png monitor-section.png new-session.png play.png play-range.png processor-box.png \
-	quantize.png recorded-one-region.png record.png region-fades.png region-gain-line.png region-trim-end.png rhythm-ferret-dialogue.png \
+	quantize.png recorded-one-region.png session-record.png region-fades.png region-gain-line.png region-trim-end.png rhythm-ferret-dialogue.png \
 	route-group-dialogue.png stop.png strip-silence-dialogue.png tool-draw-midi.png tool-listen.png tool-objects.png tool-ranges.png \
 	tool-region-contents.png tool-region-gain.png tool-stretch.png tool-zoom.png top-of-mixer-strip.png track-controls.png track-in-group.png \
 	transport-controls.png typical-audio-track-controls.png typical-bus-controls.png welcome-to-ardour.png connection-manager.png \
