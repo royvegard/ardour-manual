@@ -90,7 +90,7 @@ or comments on parts that do not make sense are welcome to
 
 <sidebar>
 <para>
-For those familiar with &lsquo;git', the manual's DocBook source can be
+For those familiar with &lsquo;git&rsquo;, the manual's DocBook source can be
 obtained from the git repository linked from <ulink
 url="http://carlh.net/ardour">http://carlh.net/ardour</ulink>.
 Patches to the manual are most welcome.
@@ -138,7 +138,7 @@ If you join the IRC rooms, here are a few tips:
 <itemizedlist>
 <listitem>
 <emphasis>Don't ask to ask, just ask</emphasis> &mdash; rather than saying &lsquo;Is it
-  ok if I ask a question?', just ask your question &mdash; it is not
+  ok if I ask a question?&rsquo;, just ask your question &mdash; it is not
   considered rude to do so.  Then wait: your answer may come in
   seconds, minutes, hours or never, depending on who is around and
   what time of the day it is wherever they happen to be in the world.
@@ -460,7 +460,7 @@ suitable mix.
 A track's type is really only related to the type of data that it
 stores on disk.  It is possible, for example, to have a MIDI track
 with a synthesizer plugin which converts MIDI to audio.  Even though
-the track remains &lsquo;MIDI', in the sense that its on-disk recordings are
+the track remains &lsquo;MIDI&rsquo;, in the sense that its on-disk recordings are
 MIDI, its output may be audio-only.
 </para>
 </sidebar>
@@ -508,7 +508,7 @@ input is obtained from other tracks or busses, rather than from disk.
 One might typically use a buss to collect together the outputs of
 related tracks.  Consider, for example, a 3-track recording of a
 drum-kit; given kick, snare and overhead tracks, it may be helpful to
-connect the output of each to a bus called &lsquo;drums', so that the
+connect the output of each to a bus called &lsquo;drums&rsquo;, so that the
 drum-kit's level can be set as a unit, and processing (such as
 equalisation or compression) can be applied to the mix of all tracks.
 </para>
@@ -591,7 +591,7 @@ for each track, for basic operations such as solo, mute and so on.
 The (optional) editor mixer is a single mixer strip which handles the
 currently-selected track, and is useful for tweaks to the mix without
 the need to move to the full mixer window.  At the bottom of the
-window is the &lsquo;summary', which displays the whole session in a
+window is the &lsquo;summary&rsquo;, which displays the whole session in a
 reduced-size form.  At the top right is a bar of useful information
 about the state of the system.
 </para>
@@ -732,7 +732,7 @@ be set up (<xref linkend="fig-audio-midi-setup-device"/>).
 
 <para>
 There are three pages to the Audio / MIDI setup dialogue; the first is
-'device', which allows selection of the sound card that Ardour will
+&lsquo;device&rsquo;, which allows selection of the sound card that Ardour will
 use, the sampling rate at which it will operate, and the buffer size.
 For now, select the interface that you are using for recording and
 leave other options as they are.  For more information on the options
@@ -857,12 +857,13 @@ At the bottom of the dialogue is the input to our track.
 
 <para>
 In the example matrix, there is a green dot at the intersection of the
-'L&rsquo; part of &lsquo;in 1+2&rsquo; and the &lsquo;Audio 1 in&rsquo; port.  This means that the
-input of the &lsquo;Audio 1&rsquo; track hardware input 1.  Change this
-connection, if necessary, by clicking on the square which corresponds
-to the input to record from.  At this point, the Audio 1 meter should
-display any signal that is being sent into the sound card.  If this is
-not working, something has gone wrong.
+&lsquo;L&rsquo; part of &lsquo;in 1+2&rsquo; and the &lsquo;Audio 1
+in&rsquo; port.  This means that the input of the &lsquo;Audio
+1&rsquo; track hardware input 1.  Change this connection, if
+necessary, by clicking on the square which corresponds to the input to
+record from.  At this point, the Audio 1 meter should display any
+signal that is being sent into the sound card.  If this is not
+working, something has gone wrong.
 </para>
 </section>
 
@@ -928,7 +929,7 @@ somewhere within the rulers area of the editor window.
 <!-- some picture of where this is, or a back-link to the editor window -->
 
 <para>
-Once the playhead is located before your recording, click the &lsquo;Play'
+Once the playhead is located before your recording, click the &lsquo;Play&rsquo;
 button (or press the spacebar on the keyboard) to start playback.  You
 should hear your recording through your monitor speakers or
 headphones.
@@ -998,8 +999,8 @@ recordings on disk, through the appropriate strip, and they are then
 mixed together and passed through the master strip.  The bottom half
 of each mixer strip contains a <emphasis>fader</emphasis>; this controls the level
 of each track.  You can adjust the levels of each of your recordings
-by dragging the mixer strip; the green marker indicates 0dBFS ('unity
-gain'), at which the level of the track will be unaltered from the
+by dragging the mixer strip; the green marker indicates 0dBFS (&lsquo;unity
+gain&rsquo;), at which the level of the track will be unaltered from the
 recording.
 </para>
 
@@ -1294,12 +1295,12 @@ In addition to the time, the clock shows some other information.
 </para>
 
 <para>
-When set to &lsquo;timecode', the clock also shows the timecode reference
+When set to &lsquo;timecode&rsquo;, the clock also shows the timecode reference
 source; this defaults to &lsquo;INT&rsquo; for internal, but can also be &lsquo;JACK&rsquo; if
 JACK is the timecode reference, &lsquo;MTC&rsquo; if Ardour is syncing to MIDI
 time-code or &lsquo;M-Clock&rsquo; if Ardour is synced to MIDI clock.  To the
 right of the timecode reference is the number of frames per second
-(suffixed by &lsquo;D') if drop-frame is being used.
+(suffixed by &lsquo;D&rsquo;) if drop-frame is being used.
 </para>
 
 <para>
@@ -1315,7 +1316,7 @@ beats per minute) and time signature that are currently in effect.
 <para>
 The times area of the editor window shows a few useful bits of
 information about any current selection and punch in/out range.  The
-'selection&rsquo; area shows the start, end and length of anything that is
+&lsquo;selection&rsquo; area shows the start, end and length of anything that is
 currently selected (which may be a set of regions, a time range, or
 whatever).  The &lsquo;punch&rsquo; area shows the punch range, and also whether
 punch in and punch out are enabled; clicking &lsquo;In&rsquo; or &lsquo;Out&rsquo; will enable
@@ -1399,7 +1400,7 @@ used as a reference.
 <para>
 Ardour has an optional &lsquo;grid&rsquo; which can be used to align things
 precisely in time.  The grid can either be disabled (by choosing &lsquo;No
-Grid&rsquo; from the drop-down box), fully enabled ('Grid') or &lsquo;Magnetic'.
+Grid&rsquo; from the drop-down box), fully enabled (&lsquo;Grid&rsquo;) or &lsquo;Magnetic&rsquo;.
 When the grid is fully enabled, any object that is moved (regions,
 MIDI notes or automation points, for example) will be forcibly snapped
 to the grid.  In &lsquo;magnetic&rsquo; mode, it is possible to move things off
@@ -1423,7 +1424,7 @@ grid.
 <indexterm><primary>nudge</primary></indexterm>
 
 <para>
-The nudge controls allow objects to be &lsquo;nudged', or moved by a fixed
+The nudge controls allow objects to be &lsquo;nudged&rsquo;, or moved by a fixed
 amount backward or forward.  The left and right buttons move currently
 selected things either backward or forward in time, and the small
 clock to the left of these buttons sets the amount of time to nudge
@@ -1471,7 +1472,7 @@ information.  At the right of the list are four columns of flags that can be alt
 </listitem>
 <listitem>
 <emphasis>O</emphasis> &mdash; whether the region is opaque; opaque regions
-  &lsquo;block&rsquo; regions below them from being heard, whereas &lsquo;transparent'
+  &lsquo;block&rsquo; regions below them from being heard, whereas &lsquo;transparent&rsquo;
   regions have their contents mixed with whatever is underneath.
 </listitem>
 </itemizedlist>
@@ -1653,7 +1654,7 @@ Auto Return
 
 Ardour uses the term &lsquo;transport&rsquo; in a sense that might be similar to
 those who have used tape machines.  The transport is said to be
-'moving&rsquo; (or &lsquo;rolling', as with tape) when Ardour is playing back or
+&lsquo;moving&rsquo; (or &lsquo;rolling&rsquo;, as with tape) when Ardour is playing back or
 recording, and &lsquo;stopped&rsquo; when it is not.  The transport can be
 controlled using the buttons shown in
 <xref linkend="fig-transport-controls2"/>.
@@ -1700,7 +1701,7 @@ selected time range, it will be played back.
 <imagedata fileref="screenshots/play&scs;"/> &mdash;
 <emphasis>Play</emphasis> &mdash; this starts playback of the session
 from wherever the playhead currently is (in other words, it sets the
-transport &lsquo;rolling', or moving)
+transport &lsquo;rolling&rsquo;, or moving)
 </listitem>
 <listitem> 
 <imagedata fileref="screenshots/stop&scs;"/> &mdash;
@@ -1728,7 +1729,7 @@ drawn within it.  Inside the summary tracks are represented as
 light-grey bars, regions as coloured bars, the playhead as a vertical
 red line and the session start and end markers as vertical yellow
 lines.  On top of the summary is drawn a light-grey translucent box
-(the &lsquo;view box') which indicates the part of the session that is
+(the &lsquo;view box&rsquo;) which indicates the part of the session that is
 currently visible in the main part of the editor window.
 </para>
 
@@ -1779,8 +1780,8 @@ Properties dialogue</guilabel> (see <xref linkend="sec-session-properties-media"
  using, and the duration of one JACK period.
 </listitem>
 <listitem>
- <emphasis>Buffers</emphasis> &mdash; how full the &lsquo;playback buffers&rsquo; are (prefixed &lsquo;p'),
-  and how empty the &lsquo;capture buffers&rsquo; (prefixed &lsquo;c').  The playback
+ <emphasis>Buffers</emphasis> &mdash; how full the &lsquo;playback buffers&rsquo; are (prefixed &lsquo;p&rsquo;),
+  and how empty the &lsquo;capture buffers&rsquo; (prefixed &lsquo;c&rsquo;).  The playback
   buffers are areas of memory that Ardour uses to store audio and MIDI
   data while it is being passed from the disk to the audio outputs;
   Ardour tries to keep them full (so that there is always data
@@ -1805,7 +1806,7 @@ are:
 Reduce the number of plugins you are using (especially complicated ones like reverbs).
 </listitem>
 <listitem>
-'Freeze&rsquo; some tracks.
+&lsquo;Freeze&rsquo; some tracks.
 </listitem>
 <listitem>
 Increase JACK's buffer size.
@@ -1886,7 +1887,7 @@ difference with a track is that can record and play back data.
 <title>Types</title>
 
 <para>
-An Ardour track can be either &lsquo;audio&rsquo; or &lsquo;MIDI'.  The only real
+An Ardour track can be either &lsquo;audio&rsquo; or &lsquo;MIDI&rsquo;.  The only real
 difference between the two is the type of data that the track will
 record and play back.  Either type of track can
 <emphasis>pass</emphasis> either type of data.  Hence, for example,
@@ -1944,8 +1945,8 @@ These options are:
   always change these counts later.
 </listitem>
 <listitem>
-Track mode (for audio tracks) &mdash; this can be &lsquo;normal',
-'non-layered&rsquo; or &lsquo;tape'.
+Track mode (for audio tracks) &mdash; this can be &lsquo;normal&rsquo;,
+&lsquo;non-layered&rsquo; or &lsquo;tape&rsquo;.
 <!--  I have no idea what non-layered nor tape modes do -->
 </listitem>
 <listitem>
@@ -2010,7 +2011,7 @@ editor window, a track's controls might look like those in
 
 <para>
 The green tab to the left of the track header indicates that this
-track is in a group called &lsquo;Fred'.  These tabs can be dragged in the
+track is in a group called &lsquo;Fred&rsquo;.  These tabs can be dragged in the
 editor window to add to or remove tracks from groups.  Alternatively,
 clicking the &lsquo;g&rsquo; button opens a menu which gives a list of the
 available groups; selecting one of these groups will add the track or
@@ -2035,7 +2036,7 @@ linkend="fig-route-group-dialogue"/>.
 </figure>
 
 <para>
-'Active&rsquo; means that the group is being obeyed, so that the sharing of
+&lsquo;Active&rsquo; means that the group is being obeyed, so that the sharing of
 properties is applied to its members.  The colour can be changed, and
 affects the colour of the group's tab in the editor and mixer windows.
 </para>
@@ -2052,17 +2053,17 @@ gain of -4dB (so that the difference in gains is the same).
 </para>
 
 <para>
-'Muting', &lsquo;soloing', &lsquo;record enable', &lsquo;route active state', &lsquo;colour'
+&lsquo;Muting&rsquo;, &lsquo;soloing&rsquo;, &lsquo;record enable&rsquo;, &lsquo;route active state&rsquo;, &lsquo;colour&rsquo;
 and &lsquo;monitoring&rsquo; are all straightforward; they simply mean that all
 member tracks or busses will share the same settings in these
 respects.
 </para>
 
 <para>
-'Selection&rsquo; means that if a region is selected or deselected on one
+&lsquo;Selection&rsquo; means that if a region is selected or deselected on one
 constituent track, corresponding regions on other member tracks will
 be similarly selected.  Corresponding regions are those that are at
-the same position and have the same length.  Similarly, &lsquo;Editing'
+the same position and have the same length.  Similarly, &lsquo;Editing&rsquo;
 means that edits applied to one track will be applied at the same
 place on other tracks in the group.  These options are particularly
 useful for multi-microphone recordings, where you always want to apply
@@ -2137,23 +2138,23 @@ main level fader.  The control buttons to the right-hand side are:
 
 <itemizedlist>
 <listitem>
-<emphasis>'m'</emphasis> &mdash; mute &mdash; left-click to mute the
+<emphasis>&lsquo;m&rsquo;</emphasis> &mdash; mute &mdash; left-click to mute the
 bus.  Right-click to display a menu which dictates what particular
 parts of the bus should be muted. <!-- detail of muting options -->
 </listitem>
 <listitem>
-<emphasis>'s'</emphasis> &mdash; solo &mdash; solo the bus.  The
+<emphasis>&lsquo;s&rsquo;</emphasis> &mdash; solo &mdash; solo the bus.  The
 behaviour of the solo system is described in detail in <xref
 linkend="sec-mute-and-solo"/>.
 </listitem>
 <listitem>
-<emphasis>'a'</emphasis> &mdash; automation &mdash; click to open a
+<emphasis>&lsquo;a&rsquo;</emphasis> &mdash; automation &mdash; click to open a
 menu related to automation for the bus.  Automation is covered in
 <xref linkend="ch-automation"/>.
 </listitem>
 <listitem>
-<emphasis>'g'</emphasis> &mdash; group &mdash; click to open a menu
-related to the bus&rsquo; group, as discussed in <xref
+<emphasis>&lsquo;g&rsquo;</emphasis> &mdash; group &mdash; click to open a menu
+related to the bus group, as discussed in <xref
 linkend="sec-track-and-bus-groups"/> above.
 </listitem>
 </itemizedlist>
@@ -2232,11 +2233,11 @@ its visibility.
 
 <para>
 To the right of the MIDI track controls is a representation of a piano
-keyboard called the &lsquo;scroomer'.  This performs a couple of functions.
+keyboard called the &lsquo;scroomer&rsquo;.  This performs a couple of functions.
 Firstly, the scroll-bar controls the range of pitches that are visible
 on the track.  Dragging the scroll-bar body up and down scrolls up and
 down through the visible pitches, and dragging the scroll-bar
-'handles&rsquo; zooms in and out, so that more or fewer pitches are visible.
+&lsquo;handles&rsquo; zooms in and out, so that more or fewer pitches are visible.
 The piano keyboard gives a reference for the pitches that the track is
 displaying.  In addition, clicking on the notes will generate the
 corresponding MIDI note in the track.
@@ -2332,14 +2333,14 @@ The basic signal flow for a track is shown in
 
 <para>
 At the top of the figure we have two possibilities for input data; it
-can either come &lsquo;live&rsquo; from some JACK input ports (so that it could
-have come from, for example, a sound card, or perhaps another
+can either come &lsquo;live&rsquo; from some JACK input ports (so that
+it could have come from, for example, a sound card, or perhaps another
 application) or it can come from disk.  If the track is record
 enabled, the data from the JACK inputs is stored as-is on disk (with
 no processing) when we are recording.  The signal that goes into the
 actual strip can be chosen as either the live input or the disk;
 Ardour can usually make this decision for you depending on what is
-going on, or you can specify it manually if required.  This signal
+going on; alternatively, you can specify it manually.  This signal
 heads into the strip's processors before being panned and passed to
 the JACK outputs.
 </para>
@@ -2371,7 +2372,7 @@ the inputs for the strip.  A typical connection editor is shown in
 <para>
 In this case, we have an audio track called &lsquo;Audio 2&rsquo; which has a
 single input.  At the bottom of the connection editor you can see a
-label of &lsquo;Audio 2 in', which represents this input.  To the left of
+label of &lsquo;Audio 2 in&rsquo;, which represents this input.  To the left of
 the window are the places that this input can come from.  In the
 example screenshot, we can see that two JACK ports called &lsquo;in 1+2&rsquo; are
 shown, and there is a green dot which represents a connection between
@@ -2383,12 +2384,13 @@ running on.
 <para>
 The connection editor's behaviour is relatively straightforward.
 Signals flow either from left to bottom or from top to right (so
-generally &lsquo;left to right').  The tabs down the left-hand side of the
-window indicate other groups of ports that signals can be obtained
+generally &lsquo;left to right&rsquo;).  The tabs down the left-hand side of
+the window indicate other groups of ports that signals can be obtained
 from: other Ardour busses, Ardour tracks, Ardour miscellanous outputs
 and Hardware.  Clicking in a square in the grid makes or breaks the
-corresponding connection.  For more complicated connections, you can
-also click and drag to &lsquo;draw&rsquo; connections in a line.
+corresponding connection.  To make multiple connections at the same
+time you can click and drag to &lsquo;draw&rsquo; connections in a
+line.
 </para>
 
 <para>
@@ -2401,17 +2403,16 @@ common choices for your strip's input ports.
 <section><title>Processors</title>
 
 <para>
-A &lsquo;processor&rsquo; in the signal flow is a general name for something which
-treats the signal in some way.  Ardour provides several processors,
-some of which are for internal use and are not seen in the mixer
-strip.  In addition, processors can also be plugins.  The arrangement
-of processors is arbitrary, and there is no limit to how many there
-can be.
+A &lsquo;processor&rsquo; is a thing which treats the signal in some
+way.  Ardour provides several processors, some of which are for
+internal use and are not seen in the mixer strip.  In addition,
+processors can also be plugins.  The arrangement of processors is
+arbitrary, and there is no limit to how many there can be.
 </para>
 
 <para>
 The main box in the top half of the mixer strip shows the processor
-list.  Processors are shown as coloured rectangles, with a small &lsquo;LED'
+list.  Processors are shown as coloured rectangles, with a small &lsquo;LED&rsquo;
 beside them; this indicates whether or not the plugin is enabled, and
 can be clicked to enable or disable a processor.  The colour of the
 processor depends on its location in the sequence; processors that
@@ -2420,7 +2421,7 @@ coloured green.
 </para>
 
 <para>
-The processor box will always contain a blue processor called &lsquo;Fader'.
+The processor box will always contain a blue processor called &lsquo;Fader&rsquo;.
 This indicates where in the processor chain the main volume fader is
 located &mdash; this is the fader in the bottom half of the strip.
 </para>
@@ -2455,19 +2456,18 @@ commercial companies.
 <!--% more detail about plugins availability, standards, etc. etc.-->
 
 <para>
-Adding a plugin to a strip is as easy as right-clicking over the
-processor box and choosing &lsquo;New Plugin'.  You can either choose
-one straight from the menu, or open the &lsquo;Plugin Manager&rsquo;
-which gives a few extra facilities for quickly finding the right
-plugin.  Once a plugin is selected, it will appear in the strip and
-start processing the signals that flow down the strip.
-Double-clicking on a plugin's name in the processor box will open its
-editor window, which will typically allow you to alter its parameters.
-Alternatively, right-clicking on the plugin and selecting
+To add a plugin to a strip, right-click over the processor box and
+choosing &lsquo;New Plugin&rsquo;.  You can choose one straight from the
+menu, or open the &lsquo;Plugin Manager&rsquo; which gives a few extra
+facilities for finding the right plugin.  Once a plugin is selected,
+it will appear in the strip and start processing the signals that flow
+down the strip.  Double-clicking on a plugin's name in the processor
+box will open its editor window, which allows you to alter its
+parameters.  Alternatively, right-clicking on the plugin and selecting
 <guimenuitem>Show All Controls</guimenuitem> from the
 <guimenu>Controls</guimenu> menu adds the plugins controls directly to
-the processor box.  This may be convenient for relatively simple
-plugins, such as the plate reverb shown in the example screenshot.
+the processor box.  This may be convenient for plugins with few
+controls, such as the plate reverb shown in the example screenshot.
 </para>
 
 </section>
@@ -2477,14 +2477,14 @@ plugins, such as the plate reverb shown in the example screenshot.
 <para>
 Another type of processor that is available is the <emphasis>send</emphasis>.  A
 send sits in the processor list, passing signals through untouched,
-but also splits off (or &lsquo;sends') the signal somewhere else.  That
+but also splits off (or &lsquo;sends&rsquo;) the signal somewhere else.  That
 &lsquo;somewhere else&rsquo; can be a set of JACK ports or an Ardour bus.  Sends
 are typically used for passing a track's signal to a reverb unit, or
 perhaps to set up a headphone mix for an artist.
 </para>
 
 <para>
-If the send is to an Ardour bus, we refer to it as an &lsquo;Aux send'.
+If the send is to an Ardour bus, we refer to it as an &lsquo;Aux send&rsquo;.
 Such a send can be added to a strip by right-clicking in the processor
 box and following the <guimenuitem>New Aux Send</guimenuitem> option.  The submenu offers
 a list of the busses in the session, and you can choose the one that
@@ -2493,7 +2493,7 @@ the send should push its signal to.
 
 <para>
 Alternatively, a send to a set of JACK ports (an &lsquo;external
-send') can be added using <guimenuitem>New External
+send&rsquo;) can be added using <guimenuitem>New External
 Send</guimenuitem>.  On creating an external send, a connection editor
 opens so that you can connect the send to wherever it needs to go.
 This could be an audio card output (for sending to some headphones or
@@ -2514,7 +2514,7 @@ amount of the strip's signal that they will send to their destination.
 <para>
 After passing through the processors, our signal arrives at the
 panner.  The panner has the task of arranging however many channels of
-audio we have at the end of our processor list to pass to our outputs.
+audio we have at the end of our processor list to pass to the outputs.
 This is reasonably simple in some cases (for example if we have a mono
 track and stereo outputs), but can also be very complicated (it is not
 immediately obvious, for example, how one might pan a 14-channel track
@@ -2565,14 +2565,15 @@ There are three basic ways in which monitoring may be approached:
 </para>
 
 <itemizedlist>
-<listitem> External monitoring &mdash; this is where Ardour plays no role in
-  monitoring at all.  Perhaps the recording set-up has an external
-  mixer which can be used to set up monitor mixes, or perhaps the
-  sound-card being used has some &lsquo;listen to the input'-style feature.
-  This approach often has the advantage of zero or near-zero latency.
-  On the other hand it requires external hardware, and the monitoring
-  settings are not saved with the session.  See
-  <xref linkend="fig-external-monitoring"/> for a simple example setup.
+<listitem> External monitoring &mdash; this is where Ardour plays no
+role in monitoring at all.  Perhaps the recording set-up has an
+external mixer which can be used to set up monitor mixes, or perhaps
+the sound-card being used has some &lsquo;listen to the
+input&rsquo;-style feature.  This approach often has the advantage of
+zero or near-zero latency.  On the other hand it requires external
+hardware, and the monitoring settings are not saved with the session.
+See <xref linkend="fig-external-monitoring"/> for a simple example
+setup.
 
 <figure id="fig-external-monitoring">
   <title>External monitoring</title> 
@@ -2643,7 +2644,7 @@ depending on the capabilities of your hardware:
 
 <para>
 The other two settings are more complex; one is &lsquo;Tape machine
-mode', in the same dialogue, and the other is &lsquo;Monitoring
+mode&rsquo;, in the same dialogue, and the other is &lsquo;Monitoring
 automatically follows transport state
 (&lsquo;auto-input&rsquo;)&rsquo; setting in <guilabel>Session
 Properties</guilabel>.
@@ -2659,7 +2660,7 @@ not the transport is rolling.
 <section><title>Monitoring in software or hardware monitoring modes</title>
 
 <para>
-If Ardour is set to &lsquo;external monitoring', the explanation of Ardour's
+If Ardour is set to &lsquo;external monitoring&rsquo;, the explanation of Ardour's
 monitoring behaviour is simple: it does not do any.  In the other two
 modes, things are more complex.
 </para>
@@ -2750,7 +2751,7 @@ out into the real world to be listened to.
 <para>
 The monitor bus is an additional, optional, and more specialised type
 of bus.  Ardour can configured to use a monitor bus by ticking the
-'Use a monitor bus&rsquo; option in the <guilabel>Audio</guilabel> tab
+&lsquo;Use a monitor bus&rsquo; option in the <guilabel>Audio</guilabel> tab
 of the <guilabel>Ardour Preferences</guilabel> dialogue.
 </para>
 
@@ -2801,8 +2802,8 @@ one way in which mute and solo will work.  Without a monitor bus:
 
 <para>
 For setups <emphasis>with</emphasis> a monitor bus, you have more options, mostly
-governed by the setting of the &lsquo;Solo controls are Listen controls'
-option in the <guilabel>Solo / mute</guilabel> tab of &lsquo;Ardour Preferences'.
+governed by the setting of the &lsquo;Solo controls are Listen controls&rsquo;
+option in the <guilabel>Solo / mute</guilabel> tab of &lsquo;Ardour Preferences&rsquo;.
 </para>
 
 <para>
@@ -2830,7 +2831,7 @@ master bus.  Also:
   heard anywhere (neither on the master nor monitor busses), much as before.
 </listitem><listitem> <emphasis>Listen</emphasis> will disconnect the monitor bus from the master
   bus, so that the monitor bus now only receives things that are
-  &lsquo;listened'.  Listen will not perform any muting, and hence the
+  &lsquo;listened&rsquo;.  Listen will not perform any muting, and hence the
   master bus will not be affected by a listened track or bus.
   </listitem>
 </itemizedlist>
@@ -2838,8 +2839,8 @@ master bus.  Also:
 <para>
 There are further options with when solo controls are listen controls:
 the part of the track or bus from which the listen signal is obtained
-can be configured.  Underneath the &lsquo;Solo controls are Listen controls'
-option in &lsquo;Ardour Preferences&rsquo; is an option for &lsquo;listen position',
+can be configured.  Underneath the &lsquo;Solo controls are Listen controls&rsquo;
+option in &lsquo;Ardour Preferences&rsquo; is an option for &lsquo;listen position&rsquo;,
 which can be either After-Fade Listen (AFL) or Pre-Fade Listen (PFL).
 AFL, as its name suggests, obtains its signal from some point after
 the track or bus&rsquo; fader, and PFL from before it.  The precise point to
@@ -2926,7 +2927,7 @@ of the region and start moving it.
 
 <para>
 Clicking and dragging towards the left or right side of the region, or
-anywhere within the &lsquo;trim bar', trims the start or end of the region.
+anywhere within the &lsquo;trim bar&rsquo;, trims the start or end of the region.
 <xref linkend="fig-audio-region-trim"/> shows a trim in progress.
 </para>
 
@@ -2952,7 +2953,7 @@ operations are described in Chapter <xref linkend="ch-region-ops"/>.
 
 <para>
 Regions can be split into two or more new regions using the
-&lsquo;split' command.  This is available from the region context
+&lsquo;split&rsquo; command.  This is available from the region context
 menu's <guimenu>Split</guimenu> item from the <guimenu>Edit</guimenu>
 menu.  (or bound to <keycap>S</keycap>).  The split will happen at the
 edit point (see <xref linkend="sec-edit-point-selector"/>).
@@ -2973,7 +2974,7 @@ mouse pointer is at.
 </para>
 
 <para>
-If the edit point is &lsquo;playhead&rsquo; or &lsquo;marker', any regions underneath
+If the edit point is &lsquo;playhead&rsquo; or &lsquo;marker&rsquo;, any regions underneath
 the edit point on tracks that are either themselves selected, or
 contain selected regions, will be split.
 </para>
@@ -2982,7 +2983,7 @@ contain selected regions, will be split.
 This makes more sense in practice than it does written down!  In
 general, the easiest approach to getting the split you want is often
 to select the regions that you want to split, put the edit point at
-the split, then hit &lsquo;S'.
+the split, then hit &lsquo;S&rsquo;.
 </para>
 
 <para>
@@ -3173,7 +3174,7 @@ described in Section <xref linkend="sec-session-properties-fades"/>.  The
 automatic crossfades can be set to span the entire overlap of the
 regions involved, or to be short.  In general, if you want the basic
 property of &lsquo;de-clicking&rsquo; region overlaps, crossfades should be set to be
-'short'.  The long-crossfade options are more useful for
+&lsquo;short&rsquo;.  The long-crossfade options are more useful for
 artistic use of fades, where two regions must merge slowly into each
 other.
 </para>
@@ -3273,9 +3274,9 @@ options.
 
 <para>
 With some recordings, it is desirable to remove regions which are, or
-are &lsquo;nearly', silent.  This can be done automatically using the
+are &lsquo;nearly&rsquo;, silent.  This can be done automatically using the
 <guimenuitem>Strip Silence&hellip;</guimenuitem> item on the region
-context's menu <guimenuitem>Edit</guimenuitem> item.  Selecting this
+context&rsquo;s menu <guimenuitem>Edit</guimenuitem> item.  Selecting this
 option will open the dialogue shown in <xref
 linkend="fig-strip-silence-dialogue"/>.
 </para>
@@ -3292,7 +3293,7 @@ linkend="fig-strip-silence-dialogue"/>.
 <para>
 In addition, your target regions will be overlaid with light-blue
 areas which represent that the strip silence dialogue currently
-considers &lsquo;silence'.  The main adjustment for this is the threshold;
+considers &lsquo;silence&rsquo;.  The main adjustment for this is the threshold;
 this is the level below which the region will be considered silent.
 In addition, the minimum length of a silent period can be specified,
 so that shorter below-threshold periods will be ignored.
@@ -3368,7 +3369,7 @@ into smaller regions at the feature points.
 Though not strictly an editing operation, Ardour provides a handy
 window which gives a spectral analysis of some part of your session.
 You can use this to see a spectral analysis of a region by choosing
-<guimenuitem>Spectral Analysis&hellip;</guimenuitem> from the region's context menu.
+<guimenuitem>Spectral Analysis&hellip;</guimenuitem> from the region&rsquo;s context menu.
 </para>
 
 </section>
@@ -3383,7 +3384,7 @@ notes, control changes and so on directly inside the editor window.
 
 <para>
 The first step to editing a MIDI region's contents is to click the
-'edit region contents&rsquo; tool (<imagedata scale="75" fileref="screenshots/tool-region-contents&scs;"/>).
+&lsquo;edit region contents&rsquo; tool (<imagedata scale="75" fileref="screenshots/tool-region-contents&scs;"/>).
 On doing this, the bodies of the regions in the session will fade out
 to indicate that you are now editing their contents.  You can also
 edit this mode by double-clicking on a MIDI region.
@@ -3473,7 +3474,7 @@ or click and drag to add a note of any length.
 <section><title>Other MIDI operations</title>
 
 <para>
-When outside of &lsquo;edit region contents mode', some other (region-wide)
+When outside of &lsquo;edit region contents mode&rsquo;, some other (region-wide)
 MIDI operations are available from the <guimenuitem>MIDI</guimenuitem> submenu of the
 region context menu.
 </para>
@@ -3532,12 +3533,12 @@ The quantization options are as follows:
 <emphasis>Strength</emphasis> &mdash; this is a percentage by which note starts
   or ends will be pulled towards the grid; if strength is set to 100,
   they will be snapped completely; any less, and they will be snapped
-  less accurately.  This can be used to maintain some of the &lsquo;human'
+  less accurately.  This can be used to maintain some of the &lsquo;human&rsquo;
   inaccuracies in timing from a recording of a real player.
 </listitem>
 <listitem>
 <emphasis>Swing</emphasis> &mdash; if ticked, this option will attempt to
-  quantize notes so that they &lsquo;swing'.  Speaking mathematically, given
+  quantize notes so that they &lsquo;swing&rsquo;.  Speaking mathematically, given
   two input notes as shown in <xref linkend="fig-swing-maths"/>, the
   quantizer will put the second note at a time t where
 
@@ -3632,7 +3633,7 @@ reference to audio as well as MIDI automation.
 
 <para>
 Automation is the means by which many controls in Ardour (faders,
-plugin controls, mute and solo, and so on) can be &lsquo;automated', so that
+plugin controls, mute and solo, and so on) can be &lsquo;automated&rsquo;, so that
 their values change over time.  This is commonly used to assist with
 mixing a track; vocal levels may be brought up and down as required,
 for example.  This chapter describes the ways in which automation may
@@ -3650,7 +3651,7 @@ additional track, but can be considered a &lsquo;child&rsquo; of its parent trac
 To create an automation lane for an audio track, click the &lsquo;a&rsquo; button
 in the track controls area.  A menu will open which contains a list of
 the things which can be automated for the track.  By default, this
-will just be &lsquo;fader&rsquo; and &lsquo;pan', but if the track has any plugins,
+will just be &lsquo;fader&rsquo; and &lsquo;pan&rsquo;, but if the track has any plugins,
 their controls will also be listed in this menu.
 </para>
 
@@ -3669,7 +3670,7 @@ in <xref linkend="fig-automation-lane"/>.
 </figure>
 
 <para>
-We now have an automation lane for the track &lsquo;up_with_people.stereo'
+We now have an automation lane for the track &lsquo;up_with_people.stereo&rsquo;
 which controls its fader level.  The automation lane's controls area
 includes the name of the parameter being automated, a handy fader for
 adjusting the level of the parameter, a button to select the
@@ -3682,7 +3683,7 @@ have any effect on the automation that the lane contains.
 <section><title>Automation modes</title>
 
 <para>
-Clicking on the automation lane's mode button (which initially says &lsquo;Manual') offers four options:
+Clicking on the automation lane's mode button (which initially says &lsquo;Manual&rsquo;) offers four options:
 </para>
 
 <itemizedlist>
@@ -3707,7 +3708,7 @@ Clicking on the automation lane's mode button (which initially says &lsquo;Manua
 <para>
 There are two basic ways to create automation data.  Firstly, one may
 use the &lsquo;write&rsquo; mode, as discussed in the previous section.  To see
-this in action for our example fader lane, simply select &lsquo;write',
+this in action for our example fader lane, simply select &lsquo;write&rsquo;,
 start the session, and move the track's fader around a bit.  When you
 stop the transport, an automation line will appear on the lane to show
 you the moves that you made on the fader.
@@ -4268,7 +4269,7 @@ the click.
   &mdash; fast-forward/rewind can, by their nature, generate
   unpleasant-sounding transients and high-frequency content which may
   be trying to tired ears.  With this option enabled, Ardour will drop
-  the output by 12dB when doing &lsquo;winds'.
+  the output by 12dB when doing &lsquo;winds&rsquo;.
   </listitem>
 </itemizedlist>
 
@@ -4293,7 +4294,7 @@ the click.
 <listitem>
 <emphasis>Use overlap equivalency for regions} &mdash; <!-- ?! --></emphasis>
 </listitem><listitem> <emphasis>Make rubberband selection rectangle snap to the grid</emphasis>
-  &mdash; when selecting things by dragging a &lsquo;rubberband&rsquo; or &lsquo;lassoo'
+  &mdash; when selecting things by dragging a &lsquo;rubberband&rsquo; or &lsquo;lassoo&rsquo;
   rectangle, this option makes that rectangle snap to any active grid.
 </listitem><listitem> <emphasis>Show waveforms in regions</emphasis> &mdash; this option draws
   waveforms within audio regions.  Disable it to ease the load on your
@@ -4351,7 +4352,7 @@ the click.
 <para>
 These options govern how much memory Ardour will use to buffer signals
 going out for playback, and coming in for record.  Larger buffers
-provide more &lsquo;safety', in that there is more data prepared to cope
+provide more &lsquo;safety&rsquo;, in that there is more data prepared to cope
 with temporary slowness with your hard discs, but require more memory.
 It is not uncommon to set rather long capture buffer lengths (around a
 minute or more) to help ensure trouble-free recordings.
@@ -4400,7 +4401,7 @@ the real world.
 <!-- there is the monitor_bus_preferred_bundle but no-one sets it -->
 
 <para>
-&lsquo;'Connect track inputs&rsquo; sets how new track inputs should be set up;
+&lsquo;Connect track inputs&rsquo; sets how new track inputs should be set up;
 they can either be automatically connected to physical inputs or left
 alone for you to connect yourself.
 </para>
@@ -4449,7 +4450,7 @@ some circumstances.
 <listitem>
 <emphasis>Processor handling</emphasis> &mdash; most modern (post
 year 2000) CPUs have configuration options themselves to help with
-denormals.  These are called &lsquo;Flush to zero&rsquo; and &lsquo;Denormals are zero'.
+denormals.  These are called &lsquo;Flush to zero&rsquo; and &lsquo;Denormals are zero&rsquo;.
 If these options are available on your machine (they will be
 desensitized if not), it is worth enabling them both as they are
 likely to solve the problem efficiently.
@@ -4497,7 +4498,7 @@ to the soloed tracks.
 <para>
 As discussed in detail in <xref linkend="sec-mute-and-solo"/>, enabling
 this option makes solo buttons into listen controls (AFL or PFL).
-This means that the &lsquo;solo&rsquo; (or now &lsquo;listen') buttons will not affect
+This means that the &lsquo;solo&rsquo; (or now &lsquo;listen&rsquo;) buttons will not affect
 the master bus, but instead will send the soloed tracks to the monitor
 bus.
 </para>
@@ -4625,16 +4626,16 @@ The arrangement in the diagram shows some important features of JACK.
 Firstly, any input can be connected to any output, without
 restriction, and multiple inputs can be connected to a single output
 (or vice versa).  Secondly, Ardour uses JACK for some of its
-'internal&rsquo; connections; we connect, for example, a track to the master
+&lsquo;internal&rsquo; connections; we connect, for example, a track to the master
 bus using JACK.  Thirdly, any JACK-supporting application can be
 connected to any other; Ardour is just one of many.
 </para>
 
 <sidebar>
 <para>
-JACK is not limited to the standard concept of the &lsquo;sound card'.  You
+JACK is not limited to the standard concept of the &lsquo;sound card&rsquo;.  You
 may choose to have no sound card at all (in which case JACK can run in
-'dummy&rsquo; mode).  It is also possible to send signals to and from JACK
+&lsquo;dummy&rsquo; mode).  It is also possible to send signals to and from JACK
 over TCP/IP networks using netjack.  For simplicity, this manual will
 assume that the user has a sound card in the conventional sense.
 </para>
@@ -4649,7 +4650,7 @@ exclusive control of that sound-card while it is running.  This is a
 couple of consequences.  Firstly, if the sound card used to capture
 audio is different from the one used to play it back, complications
 arise.  Secondly, other software which tries to obtain exclusive
-control of your sound-card, most notably &lsquo;pulseaudio', may interfere
+control of your sound-card, most notably &lsquo;pulseaudio&rsquo;, may interfere
 with JACK's operation.
 </para>
 
@@ -4745,7 +4746,7 @@ The arguments about the best sampling rate are many, long and varied,
 but can (in the humble opinion of the author) be summarised as: &lsquo;if in
 doubt, use 44.1kHz for projects going to CD, or 48kHz for projects
 going to film / video, as no-one can hear the difference between those
-and anything higher (although they probably think they can)'.
+and anything higher (although they probably think they can)&rsquo;.
 </para>
 
 </section>
@@ -4754,7 +4755,7 @@ and anything higher (although they probably think they can)'.
 <para>
 In a move necessary for efficiency, JACK does not process audio
 sample-by-sample, but in blocks of samples.  The size of these blocks
-can be selected when starting JACK.  A block is called a &lsquo;period',
+can be selected when starting JACK.  A block is called a &lsquo;period&rsquo;,
 and samples are often known as &lsquo;frames&rsquo; in the context of JACK.  If
 the frames per period count is made smaller, the latency experienced
 by sounds going into and coming out of the computer will be reduced;
@@ -4878,7 +4879,7 @@ again to see the effects.
 <title>CPU frequency scaling</title>
 
 <para>
-Modern CPUs often have a feature called &lsquo;frequency scaling'.  This is
+Modern CPUs often have a feature called &lsquo;frequency scaling&rsquo;.  This is
 the ability to lower the CPU's clock rate when it does not have much
 to do, in order to save power.  This is especially useful in laptops
 and mobile phones, as it can dramatically increase efficiency and
@@ -5096,7 +5097,7 @@ the 5th track in the current bank.
 
 </section>
 </section>
-<section><title>Binding to Ardour &lsquo;functions'</title>
+<section><title>Binding to Ardour &lsquo;functions&rsquo;</title>
 
 Rather than binding to a specific track/bus control, it may be useful
 to have a MIDI controller able to alter some part of Ardour's state. A
@@ -5117,7 +5118,7 @@ available:
 <code>transport-stop</code> &mdash; stop the transport 
 </listitem>
 <listitem>
-<code>transport-roll</code> &mdash; start the transport &lsquo;rolling'
+<code>transport-roll</code> &mdash; start the transport &lsquo;rolling&rsquo;
 </listitem>
 <listitem>
 <code>transport-zero</code> &mdash; move the playhead to the zero position 
@@ -5147,7 +5148,7 @@ available:
 
 </section>
 <section>
-<title>Binding to Ardour &lsquo;actions'</title>
+<title>Binding to Ardour &lsquo;actions&rsquo;</title>
 
 <para>
 You can also bind a sysex or arbitrary message to any of the items
@@ -5180,11 +5181,11 @@ the second field in the keybinding definition.
 
 Because many modern control surfaces offer per-track/bus controls for
 far fewer tracks and busses than many users want to control, Ardour
-offers the relatively common place concept of &lsquo;banks'. Banks to allow
+offers the relatively common place concept of &lsquo;banks&rsquo;. Banks to allow
 you to relatively easily control any number of tracks and/or busses
 regardless of how many faders/knobs etc. your control surface has. To
 use banking, the control addresses must be specified using the bank
-relative format mentioned above ('B1&rsquo; to identify the first track of a
+relative format mentioned above (&lsquo;B1&rsquo; to identify the first track of a
 bank of tracks, rather than &lsquo;1&rsquo; to identify the first track).
 
 One very important extra piece of information is required to use
@@ -5414,7 +5415,7 @@ from other programs via JACK.
 Internally, Ardour uses the term &lsquo;route&rsquo; to describe a bus, with a
 track being a superset of the route's functionality (to include the
 parts which read from and write to disk).  This chapter uses the word
-'route&rsquo; to indicate either a track or a bus, where the two have the
+&lsquo;route&rsquo; to indicate either a track or a bus, where the two have the
 same behaviour.
 </para>
 
@@ -5586,7 +5587,7 @@ Both OS X and Linux provide ways to configure your machine so that it
 appears to have a new audio device that is actually a combination of
 one or more real devices. You can use this approach to create the
 configuration you want to use and then start up JACK using that new
-'pseudo&rsquo; device.
+&lsquo;pseudo&rsquo; device.
 
 <itemizedlist>
 <listitem>OS X
@@ -5659,7 +5660,7 @@ Lets see what this does:
 
 <itemizedlist>
 <listitem>
-It defines a new audio pseudo-device called &lsquo;merge'. You can use
+It defines a new audio pseudo-device called &lsquo;merge&rsquo;. You can use
   this name anywhere you might use the name of an ALSA audio device,
   such as <code>hw:0</code> or <code>hw:HDA</code> or <code>hw:DSP</code> or
   <code>plughw:1</code>.
