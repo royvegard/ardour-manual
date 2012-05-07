@@ -839,7 +839,7 @@ linkend="fig-input-port-matrix"/>.
   <title>Input port matrix</title>
   <mediaobject>
     <imageobject>
-      <imagedata fileref="screenshots/input-port-matrix&scs;" scale="75"/>
+      <imagedata fileref="screenshots/input-port-matrix&scs;" scale="40"/>
     </imageobject>
   </mediaobject>
 </figure>
@@ -1885,7 +1885,7 @@ and <emphasis>busses</emphasis>.
 </para>
 
 <para>
-Both are built on the same foundation; a bus functionality is a
+Both are built on the same foundation; a bus' functionality is a
 subset of a track's.  Both can pass audio and MIDI data, apply
 processing and perform various signal routing operations.  The
 difference with a track is that can record and play back data.
@@ -2041,7 +2041,7 @@ linkend="fig-route-group-dialogue"/>.
   <title>The track/bus group dialogue</title> 
   <mediaobject>
     <imageobject> 
-      <imagedata fileref="screenshot/route-group-dialogue&scs;"/>
+      <imagedata fileref="screenshots/route-group-dialogue&scs;"/>
     </imageobject> 
   </mediaobject>
 </figure>
@@ -2135,7 +2135,7 @@ linkend="fig-typical-bus-controls"/>.
   <title>Controls for a typical bus</title> 
   <mediaobject>
     <imageobject> 
-      <imagedata fileref="screenshot/typical-bus-controls&scs;"/>
+      <imagedata fileref="screenshots/typical-bus-controls&scs;"/>
     </imageobject> 
   </mediaobject>
 </figure>
@@ -2956,7 +2956,7 @@ Right-clicking anywhere on a track (including over a region) displays
 the track menu.  The top entry in this menu will be the name of the
 region that was clicked on, and this entry's submenu offers a large
 selection of operations which can be applied to the region.  These
-operations are described in Chapter <xref linkend="ch-region-op"/>.
+operations are described in Chapter <xref linkend="ch-region-operations"/>.
 </para>
 
 <section>
@@ -3467,7 +3467,7 @@ will display information about its note value, channel and velocity.
 
 <para>
 Right-clicking on a selected note will display a channel selector, as
-shown in <xref linkend="fig-midi-edit5&scs;"/>.
+shown in <xref linkend="fig-midi-edit5"/>.
 </para>
 
 <figure id="fig-midi-edit5"> 
@@ -4855,7 +4855,8 @@ sizes more reliable on those systems.
 </sidebar>
 
 </section>
-<section><title>Number of periods</title>
+<section>
+<title>Number of periods</title>
 
 <para>
 This value is related to the frames-per-period value above; 2 is
