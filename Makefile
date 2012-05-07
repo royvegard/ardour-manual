@@ -48,5 +48,19 @@ pdf/ardour.pdf:	ardour.xml ardour-pdf.xsl extensions-pdf.ent screenshots/*.png $
 	dblatex -P doc.collab.show=0 -P latex.output.revhistory=0 -p ardour-pdf.xsl -s ardour.sty -r pptex.py -T native ardour.xml -t pdf -o pdf/ardour.pdf
 
 
+tex:	tex/ardour.tex
+
+tex/ardour.tex:	ardour.xml ardour-pdf.xsl extensions-pdf.ent
+
+# 	The DocBook needs to know what file extensions to look for
+# 	for screenshots and diagrams; use the correct file to tell it.
+	cp extensions-pdf.ent extensions.ent
+
+	mkdir -p tex
+
+# 	-P <foo> removes the revhistory table
+	dblatex -P doc.collab.show=0 -P latex.output.revhistory=0 -p ardour-pdf.xsl -s ardour.sty -r pptex.py -T native ardour.xml -t tex -o tex/ardour.tex
+
+
 clean:;	rm -rf html pdf diagrams/*.pdf diagrams/*.png graphics/*.png *.aux ardour.cb ardour.cb2 ardour.glo ardour.idx ardour.ilg
 	rm -rf ardour.ind ardour.lof ardour.log ardour.tex ardour.toc extensions.ent ardour.out

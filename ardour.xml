@@ -3199,7 +3199,7 @@ envelopes</emphasis> which modify the gain over time.
 ways:
 </para>
 
-<itemlizedlist>
+<itemizedlist>
 <listitem>
 Using the <guimenuitem>Boost Gain</guimenuitem> and <guimenuitem>Cut
 Gain</guimenuitem> options on the <guimenu>Gain</guimenu> submenu of
@@ -3216,7 +3216,7 @@ From the region properties dialogue box, accessible using
 <guimenuitem>Properties&hellip;</guimenuitem> from the region context
 menu.
 </listitem>
-</itemlizedlist>
+</itemizedlist>
 
 <para>
 For more involved changes to region gain, regions can also have their
@@ -3572,7 +3572,7 @@ The quantization options are as follows:
 <listitem>
 <emphasis>Swing</emphasis> &mdash; if ticked, this option will attempt to
   quantize notes so that they &lsquo;swing&rsquo;.  Speaking mathematically, given
-  two input notes as shown in <xref linkend="fig-swing-maths"/>, the
+  two input notes as shown in <xref linkend="fig-swing"/>, the
   quantizer will put the second note at a time t where
 
 <!--
@@ -3808,9 +3808,11 @@ before adding the automation.
 <chapter xml:id="ch-region-operations">
 <title>Region operations</title>
 
+<para>
 This chapter provides a reference to the operations that can be
 performed on regions, accessible from the region submenu of the track
 context menu.
+</para>
 
 <itemizedlist>
 
@@ -4011,13 +4013,9 @@ Set Range Selection &mdash; this sets the time range selection to surround all s
 </listitem>
 
 <listitem>
-Gain
-
-<para>
-These items adjust a region's gain property.  This value is used only
+Gain &mdash; these items adjust a region's gain property.  This value is used only
 to modify the gain of the region during playback; it does not modify the
 data on disk.
-</para>
 
 <itemizedlist>
 <listitem>
@@ -4049,13 +4047,18 @@ Fades
 
 <itemizedlist>
 <listitem>
-Fade In
+Fade In &mdash; this is ticked if all regions in your selection have
+active fade-ins, and unticked if non do; selecting the menu option
+will toggle the active state of all selected regions' fade-ins.
 </listitem>
 <listitem>
-Fade Out
+Fade Out &mdash; this option behaves the same as <guimenuitem>Fade In</guimenuitem>, but
+for fade-outs.
 </listitem>
 <listitem>
-Fades
+Fades &mdash; this option behaves the same as <guimenuitem>Fade
+In</guimenuitem> and <guimenuitem>Fade Out</guimenuitem>, but applies
+to both fades at the same time.
 </listitem>
 </itemizedlist>
 </listitem>
@@ -4065,13 +4068,22 @@ Duplicate
 
 <itemizedlist>
 <listitem>
-Duplicate
+Duplicate &mdash; this option makes a copy of each selected region,
+and places the duplicate regions directly after the end of the latest
+selected region; if there is just one selected region, this means that
+a duplicate copy will be placed right after the original.
 </listitem>
 <listitem>
-Multi-Duplicate&hellip;
+Multi-Duplicate&hellip; this makes duplicates as per the
+<guimenuitem>Duplicate</guimenuitem> option, but offers a choice of
+how many should be made.  The count can be a fraction, in which case
+the last duplicated region will be truncated.  If, for example, you
+choose 2.5 duplicates, this will make 2 complete duplicates and one
+futher duplicate which is half the length of the others.
 </listitem>
 <listitem>
-Fill Track
+Fill Track &mdash; this makes sufficient duplicates to fill the track
+up to the session end marker.
 </listitem>
 </itemizedlist>
 </listitem>
@@ -5018,10 +5030,10 @@ attached to their name. The minimal content looks like this:
 </para>
 
 <programlisting>
-&lt;?xml version="1.0" encoding="UTF-8"?&rt;
-&lt;ArdourMIDIBindings version="1.0.0" name="The name of this set of bindings"&rt;
-&lt;/ArdourMIDIBindings&rt;
-&lt;/programlisting&rt;
+&lt;?xml version="1.0" encoding="UTF-8"?>
+&lt;ArdourMIDIBindings version="1.0.0" name="The name of this set of bindings">
+&lt;/ArdourMIDIBindings>
+&lt;/programlisting>
 </programlisting>
 
 The remainder of the file gives the bindings themselves, describing
@@ -5029,7 +5041,7 @@ the two parts of each binding: MIDI data that your controller sends,
 and things that Ardour does in response.
 
 <para>
-A binding is an XML node called <code>&lt;Binding&rt;</code>.  The properties of the
+A binding is an XML node called <code>&lt;Binding></code>.  The properties of the
 node give the details of the binding.  
 </para>
 
@@ -5066,7 +5078,7 @@ in the MIDI Tracer window as you twiddle knobs or push buttons.
 <title>Describing MIDI in the binding file</title>
 
 <para>
-The properties for specifying the MIDI data in a <code>&lt;Binding&rt;</code>
+The properties for specifying the MIDI data in a <code>&lt;Binding></code>
 node are as follows:
 </para>
 
@@ -5128,13 +5140,13 @@ bus, but then when a note-off arrives, it will un-solo or un-mute it.
 The specification of a track or bus binding is put inside a <code>uri</code> property.  For example,
 
 <programlisting>
-&lt;Binding channel="1" ctl="20" uri="/route/gain 2"&rt;
+&lt;Binding channel="1" ctl="20" uri="/route/gain 2">
 </programlisting>
 
 binds a control change on controller 20, channel 1 to the gain of track 2.  As another example
 
 <programlisting>
-&lt;Binding channel="4" note="20" uri="/route/recenable B5"&rt;
+&lt;Binding channel="4" note="20" uri="/route/recenable B5">
 </programlisting>
 
 binds a note-on for note 20 on channel 4 to the record-enable state of
