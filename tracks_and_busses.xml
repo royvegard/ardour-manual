@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE book [
+<!ENTITY % sgml.features "IGNORE">
+<!ENTITY % xml.features "INCLUDE">
+<!ENTITY % dbcent PUBLIC "-//OASIS//ENTITIES DocBook Character Entities V4.5//EN"
+   "/usr/share/xml/docbook/schema/dtd/4.5/dbcentx.mod">
+%dbcent;
+<!ENTITY % keys SYSTEM "keys.ent">
+%keys;
+<!ENTITY % extensions SYSTEM "extensions.ent">
+%extensions;
+]>
+
+<chapter xml:id="ch-tracks-and-busses" xmlns="http://docbook.org/ns/docbook" version="5.0" xml:lang="en">
+<title>Tracks and busses</title>
+
+<para>
+The basic building blocks of Ardour's sessions are <emphasis>tracks</emphasis>
+and <emphasis>busses</emphasis>.
+</para>
+
+<para>
+Both are built on the same foundation; a bus' functionality is a
+subset of a track's.  Both can pass audio and MIDI data, apply
+processing and perform various signal routing operations.  The
+difference with a track is that can record and play back data.
+</para>
+
+<section>
+<title>Track and bus basics</title>
+
+<section>
+<title>Types</title>
+
+<para>
+An Ardour track can be either &lsquo;audio&rsquo; or &lsquo;MIDI&rsquo;.  The only real
+difference between the two is the type of data that the track will
+record and play back.  Either type of track can
+<emphasis>pass</emphasis> either type of data.  Hence, for example,
+one might have a MIDI track that contains an instrument plugin; such a
+track would contain MIDI data, but would produce audio, since the
+instrument would turn the one into the other.
+</para>
+
+<para>
+In Ardour 3 busses are only used for audio.
+</para>
+
+</section>
+
+<section>
+<title>Adding and removing tracks</title>
+
+<para>
+A track or bus can be added to a session in various ways:
+</para>
+
+<itemizedlist>
+<listitem> Choose <guimenuitem>Add Track or Bus&hellip;</guimenuitem> from the <guimenu>Track</guimenu> menu.
+</listitem><listitem> Right-click in an empty part of the track controls area.
+</listitem><listitem> Click the + button underneath the list of tracks in the mixer.
+</listitem>
+</itemizedlist>
+
+<para>
+Any of these actions will open the <emphasis>Add Track or Bus</emphasis> dialogue,
+as shown in <xref linkend="fig-add-track-or-bus"/>.
+</para>
+
+<figure id="fig-add-track-or-bus"> 
+  <title>Add Track or Bus dialogue</title> 
+  <mediaobject>
+    <imageobject> 
+      <imagedata fileref="screenshots/add-track-or-bus&scs;"/>
+    </imageobject> 
+  </mediaobject>
+</figure>
+
+<para>
+From here, you can select firstly the number of tracks or busses to
+add, and the type; audio track, MIDI track or bus.  There are also
+some options, which vary depending on the type of thing you are
+creating.
+</para>
+
+These options are:
+
+<itemizedlist>
+<listitem> Configuration (for audio tracks and busses) &mdash; this is the
+  number of input and outputs the track is set up with.  You can
+  always change these counts later.
+</listitem>
+<listitem>
+Track mode (for audio tracks) &mdash; this can be &lsquo;normal&rsquo;,
+&lsquo;non-layered&rsquo; or &lsquo;tape&rsquo;.
+<!--  I have no idea what non-layered nor tape modes do -->
+</listitem>
+<listitem>
+ Group &mdash; tracks and busses can be put into groups so that a
+  selected range of operations are applied to all members of a group
+  at the same time (selecting record enable, or editing, for example).
+  This option allows you to specify an existing group to add the new
+  track(s) or bus(ses) to, or to create a new group to put the new
+  things in.
+</listitem>
+<listitem>
+ Instrument (for MIDI tracks) &mdash; this is a short-cut to allow you
+ to create a MIDI track with an instrument plugin already added to it.
+ You can achieve the same effect by creating a MIDI track with no
+ plugins and adding it yourself; this option just makes things
+ slightly quicker.
+</listitem>
+</itemizedlist>
+
+<para>
+Adding tracks will add them to both the editor and mixer windows; the
+editor window shows the timeline, with any recorded data, and the
+mixer shows just the processing elements of the track (its plugins,
+fader and so on).
+</para>
+
+<para>
+Tracks and busses can be removed by selecting them, right-clicking and
+choosing &lsquo;Remove&rsquo; from the menu.  A warning dialogue will pop up, as
+<emphasis>track removal cannot be undone</emphasis>; use this option with care!
+</para>
+
+</section>
+</section>
+
+<section xml:id="sec-track-and-bus-groups">
+<title>Track and bus groups</title>
+<indexterm><primary>group</primary></indexterm>
+
+<para>
+Tracks and busses can be put into <emphasis>groups</emphasis>. The members of a
+group can be set to share various settings, which can be useful for
+managing tracks which are closely related to each other.  Examples
+might include tracks that contain multiple-microphone recordings of a
+single source (an acoustic guitar, perhaps, or a drum-kit).
+</para>
+
+<para>
+You can put tracks and busses into groups in various ways.  In the
+editor window, a track's controls might look like those in
+<xref linkend="fig-track-in-group"/>.
+</para>
+
+<figure id="fig-track-in-group"> 
+  <title>The header of a track in a group</title> 
+  <mediaobject>
+    <imageobject> 
+      <imagedata fileref="screenshots/track-in-group&scs;"/>
+    </imageobject> 
+  </mediaobject>
+</figure>
+
+<para>
+The green tab to the left of the track header indicates that this
+track is in a group called &lsquo;Fred&rsquo;.  These tabs can be dragged in the
+editor window to add to or remove tracks from groups.  Alternatively,
+clicking the &lsquo;g&rsquo; button opens a menu which gives a list of the
+available groups; selecting one of these groups will add the track or
+bus to that group.  This menu also allows a new group to be created.
+</para>
+
+<para>
+The properties of a group can be edited by right-clicking on its tab
+and choosing <guimenuitem>Edit Group&hellip;</guimenuitem>.  This will
+open the track/bus group dialogue, which is also used when creating
+new groups, as shown in <xref
+linkend="fig-route-group-dialogue"/>.
+</para>
+
+<figure id="fig-route-group-dialogue"> 
+  <title>The track/bus group dialogue</title> 
+  <mediaobject>
+    <imageobject> 
+      <imagedata fileref="screenshots/route-group-dialogue&scs;"/>
+    </imageobject> 
+  </mediaobject>
+</figure>
+
+<para>
+&lsquo;Active&rsquo; means that the group is being obeyed, so that the sharing of
+properties is applied to its members.  The colour can be changed, and
+affects the colour of the group's tab in the editor and mixer windows.
+</para>
+
+<para>
+Following these options are a list of the things that the members of
+the group can share.  &lsquo;Gain&rsquo; means that the track faders will be
+synced to always have the same value; &lsquo;Relative&rsquo; means that the gain
+changes are applied relative to each member's current value.  If, for
+example, there are two tracks in a group with relative gain sharing,
+and their faders are set to -3dB and -1dB, a change of the first
+track to a gain of -6dB will result in the second track having a
+gain of -4dB (so that the difference in gains is the same).
+</para>
+
+<para>
+&lsquo;Muting&rsquo;, &lsquo;soloing&rsquo;, &lsquo;record enable&rsquo;, &lsquo;route active state&rsquo;, &lsquo;colour&rsquo;
+and &lsquo;monitoring&rsquo; are all straightforward; they simply mean that all
+member tracks or busses will share the same settings in these
+respects.
+</para>
+
+<para>
+&lsquo;Selection&rsquo; means that if a region is selected or deselected on one
+constituent track, corresponding regions on other member tracks will
+be similarly selected.  Corresponding regions are those that are at
+the same position and have the same length.  Similarly, &lsquo;Editing&rsquo;
+means that edits applied to one track will be applied at the same
+place on other tracks in the group.  These options are particularly
+useful for multi-microphone recordings, where you always want to apply
+the same edits to each track.
+</para>
+
+<para>
+Right-clicking on the group tab offers a further menu of group-related
+actions.  <guimenuitem>Create a New Group</guimenuitem> does as its name suggests, and
+there is also an option to create a new group and automatically put
+particular tracks into it.  <emphasis>Collect Group</emphasis> moves all the member
+tracks so that they are together in the editor window, and
+<guimenuitem>Remove Group</guimenuitem> removes the group (and only the group, not its
+members).
+</para>
+
+<para>
+<guimenuitem>Add New Subgroup Bus</guimenuitem> creates a bus (giving
+it the name of the group) and connects the output of each member to
+the new bus.  In a similar way, <guimenuitem>Add New Aux
+Bus</guimenuitem> adds a bus and gives each member a send to that bus.
+There are two options for this, specifying whether the sends should be
+placed pre- or post-fader.
+</para>
+
+<para>
+Finally, <guimenuitem>Fit to Window</guimenuitem> will zoom the member
+tracks so that they fill the editor window.
+</para>
+
+</section>
+
+<section>
+<title>Tracks and busses in the editor window</title>
+
+<para>
+When a track or bus is added to a session it is given a representation
+in both the editor and the mixer windows.  Broadly speaking, the
+editor window shows the track's timeline, and the mixer window its
+signal processing.
+</para>
+
+<para>
+On the left of a track or bus in the editor is the controls area.  The
+contents of this area are different for audio tracks, MIDI tracks and busses.
+</para>
+
+</section>
+<section>
+<title>Busses</title>
+
+<para>
+A typical control area for a bus is shown in <xref
+linkend="fig-typical-bus-controls"/>.
+</para>
+
+<figure id="fig-typical-bus-controls"> 
+  <title>Controls for a typical bus</title> 
+  <mediaobject>
+    <imageobject> 
+      <imagedata fileref="screenshots/typical-bus-controls&scs;"/>
+    </imageobject> 
+  </mediaobject>
+</figure>
+
+<para>
+At the top-left of the controls is the name of the bus.  This can be
+edited directly to whatever is suitable, although the name must be
+unique within the session.  Underneath the name is a copy of the bus'
+main level fader.  The control buttons to the right-hand side are:
+</para>
+
+<itemizedlist>
+<listitem>
+<emphasis>&lsquo;m&rsquo;</emphasis> &mdash; mute &mdash; left-click to mute the
+bus.  Right-click to display a menu which dictates what particular
+parts of the bus should be muted. <!-- detail of muting options -->
+</listitem>
+<listitem>
+<emphasis>&lsquo;s&rsquo;</emphasis> &mdash; solo &mdash; solo the bus.  The
+behaviour of the solo system is described in detail in <xref
+linkend="sec-mute-and-solo"/>.
+</listitem>
+<listitem>
+<emphasis>&lsquo;a&rsquo;</emphasis> &mdash; automation &mdash; click to open a
+menu related to automation for the bus.  Automation is covered in
+<xref linkend="ch-automation"/>.
+</listitem>
+<listitem>
+<emphasis>&lsquo;g&rsquo;</emphasis> &mdash; group &mdash; click to open a menu
+related to the bus group, as discussed in <xref
+linkend="sec-track-and-bus-groups"/> above.
+</listitem>
+</itemizedlist>
+
+</section>
+<section><title>Audio tracks</title>
+
+<para>
+A typical control area for an audio track is shown in <xref linkend="fig-typical-audio-track-controls"/>.
+</para>
+
+<figure id="fig-typical-audio-track-controls"> 
+  <title>Controls for a typical audio track</title> 
+  <mediaobject>
+    <imageobject> 
+      <imagedata fileref="screenshots/typical-audio-track-controls&scs;"/>
+    </imageobject> 
+  </mediaobject>
+</figure>
+
+<para>
+An audio track has the same controls as a bus, with the addition of
+two extras.  The red button with the pink circle is the track's
+<emphasis>record enable</emphasis>.  When this is clicked it will gain a bright red
+outline, and the track will then be recorded onto when the main
+session record enable is turned on with the transport rolling.
+</para>
+
+<para>
+The &lsquo;p&rsquo; button below the record enable will open a playlist menu when
+clicked.  The menu offers various operations related to the track's
+playlist.  This, as you will recall, is simply a list of the
+regions that the track should play.  Playlists may be swapped on a
+given track, and may be used by more than one track at the same time.
+They are often useful to keep different takes, for example, or to
+allow one set of regions to be played off two tracks with different
+processing.
+</para>
+
+<!-- playlist menu details -->
+
+</section>
+<section><title>MIDI tracks</title>
+
+<para>
+A typical control area for a MIDI track is shown in <xref linkend="fig-typical-midi-track-controls"/>.
+</para>
+
+<figure id="fig-typical-midi-track-controls"> 
+  <title>Typical MIDI track controls</title> 
+  <mediaobject>
+    <imageobject> 
+      <imagedata fileref="diagrams/typical-midi-track-controls&dia;"/>
+    </imageobject> 
+  </mediaobject>
+</figure>
+
+<para>
+The MIDI track example is shown at a greater height than the other
+examples, as with MIDI tracks there are some control elements which
+only appear when there is sufficient vertical space to fit them in.
+</para>
+
+<para>
+A MIDI track has the same basic controls as an audio track, with the
+addition of two extra elements.  The set of buttons below the main
+track controls controls the MIDI channels that should be visible in
+the editor.  A MIDI track's data may span any number of the 16
+available MIDI channels, and sometimes it is useful to view only a
+subset of those channels; different instruments may, for example, be
+put on different MIDI channels.  Clicking on a channel number toggles
+its visibility.
+</para>
+
+<!-- What does Force do -->
+
+<para>
+To the right of the MIDI track controls is a representation of a piano
+keyboard called the &lsquo;scroomer&rsquo;.  This performs a couple of functions.
+Firstly, the scroll-bar controls the range of pitches that are visible
+on the track.  Dragging the scroll-bar body up and down scrolls up and
+down through the visible pitches, and dragging the scroll-bar
+&lsquo;handles&rsquo; zooms in and out, so that more or fewer pitches are visible.
+The piano keyboard gives a reference for the pitches that the track is
+displaying.  In addition, clicking on the notes will generate the
+corresponding MIDI note in the track.
+</para>
+
+</section>
+</chapter>
+

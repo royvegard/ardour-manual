@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE book [
+<!ENTITY % sgml.features "IGNORE">
+<!ENTITY % xml.features "INCLUDE">
+<!ENTITY % dbcent PUBLIC "-//OASIS//ENTITIES DocBook Character Entities V4.5//EN"
+   "/usr/share/xml/docbook/schema/dtd/4.5/dbcentx.mod">
+%dbcent;
+<!ENTITY % keys SYSTEM "keys.ent">
+%keys;
+<!ENTITY % extensions SYSTEM "extensions.ent">
+%extensions;
+]>
+
+<chapter xml:id="ch-jack" xmlns="http://docbook.org/ns/docbook" version="5.0" xml:lang="en">
+<title>JACK</title>
+<indexterm><primary>JACK</primary></indexterm>
+
+<section><title>Introduction</title>
+
+<para>
+JACK is the JACK audio connection kit.  It is a piece of software that
+provides the low-level &lsquo;plumbing&rsquo; which allows Ardour to work.  Its
+setup is crucial to Ardour; Ardour will not work without it.
+</para>
+
+<para>
+JACK's essential task is to route audio and MIDI data to and from a
+sound card, and also between applications.  It manages a set of
+<emphasis>ports</emphasis>, which it can connect together in arbitrary ways.
+<xref linkend="fig-typical-jack-session"/> gives a diagram of a vaguely
+typical small JACK session.
+</para>
+
+<figure id="fig-typical-jack-session">
+  <title>An example JACK session</title> 
+  <mediaobject>
+    <imageobject> 
+      <imagedata fileref="diagrams/typical-jack-session&dia;"/>
+    </imageobject> 
+  </mediaobject>
+</figure>
+
+<para>
+In this diagram, the blue squares represent JACK <emphasis>ports</emphasis>.  These
+are points which can be connected to, and are either input (they
+accept data) or output (they produce data).  The black curved lines
+represent connections between these ports.  The coloured boxes which
+group things together are just for ease of viewing: to JACK,
+everything is just a port.
+</para>
+
+<para>
+The arrangement in the diagram shows some important features of JACK.
+Firstly, any input can be connected to any output, without
+restriction, and multiple inputs can be connected to a single output
+(or vice versa).  Secondly, Ardour uses JACK for some of its
+&lsquo;internal&rsquo; connections; we connect, for example, a track to the master
+bus using JACK.  Thirdly, any JACK-supporting application can be
+connected to any other; Ardour is just one of many.
+</para>
+
+<sidebar>
+<para>
+JACK is not limited to the standard concept of the &lsquo;sound card&rsquo;.  You
+may choose to have no sound card at all (in which case JACK can run in
+&lsquo;dummy&rsquo; mode).  It is also possible to send signals to and from JACK
+over TCP/IP networks using netjack.  For simplicity, this manual will
+assume that the user has a sound card in the conventional sense.
+</para>
+</sidebar>
+
+<section>
+<title>JACK and other audio software</title>
+
+<para>
+JACK is designed so that it uses a single sound-card, and has
+exclusive control of that sound-card while it is running.  This is a
+couple of consequences.  Firstly, if the sound card used to capture
+audio is different from the one used to play it back, complications
+arise.  Secondly, other software which tries to obtain exclusive
+control of your sound-card, most notably &lsquo;pulseaudio&rsquo;, may interfere
+with JACK's operation.
+</para>
+
+
+<section xml:id="sec-jack-multiple-cards">
+<title>JACK with multiple sound cards</title>
+
+<para>
+If at all possible, it is a good idea to use JACK with a single sound
+card.  Correctly using more than one card at the same time is
+difficult.  The main reason for this difficulty is that JACK assumes
+that all sound cards and programs that it is connecting are running
+with synchronised sample clocks.  Arranging this is not easy if there
+are two cards; there will be two unsynchronised sample clocks.
+</para>
+
+<para>
+If you accept that using multiple sound cards is going to be
+difficult, and you want to do it anyway, there are a number of
+approaches.  These are described in <xref linkend="ch-advanced-jack"/>.
+</para>
+
+</section>
+</section>
+<section><title>Will my sound card work?</title>
+
+For your sound card to work with JACK, must have a driver suitable for
+the operating system that you are running on.  For Linux, this means
+that your card must be supported by ALSA or FFADO; ALSA supports
+drivers using a wide variety of interfaces, and FFADO is for firewire
+soundcards only. 
+
+<para>
+The easiest way to check on ALSA compatibility is to visit <ulink url="http://www.alsa-project.org/main/index.php/Matrix:Main">http://www.alsa-project.org/main/index.php/Matrix:Main</ulink>.  This is the ALSA soundcard matrix and describes ALSA's
+support for a variety of cards.  For FFADO, consult <ulink
+url="http://www.ffado.org/?q=devicesupport/list">http://www.ffado.org/?q=devicesupport/list</ulink>
+</para>
+
+<para>
+For Mac OS X, any card that is supported by the operating system
+should work fine.
+</para>
+
+</section>
+<section>
+<title>JACK versions</title>
+
+<para>
+For historical reasons, there are two &lsquo;branches&rsquo; of JACK that are both
+maintained, and can be used as drop-in replacements for each other.
+JACK1 has version numbers like 0.121.3, and JACK2 (also known as
+jackdmp) has version numbers like 1.9.8.  Both implementations have
+their advantages and disadvantages.  It does not matter a great deal
+which one you use.
+</para>
+
+</section>
+</section>
+<section>
+<title>Starting JACK</title>
+
+<para>
+Ardour can start JACK automatically when it starts; and indeed many
+users will find that this works perfectly well.  It is also possible
+to start JACK manually, either at the command line or using a tool
+such as QJackCtl<footnote><para><ulink url="http://qjackctl.sourceforge.net">http://qjackctl.sourceforge.net</ulink></para></footnote> (on
+Linux) or JackPilot<footnote><para><ulink url="http://www.jackosx.com">http://www.jackosx.com/</ulink></para></footnote> (on Mac
+OS X).
+</para>
+
+<section>
+<title>Parameters</title>
+
+<para>
+JACK has many parameters which affect its operation.  Some of the more
+important ones are discussed here.
+</para>
+
+<section>
+<title>Sampling rate</title>
+
+<para>
+This is the number of samples per second that JACK will process, and
+is important as it will govern the sampling rate that all audio
+applications will run at.  The chosen rate must be supported
+by the sound card, so values such as 44.1kHz, 48kHz, 96kHz
+et. cetera are typical choices.  The higher the sampling rate, the
+higher the theoretical audio frequency that the system can reproduce,
+but also the more disk space will be consumed by audio recordings, and
+the more CPU power will be required to run audio plugins.
+</para>
+
+<para>
+The arguments about the best sampling rate are many, long and varied,
+but can (in the humble opinion of the author) be summarised as: &lsquo;if in
+doubt, use 44.1kHz for projects going to CD, or 48kHz for projects
+going to film / video, as no-one can hear the difference between those
+and anything higher (although they probably think they can)&rsquo;.
+</para>
+
+</section>
+<section><title>Frames per period</title>
+
+<para>
+In a move necessary for efficiency, JACK does not process audio
+sample-by-sample, but in blocks of samples.  The size of these blocks
+can be selected when starting JACK.  A block is called a &lsquo;period&rsquo;,
+and samples are often known as &lsquo;frames&rsquo; in the context of JACK.  If
+the frames per period count is made smaller, the latency experienced
+by sounds going into and coming out of the computer will be reduced;
+on the other hand, smaller buffers make the computer work harder, and
+may result in other problems if the computer is not well set-up.  It
+is usually difficult to get below 64 frames per period on a typical
+desktop computer, and values as high as 2048 frames per buffer are
+perfectly acceptable if you do not particularly care about latency.
+</para>
+
+<sidebar>
+<para>
+The frames per period value governs how often JACK will talk to the
+sound card.  If, for example, JACK is set to 64 frames per period, the
+sound card will tell JACK when it has 64 new frames ready; JACK (and
+therefore Ardour) must then respond before the next 64 frames arrives.
+This has the consequences that JACK and Ardour are awoken more often,
+causing a greater CPU load, and that the requirements for JACK's
+response time are much more critical with smaller period sizes.  Some
+systems will struggle to wake JACK up in time, making larger period
+sizes more reliable on those systems.
+</para>
+</sidebar>
+
+</section>
+<section>
+<title>Number of periods</title>
+
+<para>
+This value is related to the frames-per-period value above; 2 is
+typical, and will work for most sound cards and systems.  It is worth
+trying 3 here if problems are experienced.
+</para>
+
+</section>
+</section>
+</section>
+<section>
+<title>Troubleshooting JACK</title>
+
+<section xml:id="sec-xruns">
+<title>I am getting lots of xruns!</title>
+<indexterm><primary>xrun</primary></indexterm>
+
+<para>
+An <emphasis>xrun</emphasis> is JACK's way of saying that the sound
+card wanted attention, but JACK could not provide it quickly enough.
+The causes of xruns are many and various.  The remainder of this
+section lists some common causes of xruns.
+</para>
+
+
+<section>
+<title>Buffer size or period count too small</title>
+
+<para>
+The JACK &lsquo;buffer size', or number of frames per period, governs how
+often JACK has to talk to the sound card; smaller buffer sizes require
+JACK to communicate with the sound card more often and with tighter
+deadlines.  Increasing buffer size can be a simple way to reduce
+xruns.  Generally speaking, the more advanced the sound card, the
+lower the period size that it can be run with, but this does not
+universally hold true.
+</para>
+
+<para>
+Similarly, if you have a lot of xruns, particularly with a USB device,
+try increasing JACK's period count from 2 to 3.
+</para>
+
+</section>
+<section>
+<title>JACK not running with real-time privileges</title>
+
+<para>
+JACK will try, by default, to obtain <emphasis>real-time</emphasis> scheduling
+privileges when it starts.  If it suceeds, it means that the
+operating system will treat JACK as higher priority than some other
+tasks when it needs to talk to the soundcard, which is very likely to
+reduce the incidence of xruns.
+</para>
+
+<para>
+Some versions of Linux are careful about which tasks are allowed
+real-time priviledges, as there is potential for such tasks to cause
+problems with the system.  As a result, JACK may fail to obtain
+real-time privileges, in which case your Linux configuration must be
+altered to allow JACK to get what it wants.  For Debian- and
+Ubuntu-based distributions, the best way is usually to add your user
+to the &lsquo;audio&rsquo; group using
+</para>
+
+<programlisting>
+usermod -a -G audio fred
+</programlisting>
+
+<para>
+where <code>fred</code> is your user ID.  After this, configure the audio
+group to be allowed appropriate settings by editing
+<code>/etc/security/limits.conf</code> and adding
+</para>
+
+<programlisting>
+@audio - rtprio 99
+@audio - memlock unlimited
+</programlisting>
+
+<para>
+to the bottom of of the file.  This allows members of the audio group
+to start tasks with high real-time (RT) priority, and also allows them
+to lock their memory into &lsquo;real&rsquo; memory; this is another step that
+improves real-time performance.
+</para>
+
+<para>
+After making these changes you will need to log out and log back in
+again to see the effects.
+</para>
+
+</section>
+<section>
+<title>CPU frequency scaling</title>
+
+<para>
+Modern CPUs often have a feature called &lsquo;frequency scaling&rsquo;.  This is
+the ability to lower the CPU's clock rate when it does not have much
+to do, in order to save power.  This is especially useful in laptops
+and mobile phones, as it can dramatically increase efficiency and
+therefore battery life.
+</para>
+
+<para>
+It is, however, known to be problematic if you are attempting
+low-latency audio.  You should turn off frequency scaling if in any
+doubt, and set your computer to run in a &lsquo;performance&rsquo; mode, where the
+CPU is run at full speed constantly.
+</para>
+
+</section>
+</section>
+<section>
+<title>I can play back but I cannot record, or vice versa</title>
+
+<para>
+This is commonly caused by JACK's prediliction for using only
+one sound card.  If you are using different sound cards for playback
+and record (which will be the case even if you are doing playback via
+HDMI and recording via an on-board sound-card) you will need to set
+JACK up to use multiple sound cards, as discussed in
+<xref linkend="ch-advanced-jack"/>.
+</para>
+
+</section>
+</section>
+</chapter>

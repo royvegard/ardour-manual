@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE book [
+<!ENTITY % sgml.features "IGNORE">
+<!ENTITY % xml.features "INCLUDE">
+<!ENTITY % dbcent PUBLIC "-//OASIS//ENTITIES DocBook Character Entities V4.5//EN"
+   "/usr/share/xml/docbook/schema/dtd/4.5/dbcentx.mod">
+%dbcent;
+<!ENTITY % keys SYSTEM "keys.ent">
+%keys;
+<!ENTITY % extensions SYSTEM "extensions.ent">
+%extensions;
+]>
+
+<chapter xmlns="http://docbook.org/ns/docbook" version="5.0" xml:lang="en">
+<title>Recording</title>
+
+<section><title>Basic recording</title>
+
+<para>
+Basic recording in Ardour is pretty simple, both for audio and MIDI:
+</para>
+
+<orderedlist>
+<listitem>
+Record-enable the track or tracks that you want to record to using the
+<imagedata scale="50" fileref="screenshots/track-record&scs;"/>
+button.
+</listitem>
+<listitem>
+Record-enable the session using the <imagedata scale="50"
+fileref="screenshots/session-record&scs;"/> button.
+</listitem>
+<listitem>
+Put the playhead at the point at which you want to start recording.
+</listitem>
+<listitem>
+Start the transport rolling using the <imagedata scale="50"
+fileref="screenshots/play&scs;"/> button.
+</listitem>
+<listitem>
+Stop the transport when you have finished using the <imagedata
+scale="50" fileref="screenshots/stop&scs;"/> button.
+</listitem>
+</orderedlist>
+
+<para>
+This will result in new regions being added to the record-enabled
+tracks, placed over the top of anything that is already there.  Note
+that any previous regions are not deleted, simply hidden.  The
+recorded data will be written to disk in the format configured in the
+<guilabel>Media</guilabel> tab of the <guilabel>Session
+Properties</guilabel> (see <xref
+linkend="sec-session-properties-media"/>).
+</para>
+
+<para>
+It is not necessary to set up record-enable status with the transport
+stopped; it can also be done while it is moving.  So, for example, it
+is fine to start playback and then drop into record (either for the
+whole session or just for a particular track) by pressing the
+appropriate record enable.  Note that both session and track record
+enable must be turned on (or &lsquo;armed&rsquo;) for recording to
+happen.
+</para>
+
+<para>
+Ardour will always play back any non-record-enabled tracks while you
+are recording, so that you can listen to existing tracks whilst
+playing new ones.  Ardour may also make the incoming audio and/or MIDI
+audible, depending on the monitoring setup (see <xref
+linkend="sec-monitoring"/>)
+</para>
+
+</section> <!-- Basic recording -->
+
+<section><title>Punch in/out</title>
+
+<para>
+Often it is necessary to record over a small section of an existing
+recording, perhaps to fix a mistake, or re-do a solo.  There are a few
+approaches to this.  Most simply, you can start recording (or drop
+into record) a little before the section that you want to change, and
+stop a little after, then edit the resulting regions afterwards to fit
+the new section into the old.
+</para>
+
+<para>
+An alternative it to use &lsquo;punch-in&rsquo;.  With this mode,
+Ardour will start and stop the recording for you.  You can set a punch
+range, and then start the transport at any point before it.  When the
+punch range starts, Ardour will start recording, and then it will stop
+at the end of the range.
+</para>
+
+<para>
+To set up a punch recording:
+</para>
+
+<orderedlist>
+<listitem>
+<emphasis>Set up the punch range</emphasis> &mdash; first, make sure
+the &lsquo;loop/punch ranges&rsquo; ruler is displayed; if not,
+right-click over the ruler bar and select
+<guimenuitem>Loop/Punch</guimenuitem>.  Then, &modone;-drag the punch
+range over the loop/punch ranges ruler.  When you finish the drag, a
+menu will pop up; choose <guimenuitem>Set Punch Range</guimenuitem>.
+This will put a punch range marker into the ruler; you can drag either
+end of it to alter its position (see <xref linkend="fig-punch-range-marker"/>).
+</listitem>
+<listitem>
+<emphasis>Enable punch in and out</emphasis> &mdash; click the
+<guibutton>In</guibutton> and <guibutton>Out</guibutton> buttons in
+the <guilabel>Punch</guilabel> section towards the right of Ardour's
+top toolbar (see <xref linkend="fig-punch-in-out-buttons"/>).  At this
+point the punch range will be coloured red in the editor window.
+</listitem>
+<listitem>
+<emphasis>Record-enable the session and the tracks you want to punch on</emphasis>.
+</listitem>
+<listitem>
+<emphasis>Start the transport</emphasis> at some point before the
+punch range &mdash; the session will roll toward the punch range with
+the session record-enable button flashing, and then go into record at
+the start of the punch range.
+</listitem>
+</orderedlist>
+
+<figure id="fig-punch-range-marker"> 
+  <title>A punch range marker</title> 
+  <mediaobject>
+    <imageobject> 
+      <imagedata fileref="screenshots/punch-range-marker&scs;"/>
+    </imageobject> 
+  </mediaobject>
+</figure>
+
+<figure id="fig-punch-in-out-buttons"> 
+  <title>The punch buttons set for a punch in and out</title> 
+  <mediaobject>
+    <imageobject> 
+      <imagedata fileref="screenshots/punch-in-out-buttons&scs;"/>
+    </imageobject> 
+  </mediaobject>
+</figure>
+
+<para>
+You can use punch in and out separately if you wish; if, for example,
+you have a definite punch-in point but are not sure how long the
+recording should go on for, simply turn off punch out and Ardour will
+keep recording.
+</para>
+
+</section> <!-- Punch in/out -->
+
+<section><title>Step entry</title>
+
+<para>
+An alternative to recording MIDI with the transport rolling is
+<emphasis>step entry</emphasis>.  This is a means of entering note
+data without having to worry about getting your timing right.
+</para>
+
+<para>
+To enter step-entry mode for a MIDI track, right-click its record
+enable button and choose <guimenuitem>Step Entry</guimenuitem> from
+the menu that pops up.  This will open the step entry dialogue, as
+shown in <xref linkend="fig-step-entry"/>.
+</para>
+
+<figure id="fig-step-entry"> 
+  <title>The MIDI step entry dialogue</title>
+  <mediaobject>
+    <imageobject> 
+      <imagedata fileref="diagrams/step-entry&dia;"/>
+    </imageobject> 
+  </mediaobject>
+</figure>
+
+<para>
+Clicking one of the piano keyboard keys will put a note, of the
+appropriate pitch, at the edit point.  The next note will be put after
+the first one in time, and so on.  A step edit &lsquo;insert
+position&rsquo; is displayed as a dark-red rectangle within the MIDI
+track to indicate where the next note will go, and how long it will
+be.
+</para>
+
+<para>
+The buttons in the step entry dialogue change things about the note
+that will be entered.  We have:
+</para>
+
+<itemizedlist>
+<listitem>
+<emphasis>Chord entry</emphasis> &mdash; if this is selected and you
+click on several notes one after the other, they will be placed at the
+same time (as a chord) rather than one after the other.
+</listitem>
+<listitem>
+<emphasis>Note duration</emphasis> &mdash; these buttons set the
+duration of the note to be entered, using musical symbols.
+</listitem>
+<listitem>
+<emphasis>Triplet</emphasis> &mdash; if this is selected, the selected
+note duration becomes a triplet so that now three notes fit into the
+time that two would previously have occupied.
+</listitem>
+<listitem>
+<emphasis>Dotted</emphasis> &mdash; makes the note
+one-and-a-half-times longer.  The double-dot makes it 1.75 times
+longer, and the triple-dot 1.875.
+</listitem>
+<listitem>
+<emphasis>Sustain</emphasis> &mdash; if you have selected notes, this
+button extends them by the current note length.
+</listitem>
+<listitem>
+<emphasis>Rest</emphasis> &mdash; inserts a rest (an empty space) of
+the current note length.
+</listitem>
+<listitem>
+<emphasis>G-Rest</emphasis> &mdash; inserts a rest of for the length
+of a grid space.
+</listitem>
+<listitem>
+<emphasis>Back</emphasis> &mdash; move the step-edit insert position back by
+the current note length.
+</listitem>
+<listitem>
+<emphasis>>Beat</emphasis> &mdash; move the step-edit insert position onwards by one beat.
+</listitem>
+<listitem>
+<emphasis>>Bar</emphasis> &mdash; move the step-edit insert position onwards by one bar.
+</listitem>
+<listitem>
+<emphasis>>EP</emphasis> &mdash; move the step-edit insert position to the edit point.
+</listitem>
+<listitem>
+<emphasis>Velocity</emphasis> &mdash; set the velocity (volume) of the
+notes that will be inserted, using musical terminology
+(<emphasis>ppp</emphasis> being the quietest and
+<emphasis>fff</emphasis> the loudest).
+</listitem>
+<listitem>
+<emphasis>Numerical entry</emphasis> &mdash; these entries allow the
+setting of various parameters numerically.
+</listitem>
+<listitem>
+<emphasis>Bank</emphasis> &mdash; this allows you to insert a bank
+change; set the required bank number then click the
+<guibutton>+</guibutton> button.
+</listitem>
+<listitem>
+<emphasis>Program</emphasis> &mdash; this allows you to insert a
+program change; set the required program then click the
+<guibutton>+</guibutton> button.
+</listitem>
+</itemizedlist>
+
+</section> <!-- Step entry -->
+
+</chapter>
+
+

@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE chapter [
+<!ENTITY % sgml.features "IGNORE">
+<!ENTITY % xml.features "INCLUDE">
+<!ENTITY % dbcent PUBLIC "-//OASIS//ENTITIES DocBook Character Entities V4.5//EN"
+   "/usr/share/xml/docbook/schema/dtd/4.5/dbcentx.mod">
+%dbcent;
+<!ENTITY % extensions SYSTEM "extensions.ent">
+%extensions;
+]>
+
+<chapter xmlns="http://docbook.org/ns/docbook" version="5.0" xml:lang="en">
+<title>Overview</title>
+
+<para>
+As one might expect, Ardour is similar in many ways to many other DAWs
+and also has its fair share of differences.  This chapter gives an
+overview of Ardour.
+</para>
+
+
+<section>
+<title>JACK</title>
+<indexterm><primary>JACK</primary></indexterm>
+
+<para>
+Ardour is built on another piece of software called JACK
+<footnote><para>JACK stands for the JACK Audio Connection Kit; a pleasingly recursive acronym.</para></footnote>.
+JACK has two main functions; first, it moves audio and MIDI to
+and from a sound card, and second, it allows audio and MIDI to be
+routed between different applications.
+</para>
+
+<para>
+JACK provides a great deal of flexibility and power, especially when
+running other applications (such as soft-synthesizers or samplers) at
+the same time as Ardour.  It is somewhat similar to Steinberg's Rewire
+technology, though broader in scope.  It is even possible to use JACK
+to route audio and MIDI over network connections.
+</para>
+
+<para>
+JACK must be running when Ardour is, though it is possible (if you
+wish) to almost ignore its existance.  At first we will let Ardour
+start JACK, and not get too involved in its complications.
+<xref linkend="ch-jack"/> gets into more detail for those that are
+interested.
+</para>
+
+</section>
+
+<section>
+<title>Ardour concepts</title>
+
+<para>
+Ardour has its own names for the usual set of common DAW concepts.
+This section briefly describes some of these concepts.
+</para>
+
+
+<section>
+<title>Sessions</title>
+<indexterm><primary>session</primary></indexterm>
+
+<para>
+An Ardour <emphasis>session</emphasis> is a container for an entire project.  A
+session may contain an arbitrary number of tracks and busses
+consisting of audio and MIDI data, along with information on processing
+those tracks, a mix of levels, and everything else related to the
+project.  A session might typically contain a song, or perhaps an entire
+album or a complete live recording.
+</para>
+
+<para>
+Ardour sessions are held in directories; these directories contain one
+or more <emphasis>session files</emphasis>, some or all of the audio and MIDI data
+and a number of other state files that Ardour requires.  The session
+file describes the structure of the session, and holds automation data
+and other details.
+</para>
+
+<sidebar>
+<para>
+Ardour's session file is kept in XML format, which is advantageous as
+it is somewhat human-readable, and human-editable in a crisis.  Sound
+files are stored in one of a number of optional formats, and MIDI
+files as SMF (standard MIDI format).
+</para>
+
+<para>
+It is also possible for Ardour sessions to reference sound and MIDI
+files outside the session directory.
+</para>
+</sidebar>
+
+<para>
+Ardour has a single current session at all times; if Ardour is started
+without specifying one, it will offer to load or create one.
+</para>
+
+</section>
+
+
+<section>
+<title>Tracks</title>
+<indexterm><primary>track</primary></indexterm>
+
+<para>
+A track is a concept common to most DAWs, and used also in Ardour.
+Tracks can record audio or MIDI data to disk, and then replay it with
+processing.  They also allow the audio or MIDI data to be edited in a
+variety of different ways.
+</para>
+
+<para>
+In a typical pop production, one might use a track each for the kick
+drum, another for the snare, more perhaps for the drum overheads and
+others for bass, guitars and vocals.
+</para>
+
+<para>
+Ardour can record to any number of tracks at one time, and then play
+those tracks back.  On playback, a track's recordings may be processed
+by any number of plugins, panned, and its level altered to achieve a
+suitable mix.
+</para>
+
+<sidebar>
+<para>
+A track's type is really only related to the type of data that it
+stores on disk.  It is possible, for example, to have a MIDI track
+with a synthesizer plugin which converts MIDI to audio.  Even though
+the track remains &lsquo;MIDI&rsquo;, in the sense that its on-disk recordings are
+MIDI, its output may be audio-only.
+</para>
+</sidebar>
+
+</section>
+
+<section>
+<title>Regions</title>
+<indexterm><primary>region</primary></indexterm>
+
+<para>
+A track may contain many segments of audio or MIDI.  Ardour contains
+these segments in things called <emphasis>regions</emphasis>, which are
+self-contained snippets of audio or MIDI data.  Any recording pass,
+for example, generates a region on each track that is enabled for
+recording.  Regions can be subjected to many editing operations; they
+may be moved around, split, trimmed, copied, and so on.
+</para>
+
+</section>
+<section>
+<title>Playlists</title>
+<indexterm><primary>playlist</primary></indexterm>
+
+<para>
+The details of what exactly each track should play back is described
+by a <emphasis>playlist</emphasis>.  A playlist is simply a list of regions; each
+track always has an active playlist, and can have other playlists
+which can be switched in and out as required.
+</para>
+
+</section>
+<section>
+<title>Busses</title>
+<indexterm><primary>bus</primary></indexterm>
+
+<para>
+Busses are another common concept in both DAWs and hardware mixers.
+They are similar in many ways to tracks; they process audio or MIDI,
+and can run processing plugins.  The only difference is that their
+input is obtained from other tracks or busses, rather than from disk.
+</para>
+
+<para>
+One might typically use a buss to collect together the outputs of
+related tracks.  Consider, for example, a 3-track recording of a
+drum-kit; given kick, snare and overhead tracks, it may be helpful to
+connect the output of each to a bus called &lsquo;drums&rsquo;, so that the
+drum-kit's level can be set as a unit, and processing (such as
+equalisation or compression) can be applied to the mix of all tracks.
+</para>
+
+</section>
+<section>
+<title>Plugins</title>
+<indexterm><primary>plugin</primary></indexterm>
+
+<para>
+Ardour allows you to process audio and MIDI using any number of
+<emphasis>plugins</emphasis>.  These are external pieces of code, commonly seen as
+VST plugins on Windows or AU plugins on Mac OS X.  Generally speaking,
+a plugin is written using one (and maybe more) standards.  Ardour's
+plugin support is for the following standards:
+</para>
+
+<itemizedlist>
+<listitem>
+LADSPA<footnote><para>An acronym of "Linux Audio Developers&rsquo;
+Simple Plugin API"</para></footnote> &mdash; the first major plugin
+standard for Linux.  Many LADSPA plugins are availble, mostly free and
+open-source. <indexterm><primary>LADSPA</primary></indexterm>
+</listitem>
+<listitem>
+LV2
+&mdash; the successor to LADSPA.  Lots of plugins have been
+  &lsquo;ported&rsquo; from LADSPA to LV2, and also many new plugins written. <indexterm><primary>LV2</primary></indexterm>
+</listitem>
+<listitem>
+VST
+&mdash; Ardour supports VST plugins that have been compiled for Linux. <indexterm><primary>VST</primary></indexterm>
+</listitem>
+<listitem>
+AU
+&mdash; Mac OS X versions of Ardour support AudioUnit (AU) plugins. <indexterm><primary>AU</primary></indexterm>
+</listitem>
+</itemizedlist>
+
+<para>
+Ardour has some support for running Windows VST plugins on Linux, but
+this is rather complicated, extremely difficult for the Ardour
+developers to debug, and generally unreliable.  If it is at all
+possible, you are strongly advised to use native LADSPA, LV2 or Linux
+VST plugins on Linux, or AU on Mac OS X.
+</para>
+
+</section>
+</section>
+
+<section><title>The Ardour interface</title>
+
+<para>
+This section gives an overview of Ardour's main interface elements.
+</para>
+
+<section id="sec-editor-window"><title>The editor window</title>
+
+<indexterm><primary>editor</primary></indexterm>
+
+<para>
+The first of Ardour's two main windows is the <emphasis>Editor</emphasis>.  A
+typical editor window is shown in <xref linkend="fig-typical-editor"/>.
+</para>
+
+<figure id="fig-typical-editor"> 
+  <title>A typical editor window</title> 
+  <mediaobject>
+    <imageobject> 
+      <imagedata fileref="diagrams/editor-summary&dia;"/>
+    </imageobject> 
+  </mediaobject>
+</figure>
+
+<para>
+The main bulk of the window is taken up with the timeline; this is the
+area in which regions and automation are displayed, with time moving
+from left to right.  The track controls area gives a set of controls
+for each track, for basic operations such as solo, mute and so on.
+The (optional) editor mixer is a single mixer strip which handles the
+currently-selected track, and is useful for tweaks to the mix without
+the need to move to the full mixer window.  At the bottom of the
+window is the &lsquo;summary&rsquo;, which displays the whole session in a
+reduced-size form.  At the top right is a bar of useful information
+about the state of the system.
+</para>
+
+<para>
+The operation of the editor window is described in more detail in
+<xref linkend="ch-editor-window"/>.
+</para>
+
+</section>
+<section>
+<title>The mixer window</title>
+<indexterm><primary>mixer</primary></indexterm>
+
+<para>
+The other main Ardour window is the <emphasis>Mixer</emphasis>.  A typical mixer
+window is shown in <xref linkend="fig-typical-mixer"/>.
+</para>
+
+<figure id="fig-typical-mixer"> 
+  <title>A typical mixer window</title> 
+  <mediaobject>
+    <imageobject> 
+      <imagedata fileref="diagrams/mixer-summary&dia;"/>
+    </imageobject> 
+  </mediaobject>
+</figure>
+
+<para>
+The main part of the window is taken up with <emphasis>mixer strips</emphasis>, one
+for each track or bus in the session, which correspond roughly to the
+channel strips on a conventional mixing desk.  This window allows you
+to process audio, route signals around and balance your mix.
+</para>
+
+<para>
+The operation of the mixer window is described in more detail in
+<xref linkend="ch-signal-flow-and-the-mixer"/>.
+</para>
+
+</section>
+</section>
+</chapter>

@@ -1,0 +1,592 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE book [
+<!ENTITY % sgml.features "IGNORE">
+<!ENTITY % xml.features "INCLUDE">
+<!ENTITY % dbcent PUBLIC "-//OASIS//ENTITIES DocBook Character Entities V4.5//EN"
+   "/usr/share/xml/docbook/schema/dtd/4.5/dbcentx.mod">
+%dbcent;
+<!ENTITY % keys SYSTEM "keys.ent">
+%keys;
+<!ENTITY % extensions SYSTEM "extensions.ent">
+%extensions;
+]>
+
+<chapter xmlns="http://docbook.org/ns/docbook" version="5.0" xml:lang="en">
+<title>Configuration</title>
+
+<para>
+This chapter gives a reference to the ways in which Ardour's behaviour
+can be customised.  Many of the configuration options are described
+earlier in the manual; for those options we link back to the relevant
+sections.
+</para>
+
+<section>
+<title>Per-session and global options</title>
+
+<para>
+Options are split into two groups: <emphasis>session
+properties</emphasis> (accessible from the
+<guimenuitem>Properties</guimenuitem> item on the
+<guimenu>Session</guimenu> menu and <emphasis>preferences</emphasis>
+(accessible from the <guimenuitem>Preferences</guimenuitem> option in
+<guimenu>Edit</guimenu>).
+</para>
+
+<para>
+Session properties can be changed for each different session that you
+use.  The intention is that these properties are those whose best
+setting depends on the type of session you are working on.
+</para>
+
+<para>
+Preferences are options which apply to all sessions.  They are options
+which depend on your general style of working, and the set up of your
+audio system.
+</para>
+
+<!-- You can make session properties sort of &lsquo;sticky&rsquo; by using template sessions -->
+
+</section>
+<section><title>Session properties</title>
+
+<para>
+Session properties are arranged into five groups, whose contents are
+discussed below.
+</para>
+
+<!-- ==================================================================== -->
+<section xml:id="sec-session-properties-timecode"><title>Timecode</title>
+<!-- ==================================================================== -->
+
+<section>
+<title>External timecode source</title>
+
+<para>
+This specifies the place that Ardour should get a timecode signal from
+when it is slaving.  The external sync button in the editor window can
+be clicked to switch from internal sync to whichever external choice
+is made here. The options are:
+</para>
+
+<itemizedlist>
+<listitem>
+<emphasis>JACK</emphasis> &mdash; this synchronises Ardour to the JACK transport.
+</listitem>
+<listitem>
+<emphasis>MIDI Timecode</emphasis> &mdash; this makes Ardour chase
+MIDI timecode.  The timecode source should be connected to Ardour's
+&lsquo;MTC in&rsquo; port.
+</listitem>
+<listitem>
+<emphasis>Midi Clock</emphasis> &mdash; synchronise to MIDI clock;
+this should be connected to Ardour's &lsquo;MIDI clock in&rsquo; port.
+</listitem>
+</itemizedlist>
+
+</section>
+
+<section>
+<title>Timecode frames-per-second</title>
+
+<para>
+This should be set to the frames-per-second count for the timecode
+that you are syncing to, or that you want Ardour to generate.
+</para>
+
+</section>
+
+<section>
+<title>Subframes per frame</title>
+
+<para>
+This should be set to the number of subframes per frame for the
+timecode you are syncing to, or that you want Ardour to generate.
+</para>
+
+</section>
+
+<section>
+<title>Timecode source shares sample clock with audio interface</title>
+
+<para>
+Enabling this option will make Ardour assume that the timecode is
+exactly synchronised with the audio sample clock; in this case, the
+two cannot drift apart.
+</para>
+
+</section>
+
+<section>
+<title>Pull up/pull-down</title>
+
+<para>
+This should be set to the pull-up or pull-down for the
+timecode you are syncing to, or that you want Ardour to generate.
+</para>
+
+</section>
+
+<section>
+<title>Timecode offset (and timecode offset negative)</title>
+
+<para>
+These options should be set to reflect any required offset between
+Ardour's session times and the timecode being received or
+generated.
+</para>
+
+<para>
+If the timecode is &lsquo;ahead&rsquo; of Ardour's timeline, the
+offset should be positive; otherwise, set it negative.
+</para>
+
+</section>
+
+<section>
+<title>Ardour is JACK time master</title>
+
+<para> Enable this option if you are syncing to JACK and you want
+Ardour to be the &lsquo;controller&rsquo; of the current time
+throughout the system.
+</para>
+
+</section>
+
+</section> <!-- Timecode -->
+
+<!-- ============================================================== -->
+<section xml:id="sec-session-properties-fades"><title>Fades</title>
+<!-- ============================================================== -->
+
+<para>
+These options govern the properties of fades involving audio regions.
+See <xref linkend="sec-audio-region-fades"/>.
+</para>
+
+</section> <!-- Fades -->
+
+<!-- ============================================================== -->
+<section xml:id="sec-session-properties-media"><title>Media</title>
+<!-- ============================================================== -->
+
+<para>
+The <emphasis>audio file format</emphasis> section governs the sample
+format, bit depth and file type that Ardour will use when recording
+audio.  The sample format can be one of:
+</para>
+
+<itemizedlist>
+<listitem>
+32-bit floating point &mdash; this is the format that Ardour uses
+internally for processing, and is the highest quality; it is,
+arguably, of higher quality than is required for recording things.
+The reason Ardour uses it internally is that processing 32-bit
+floating point signals is efficient on modern processors, and the high
+bit depth helps reduce potential problems caused by performing
+processing operations on audio.
+</listitem>
+<listitem>
+24-bit integer &mdash; as the name suggests; this is a common
+recording format as it offers a very high dynamic range (144dB,
+without taking dither into account).
+</listitem>
+<listitem>
+16-bit integer &mdash; the bit depth used by standard audio CDs.
+</listitem>
+</itemizedlist>
+
+The file format can be one of:
+
+<itemizedlist>
+<listitem>
+Broadcast WAVE &mdash; an extension of the very common WAVE
+(<code>.wav</code>) file format, often used in broadcast, which adds
+some metadata to the standard WAVE format.
+</listitem>
+<listitem>
+WAVE &mdash; the Microsoft WAVE format (commonly given a suffix of <code>.wav</code>)
+</listitem>
+<listitem>
+WAVE-64 &mdash; a version of WAVE that can handle files of greater than 4Gb in size.
+</listitem>
+<listitem>
+CAF &mdash; Core Audio Format, as developed by Apple Computer for use on Mac OS X.
+</listitem>
+</itemizedlist>
+
+</section> <!-- Media -->
+
+<!-- ============================= -->
+<section><title>Monitoring</title>
+<!-- ============================= -->
+<para>
+See <xref linkend="sec-monitoring"/>
+</para>
+</section> <!-- Monitoring -->
+
+<!-- ======================= -->
+<section><title>Misc</title>
+<!-- ======================= -->
+
+<!-- ================================================= -->
+<section><title>MIDI region copies are independent</title>
+<!-- ================================================= -->
+
+</section> <!-- MIDI region copies are independent -->
+
+<!-- ======================================================== -->
+<section><title>Policy for handling overlapping notes</title>
+<!-- ======================================================== -->
+
+</section> <!-- Policy for handling overlapping notes -->
+
+<!-- ========================================= -->
+<section><title>Glue to bars and beats</title>
+<!-- ========================================= -->
+
+</section> <!-- Glue to bars and beats -->
+
+</section> <!-- Misc -->
+
+</section>
+
+
+<!-- ===================================== -->
+<section><title>Ardour preferences</title>
+<!-- ===================================== -->
+
+<!-- ======================= -->
+<section><title>Misc</title>
+<!-- ======================= -->
+
+<!-- ====================================== -->
+<section><title>DSP CPU Utilization</title>
+<!-- ====================================== -->
+
+<para>
+If you run Ardour on a computer with more than one processor, or more
+than one core, Ardour can make use of all the cores.  It does this by
+running the processing of different tracks and busses on different
+cores.  This option allows you to specify the number of cores or
+processors that Ardour should use for signal processing.  This setting
+will only take effect once you re-start Ardour.
+</para>
+
+</section> <!-- DSP CPU Utilization -->
+
+<section><title>Undo</title>
+<para>See <xref linkend="sec-undo-and-redo"/></para>
+</section>
+
+<!-- ===================================== -->
+<section><title>Session management</title>
+<!-- ===================================== -->
+
+<para>
+The <emphasis>always copy imported files</emphasis> option will force Ardour never
+to offer you the option to embed files that you import; they will
+always be copied into the session folder.
+</para>
+
+<para>
+The <emphasis>default folder for new sessions</emphasis> is where Ardour will
+initially suggest that you create new sessions.
+</para>
+
+<para>
+<emphasis>Maximum number of recent sessions</emphasis> dictates the number of recent
+sessions that Ardour will offer in the startup dialogue and also in
+<guimenuitem>Recent&hellip;</guimenuitem> from the <guimenu>Session</guimenu> menu.
+</para>
+
+</section> <!-- Session management -->
+
+<!-- ======================= -->
+<section><title>Click</title>
+<!-- ======================= -->
+
+<para>
+This section allows you to specify the sound files that will be used
+for the click; the &lsquo;emphasis&rsquo; audio file will be used for the first
+beat of the bar.  The <emphasis>click gain level</emphasis> adjusts the volume of
+the click.
+</para>
+
+</section> <!-- Click -->
+
+<!-- ============================= -->
+<section><title>Automation</title>
+<!-- ============================= -->
+
+</section> <!-- Automation -->
+
+</section> <!-- Misc -->
+
+<!-- ============================ -->
+<section><title>Transport</title>
+<!-- ============================ -->
+
+<itemizedlist>
+<listitem> <emphasis>Keep record-enable engaged on stop</emphasis> &mdash; selecting this
+  option will mean that after a recording pass, the main session
+  record-enable will remain switched on; otherwise it will be switched
+  off when the transport stops.
+</listitem><listitem> <emphasis>Stop recording when an xrun occurs</emphasis> &mdash; an xrun (see
+  <xref linkend="sec-xruns"/>) during recording could well mean that the
+  recording has been corrupted by a small (or not-so-small) pop or
+  click.  If this option is enabled, recording will stop if an xrun is
+  detected, which may be useful to draw the fact to your attention.
+  It may <emphasis>not</emphasis> be desirable on long or unattended recording
+  sessions!
+</listitem><listitem> <emphasis>Create markers where xruns occur</emphasis> &mdash; a less drastic
+  option for observing xruns is to enable this option, which creates a
+  marker wherever in a session an xrun occurs during recording.  The
+  marker makes it easy to check out the area later and inspect the
+  damage.
+</listitem><listitem> <emphasis>Stop at the end of the session</emphasis> &mdash; if this is enabled,
+  the transport will stop at the end-of-session marker <!-- (does it
+    stop during record too?) -->
+</listitem><listitem> <emphasis>Do seamless looping &mdash; <!-- hmm! --></emphasis>
+</listitem><listitem> <emphasis>Primary clock delta to edit cursor</emphasis>
+</listitem><listitem> <emphasis>Secondary clock delta to edit cursor</emphasis>
+</listitem><listitem> <emphasis>Disable per-track record disarm while rolling</emphasis> &mdash; if
+  this is enabled it will be impossible to disarm a track from
+  recording while the transport is moving.  This may be useful as a
+  safety feature to prevent unwitting clicks on record enable buttons
+  from dropping tracks out of record.
+</listitem><listitem> <emphasis>12dB gain reduction during fast-forward and fast-rewind</emphasis>
+  &mdash; fast-forward/rewind can, by their nature, generate
+  unpleasant-sounding transients and high-frequency content which may
+  be trying to tired ears.  With this option enabled, Ardour will drop
+  the output by 12dB when doing &lsquo;winds&rsquo;.
+  </listitem>
+</itemizedlist>
+
+</section> <!-- Transport -->
+
+<!-- ================================================================ -->
+<section xml:id="sec-ardour-preferences-editor"><title>Editor</title>
+<!-- ================================================================ -->
+
+<itemizedlist>
+<listitem>
+<emphasis>Link selection of regions and tracks</emphasis> &mdash; with this
+  enabled, when a region is seleted its track will be too.
+</listitem>
+<listitem>
+<emphasis>Move relevant automation when audio regions are moved</emphasis>
+  &mdash; when enabled, this means that moving a region will also move any
+  automation at the same time as that region.
+</listitem>
+<listitem>
+<emphasis>Show meters on tracks in the editor</emphasis> &mdash; enable this to
+  show meters next to the track controls area for each track.
+  Disabling it will provide a slight drop in CPU load.
+</listitem>
+<listitem>
+<emphasis>Use overlap equivalency for regions} &mdash; <!-- ?! --></emphasis>
+</listitem><listitem> <emphasis>Make rubberband selection rectangle snap to the grid</emphasis>
+  &mdash; when selecting things by dragging a &lsquo;rubberband&rsquo; or &lsquo;lassoo&rsquo;
+  rectangle, this option makes that rectangle snap to any active grid.
+</listitem><listitem> <emphasis>Show waveforms in regions</emphasis> &mdash; this option draws
+  waveforms within audio regions.  Disable it to ease the load on your
+  CPU a bit.
+</listitem><listitem> <emphasis>Show gain envelopes in audio regions</emphasis> &mdash; enable this to
+  display region gain lines (see <xref linkend="sec-audio-region-gain"/>)
+</listitem><listitem> <emphasis>Waveform scale</emphasis> &mdash; this alters the scale used to plot
+  audio waveforms within regions between linear and logarithmic (ie in
+  dBs).
+</listitem><listitem> <emphasis>Waveform shape</emphasis> &mdash; waveforms can either be plotted
+  traditionally (so that negative excursions of the waveform are
+  plotted as such), or rectified (so that negative excursions are
+  drawn as positive ones).
+</listitem><listitem> <emphasis>Show waveforms for audio while it is being recorded</emphasis> &mdash;
+  disabling this will prevent Ardour from generating waveforms for
+  regions during record; again, this will lighten the load on your CPU
+  a bit.
+</listitem><listitem> <emphasis>Show zoom toolbar</emphasis> &mdash; disable this to hide the zoom
+  toolbar, which may help the editor window to fit better on small
+  screens.
+</listitem><listitem> <emphasis>Color regions using their track's color</emphasis> &mdash; this will
+  draw the trim bar of each region using the same colour as has been
+  assigned to its track. <!-- if not? -->
+</listitem><listitem> <emphasis>Update editor window during drags of the summary</emphasis> &mdash; if
+  this option is on, as you drag the view rectangle in the summary
+  (see <xref linkend="sec-summary"/>) the editor will be updated
+  instantly.  This can be a bit slow for complicated sessions; turning
+  this option off will mean that the editor only updates when you
+  finish the drag.
+</listitem><listitem> <emphasis>Synchronise editor and mixer track order</emphasis> &mdash; with this
+  option enabled the order of the tracks in the editor window will
+  match the order in the mixer; with it turned off, the track order
+  can be different.
+</listitem><listitem> <emphasis>Synchronise editor and mixer selection</emphasis> &mdash; with this
+  option turned on, selecting a track in the editor will select it in
+  the mixer, and vice-versa; otherwise selections are independent.
+</listitem><listitem> <emphasis>Name new markers</emphasis> &mdash; if this is set, when you click on
+  &lsquo;New Marker&rsquo; in the <emphasis>Locations</emphasis> window (or the locations editor
+  list), the newly-created marker's name will be set to get the
+  keyboard focus so that you can name it easily.
+  </listitem>
+</itemizedlist>
+
+</section> <!-- Editor -->
+
+<!-- ======================== -->
+<section><title>Audio</title>
+<!-- ======================== -->
+
+<!-- ============================ -->
+<section><title>Buffering</title>
+<!-- ============================ -->
+
+<para>
+These options govern how much memory Ardour will use to buffer signals
+going out for playback, and coming in for record.  Larger buffers
+provide more &lsquo;safety&rsquo;, in that there is more data prepared to cope
+with temporary slowness with your hard discs, but require more memory.
+It is not uncommon to set rather long capture buffer lengths (around a
+minute or more) to help ensure trouble-free recordings.
+</para>
+
+</section>
+
+<!-- ============================= -->
+<section><title>Monitoring</title>
+<!-- ============================= -->
+
+<para>
+The options here are:
+</para>
+
+<itemizedlist>
+<listitem>
+<emphasis>Use a monitor bus</emphasis> &mdash; as discussed in
+  <xref linkend="sec-mute-and-solo"/>, this instructs Ardour to use a
+  monitor bus, allowing the AFL/PFL features and the more advanced &lsquo;monitor section&rsquo; in the mixer window.
+</listitem>
+<listitem>
+<emphasis>Record monitoring handled by</emphasis> &mdash; this
+dictates how monitoring of incoming signals should be handled; this
+can be by the audio hardware (in which case Ardour does nothing), by
+JACK (in which case Ardour tells JACK how the monitoring should be) or
+by Ardour (in which case Ardour does things itself).  See <xref linkend="sec-monitoring"/> for a full discussion.
+</listitem>
+</itemizedlist>
+
+</section> <!-- Monitoring -->
+
+<!-- ================================================== -->
+<section><title>Connection of tracks and busses</title>
+<!-- ================================================== -->
+<para>See <xref linkend="sec-automatic-connections"/>.</para>
+</section>
+
+
+<!-- ============================ -->
+<section><title>Denormals</title>
+<!-- ============================ -->
+
+<para>
+&lsquo;Denormals&rsquo; are very small floating point numbers which can be
+generated on occasion by Ardour and also by plugins.  On some CPUs, in
+some situations, these can cause processing to slow down by a very
+large factor (10 times or more).  This in turn can cause problems with
+high CPU loads and xruns.
+</para>
+
+<sidebar>
+<para>
+The reason CPUs slow down is that in some cases they think it more
+important to maintain precision with very small numbers than to
+process them quickly.  This is true for many applications, but not for
+audio.  The numbers involved are so small (usually around the
+<inlineequation><alt>10^{-16}</alt>1e-16</inlineequation> range) that small errors in their processing are, in most
+cases, inaudible.  For audio applications it is generally preferable
+to lose some precision in order to keep things moving quickly.
+</para>
+</sidebar>
+
+<para>
+Ardour has a few strategies to deal with denormals, controlled by
+these settings:
+</para>
+
+<itemizedlist>
+<listitem>
+<emphasis>Use DC bias to protect against denormals</emphasis> &mdash; this adds a
+small DC value to strategic points in the signal processing chain.
+This is not the most efficient way to do things, but can be helpful in
+some circumstances.
+</listitem>
+<listitem>
+<emphasis>Processor handling</emphasis> &mdash; most modern (post
+year 2000) CPUs have configuration options themselves to help with
+denormals.  These are called &lsquo;Flush to zero&rsquo; and &lsquo;Denormals are zero&rsquo;.
+If these options are available on your machine (they will be
+desensitized if not), it is worth enabling them both as they are
+likely to solve the problem efficiently.
+</listitem>
+</itemizedlist>
+
+</section> <!-- Denormals -->
+
+<!-- ========================== -->
+<section><title>Plugins</title>
+<!-- ========================== -->
+
+<itemizedlist>
+<listitem>
+<emphasis>Silence plugins when the transport is stopped</emphasis>
+&mdash; when enabled, this option will &lsquo;flush&rsquo; all plugins
+when the transport is stopped.  This will prevent plugins such as
+delays and reverbs from continuing to sound when stop is pressed.
+</listitem>
+<listitem>
+<emphasis>Disable plugins during recording</emphasis> &mdash; this
+will turn off all plugins during recording, which may help to ensure
+trouble-free recordings if you have a complicated session which is
+running on the limits of your CPU power.
+</listitem>
+<listitem>
+<emphasis>Make new plugins active</emphasis> &mdash; enabling this
+option will make newly-added plugins active by default.
+</listitem>
+<listitem>
+<emphasis>Enable automatic analysis of audio</emphasis> &mdash; <!-- think this should be reworked -->
+</listitem>
+<listitem>
+<emphasis>Replicate missing region channels</emphasis> &mdash;
+</listitem>
+</itemizedlist>
+
+</section> <!-- Plugins -->
+
+</section> <!-- Audio -->
+
+<!-- ============================== -->
+<section><title>Solo / mute</title>
+<!-- ============================== -->
+<para>See <xref linkend="sec-mute-and-solo"/>.</para>
+</section> <!-- Solo / mute -->
+
+<!-- ======================= -->
+<section><title>MIDI</title>
+<!-- ======================= -->
+</section> <!-- MIDI -->
+
+<!-- =================================== -->
+<section><title>User interaction</title>
+<!-- =================================== -->
+</section> <!-- User interaction -->
+
+<!-- ============================ -->
+<section><title>Interface</title>
+<!-- ============================ -->
+</section> <!-- Interface -->
+
+</section> <!-- Ardour Properties -->
+</chapter>
+
+

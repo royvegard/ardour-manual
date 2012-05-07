@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE chapter [
+<!ENTITY % sgml.features "IGNORE">
+<!ENTITY % xml.features "INCLUDE">
+<!ENTITY % dbcent PUBLIC "-//OASIS//ENTITIES DocBook Character Entities V4.5//EN"
+   "/usr/share/xml/docbook/schema/dtd/4.5/dbcentx.mod">
+%dbcent;
+]>
+
+<chapter xmlns="http://docbook.org/ns/docbook" version="5.0" xml:lang="en">
+<title>Introduction</title>
+
+<para>
+Hello, and welcome to Ardour!
+</para>
+
+<section>
+<title>What is Ardour?</title>
+
+<para>
+Ardour is an open-source digital audio workstation (DAW) for Linux and
+Mac OS X.
+</para>
+
+</section>
+
+<section>
+<title>Typographical conventions</title>
+
+<para>
+This manual uses special symbols to denote sections which contain
+advanced material.  The reader can skip these sections without any
+great loss.
+</para>
+
+<sidebar>
+<para>
+Tricky parts of the text are formatted like this.  They contain extra
+information which may be of interest to advanced users.
+</para>
+</sidebar>
+
+</section>
+
+
+
+
+<section>
+<title>About this manual</title>
+
+<para>
+This manual is a work-in-progress.  In other words, it is not even
+close to being complete.  Any suggestions for improvements, content,
+or comments on parts that do not make sense are welcome to
+<ulink url="mailto:cth@carlh.net">cth@carlh.net</ulink>.
+</para>
+
+<sidebar>
+<para>
+For those familiar with &lsquo;git&rsquo;, the manual's DocBook source can be
+obtained from the git repository linked from <ulink
+url="http://carlh.net/ardour">http://carlh.net/ardour</ulink>.
+Patches to the manual are most welcome.
+</para>
+</sidebar>
+
+</section>
+
+<section>
+<title>Getting help with Ardour</title>
+
+<para>
+There are several places that you can get help with using Ardour.
+</para>
+
+
+<section>
+<title>The website</title>
+
+<para>
+Ardour's website (<ulink url="http://ardour.org/">http://ardour.org</ulink>) contains many
+useful resources, including a list of frequently-asked questions, a
+forum and a bug and feature request tracker.
+</para>
+
+</section>
+
+<section>
+<title>IRC</title>
+<indexterm><primary>IRC</primary></indexterm>
+
+<para>
+Ardour's core developers and several key users are usually to be found
+on Internet Relay Chat (IRC) on <ulink url="irc://irc.freenode.net">irc.freenode.net</ulink> in #ardour and
+#ardour-osx at pretty much any hour of the day or night.  This is a
+live chat system that is great for dicussing Ardour's development,
+design, and also user problems.  There are IRC clients for most
+operating systems, or you can join in directly from your web browser
+by choosing <guimenuitem>Chat</guimenuitem> from the Ardour's <guimenu>Help</guimenu> menu.
+</para>
+
+<para>
+If you join the IRC rooms, here are a few tips:
+
+<itemizedlist>
+<listitem>
+<emphasis>Don't ask to ask, just ask</emphasis> &mdash; rather than saying &lsquo;Is it
+  ok if I ask a question?&rsquo;, just ask your question &mdash; it is not
+  considered rude to do so.  Then wait: your answer may come in
+  seconds, minutes, hours or never, depending on who is around and
+  what time of the day it is wherever they happen to be in the world.
+  In particular, make sure you <emphasis>do</emphasis> wait; do not get upset if you
+  don't get an answer straight away.
+</listitem>
+<listitem>
+<emphasis>Don't be offended if no-one replies</emphasis> &mdash; although other
+  users may be logged into the channel, they may well be coding
+  Ardour, cooking, reading XKCD, cleaning their ostrabagalous devices,
+  or any number of other things.
+</listitem>
+<listitem>
+<emphasis>Don't paste large amounts of text into the
+channel</emphasis> &mdash; if you have more than a couple of lines of
+output from some command that you want to show everyone, use a site
+like <olink url="http://pastebin/com">pastebin.com</olink> You can
+copy your text into that site, and it will give you a web address that
+you can paste into the channel.
+</listitem>
+<listitem>
+<emphasis>Be as detailed as possible</emphasis> &mdash; if you have a problem,
+  tell us what version of Ardour you are using, and what operating
+  system you are running on (Linux, OS X or Windows).
+</listitem>
+</itemizedlist>
+</para>
+
+</section>
+
+
+<section>
+<title>Mailing lists</title>
+
+There is a Ardour users mailing list, where various discussions about
+Ardour (and recording in general) take place.  There are links to join
+the list on Ardour's website.
+
+</section>
+
+<section>
+<title>Support expectations</title>
+
+<para>
+As Ardour evolves, it becomes a serious alternative to commercial
+products for more and more people. We see the download counts increase
+for each new release, and the volume of traffic on the mailing lists
+is growing. That's lovely, of course. We work on Ardour without the
+accoutrements of a &lsquo;normal&rsquo; software corporation, so whenever a new
+user finds our work useful and worthwile, it makes what we do seem
+meaningful and worth continuing with.
+</para>
+
+<para>
+Unfortunately, it's not all roses we receive.  With wider public
+interest and more users, there's bound to be people who are
+disappointed in Ardour. We believe, however, that it's only because
+most newcomers do not realize what to expect.
+</para>
+
+
+<section>
+<title>The development team</title>
+
+<para>
+Many users probably don't realize it, but the development team driving
+Ardour forward is very small for the amazingly complex piece of
+software that is a contemporary DAW.
+</para>
+
+<para>
+At this time, the main force behind Ardour is delivered by one person,
+with core aid from two others, and contributions from on the order of
+a dozen others. Consider that we do support, web site maintenance,
+documentation, feature enhancements, debugging, as well as
+development.
+</para>
+
+<para>
+There are more people (perhaps another dozen) pitching in with
+translation, release engineering (preparing Ardour for users), Mantis
+triaging (&lsquo;Mantis&rsquo; is the bug database used to keep track of known
+problems, &lsquo;triaging&rsquo; the process of prioritizing and verifying bugs)
+and other necessary tasks.
+</para>
+
+<para>
+So we are always looking for new people to help, and while
+(unfortunately) a common misconception is that a project like Ardour
+would only benefit from more programmers, it is not the case! Whatever
+your ability, we can use it. If you are interested in spending a
+little time making Ardour a better DAW, please don't hesitate to join
+the developer mailing list and offer your services.
+</para>
+
+</section>
+<section>
+<title>Ardour features and polish</title>
+
+<para>
+As Ardour is getting more powerful and usable, we attract more and
+more users who expect the same feature set and product polish as
+they'll find in a commercial product such as DigiDesign's ProTools or
+Steinberg's Nuendo. This isn't the right way to think about Ardour at
+this time.
+</para>
+
+<para>
+Not that we don't want to get there, you understand, but it's simply
+not a reasonable comparison. DigiDesign has spent who knows how many
+man-hours worth of development on ProTools and can spend a lot on
+getting good documentation written, new features, debugging,
+installation process made smooth and generally polish the thing till
+it shines. In comparison, Ardour development is driven primarily by
+the interests of just a few people. Development is a full time job for
+the lead developer, who also raises a three kids, fixes up his house,
+has friends and even a relationship with a gorgeous woman.
+</para>
+
+<para>
+Do not read that as an excuse for why Ardour lacks in comparison with
+other products. Do read it as an explanation for why you should expect
+nothing more from Ardour than it actually delivers. And rest assured
+that the developers want and expect it to rival, or better yet, beat
+the proprietary DAWs. That's why we're so committed to this
+development model &mdash; because we believe it's the best way to get there.
+</para>
+
+</section>
+
+<section>
+<title>Releases</title>
+
+<para>
+Ardour releases are also put together by volunteers. This means that
+there's usually only prebuilt binaries available for a few select
+platforms. While we would like to see Ardour prebuilt for all the
+platforms (and operating system versions) Ardour runs on, it's simply
+not possible since the volunteers doing the release only have access
+to a subset of those platforms.
+</para>
+
+<para>
+With specific regards to library dependencies: depending on the
+volunteer's machine configuration, the Ardour binary may require you
+to install additional or newer libraries before it will work. If so,
+the installation instructions should contain the necessary information
+for you to find those libraries. Please do not complain about the need
+for these libraries &mdash; just as you might dislike installing/upgrading
+the libraries, the volunteer doing the release may dislike
+removing/downgrading the libraries on her machine.
+</para>
+
+<para>
+If you find that there are no prebuilt binaries for your
+platform/configuration, and are willing to help provide packages for
+coming releases, please join the developer mailing list and offer your
+services. It is not a requirement that you are a programmer, but there
+may be a requirement for (commercial) development tools which not
+everyone would have access to. If you have the time and tools, we can
+probably guide you through the process, even if you don't have the
+knowledge.
+</para>
+
+</section>
+
+<section>
+<title>Support</title>
+
+<para>
+You can join both the user and developer mailing lists and ask
+questions there. You can also ask for help on IRC, and you can file
+bug reports and feature requests in Mantis. However, since support is
+also provided on a volunteer basis, you must be careful not to have
+unreasonable expectations: you cannot demand your questions to be
+answered or bugs to be fixed. In short: the people volunteering time
+to Ardour only have so much time available, and they alone decide how
+to spend it. Please respect their choice.
+</para>
+
+<para>
+When that is said, you should know that the mailing list and the IRC
+channel are friendly places &mdash; few requests go without reply. And we
+also do our best to fix all bugs reported, just as we strive to
+implement requested features. But as should be evident from the number
+of open bugs in Mantis, there's not enough hours in the day to allow
+us to address all issues in a timely manner.
+</para>
+
+</section>
+</section>
+</section>
+</chapter>

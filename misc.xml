@@ -1,0 +1,629 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE book [
+<!ENTITY % sgml.features "IGNORE">
+<!ENTITY % xml.features "INCLUDE">
+<!ENTITY % dbcent PUBLIC "-//OASIS//ENTITIES DocBook Character Entities V4.5//EN"
+   "/usr/share/xml/docbook/schema/dtd/4.5/dbcentx.mod">
+%dbcent;
+<!ENTITY % keys SYSTEM "keys.ent">
+%keys;
+<!ENTITY % extensions SYSTEM "extensions.ent">
+%extensions;
+]>
+
+<chapter xmlns="http://docbook.org/ns/docbook" version="5.0" xml:lang="en">
+<title>Unfiled miscellany</title>
+
+<section>
+<title>MIDI binding maps</title>
+
+<para>
+MIDI binding maps provide a way to set up how a physical control
+surface (such as a Behringer BCF2000 or Mackie Control) interacts with
+Ardour.  An XML file is created to describe the mapping, and Ardour
+loads it.  Maps for several devices are supplied with Ardour:
+</para>
+
+<itemizedlist>
+<listitem>
+Behringer BCF2000 (in native and Mackie Control modes)
+</listitem>
+<listitem>
+Behringer DDX3216
+</listitem>
+<listitem>
+Korg nano-Kontrol
+</listitem>
+<listitem>
+M-Audio Oxygen 8 v2
+</listitem>
+<listitem>
+M-Audio Axiom 25
+</listitem>
+<listitem>
+Roland SI-24
+</listitem>
+<listitem>
+EMU Xboard61
+</listitem>
+</itemizedlist>
+
+<para>
+This chapter describes the format of the maps and how to create your own.
+</para>
+
+
+<section>
+<title>File basics</title>
+
+<para>
+MIDI bindings are stored in files with the suffix <code>.map</code>
+attached to their name. The minimal content looks like this:
+</para>
+
+<programlisting>
+&lt;?xml version="1.0" encoding="UTF-8"?>
+&lt;ArdourMIDIBindings version="1.0.0" name="The name of this set of bindings">
+&lt;/ArdourMIDIBindings>
+&lt;/programlisting>
+</programlisting>
+
+The remainder of the file gives the bindings themselves, describing
+the two parts of each binding: MIDI data that your controller sends,
+and things that Ardour does in response.
+
+<para>
+A binding is an XML node called <code>&lt;Binding></code>.  The properties of the
+node give the details of the binding.  
+</para>
+
+</section>
+<section>
+<title>Finding out what your MIDI control surface sends</title>
+
+This is the most complex part of the job, but it's still not very hard.
+You need to connect the control surface to an application that will
+show you the information that the device sends each time you modify a
+knob, slider, button etc.  There are a variety of such applications;
+most notably gmidimon and kmidimon.  You can also use Ardour for this:
+
+<orderedlist>
+<listitem>
+Select <guimenuitem>MIDI Tracer</guimenuitem> from the <guimenu>Window</guimenu> menu.
+</listitem>
+<listitem>
+Choose &lsquo;MIDI Control In&rsquo; from the Port selector.
+</listitem>
+<listitem>
+Use the MIDI connection matrix to connect Ardour's
+MIDI Control In port to the MIDI port that your control surface is
+sending data in on.
+</listitem>
+<listitem> Then watch the control surface's MIDI data appear
+in the MIDI Tracer window as you twiddle knobs or push buttons.
+</listitem>
+</orderedlist>
+
+
+</section>
+<section>
+<title>Describing MIDI in the binding file</title>
+
+<para>
+The properties for specifying the MIDI data in a <code>&lt;Binding></code>
+node are as follows:
+</para>
+
+<itemizedlist>
+<listitem> <code>channel="c" ctl="m"</code> &mdash; a continuous controller message m arriving on channel c.
+</listitem><listitem> <code>channel="c" note="n"</code> &mdash; a note-on message for note n arriving on channel c.
+</listitem><listitem> <code>channel="c" pgm="p"</code> &mdash; a program change message to program p arriving on channel c.
+</listitem><listitem> <code>channel="c" pb="0"</code> &mdash; a pitch bend message on channel c.
+</listitem><listitem> <code>sysex="a b c ..."</code> &mdash; a sequence of MIDI bytes a, b, c and so on that make up a system-exclusive message (as hexadecimal bytes)
+</listitem><listitem> <code>msg="a b c ..."</code> &mdash; an arbitrary sequence of MIDI bytes a, b, c and so on (as hexadecimal bytes)
+</listitem>
+</itemizedlist>
+
+</section>
+<section><title>Binding to Ardour</title>
+
+There are two basic kinds of bindings you can make between a MIDI
+message and something inside Ardour. The first is a binding to a
+specific parameter of a track or bus. The second is a binding to a
+function that will change Ardour's state in some way. 
+
+
+<section><title>Binding to track/bus controls</title>
+
+A track/bus binding is a binding to an individual track or bus inside
+Ardour.  Such a binding requires the name of the property to control,
+which can be one of:
+
+<itemizedlist>
+<listitem> <code>/route/gain</code>
+</listitem><listitem> <code>/route/solo</code>
+</listitem><listitem> <code>/route/mute</code>
+</listitem><listitem> <code>/route/recenable</code>
+</listitem><listitem> <code>/route/send/gain</code>
+</listitem><listitem> <code>/route/plugin/parameter</code>
+</listitem>
+</itemizedlist>
+
+<para>
+It then requires an address.  For track-level controls (solo, gain, mute, record-enable), the address is one of:
+</para>
+
+<itemizedlist>
+<listitem> A number &mdash; the remote control ID of a track or bus
+</listitem><listitem> The letter <emphasis>B</emphasis> followed by a number &mdash; the remote control ID of a track or bus within the current bank
+</listitem><listitem> One or more words &mdash; the name of a track or bus
+</listitem>
+</itemizedlist>
+
+<para>
+For send, insert and plugin controls, the address consists of a track
+or bus address followed by a number identifying the plugin or send
+(starting from 1).  For plugin parameters, there is an additional third
+component: a number identifying the plugin parameter number (starting
+from 1).
+</para>
+
+<para>
+For solo and mute bindings, you can also add <code>momentary="yes"</code> after the
+control address. This is useful primarily for note-on bindings &mdash; when
+Ardour gets the note-on it will solo or mute the targetted track or
+bus, but then when a note-off arrives, it will un-solo or un-mute it.
+</para>
+
+<para>
+The specification of a track or bus binding is put inside a <code>uri</code> property.  For example,
+</para>
+<programlisting>
+&lt;Binding channel="1" ctl="20" uri="/route/gain 2">
+</programlisting>
+
+<para>
+binds a control change on controller 20, channel 1 to the gain of track 2.  As another example
+</para>
+
+<programlisting>
+&lt;Binding channel="4" note="20" uri="/route/recenable B5">
+</programlisting>
+
+<para>
+binds a note-on for note 20 on channel 4 to the record-enable state of
+the 5th track in the current bank.
+</para>
+
+</section>
+</section>
+<section><title>Binding to Ardour &lsquo;functions&rsquo;</title>
+
+<para>
+Rather than binding to a specific track/bus control, it may be useful
+to have a MIDI controller able to alter some part of Ardour's state. A
+binding definition that does this looks like this:
+</para>
+
+<programlisting>
+&lt;Binding channel="1" note="13" function="transport-roll"/>
+</programlisting>
+
+<para>
+In this case, a note-on message for note number 13 (on channel 1) will
+start the transport rolling. The following function names are
+available:
+</para>
+
+<itemizedlist>
+<listitem>
+<code>transport-stop</code> &mdash; stop the transport 
+</listitem>
+<listitem>
+<code>transport-roll</code> &mdash; start the transport &lsquo;rolling&rsquo;
+</listitem>
+<listitem>
+<code>transport-zero</code> &mdash; move the playhead to the zero position 
+</listitem>
+<listitem>
+<code>transport-start</code> &mdash; move the playhead to the start marker 
+</listitem>
+<listitem>
+<code>transport-end</code> &mdash; move the playhead to the end marker 
+</listitem>
+<listitem>
+<code>loop-toggle</code> &mdash; turn on loop playback 
+</listitem>
+<listitem>
+<code>rec-enable</code> &mdash; enable the global record button 
+</listitem>
+<listitem>
+<code>rec-disable</code> &mdash; disable the global record button 
+</listitem>
+<listitem>
+<code>next-bank</code> &mdash; move track/bus mapping to the next bank (see &lsquo;banks&rsquo; below) 
+</listitem>
+<listitem>
+<code>prev-bank</code> &mdash; move track/bus mapping to the previous bank (see &lsquo;banks&rsquo; below) 
+</listitem>
+</itemizedlist>
+
+</section>
+<section>
+<title>Binding to Ardour &lsquo;actions&rsquo;</title>
+
+<para>
+You can also bind a sysex or arbitrary message to any of the items
+that occur in Ardour's main menu (and its submenus). The best place to
+look for the (long) list of how to address each item is in your
+keybindings file, which will contain lines that look like this:
+</para>
+
+<programlisting>
+(gtk_accel_path "&lt;Actions>/Editor/temporal-zoom-in" "equal")
+</programlisting>
+
+To create a binding between an arbitrary MIDI message (we'll use a
+note-off on channel 1 of MIDI note 60 (hex) with release velocity 40
+(hex)), the binding file would contain:
+
+<programlisting>
+&lt;Binding msg="80 60 40" action="Editor/temporal-zoom-in"/>
+</programlisting>
+
+<para>
+The general rule when taking an item from the keybindings file and
+using it in a MIDI binding is to strip the &lt;Action> prefix of
+the second field in the keybinding definition.
+</para>
+
+</section>
+<section>
+<title>Banks and banking</title>
+
+<para>
+Because many modern control surfaces offer per-track/bus controls for
+far fewer tracks and busses than many users want to control, Ardour
+offers the relatively common place concept of &lsquo;banks&rsquo;. Banks to allow
+you to relatively easily control any number of tracks and/or busses
+regardless of how many faders/knobs etc. your control surface has. To
+use banking, the control addresses must be specified using the bank
+relative format mentioned above (&lsquo;B1&rsquo; to identify the first track of a
+bank of tracks, rather than &lsquo;1&rsquo; to identify the first track).
+</para>
+
+<para>
+One very important extra piece of information is required to use
+banking: an extra line near the start of the list of bindings that
+specifies how many tracks/busses to use per bank. If the device has 8
+faders, then 8 would be a sensible value to use for this. The line
+looks like this:
+</para>
+
+<programlisting>
+&lt;DeviceInfo bank-size="8"/>
+</programlisting>
+
+<para>
+In addition, you probably want to ensure that you bind something on
+the control surface to the next-bank and prev-bank functions,
+otherwise you and other users will have to use the mouse and the GUI
+to change banks, which rather defeats the purpose of the bindings.
+</para>
+
+</section>
+<section>
+<title>Motorised controls</title>
+
+<para>
+If your surface's controls are motorised, so that Ardour can move your physical controls,
+add
+</para>
+
+<programlisting>
+motorised="yes"
+</programlisting>
+
+<para>
+to your <code>&lt;DeviceInfo></code> node, so that it reads something like
+</para>
+
+<programlisting>
+&lt;DeviceInfo bank-size="8" motorised="yes">
+</programlisting>
+
+This will make Ardour more efficient in handling your controls.
+
+</section>
+<section>
+<title>A complete (though muddled) example</title>
+
+<programlisting>
+&lt;?xml version="1.0" encoding="UTF-8"?>
+&lt;ArdourMIDIBindings version="1.0.0" name="pc1600x transport controls">
+&lt;DeviceInfo bank-size="16"/>
+&lt;Binding channel="1" ctl="1"   uri="/route/gain B1"/>
+&lt;Binding channel="1" ctl="2"   uri="/route/gain B2"/>
+&lt;Binding channel="1" ctl="3"   uri="/route/send/gain B1 1"/>
+&lt;Binding channel="1" ctl="4"   uri="/route/plugin/parameter B1 1 1"/>
+&lt;Binding channel="1" ctl="6"   uri="/bus/gain master"/>
+
+&lt;Binding channel="1" note="1"  uri="/route/solo B1"/>
+&lt;Binding channel="1" note="2"  uri="/route/solo B2" momentary="yes"/>
+
+&lt;Binding channel="1" note="15"  uri="/route/mute B1" momentary="yes"/>
+&lt;Binding channel="1" note="16"  uri="/route/mute B2" momentary="yes"/>
+
+&lt;Binding sysex="f0 0 0 e 9 0 5b f7" function="transport-start"/>
+&lt;Binding sysex="f0 7f 0 6 7 f7" function="rec-disable"/>
+&lt;Binding sysex="f0 7f 0 6 6 f7" function="rec-enable"/>
+&lt;Binding sysex="f0 0 0 e 9 0 53 0 0 f7" function="loop-toggle"/>
+
+&lt;Binding channel="1" note="13" function="transport-roll"/>
+&lt;Binding channel="1" note="14" function="transport-stop"/>
+&lt;Binding channel="1" note="12" function="transport-start"/>
+&lt;Binding channel="1" note="11" function="transport-zero"/>
+&lt;Binding channel="1" note="10" function="transport-end"/>
+&lt;/ArdourMIDIBindings>
+</programlisting>
+
+Please note that channel, controller and note numbers are specified as
+decimal numbers in the ranges 1-16, 0-127 and 0-127 respectively.
+
+</section>
+</section>
+<section><title>The processor list</title>
+
+<para>
+Each track or bus in Ardour has a list of <emphasis>processors</emphasis> that
+operate on the audio or MIDI signal passing through it.  The operation
+of the processor list is illustrated in
+<xref linkend="fig-basic-processor-list"/>.
+</para>
+
+<figure id="fig-basic-processor-list"> 
+  <title>Basic structure of a track or bus</title> 
+  <mediaobject>
+    <imageobject> 
+      <imagedata fileref="diagrams/basic-processor-list&dia;"/>
+    </imageobject> 
+  </mediaobject>
+</figure>
+
+<para>
+Audio or MIDI data arrives from a file on disk, or from the input
+ports, depending on the monitoring settings that are in effect.  It is
+then passed through each processor in sequence, before being panned
+and sent to the output ports.
+</para>
+
+<para>
+The term &lsquo;processor&rsquo; is a very general one.  It includes:
+</para>
+
+<itemizedlist>
+<listitem> Plugins (LADSPA, LV2, VST etc.)
+</listitem><listitem> Sends and returns
+</listitem><listitem> The fader
+</listitem><listitem> The meter
+</listitem>
+</itemizedlist>
+
+<para>
+Some processors are shown in the Ardour's mixer strip, and some are
+hidden.  Consider the example mixer strip shown in <xref linkend="fig-processor-box"/>.
+</para>
+
+<figure id="fig-processor-box"> 
+  <title>The processor box</title> 
+  <mediaobject>
+    <imageobject> 
+      <imagedata fileref="screenshots/processor-box&scs;"/>
+    </imageobject> 
+  </mediaobject>
+</figure>
+
+<para>
+Here we see five visible processors; they are:
+</para>
+
+<orderedlist>
+<listitem> &lsquo;Autotalent'; a plugin.  This is coloured red to indicate
+  that it is pre-fader.
+</listitem>
+<listitem> The fader.  This is where the mixer fader's gain is applied.
+</listitem>
+<listitem> Invada High Pass; a plugin.
+</listitem>
+<listitem> 4-band parameteric; another plugin.  The symbol between the
+  high-pass and the parametric indicates that the signal is being
+  split from mono to stereo, as the parametric is a stereo plugin.
+</listitem>
+<listitem>
+TAP dynamics; another plugin.
+</listitem>
+</orderedlist>
+
+<para>
+Some processors are not shown on this list:
+</para>
+
+<itemizedlist>
+<listitem> The meter; a processor which assesses the level of the signal at
+  its point in the processor chain.
+</listitem><listitem> A send to the main output.
+</listitem><listitem> A send to the monitor bus, if one is being used.
+</listitem>
+</itemizedlist>
+
+
+</section>
+<section><title>Operations on the processor list</title>
+
+<para>
+The processor list in each mixer strip can be manipulated in several
+different ways.
+</para>
+
+<para>
+Firstly, processors can be re-ordered using drag-and-drop.  Dragging a
+processor allows it to be moved around within the chain, or copied to
+another processor list on another track or bus.
+</para>
+
+<para>
+Secondly, processors can be enabled or disabled.  To the left of the
+name of each processor is a small LED symbol; if this is lit-up, the
+processor is active.  Clicking on it will deactivate the processor.
+It will still pass audio or MIDI signals, but they will not be
+affected.
+</para>
+
+<para>
+Finally, processors can be added to or removed from the chain.
+Right-clicking the processor list does three things:
+</para>
+
+<itemizedlist>
+<listitem> A gap is opened up to indicate the location of the click.  The
+  gap shows where any new processors will be inserted.
+</listitem><listitem> The processor under the click is selected.
+</listitem><listitem> A menu is presented giving options of what to do.
+</listitem>
+</itemizedlist>
+
+<para>
+From the menu, some new processors can be inserted.  These can be
+plugins, sends or internal sends.  The selected processor can also be
+deleted or copied.
+</para>
+
+</section>
+<section><title>Tracks and busses in detail</title>
+
+<sidebar>
+<para>
+This section goes into somewhat unhealthy detail about how tracks and
+busses operate internally.  It may be of interest to almost nobody.
+</para>
+</sidebar>
+
+<para>
+Tracks and busses in Ardour share a common basis; they are both
+pathways through which audio and MIDI data can pass, experiencing
+various processing and distribution along the way.  The only real
+difference between a track and a bus is that a track can either obtain
+its input from a JACK port, or from files on disk; a bus has no disk
+files, so only processes signals coming from other parts of Ardour, or
+from other programs via JACK.
+</para>
+
+<para>
+Internally, Ardour uses the term &lsquo;route&rsquo; to describe a bus, with a
+track being a superset of the route's functionality (to include the
+parts which read from and write to disk).  This chapter uses the word
+&lsquo;route&rsquo; to indicate either a track or a bus, where the two have the
+same behaviour.
+</para>
+
+<para>
+Not all of the processing that signals experience as they travel
+through routes is visible in the Ardour user-interface. The visible parts
+are the plugins, the fader, the meter and (if present) the panner.
+There are other invisible processes that happen to support Ardour's
+internal operation.  <xref linkend="fig-route-in-detail"/> gives a
+representation of the entire pathway of a route.
+</para>
+
+<figure id="fig-route-in-detail"> 
+  <title>Detailed view of a route</title> 
+  <mediaobject>
+    <imageobject> 
+      <imagedata fileref="diagrams/route-in-detail&dia;"/>
+    </imageobject> 
+  </mediaobject>
+</figure>
+
+<para>
+Audio or MIDI data starts from either a set of JACK ports or a disk
+file.  Busses always take their initial data from JACK ports, and
+tracks can do either depending on monitoring settings.  It is possible
+for tracks and busses to have no input, in which case the signal
+starts off as silence.
+</para>
+
+<para>
+If a track is recording, data is taken straight from the JACK input
+ports and recorded; no processing on track will have any effect on the
+recorded signal.
+</para>
+
+<para>
+The signal then enters the processing chain.  Internally, this chain
+is a set of &lsquo;processors&rsquo; connected in series.  Some processors are put
+in place by Ardour, and some are at the whim of the user.
+</para>
+
+<section><title>Export</title>
+
+<!-- XXX -->
+
+</section>
+<section><title>Internal return</title>
+
+<para>
+This is the point at which internal send signals from other routes
+appears in the route being sent to.  This processor gathers signals
+from all its connected sends and mixes them with the signal in the
+route at that point.
+</para>
+
+</section>
+<section><title>Monitor control</title>
+
+<!-- XXX -->
+
+</section>
+<section><title>Monitor send</title>
+
+<para>
+The monitor send is an internal send which sends the route's signal,
+whever it is located, to the monitor bus.  The monitor send is located
+in different places, depending on the settings for AFL and PFL.
+</para>
+
+</section>
+<section><title>Meter</title>
+
+<para>
+The meter processor passes signals unaltered, but meters them on the
+way through.  It can be moved around depending on the meter point settings.
+</para>
+
+</section>
+<section><title>User processors</title>
+
+<para>
+These are the &lsquo;conventional&rsquo; user-visible processors: plugins and
+internal sends to other tracks or busses.
+</para>
+
+</section>
+<section><title>Amp</title>
+
+<para>
+This is a gain-control element which is controlled by the fader.
+</para>
+
+</section>
+<section><title>Main out</title>
+
+<para>
+This processor takes the route's signal, optionally pans it, and then
+passes it to a set of JACK ports; this represents the main output of
+the route.
+</para>
+
+</section>
+</section>
+</chapter>

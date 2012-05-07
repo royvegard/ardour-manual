@@ -1,0 +1,835 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE book [
+<!ENTITY % sgml.features "IGNORE">
+<!ENTITY % xml.features "INCLUDE">
+<!ENTITY % dbcent PUBLIC "-//OASIS//ENTITIES DocBook Character Entities V4.5//EN"
+   "/usr/share/xml/docbook/schema/dtd/4.5/dbcentx.mod">
+%dbcent;
+<!ENTITY % keys SYSTEM "keys.ent">
+%keys;
+<!ENTITY % extensions SYSTEM "extensions.ent">
+%extensions;
+]>
+
+<chapter xmlns="http://docbook.org/ns/docbook" version="5.0" xml:lang="en">
+<title>Editing</title>
+
+<para>
+&lsquo;Editing&rsquo; is the name given to the process of manipulating recorded or
+imported audio and MIDI data.  There is some common ground between the
+two, but of course there are also differences.  This chapter discusses
+Ardour's editing facilities for the two types of data.
+</para>
+
+
+<section><title>Basic region operations</title>
+
+<para>
+The region is the basic component of Ardour that we are concerned with
+editing.  <xref linkend="fig-audio-region"/> shows a typical audio region.
+</para>
+
+<figure id="fig-audio-region">
+  <title>An audio region</title>
+  <mediaobject>
+    <imageobject> 
+      <imagedata fileref="diagrams/audio-region&dia;"/>
+    </imageobject> 
+  </mediaobject>
+</figure>
+
+<para>
+In the region we can see a representation of the waveform of the audio
+data for both the left and right channels (since this is a stereo
+region).  At the bottom is a coloured bar containing the name of the
+region.
+</para>
+
+<para>
+There are few basic operations that can be performed on a region.
+Left-clicking and dragging will move the region; regions can be moved
+in time, or to a different track.  &modone;-dragging will make a copy
+of the region and start moving it.  
+</para>
+
+<para>
+Clicking and dragging towards the left or right side of the region, or
+anywhere within the &lsquo;trim bar&rsquo;, trims the start or end of the region.
+<xref linkend="fig-audio-region-trim"/> shows a trim in progress.
+</para>
+
+<figure id="fig-audio-region-trim">
+  <title>Trimming the end of an audio region</title> 
+  <mediaobject>
+    <imageobject> 
+      <imagedata fileref="screenshots/region-trim-end&scs;"/>
+    </imageobject> 
+  </mediaobject>
+</figure>
+
+<para>
+Right-clicking anywhere on a track (including over a region) displays
+the track menu.  The top entry in this menu will be the name of the
+region that was clicked on, and this entry's submenu offers a large
+selection of operations which can be applied to the region.  These
+operations are described in Chapter <xref linkend="ch-region-operations"/>.
+</para>
+
+<section>
+<title>Splitting regions</title>
+
+<para>
+Regions can be split into two or more new regions using the
+&lsquo;split&rsquo; command.  This is available from the region context
+menu's <guimenu>Split</guimenu> item from the <guimenu>Edit</guimenu>
+menu.  (or bound to <keycap>S</keycap>).  The split will happen at the
+edit point (see <xref linkend="sec-edit-point-selector"/>).
+</para>
+
+<!-- This logic is in the comment for Editor::get_regions_from_selection_and_edit_point() -->
+
+<para>
+The way in which Ardour decides <emphasis>which</emphasis> regions to split is a
+little involved as it depends on the edit point that is being used.
+</para>
+
+<para>
+If the edit point is &lsquo;mouse&rsquo; and you are pointing at an unselected
+region, that region will be split; otherwise, regions on any tracks
+with selected regions will be split if they lie at the time that the
+mouse pointer is at.
+</para>
+
+<para>
+If the edit point is &lsquo;playhead&rsquo; or &lsquo;marker&rsquo;, any regions underneath
+the edit point on tracks that are either themselves selected, or
+contain selected regions, will be split.
+</para>
+
+<para>
+This makes more sense in practice than it does written down!  In
+general, the easiest approach to getting the split you want is often
+to select the regions that you want to split, put the edit point at
+the split, then hit &lsquo;S&rsquo;.
+</para>
+
+<para>
+If tracks which have regions to be split are themselves members of
+groups (see <xref linkend="sec-track-and-bus-groups"/>) that have the
+&lsquo;share edit&rsquo; property set, the other members of the group will also be
+examined for regions to split.
+</para>
+
+
+</section>
+</section>
+<section><title>Duplicating regions</title>
+
+
+</section>
+<section xml:id="sec-overlapping-regions"><title>Overlapping regions</title>
+<indexterm><primary>overlap</primary></indexterm>
+
+<para>
+A track can have regions which overlap in time.  When this happens,
+several factors determine what output the track will generate.
+</para>
+
+<para>
+A track (or really, a playlist) is considered to have its regions in a
+stack.  That is, they are ordered, as if they were placed in a pile.
+Thus, with overlapping regions, there are regions which are above or
+beneath others.  With the default settings, Ardour will play the
+topmost region in the stack at any particular point in time.  This is
+shown in <xref linkend="fig-overlapping-regions"/>.
+</para>
+
+<figure id="fig-overlapping-regions"> 
+  <title>Some overlapping regions</title>
+  <mediaobject>
+    <imageobject> 
+      <imagedata fileref="diagrams/overlapping-regions&dia;"/>
+    </imageobject> 
+  </mediaobject>
+</figure>
+
+<para>
+The diagram shows a collection of regions, expanded so that you can
+see how they are stacked.  The green areas show the bits that Ardour
+will play by default.
+</para>
+
+<para>
+The initial stacking order of regions is simple: the more recently the
+region was added to the track (by whatever means: recording,
+importing, copying etc.) the higher in the stack it will be.  If this
+intial stacking is not what you need, there are a few ways that it can
+be manipulated.  Note that the initial stacking is just that:
+<emphasis>initial</emphasis>.  Any modifications that you make to stacking order
+will be remembered by Ardour.
+</para>
+
+
+
+<section><title>Raising and lowering overlapping regions</title>
+
+<para>
+Most simply, regions can be raised or lowered in the stack using
+options in the region context menu under
+<guimenuitem>Layering</guimenuitem>; regions can be raised or lowered
+either by one level or right to the top or bottom of the stack.
+</para>
+
+<para>
+Another option is to put a region's track into
+<emphasis>stacked</emphasis> mode.  To do this, right-click on the
+track controls area and choose <guimenuitem>Stacked</guimenuitem> from
+the <guimenu>Layers</guimenu> menu. In this mode, rather than
+overlapping regions being drawn on top of each other, regions are
+drawn more like those in <xref linkend="fig-overlapping-regions"/>.
+This makes the arrangement of the track's regions a little more
+obvious.  Areas of regions that will not be played back are shaded
+dark-grey to make things clearer.
+</para>
+
+<para>
+In this mode, it is possible to move regions up and down in the stack
+just as you would move them around normally.  Dragging a region makes
+all the regions on the track &lsquo;jump&rsquo; apart on the display; at this
+point, the region that you are dragging can be moved anywhere within
+the stack.
+</para>
+
+</section>
+</section>
+
+<section id="sec-audio-region-fades">
+<title>Audio region fades</title>
+<indexterm><primary>fade</primary></indexterm>
+
+<para>
+Audio regions have a few properties of their own, with respect to
+MIDI.  One is that they have optional <emphasis>fades</emphasis> at their
+beginning and end.  A fade is effectively a change in gain; the start
+of the region fades from -&infin;dB to 0dB and the end fades from
+0dB out to -&infin;dB.  
+</para>
+
+<para>
+These fades can be of any length and a variety of shapes.
+<xref linkend="fig-region-fades"/> shows some regions with some examples of fades.
+</para>
+
+<figure id="fig-region-fades">
+  <title>Some regions with fades</title> 
+  <mediaobject>
+    <imageobject> 
+      <imagedata fileref="screenshots/region-fades&scs;"/>
+    </imageobject> 
+  </mediaobject>
+</figure>
+
+<para>
+When the mouse pointer is over an audio region, fade handles will
+appear and the fades&rsquo; lengths can be changed, as shown in
+<xref linkend="fig-dragging-fades"/>.
+</para>
+
+<figure id="fig-dragging-fades">
+  <title>Dragging a fade-in</title> 
+  <mediaobject>
+    <imageobject> 
+      <imagedata fileref="diagrams/dragging-fades&dia;"/>
+    </imageobject> 
+  </mediaobject>
+</figure>
+
+<para>
+The shape of the fade can be changed by right-clicking over the fade;
+this will pop up a menu as in <xref linkend="fig-fades-menu"/>.
+</para>
+
+<figure id="fig-fades-menu">
+  <title>Fade shape menu</title> 
+  <mediaobject>
+    <imageobject> 
+      <imagedata fileref="screenshots/fades-menu&scs;"/>
+    </imageobject> 
+  </mediaobject>
+</figure>
+
+<section><title>Cross-fading</title>
+<indexterm><primary>crossfade</primary></indexterm>
+
+<para>
+Region fades have an important consequence in addition to fading their
+subject region.  At the same time as providing a gain change to the
+target region, the fades also cause an <emphasis>inverse</emphasis> fade to any
+regions that lie beneath the target region in the stack.
+</para>
+
+<para>
+Consider, for example, the simple case in <xref linkend="fig-crossfades"/>.
+</para>
+
+<figure id="fig-crossfades">
+  <title>Simple cross-fade</title>
+  <mediaobject>
+    <imageobject> 
+      <imagedata fileref="diagrams/crossfades&dia;"/>
+    </imageobject> 
+  </mediaobject>
+</figure>
+
+<para>
+We have two regions, A and B.  For the first part of this time,
+region A plays (its area marked green).  Then we have region B,
+which overlaps A, and has a fade-in.  Ardour sees this fade-in and
+automatically performs a fade-out on region A which is the inverse
+of B's fade-in.  During the period of B's fade in, both region A
+and B will be heard.  This fade-in/fade-out arrangement has the
+important effect that no &lsquo;click&rsquo; will be heard due to the
+discontinuity between the waveforms of regions A and B.  This
+arrangement, where one thing is fading out at the same time that
+another is fading in, is called <emphasis>cross-fading</emphasis>.
+</para>
+
+<para>
+So useful is this property that Ardour will arrange for cross-fades to
+be present whenever regions overlap.  The <guilabel>Fades</guilabel>
+tab of the <guilabel>Session Properties</guilabel> dialogue contains
+some options to specify what form these automatically-generated
+crossfades will take described.  The automatic crossfades can be set
+to span the entire overlap of the regions involved, or to be short.
+In general, if you want the basic property of
+&lsquo;de-clicking&rsquo; region overlaps, crossfades should be set to
+be &lsquo;short&rsquo;.  The long-crossfade options are more useful
+for artistic use of fades, where two regions must merge slowly into
+each other.
+</para>
+
+
+</section>
+</section>
+<section xml:id="sec-audio-region-gain"><title>Audio region gain</title>
+<indexterm><primary>region</primary><secondary>gain</secondary></indexterm>
+
+<para>
+In addition to the fade-in and fade-out curves, there are two other
+ways to modify the gain of a region; as with fades, these
+modifications are non-destructive &mdash; they do not alter the data
+on the disk.  Firstly, a region has an overall gain which is applied
+to the whole region.  On top of this, regions can have <emphasis>gain
+envelopes</emphasis> which modify the gain over time.
+</para>
+
+<para>Simple gain changes across the whole region can be made in a few
+ways:
+</para>
+
+<itemizedlist>
+<listitem>
+Using the <guimenuitem>Boost Gain</guimenuitem> and <guimenuitem>Cut
+Gain</guimenuitem> options on the <guimenu>Gain</guimenu> submenu of
+the region context menu; these adjust the overall gain in 1dB steps.
+</listitem>
+<listitem>
+Using normalisation (the <guimenuitem>Normalize&hellip;</guimenuitem>
+option on the <guimenu>Gain</guimenu> submenu); this will set the
+region's scale amplitude so that, when played back, its maximum level
+is just below 0dBFS.
+</listitem>
+<listitem>
+From the region properties dialogue box, accessible using
+<guimenuitem>Properties&hellip;</guimenuitem> from the region context
+menu.
+</listitem>
+</itemizedlist>
+
+<para>
+For more involved changes to region gain, regions can also have their
+own variable gain envelopes.  This overlaps somewhat with automation
+(discussed in Chapter <xref linkend="ch-automation"/>), but can be
+useful to alter the sound of particular features within the region.
+</para>
+
+<para>
+If you want to modify audio region gain, it is important to ensure
+that the option &lsquo;Show gain envelopes in audio regions&rsquo; is ticked in
+the <guilabel>Editor</guilabel> tab of Ardour's preferences (see
+<xref linkend="sec-ardour-preferences-editor"/>).  This enables some
+useful functionality which is otherwise turned off.
+</para>
+
+<para>
+To edit audio region gain, first go into &lsquo;draw region gain&rsquo; mode by
+clicking the tool (<imagedata fileref="screenshots/tool-region-gain&scs;"/>).  Now,
+moving the mouse pointer over an audio region will show the gain
+curve; initially this will be a straight green line with two
+red-square points, one at each end.  The gain line can be edited in
+the following ways:
+</para>
+
+<itemizedlist>
+<listitem> Left-clicking in an empty area of the region will add a new
+  region gain line point.
+</listitem><listitem> Dragging a point will move it.
+</listitem><listitem> Dragging a line segment will move points at each end of the segment.
+</listitem><listitem> Right-clicking on a point will offer a small
+  menu from which you can delete the point or edit its value
+  numerically.
+</listitem><listitem> &modone;-right-clicking on a point is a short-cut to opening
+  its edit dialogue box.
+</listitem><listitem> &modtertiary;-right-clicking on a point will delete it.
+</listitem>
+</itemizedlist>
+
+<para>
+An example region with a gain line is shown in
+<xref linkend="fig-region-with-gain-line"/>.
+</para>
+
+<figure id="fig-region-with-gain-line">
+  <title>An audio region with a gain line</title> 
+  <mediaobject>
+    <imageobject> 
+      <imagedata fileref="screenshots/region-gain-line&scs;" scale="75"/>
+    </imageobject> 
+  </mediaobject>
+</figure>
+
+
+</section>
+<section><title>Pitch shifting</title>
+
+<para>
+Ardour provides algorithms to do pitch-shifting of audio.  As with any
+pitch-shifting method, the results can never be perfect, but they may
+be useful for correction or for artistic purposes.  To pitch-shift a
+region, choose <guimenuitem>Pitch Shift&hellip;</guimenuitem> from the
+<guimenu>Edit</guimenu> submenu of the context menu.  This will open
+the <guilabel>Pitch Shift Audio</guilabel> dialogue box, which allows you to
+specify the desired shift in octaves, semitones and cents.
+</para>
+
+<!-- Preserve Formants? -->
+
+</section>
+<section><title>Time stretching</title>
+
+<para>
+Time-stretching in Ardour has its own special tool.  Choose the
+stretch/shrink tool (<imagedata scale="75" fileref="screenshots/tool-stretch&scs;"/>).
+With this tool, you can click and drag the size of regions, much as
+you would do when trimming them.  The difference is that after the
+drag, Ardour will time-stretch the region to the new size that you
+have requested.  For audio regions, a dialogue box will appear so that
+you can set up the parameters of the time-stretching algorithm.  For
+MIDI, of course, time-stretching is somewhat easier and requires no
+options.
+</para>
+
+</section>
+<section>
+<title>Stripping silence</title>
+
+<para>
+With some recordings, it is desirable to remove regions which are, or
+are &lsquo;nearly&rsquo;, silent.  This can be done automatically using the
+<guimenuitem>Strip Silence&hellip;</guimenuitem> item on the region
+context&rsquo;s menu <guimenuitem>Edit</guimenuitem> item.  Selecting this
+option will open the dialogue shown in <xref
+linkend="fig-strip-silence-dialogue"/>.
+</para>
+
+<figure id="fig-strip-silence-dialogue"> 
+  <title>The strip silence dialogue</title> 
+  <mediaobject>
+    <imageobject> 
+      <imagedata fileref="screenshots/strip-silence-dialogue&scs;"/>
+    </imageobject> 
+  </mediaobject>
+</figure>
+
+<para>
+In addition, your target regions will be overlaid with light-blue
+areas which represent that the strip silence dialogue currently
+considers &lsquo;silence&rsquo;.  The main adjustment for this is the threshold;
+this is the level below which the region will be considered silent.
+In addition, the minimum length of a silent period can be specified,
+so that shorter below-threshold periods will be ignored.
+</para>
+
+<para>
+Finally, the dialogue offers a &lsquo;fade length&rsquo; option which specifies
+what length of fade in and out will be applied if &lsquo;Apply&rsquo; is pressed
+and some parts are stripped out of the region.
+</para>
+
+<para>
+Clicking &lsquo;Apply&rsquo; will split the target regions as required, leaving
+only those areas which it considers non-silent.
+</para>
+
+</section>
+<section><title>Rhythm Ferret</title>
+
+<para>
+Rhythm Ferret is a tool which can analyse regions in a couple of
+different ways, looking for particular features (like note onsets or
+transients like percussion hits).  It can then perform various
+operations on the region based on these features.
+</para>
+
+<para>
+To open the <guilabel>Rhythm Ferret</guilabel> dialogue, choose
+<guimenuitem>Rhythm Ferret</guimenuitem> from the
+<guimenu>Edit</guimenu> menu.  This will open the dialogue box shown
+in <xref linkend="fig-rhythm-ferret-dialogue"/>.
+</para>
+
+<figure id="fig-rhythm-ferret-dialogue"> 
+  <title>The Rhythm Ferret dialogue</title> 
+  <mediaobject>
+    <imageobject> 
+      <imagedata fileref="screenshots/rhythm-ferret-dialogue&scs;" scale="75"/>
+    </imageobject> 
+  </mediaobject>
+</figure>
+
+<para>
+First, choose the features that you want to look for; either note
+onset or percussive onset.  Then, clicking &lsquo;Analyse&rsquo; will examine
+region and place light grey markers at the detected features in the
+region.  If the features have been detected incorrectly, you can
+adjust the parameters and click &lsquo;Analyse&rsquo; to try again.  Once the
+correct features have been found, you can choose what to do with them
+using the &lsquo;Operation&rsquo; drop-down:
+</para>
+
+<!--Not sure what the parameters do -->
+
+<itemizedlist>
+<listitem>
+<emphasis>Split region</emphasis> &mdash; this will split the region
+into smaller regions at the feature points.
+</listitem>
+<listitem>
+<emphasis>Snap region &mdash; <!-- don't know what these do --> </emphasis>
+</listitem>
+<listitem>
+<emphasis>Conform regions</emphasis> &mdash; 
+</listitem>
+</itemizedlist>
+
+</section>
+<section xml:id="sec-spectral-analysis"><title>Spectral analysis</title>
+<indexterm><primary>spectrum</primary></indexterm>
+
+<para>
+Though not strictly an editing operation, Ardour provides a handy
+window which gives a spectral analysis of some part of your session.
+You can use this to see a spectral analysis of a region by choosing
+<guimenuitem>Spectral Analysis&hellip;</guimenuitem> from the region&rsquo;s context menu.
+</para>
+
+</section>
+<section><title>MIDI region editing</title>
+
+<para>
+MIDI regions are somewhat different to audio regions in that Ardour
+allows you to edit their contents, as well as just their position and
+size.  With a midi region's tools you can add, move, delete and modify
+notes, control changes and so on directly inside the editor window.
+</para>
+
+<para>
+The first step to editing a MIDI region's contents is to click the
+&lsquo;edit region contents&rsquo; tool (<imagedata scale="75" fileref="screenshots/tool-region-contents&scs;"/>).
+On doing this, the bodies of the regions in the session will fade out
+to indicate that you are now editing their contents.  You can also
+edit this mode by double-clicking on a MIDI region.
+</para>
+
+<para>
+<xref linkend="fig-midi-edit1"/> shows a region with &lsquo;edit region contents'
+disabled, and <xref linkend="fig-midi-edit2"/> after &lsquo;edit region contents'
+has been switched on.
+</para>
+
+<figure id="fig-midi-edit1"> 
+  <title>A MIDI region with &lsquo;edit region contents&rsquo; switched off</title> 
+  <mediaobject>
+    <imageobject> 
+      <imagedata fileref="screenshots/midi-edit1&scs;"/>
+    </imageobject> 
+  </mediaobject>
+</figure>
+
+<figure id="fig-midi-edit2"> 
+  <title>A MIDI region with &lsquo;edit region contents&rsquo; switched on</title> 
+  <mediaobject>
+    <imageobject> 
+      <imagedata fileref="screenshots/midi-edit2&scs;"/>
+    </imageobject> 
+  </mediaobject>
+</figure>
+
+<para>
+Once in this mode, many of the tools for altering regions become tools
+for altering notes.  With the &lsquo;select/move objects&rsquo; tool
+(<imagedata scale="75" fileref="screenshots/tool-objects&scs;"/>) you can select notes, move them
+around and trim their starts and ends.  Hovering the mouse over a note
+will display information about its note value, channel and velocity.
+</para>
+
+<para>
+Right-clicking on a selected note will display a channel selector, as
+shown in <xref linkend="fig-midi-edit5"/>.
+</para>
+
+<figure id="fig-midi-edit5"> 
+  <title>Altering a note's channel</title> 
+  <mediaobject>
+    <imageobject> 
+      <imagedata fileref="screenshots/midi-edit5&scs;"/>
+    </imageobject> 
+  </mediaobject>
+</figure>
+
+<para>
+Once this is displayed, click on the MIDI channel that you want the
+note to be played back on.
+</para>
+
+<para>
+The full gory details of a note can be edited numerically by
+&modone;-right-clicking a selected note.  This opens a dialogue box
+with all the notes details; modifying the values in the dialogue box
+will change the note.
+</para>
+
+
+<section>
+<title>Cutting, copying and pasting notes</title>
+
+<para>
+Selected notes can be cut using <keycap>&modone;-X</keycap>, copied with
+<keycap>&modone;-C</keycap> and deleted with <keycap>Delete</keycap>, just as regions can.
+Once cut or copied they can also be pasted; pastes will be placed at
+the current edit point (see <xref linkend="sec-edit-point-selector"/>).
+</para>
+
+</section>
+<section><title>Adding notes</title>
+
+<para>
+Notes can be added to MIDI regions using the &lsquo;draw MIDI&rsquo; tool
+(<imagedata scale="75" fileref="screenshots/tool-draw-midi&scs;"/>).  Select this tool, then click
+to add a note which is the same length as the current grid interval,
+or click and drag to add a note of any length.
+</para>
+
+</section>
+</section>
+<section><title>Other MIDI operations</title>
+
+<para>
+When outside of &lsquo;edit region contents mode&rsquo;, some other (region-wide)
+MIDI operations are available from the <guimenuitem>MIDI</guimenuitem> submenu of the
+region context menu.
+</para>
+
+
+<section><title>Transpose</title>
+<indexterm><primary>transpose</primary></indexterm>
+
+<para>
+This opens a dialogue box to allow transposition (shifts in pitch) of
+the notes in the region.
+</para>
+
+</section>
+<section><title>Insert Patch Change</title>
+
+<!-- hmm -->
+
+</section>
+<section><title>Quantize</title>
+<indexterm><primary>quantize</primary></indexterm>
+
+<para>
+The Quantize feature allows notes in the region to be snapped to a
+grid, to make their timing more accurate.  The
+<guimenuitem>Quantize&hellip;</guimenuitem> option opens the dialogue
+shown in <xref linkend="fig-quantize"/>.
+</para>
+
+<figure id="fig-quantize"> 
+  <title>The quantization dialogue</title>
+  <mediaobject>
+    <imageobject> 
+      <imagedata fileref="screenshots/quantize&scs;"/>
+    </imageobject> 
+  </mediaobject>
+</figure>
+
+The quantization options are as follows:
+
+<itemizedlist>
+<listitem>
+<emphasis>Snap note start</emphasis> &mdash; tick the box to quantize note
+  starts, and select the grid that they should be snapped to.
+</listitem>
+<listitem>
+<emphasis>Snap note end</emphasis> &mdash; tick the box to quantize note
+  ends, and select the grid that they should be snapped to.
+</listitem>
+<listitem>
+<emphasis>Threshold</emphasis> &mdash; if a note start or end is more than this
+  threshold (in ticks) away from a grid line, it will not be snapped.
+  There are 1920 ticks per beat.
+</listitem>
+<listitem>
+<emphasis>Strength</emphasis> &mdash; this is a percentage by which note starts
+  or ends will be pulled towards the grid; if strength is set to 100,
+  they will be snapped completely; any less, and they will be snapped
+  less accurately.  This can be used to maintain some of the &lsquo;human&rsquo;
+  inaccuracies in timing from a recording of a real player.
+</listitem>
+<listitem>
+<emphasis>Swing</emphasis> &mdash; if ticked, this option will attempt to
+  quantize notes so that they &lsquo;swing&rsquo;.  Speaking mathematically, given
+  two input notes as shown in <xref linkend="fig-swing"/>, the
+  quantizer will put the second note at a time t where
+
+<!--
+\begin{equation}
+t = q + \frac{2}{3} \frac{F_S}{100} L
+\end{equation}
+-->
+
+<para>
+where F<subscript>S</subscript> is the swing factor specified in the <guilabel>Quantize</guilabel>
+dialogue box.  Hence if F<subscript>S</subscript> is positive, the note will be placed
+later than it would be with &lsquo;straight&rsquo; timing, and if F<subscript>S</subscript> is
+negative the note is placed earlier.
+</para>
+
+<para>
+This feature is probably most easily explored by listening!
+</para>
+
+<figure id="fig-swing"> 
+  <title>The mathematics of swing</title> 
+  <mediaobject>
+    <imageobject> 
+      <imagedata fileref="diagrams/swing&dia;"/>
+    </imageobject> 
+  </mediaobject>
+</figure>
+
+<indexterm><primary>swing</primary></indexterm>
+</listitem>
+</itemizedlist>
+
+</section>
+<section><title>Fork</title>
+<indexterm><primary>fork</primary></indexterm>
+
+<para>
+By default, when a region is copied its contents are a
+&lsquo;clone&rsquo; of the thing it was copied from.  That is to say,
+if you copy some region A as region B, then edit region A, the same
+edits will happen to region B.  This is not apparent for audio, since
+the actual contents of audio regions cannot be changed, but it is
+important for MIDI.  If you copy a region which you then want to be
+independent of other regions in the session, select the region to make
+independent and choose <guimenuitem>Fork</guimenuitem> item from the
+<guimenu>MIDI</guimenu> part of the context menu.
+</para>
+
+</section>
+<section><title>List Editor</title>
+<indexterm><primary>list editor</primary></indexterm>
+
+<para>
+To look at the MIDI note events in a region numerically, select the
+region and choose <guimenuitem>List Editor&hellip;</guimenuitem> from
+the context menu's <guimenu>MIDI</guimenu> item.  This opens a
+dialogue box containing all the region's note details, and edits you
+make to the numbers will be reflected in the region.
+</para>
+
+</section>
+</section>
+<section xml:id="sec-midi-non-note"><title>MIDI data other than notes</title>
+
+<para>
+Ardour treats all MIDI note data differently to other types of
+messages (control changes, pitch bends and so on).  All the other
+types of data are represented as automation data, drawn with
+continuous lines.  The resulting &lsquo;automation&rsquo; is converted back to
+MIDI and played back in the same stream as the note data, and MIDI
+automation data is always attached to a region, so it moves in time
+and is copied and pasted with its region.
+</para>
+
+<para>
+Automation is covered full in Chapter <xref linkend="ch-automation"/>, with
+reference to audio as well as MIDI automation.
+</para>
+
+</section>
+
+<section xml:id="sec-undo-and-redo"><title>Undo and redo</title>
+
+<para>
+Whenever you perform an operation which alters something on Ardour's
+timeline, a note is made so that it can be undone using
+<keycombo><keycap>&modone;</keycap><keycap>Z</keycap></keycombo> or by choosing
+<guimenuitem>Undo</guimenuitem> from the <guimenu>Edit</guimenu> menu.
+The operation can then be redone using <keycombo><keycap>&modone;</keycap><keycap>R</keycap></keycombo>
+or with the <guimenuitem>Redo</guimenuitem> menu option.
+</para>
+
+<para>
+As well as being kept in memory, the record of previous operations is
+stored with the session file.  This means that you can save and
+re-load a session and undo things that you did in the last session.
+Storing the undo information is very useful, but does require memory
+and disk space; you can set how many edits Ardour should remember
+using the <guilabel>Limit undo history to</guilabel> and
+<guilabel>Save undo history of</guilabel> options in the
+<guilabel>Misc</guilabel> tab of the <guilabel>Session
+Properties</guilabel> dialogue box.
+</para>
+
+<para>
+In addition to the undo record, Ardour can also be set to make a
+periodic backup of the session file.  This may be useful in the event
+that Ardour crashes, or your computer suffers a power failure.
+Ticking the <guilabel>make periodic backups of the session
+file</guilabel> in the <guilabel>Misc</guilabel> tab of the
+<guilabel>Session Properties</guilabel> will cause Ardour to make a
+backup copy of the session file every two minutes.
+</para>
+
+<para>
+One notable operation that bypasses the undo system is
+<guilabel>Remove Last Capture</guilabel>.  This cannot be undone, so
+there is the option to <guilabel>verify removal of last
+capture</guilabel> (again in the <guilabel>Misc</guilabel> tab) if you
+would like Ardour to check that you are sure.
+</para>
+
+<para>
+Note that the undo system operates on <emphasis>time-line</emphasis>
+edits only.  It does not, for example, remember changes you make to
+plugins, fader levels or any such like.
+</para>
+
+</section>
+
+</chapter>
+

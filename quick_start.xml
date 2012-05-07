@@ -1,0 +1,417 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE chapter [
+<!ENTITY % sgml.features "IGNORE">
+<!ENTITY % xml.features "INCLUDE">
+<!ENTITY % dbcent PUBLIC "-//OASIS//ENTITIES DocBook Character Entities V4.5//EN"
+   "/usr/share/xml/docbook/schema/dtd/4.5/dbcentx.mod">
+%dbcent;
+<!ENTITY % extensions SYSTEM "extensions.ent">
+%extensions;
+]>
+
+<chapter xmlns="http://docbook.org/ns/docbook" version="5.0" xml:lang="en">
+<title>Quick start</title>
+
+<!-- XXX: links to things later on -->
+
+<para>
+This chapter blithely assumes that you just want to use Ardour to make
+a basic audio recording from a sound card, and describes how that can
+be achieved.  We assume that you have some sound source (such as a
+microphone, guitar or whatever) plugged into one of your sound card's
+inputs, and a monitoring system (speakers or headphones) connected to
+its outputs.
+</para>
+
+<section>
+<title>Starting Ardour and creating a session</title>
+
+<para>
+When Ardour is run for the first time, it starts with the dialogue box
+shown in <xref linkend="fig-welcome-to-ardour"/>.  Click <guibutton>Forward</guibutton> to continue.
+</para>
+
+<figure id="fig-welcome-to-ardour"> 
+  <title>Welcome to Ardour!</title> 
+  <mediaobject>
+    <imageobject> 
+      <imagedata fileref="screenshots/welcome-to-ardour&scs;" scale="35"/>
+    </imageobject> 
+  </mediaobject>
+</figure>
+
+<para>
+As it is the first run, Ardour now asks a few basic questions about
+how it should be set up.  Its first question is about where to put
+sessions by default, as shown in
+<xref linkend="fig-default-folder-for-new-sessions"/>.  The initial choice
+will be the your home directory; other locations can be selected by
+clicking on the button and selecting an alternative directory.
+</para>
+
+<figure id="fig-default-folder-for-new-sessions"> 
+  <title>Default folder for new sessions</title> 
+  <mediaobject>
+    <imageobject> 
+      <imagedata fileref="screenshots/default-folder-for-new-sessions&scs;" scale="35"/>
+    </imageobject> 
+  </mediaobject>
+</figure>
+
+<para>
+The next choice governs how Ardour will handle monitoring, as shown in
+<xref linkend="fig-monitoring-choices"/>.  For the purposes of this
+test, choose &lsquo;Ask Ardour to playback material as it is being
+recorded'; this is probably the most widely-useful of the options.
+More detail on monitoring options can be found in <xref
+linkend="sec-monitoring"/>.
+</para>
+
+<figure id="fig-monitoring-choices"> 
+  <title>Monitoring choices</title> 
+  <mediaobject>
+    <imageobject> 
+      <imagedata fileref="screenshots/monitoring-choices&scs;" scale="35"/>
+    </imageobject> 
+  </mediaobject>
+</figure>
+
+<para>
+Following this, Ardour asks for a choice with respect to a monitor
+section (see <xref linkend="fig-monitor-section"/>).  This is
+explained in more detail in <xref linkend="sec-mute-and-solo"/>; for
+now, just choose the default &lsquo;use a master bus directly&rsquo;.
+</para>
+
+<figure id="fig-monitor-section">
+  <title>Monitor section</title> 
+  <mediaobject>
+    <imageobject> 
+      <imagedata fileref="screenshots/monitor-section&scs;" scale="35"/>
+    </imageobject> 
+  </mediaobject>
+</figure>
+
+<para>
+At this point, if JACK has not already been started, Ardour will try
+to do it for you.  In order to do that, it asks about how JACK should
+be set up (<xref linkend="fig-audio-midi-setup-device"/>).
+</para>
+
+<para>
+There are three pages to the Audio / MIDI setup dialogue; the first is
+&lsquo;device&rsquo;, which allows selection of the sound card that Ardour will
+use, the sampling rate at which it will operate, and the buffer size.
+For now, select the interface that you are using for recording and
+leave other options as they are.  For more information on the options
+here, consult <xref linkend="ch-jack"/>.
+</para>
+
+<figure id="fig-audio-midi-setup-device">
+  <title>Audio/MIDI setup &mdash; device</title> 
+  <mediaobject>
+    <imageobject> 
+      <imagedata fileref="screenshots/audio-midi-setup-device&scs;" scale="35"/>
+    </imageobject> 
+  </mediaobject>
+</figure>
+
+<para>
+The final step in creating our session is to give it a name, as in
+<xref linkend="fig-new-session"/>.  Enter something like &lsquo;test&rsquo; and click
+<guibutton>Open</guibutton>.  At last, the reward should be the editor window
+(<xref linkend="fig-editor"/>).  The session is created!
+</para>
+
+<figure id="fig-new-session">
+  <title>New session</title>
+  <mediaobject>
+    <imageobject> 
+      <imagedata fileref="screenshots/new-session&scs;" scale="35"/>
+    </imageobject> 
+  </mediaobject>
+</figure>
+
+<figure id="fig-editor">
+  <title>And finally: the editor!</title>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="screenshots/editor&scs;" scale="35"/>
+    </imageobject>
+  </mediaobject>
+</figure>
+
+</section>
+<section><title>Adding a track and connecting it up</title>
+
+<para>
+The next step is to add a track to our session so that we have
+something to record onto.  Choose <guimenuitem>Add Track or
+Bus&hellip;</guimenuitem> from <guimenu>Track</guimenu> at the top of
+the editor window.  This will bring up a dialogue box, as shown in
+<xref linkend="fig-quickstart-add-track-or-bus"/>.
+</para>
+
+<figure id="fig-quickstart-add-track-or-bus">
+  <title><guilabel>Add Track or Bus</guilabel> dialogue</title>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="screenshots/add-track-or-bus&scs;" scale="50"/>
+    </imageobject>
+  </mediaobject>
+</figure>
+
+<para>
+For now, leave the options as they are; this will create a single
+monophonic audio track.  This track must now be connected to the sound
+card so that it can record incoming audio.
+</para>
+
+<para>
+Perhaps the easiest way to connect up this new track is to open its
+editor mixer strip.  Do this now by pressing
+<keycombo><keycap>Shift</keycap><keycap>E</keycap></keycombo> or choosing <guimenuitem>Show Editor
+Mixer</guimenuitem> from the <guimenu>View</guimenu> menu.  The top of
+the mixer strip that appears looks like that in <xref
+linkend="fig-top-of-mixer-strip"/>.
+</para>
+
+<figure id="fig-top-of-mixer-strip">
+  <title>Top part of a mixer strip</title>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="screenshots/top-of-mixer-strip&scs;" scale="35"/>
+    </imageobject>
+  </mediaobject>
+</figure>
+
+<para>
+At the top of this mixer strip there are three main buttons.  The
+first, labelled &lsquo;Audio 1&rsquo; (the name of the track) can be clicked on to
+open a menu of options for the track.  The second, marked &lsquo;1&rsquo; is the
+input selector, and the third, marked &phgr;, is a button to invert
+the track's signal.
+</para>
+
+<para>
+In order to look at the connections to the input of this track,
+left-click on the button marked &lsquo;1&rsquo; to open the input <emphasis>port
+matrix</emphasis>, as shown in <xref
+linkend="fig-input-port-matrix"/>.
+</para>
+
+<figure id="fig-input-port-matrix">
+  <title>Input port matrix</title>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="screenshots/input-port-matrix&scs;" scale="40"/>
+    </imageobject>
+  </mediaobject>
+</figure>
+
+<para>
+The port matrix is the main interface that Ardour offers for
+connecting things together.  In our example matrix, the left-hand side
+shows a set of ports that generate audio data; these correspond to the
+sound card inputs, outputs of Ardour busses and tracks, and other
+things that may exist on the system.  Different groups of these ports
+can be seen by choosing one of the tabs on the far left-hand side of
+the dialogue.
+</para>
+
+<para>
+At the bottom of the dialogue is the input to our track.
+</para>
+
+<para>
+In the example matrix, there is a green dot at the intersection of the
+&lsquo;L&rsquo; part of &lsquo;in 1+2&rsquo; and the &lsquo;Audio 1
+in&rsquo; port.  This means that the input of the &lsquo;Audio
+1&rsquo; track hardware input 1.  Change this connection, if
+necessary, by clicking on the square which corresponds to the input to
+record from.  At this point, the Audio 1 meter should display any
+signal that is being sent into the sound card.  If this is not
+working, something has gone wrong.
+</para>
+</section>
+
+<section><title>Recording</title>
+
+<para>
+At this point, Ardour is receiving a signal from some external sound
+source via the sound card.  It is now possible to make a test
+recording.  Click the record-enable buttons (red buttons with a pink
+circle) in both the &lsquo;Audio 1&rsquo; track controls and the main transport
+controls (shown in <xref linkend="fig-track-controls"/> and
+<xref linkend="fig-transport-controls"/>), then click &lsquo;Play&rsquo; to start
+the transport.
+</para>
+
+<figure id="fig-track-controls">
+  <title>Track controls area</title>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="screenshots/track-controls&scs;" scale="50"/>
+    </imageobject>
+  </mediaobject>
+</figure>
+
+<figure id="fig-transport-controls">
+  <title>Main transport controls</title>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="screenshots/transport-controls&scs;" scale="60"/>
+    </imageobject>
+  </mediaobject>
+</figure>
+
+<para>
+Ardour is now recording; the playhead will move, and a red rectangle
+will be drawn where the recording is taking place.  Make a noise with
+your external sound source!  When you have finished recording, click
+the Stop button in the transport controls area.  You should now have a
+region containing your recording on the &lsquo;Audio 1&rsquo; track, as in
+<xref linkend="fig-recorded-one-region"/>.
+</para>
+
+<figure id="fig-recorded-one-region">
+  <title>Editor window after recording a region</title>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="screenshots/recorded-one-region&scs;" scale="50"/>
+    </imageobject>
+  </mediaobject>
+</figure>
+
+</section>
+
+<section>
+<title>Playing back your recording</title>
+
+<para>
+Now we can play back the audio that you have just recorded.  First,
+you will need to move the playhead back to a point before your
+recorded region.  Perhaps the easiest way to do this is to click
+somewhere within the rulers area of the editor window (as shown in <xref linkend="sec-editor-window"/>).
+</para>
+
+<para>
+Once the playhead is located before your recording, click the &lsquo;Play&rsquo;
+button (or press the spacebar on the keyboard) to start playback.  You
+should hear your recording through your monitor speakers or
+headphones.
+</para>
+
+</section>
+
+<section>
+<title>Adding another track as an overdub</title>
+
+<para>
+Now we can experiment further by adding an overdub to the first
+recording.  First, add a new track, as we did before, and connect it
+up to the input on your soundcard which your source is connected to.
+</para>
+
+<para>
+Now, record-enable the new track, move the playhead to before the
+previously recorded region, make sure the session is record-enabled
+and start the transport (by clicking &lsquo;Play&rsquo; or pressing the spacebar).
+You should hear the previously-recorded audio on your monitor system
+while the new recording is in progress.  Record something suitable
+over the top of your first region.
+</para>
+
+<para>
+We now have two tracks of recorded data; you might like to add some
+more!
+</para>
+
+</section>
+
+<section>
+<title>Mix-down</title>
+
+<para>
+We will now assume that you want to do a mix-down of your magnum opus
+into a stereo WAV file.  Such a file could later be converted to an
+MP3, or burned to CD, or simply played-back as-is by some other media
+player on your computer.  
+</para>
+
+<para>
+First, we need to mix the tracks that you have recorded so that they
+sound as you want them to.  We will cover much more advanced mixing
+and processing later, but for now we will just set the relative levels
+of the two tracks.  The easiest way to do this is to open the
+<emphasis>mixer</emphasis> window, either by selecting
+<guimenuitem>Mixer</guimenuitem> from the <guimenu>Window</guimenu>
+menu or by pressing <keycombo><keycap>Alt</keycap><keycap>M</keycap></keycombo>.  The mixer window is
+shown in <xref linkend="fig-mixer-window"/>.
+</para>
+
+<figure id="fig-mixer-window"> 
+  <title>The mixer window</title> 
+  <mediaobject>
+    <imageobject> 
+      <imagedata fileref="screenshots/mixer&scs;" scale="35"/>
+    </imageobject> 
+  </mediaobject>
+</figure>
+
+<para>
+Here you will see a mixer strip for each track that you have recorded,
+and a &lsquo;master&rsquo; strip.  The signals for each track flow from the
+recordings on disk, through the appropriate strip, and they are then
+mixed together and passed through the master strip.  The bottom half
+of each mixer strip contains a <emphasis>fader</emphasis>; this controls the level
+of each track.  You can adjust the levels of each of your recordings
+by dragging the mixer strip; the green marker indicates 0dBFS (&lsquo;unity
+gain&rsquo;), at which the level of the track will be unaltered from the
+recording.
+</para>
+
+<para>
+Play back your recordings from the editor window, and experiment with
+the levels in the mixer window until you have a sound that you are
+happy with.
+</para>
+
+</section>
+
+<section>
+<title>Export</title>
+
+<para>
+The final step is to export our recording into a stereo WAV file.
+Ardour's export options are extensive, but for now we will keep it
+simple.  Choose <guimenuitem>Export to Audio Files</guimenuitem> from
+the <guimenuitem>Export</guimenuitem> submenu of the
+<guimenu>Session</guimenu> menu, and the <guilabel>Export</guilabel>
+dialogue will open, as shown in <xref
+linkend="fig-export-dialogue"/>.
+</para>
+
+<figure id="fig-export-dialogue">
+  <title>The export dialogue</title> 
+  <mediaobject>
+    <imageobject> 
+      <imagedata fileref="screenshots/export-dialogue&scs;" scale="35"/>
+    </imageobject> 
+  </mediaobject>
+</figure>
+
+<para>
+First, we have to specify the format that we will export in.  Fill in
+the <guilabel>preset label</guilabel> field with some name like &lsquo;WAV for CD&rsquo;, then click
+the <guibutton>New</guibutton> button beside the Format entry in the dialogue, and
+click on <guibutton>CD</guibutton>, <guibutton>Lossless (linear PCM)</guibutton>, <guibutton>WAV</guibutton> and
+<guibutton>44.1kHz</guibutton> entries.  Then click <guibutton>Save</guibutton> to save the export
+preset.  Enter some label for the export in the <emphasis>Location</emphasis>
+section, then click <guibutton>Export</guibutton>.  Ardour will mix your session
+down to a WAV file and save it in the <code>export</code> subdirectory of
+your session folder.
+</para>
+</section>
+
+</chapter>

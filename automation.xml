@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE book [
+<!ENTITY % sgml.features "IGNORE">
+<!ENTITY % xml.features "INCLUDE">
+<!ENTITY % dbcent PUBLIC "-//OASIS//ENTITIES DocBook Character Entities V4.5//EN"
+   "/usr/share/xml/docbook/schema/dtd/4.5/dbcentx.mod">
+%dbcent;
+<!ENTITY % keys SYSTEM "keys.ent">
+%keys;
+<!ENTITY % extensions SYSTEM "extensions.ent">
+%extensions;
+]>
+
+<chapter xml:id="ch-automation" xmlns="http://docbook.org/ns/docbook" version="5.0" xml:lang="en">
+<title>Automation</title>
+<indexterm><primary>automation</primary></indexterm>
+
+<para>
+Automation is the means by which many controls in Ardour (faders,
+plugin controls, mute and solo, and so on) can be &lsquo;automated&rsquo;, so that
+their values change over time.  This is commonly used to assist with
+mixing a track; vocal levels may be brought up and down as required,
+for example.  This chapter describes the ways in which automation may
+be set up and edited.
+</para>
+
+<section>
+<title>Adding an automation lane</title>
+
+By default, a track has no automation.  To add some, the first step is
+to open an automation &lsquo;lane&rsquo; for the track.  This looks much like an
+additional track, but can be considered a &lsquo;child&rsquo; of its parent track.
+
+<para>
+To create an automation lane for an audio track, click the &lsquo;a&rsquo; button
+in the track controls area.  A menu will open which contains a list of
+the things which can be automated for the track.  By default, this
+will just be &lsquo;fader&rsquo; and &lsquo;pan&rsquo;, but if the track has any plugins,
+their controls will also be listed in this menu.
+</para>
+
+<para>
+Choosing, for example, &lsquo;fader&rsquo; opens a new automation lane, as shown
+in <xref linkend="fig-automation-lane"/>.
+</para>
+
+<figure id="fig-automation-lane"> 
+  <title>An automation lane</title> 
+  <mediaobject>
+    <imageobject> 
+      <imagedata fileref="screenshots/automation-lane&scs;"/>
+    </imageobject> 
+  </mediaobject>
+</figure>
+
+<para>
+We now have an automation lane for the track &lsquo;up_with_people.stereo&rsquo;
+which controls its fader level.  The automation lane's controls area
+includes the name of the parameter being automated, a handy fader for
+adjusting the level of the parameter, a button to select the
+automation mode, and a &lsquo;cross&rsquo; button to hide the automation lane.
+Hiding the automation lane merely removes it from sight; it does not
+have any effect on the automation that the lane contains.
+</para>
+
+</section>
+<section><title>Automation modes</title>
+
+<para>
+Clicking on the automation lane's mode button (which initially says &lsquo;Manual&rsquo;) offers four options:
+</para>
+
+<itemizedlist>
+<listitem> <emphasis>Manual</emphasis> &mdash; in this mode the automation will be ignored on playback.
+</listitem><listitem> <emphasis>Play</emphasis> &mdash; in this mode the automation will be &lsquo;played
+  back'; in other words, when the session is playing back, the track's
+  controls will be manipulated by any automation that has been set up.
+</listitem><listitem> <emphasis>Write</emphasis> &mdash; when the session is being played back, any
+  automation lanes in &lsquo;write&rsquo; mode will store data from the current
+  value of their parameter at each instant.  In other words, one way
+  to create automation data is to set &lsquo;write&rsquo; mode, play the session
+  back, then adjust the parameter (in this case the fader) of the
+  track as required.  Your movements will be recorded and written as
+  automation.
+</listitem><listitem> <emphasis>Touch &mdash; <!-- doesn't seem to work right now --></emphasis>
+</listitem>
+</itemizedlist>
+
+</section>
+<section><title>Creating automation</title>
+
+<para>
+There are two basic ways to create automation data.  Firstly, one may
+use the &lsquo;write&rsquo; mode, as discussed in the previous section.  To see
+this in action for our example fader lane, simply select &lsquo;write&rsquo;,
+start the session, and move the track's fader around a bit.  When you
+stop the transport, an automation line will appear on the lane to show
+you the moves that you made on the fader.
+</para>
+
+<para>
+The other option is to draw the automation with the mouse.  Clicking
+in an automation lane with in &lsquo;select/move objects&rsquo; mode
+(<imagedata scale="75" fileref="screenshots/tool-objects&scs;"/>) will create a new automation point.
+</para>
+
+</section>
+<section><title>Editing automation</title>
+
+<para>
+Automation may be edited using the mouse in the automation lane.
+Hovering the mouse over an automation line will put red squares at
+each node of the line; these can be dragged around to move them.
+</para>
+
+<para>
+You can also &modone;-right-click to display a dialogue box to change
+the precise value of an automation point, or
+&modtertiary;-right-click to delete a point.
+</para>
+
+<para>
+Multiple points can be selected so that they can be moved as a group;
+either &modone;-left-click to select additional points, or drag a
+&lsquo;lassoo&rsquo; rectangle over a group of points to select several at once.
+</para>
+
+<para>
+Finally, points may be cut, copied and pasted, just as regions, by
+selecting them and using the standard key shortcuts <keycap>&modone;-X</keycap>
+for cut, <keycap>&modone;-C</keycap> for copy or
+<keycap>&modone;-V</keycap> for paste).  Pastes are made at the edit
+point.
+</para>
+
+</section>
+<section><title>MIDI &lsquo;automation&rsquo;</title>
+
+As discussed in <xref linkend="sec-midi-non-note"/>, a variety of MIDI
+message types are presented in Ardour as automation.  Lanes for these
+messages can be opened, just as with audio tracks, by clicking on the
+&lsquo;a&rsquo; button in a MIDI track's control area and selecting a parameter.
+The menu is much more extensive for MIDI, since there is an option for
+each parameter on each MIDI channel.
+
+Note that because of the way MIDI automation is stored (with the
+region), it is not possible to draw MIDI automation in an area of the
+lane where its parent track does not have a region.  If you want to
+add automation without any note data, simply create an empty region
+before adding the automation.
+
+</section>
+</chapter>

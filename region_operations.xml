@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE book [
+<!ENTITY % sgml.features "IGNORE">
+<!ENTITY % xml.features "INCLUDE">
+<!ENTITY % dbcent PUBLIC "-//OASIS//ENTITIES DocBook Character Entities V4.5//EN"
+   "/usr/share/xml/docbook/schema/dtd/4.5/dbcentx.mod">
+%dbcent;
+<!ENTITY % keys SYSTEM "keys.ent">
+%keys;
+<!ENTITY % extensions SYSTEM "extensions.ent">
+%extensions;
+]>
+
+<chapter xml:id="ch-region-operations" xmlns="http://docbook.org/ns/docbook" version="5.0" xml:lang="en">
+<title>Region operations</title>
+
+<para>
+This chapter provides a reference to the operations that can be
+performed on regions, accessible from the region submenu of the track
+context menu.
+</para>
+
+<itemizedlist>
+
+<listitem>
+<emphasis>Play</emphasis> &mdash; start playback from the start of the region.
+</listitem>
+<listitem>
+<emphasis>Loop</emphasis> &mdash; set the loop range to cover the region and begin looped playback.
+</listitem>
+<listitem>
+<emphasis>Rename&hellip;</emphasis> &mdash; open a dialogue box to rename the region.
+</listitem>
+<listitem>
+<emphasis>Properties&hellip;</emphasis> &mdash; open a dialogue box to view (and edit) the properties of the region.
+</listitem>
+
+<listitem><emphasis>Edit</emphasis>
+
+<itemizedlist>
+<listitem>
+Combine
+</listitem>
+<listitem>
+Uncombine
+</listitem>
+<listitem>
+<emphasis>Split</emphasis> &mdash; split the region at the current
+edit point; this will only work from the menu if the edit point is not
+&lsquo;mouse&rsquo; (as if you are selecting a menu option, the mouse
+position at the time is not particularly relevant to where an edit
+point should be).
+</listitem>
+<listitem>
+<emphasis>Make Mono Regions</emphasis> &mdash; given a multi-channel
+(stereo or more) region, this option creates a new region per channel
+and adds those regions to the session's region list.  These regions
+can then be dragged from the editor region list (see <xref
+linkend="sec-region-list"/>) into mono tracks as required.
+</listitem>
+<listitem>
+<emphasis>Opaque</emphasis> &mdash; tick to make the region
+&lsquo;opaque&rsquo;, so that regions underneath it on the playlist
+will not be heard.  If the region is not opaque, its data will be
+mixed with regions underneath it.
+</listitem>
+<listitem>
+<emphasis>Mute</emphasis> &mdash; tick to mute the region; it will not be heard
+</listitem>
+<listitem>
+<emphasis>Pitch Shift&hellip;</emphasis> &mdash; open a dialogue box
+to pitch-shift the region.
+</listitem>
+<listitem>
+<emphasis>Reverse</emphasis> &mdash; flip the region backwards in time.
+</listitem>
+<listitem>
+Glose Gaps
+</listitem>
+<listitem>
+Place Transient
+</listitem>
+<listitem>
+Rhythm Ferret&hellip;
+</listitem>
+<listitem>
+Strip Silence&hellip;
+</listitem>
+</itemizedlist>
+
+</listitem>
+
+
+<listitem>Position
+
+<itemizedlist>
+<listitem>
+Move to Original Position
+</listitem>
+<listitem>
+<emphasis>Lock</emphasis> &mdash; this will prevent the region from being moved.
+</listitem>
+<listitem>
+Glue to Bars and Beats
+</listitem>
+<listitem>
+Snap Position To Grid
+</listitem>
+<listitem>
+Set Sync Position
+</listitem>
+<listitem>
+Remove Sync
+</listitem>
+<listitem>
+Nudge Forward
+</listitem>
+<listitem>
+Nudge Backward
+</listitem>
+<listitem>
+Nudge Forward by Capture Offset
+</listitem>
+<listitem>
+Nudge Backward by Capture Offset
+</listitem>
+</itemizedlist>
+
+</listitem>
+ 
+
+<listitem>
+Trim
+
+<itemizedlist>
+<listitem>
+<emphasis>Trim Start at Edit Point</emphasis> &mdash; trims the region
+so that it starts at the edit point, if that makes sense.
+</listitem>
+<listitem>
+<emphasis>Trim End at Edit Point</emphasis> &mdash; trims the region
+so that it ends at the edit point, if that makes sense.
+</listitem>
+<listitem>
+<emphasis>Trim to Loop</emphasis> &mdash; trims the region's start and
+end so that they are at the time of the loop range's start and end
+respectively.
+</listitem>
+<listitem>
+<emphasis>Trim to Punch</emphasis> &mdash; much as &lsquo;Trim to
+Loop&rsquo; except with reference to the loop range.
+</listitem>
+<listitem>
+<emphasis>Trim to Previous</emphasis> &mdash; trims the region's start
+point so that it lies at the end point of the previous region in time
+(if possible).
+</listitem>
+<listitem>
+<emphasis>Trim to Next</emphasis> &mdash; trims the region's end point
+so that it lies at the start point of the next region in time (if
+possible).
+</listitem>
+</itemizedlist>
+
+</listitem>
+
+<listitem>Layering; manipulates region layers, as discussed in <xref linkend="sec-overlapping-regions"/>
+
+<itemizedlist>
+<listitem>
+<emphasis>Raise to Top</emphasis> &mdash; moves the region to the top
+layer of the stack.
+</listitem>
+<listitem>
+<emphasis>Raise</emphasis> &mdash; moves the region one step closer to
+the top of the stack.
+</listitem>
+<listitem>
+<emphasis>Lower</emphasis> &mdash; moves the region one step closer to
+the bottom of the stack.
+</listitem>
+<listitem>
+<emphasis>Lower to Bottom</emphasis> &mdash; moves the region to the
+bottom layer of the stack.
+</listitem>
+</itemizedlist>
+
+</listitem>
+
+<listitem>
+Ranges
+
+<itemizedlist>
+<listitem>
+Set Loop Range &mdash; this sets the loop range (see <xref
+linkend="sec-markers"/>) so that it surrounds the currently-selected
+regions.
+</listitem>
+<listitem>
+Set Punch &mdash; this sets the punch range (see <xref
+linkend="sec-markers"/>) so that it surrounds the currently-selected
+regions.
+</listitem>
+<listitem>
+Add Single Range Marker &mdash; this adds a single range marker (see
+<xref linkend="sec-markers"/>) around the whole set of selected
+regions.
+</listitem>
+<listitem> 
+Add Range Marker Per Region &mdash; this adds an individual range marker around each selceted region (see
+<xref linkend="sec-markers"/>).
+regions.
+</listitem>
+<listitem>
+Set Range Selection &mdash; this sets the time range selection to surround all selected regions.
+</listitem>
+</itemizedlist>
+
+</listitem>
+
+<listitem>
+Gain &mdash; these items adjust a region's gain property.  This value is used only
+to modify the gain of the region during playback; it does not modify the
+data on disk.
+
+<itemizedlist>
+<listitem>
+<emphasis>Normalize&hellip;</emphasis> &mdash; examines the contents of
+the region and sets the region's gain so that the peak value of the
+region is scaled to just under 0dbFS; in other words, this makes the
+region as loud as it can be without introducing distortion.
+</listitem>
+<listitem>
+Boost Gain &mdash; increases the region's gain by 1dB.
+</listitem>
+<listitem>
+Cut Gain &mdash; decreases the region's gain by 1dB.
+</listitem>
+<listitem>
+Reset Envelope &mdash; this resets the region's gain envelope to be a
+straight line at 0dB (see <xref linkend="sec-audio-region-gain"/>).
+</listitem>
+<listitem> 
+Envelope Active &mdash; if this option is ticked, the region's gain
+envelope is followed, otherwise it is ignored.
+</listitem>
+</itemizedlist>
+
+</listitem>
+
+<listitem>
+Fades
+
+<itemizedlist>
+<listitem>
+Fade In &mdash; this is ticked if all regions in your selection have
+active fade-ins, and unticked if non do; selecting the menu option
+will toggle the active state of all selected regions' fade-ins.
+</listitem>
+<listitem>
+Fade Out &mdash; this option behaves the same as <guimenuitem>Fade In</guimenuitem>, but
+for fade-outs.
+</listitem>
+<listitem>
+Fades &mdash; this option behaves the same as <guimenuitem>Fade
+In</guimenuitem> and <guimenuitem>Fade Out</guimenuitem>, but applies
+to both fades at the same time.
+</listitem>
+</itemizedlist>
+</listitem>
+
+<listitem>
+Duplicate
+
+<itemizedlist>
+<listitem>
+Duplicate &mdash; this option makes a copy of each selected region,
+and places the duplicate regions directly after the end of the latest
+selected region; if there is just one selected region, this means that
+a duplicate copy will be placed right after the original.
+</listitem>
+<listitem>
+Multi-Duplicate&hellip; this makes duplicates as per the
+<guimenuitem>Duplicate</guimenuitem> option, but offers a choice of
+how many should be made.  The count can be a fraction, in which case
+the last duplicated region will be truncated.  If, for example, you
+choose 2.5 duplicates, this will make 2 complete duplicates and one
+futher duplicate which is half the length of the others.
+</listitem>
+<listitem>
+Fill Track &mdash; this makes sufficient duplicates to fill the track
+up to the session end marker.
+</listitem>
+</itemizedlist>
+</listitem>
+
+<listitem>
+Export&hellip;
+</listitem>
+<listitem>
+Bounce (without processing)
+</listitem>
+<listitem>
+Bounce (with processing)
+</listitem>
+<listitem>
+<emphasis>Spectral Analysis&hellip;</emphasis> &mdash; show a
+frequency spectrum of the region (see <xref
+linkend="sec-spectral-analysis"/>).
+</listitem>
+<listitem>
+Remove
+</listitem>
+
+
+</itemizedlist>
+</chapter>
+
+

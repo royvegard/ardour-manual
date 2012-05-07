@@ -1,0 +1,829 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE book [
+<!ENTITY % sgml.features "IGNORE">
+<!ENTITY % xml.features "INCLUDE">
+<!ENTITY % dbcent PUBLIC "-//OASIS//ENTITIES DocBook Character Entities V4.5//EN"
+   "/usr/share/xml/docbook/schema/dtd/4.5/dbcentx.mod">
+%dbcent;
+<!ENTITY % keys SYSTEM "keys.ent">
+%keys;
+<!ENTITY % extensions SYSTEM "extensions.ent">
+%extensions;
+]>
+
+<chapter xml:id="ch-editor-window" xmlns="http://docbook.org/ns/docbook" version="5.0" xml:lang="en">
+<title>The editor window</title>
+<indexterm><primary>editor</primary></indexterm>
+
+<para>
+A typical Ardour editor window is shown in <xref linkend="fig-typical-editor2"/>.
+</para>
+
+<figure id="fig-typical-editor2">
+  <title>A typical editor window</title>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="diagrams/editor-summary&dia;"/>
+    </imageobject>
+  </mediaobject>
+</figure>
+
+<para>
+This window is where audio and MIDI material can be viewed, edited and
+manipulated.  It offers a view of your session as it progresses in
+time, and allows the constituent parts (tracks, regions, playlists and
+so on) to be manipulated.  The contents of the main body of the window
+represent the session's tracks and busses, the functionality of which
+is discussed in Chapter <xref linkend="ch-tracks-and-busses"/>.
+</para>
+
+<para>
+The remainder of this chapter discusses the other parts of the editor window.
+</para>
+
+<section>
+<title>The playhead</title>
+<indexterm><primary>playhead</primary></indexterm>
+
+<para>
+The red vertical line with arrow heads at either end is the called the
+&lsquo;playhead&rsquo;.  The playhead position is used in a few different ways,
+but the most obvious is that it lies at the point in time at which
+Ardour is currently playing back or recording (or would be, were play
+or record to be started).  It is also used in some editing operations,
+as we will discuss later.
+</para>
+
+</section>
+
+<section>
+<title>The toolbar</title>
+<indexterm><primary>toolbar</primary></indexterm>
+
+<para>
+The toolbar is a set of buttons that change the way the mouse and
+keyboard interact with the regions on the tracks, in order to perform
+different tasks.
+</para>
+
+<xref linkend="fig-toolbar-annotated"/> shows the buttons on the toolbar.
+
+<figure id="fig-toolbar-annotated">
+  <title>The Ardour toolbar</title>
+  <mediaobject>
+    <imageobject>
+      <imagedata fileref="diagrams/toolbar-annotated&dia;"/>
+    </imageobject>
+  </mediaobject>
+</figure>
+
+<para>
+We will examine the broad function of these tools here, and go into
+more detail on their operation later.
+</para>
+
+<itemizedlist>
+<listitem>
+<emphasis>Select/move objects</emphasis> (<keycap>o</keycap>) &mdash; used to mark
+  regions or MIDI notes as &lsquo;selected&rsquo;, and to move them around (in
+  time, or to a different track, or to a different note in the case of
+  MIDI).
+</listitem>
+<listitem>
+<emphasis>Smart mode</emphasis> &mdash; this provides a combination of the
+  functionality of &lsquo;select/move objects&rsquo; and &lsquo;select/move ranges&rsquo;
+  which may be familiar to users of Pro Tools.
+</listitem>
+<listitem>
+<emphasis>Select/move ranges</emphasis> (<keycap>r</keycap>) &mdash; used to mark
+  ranges of time and to manipulate them.
+</listitem>
+<listitem>
+<emphasis>Zoom range</emphasis> (<keycap>z</keycap>) &mdash; this provides a mode whereby a time
+  range can be dragged with the mouse, and the editor window will zoom
+  to show that time range.
+</listitem>
+<listitem>
+<emphasis>Region gain</emphasis> (<keycap>g</keycap>) &mdash; used to edit audio
+  gain curves on regions.
+</listitem>
+<listitem>
+<emphasis>Stretch/shrink</emphasis> (<keycap>t</keycap>) &mdash; allows stretching
+  or shrinking of regions in time (using time-stretching /
+  pitch-shifting algorithms) or MIDI notes.
+</listitem>
+<listitem>
+<emphasis>Listen</emphasis> -- <!-- XXX: TODO -->
+</listitem>
+<listitem>
+<emphasis>Draw/edit MIDI notes</emphasis> &mdash; used to draw new MIDI notes
+  into MIDI regions, or change the length of those that are already
+  there.
+</listitem>
+<listitem>
+<emphasis>Edit region contents</emphasis> (<keycap>e</keycap>) &mdash; this is a
+  kind of &lsquo;modifier&rsquo; for the other tools.  When selected, it means
+  that the other tools will operate on region contents rather
+  than the regions themselves.  For example, the select/move tool will
+  select and move MIDI notes rather than the regions that the notes
+  are in.
+</listitem>
+</itemizedlist>
+
+</section>
+
+<section>
+<title>Rulers</title>
+
+The rulers section of the editor gives the option of several views;
+some time indications, in different units, details of tempo and meter
+(time signature) changes, and a display of various types of marker.
+
+Right-clicking over the marker area offers a menu from which the
+displayed rulers can be chosen.
+
+<section>
+<title>Time displays</title>
+
+The time rulers that can be displayed are:
+<itemizedlist>
+<listitem>
+<emphasis>Min:Sec</emphasis> &mdash; time in hours:minutes:seconds:millseconds.
+</listitem>
+<listitem>
+<emphasis>Timecode</emphasis> &mdash; time in hours:minutes:seconds:frames.
+</listitem>
+<listitem>
+<emphasis>Samples</emphasis> &mdash; time in audio samples.
+</listitem>
+<listitem>
+<emphasis>Bars:Beats</emphasis> &mdash; time in bars and beats.
+</listitem>
+</itemizedlist>
+
+</section>
+
+<section>
+<title>Meter and tempo</title>
+
+Ardour provides support for considering a piece of music as having
+tempo and meter.  This is optional in the sense that you can happily
+ignore tempo and meter settings if they are not relevant to your
+recording situation.
+
+Use of tempo has two main effects; firstly, Ardour can provide a
+metronome &lsquo;click&rsquo; which can be used as reference to record to.
+Secondly, tempo will affect the speed at which MIDI data is played
+back, so you can change how your records will sound by changing the
+tempo.
+
+Meter (time signature) also affects the metronome click, as the click
+will emphasise the sound of the first beat of the bar.  It has no
+effect on the <emphasis>playback</emphasis> of MIDI, but adjusting time signature to
+match the music may make things more intuitive to work with.
+
+Both tempo and meter affect the grid that is displayed (and,
+optionally, snapped to) which shows bars and beats.  The grid will
+adjust itself to zoom level, so the finer details of the session may
+not be visible if you are zoomed too far out.
+</section>
+
+<section id="sec-markers">
+<title>Markers</title>
+
+<para>
+Ardour supports a variety of markers for various purposes.  Markers
+can either be a single point in time or a range of time.
+</para>
+
+<para>
+The basic marker types for general purpose use are <emphasis>location
+markers</emphasis> and <emphasis>range markers</emphasis>.  Location markers are
+a point in time, and range markers represent, as one might expect, a
+time range.
+</para>
+
+<para>
+There are some other special marker types.  CD markers are intended to
+indicate track marks for CD productions.  If a session has CD markers
+at the start of each track, Ardour can generate a table-of-contents
+for use with audio exports to allow them to be burnt to CD correctly.
+</para>
+
+<para>
+Two special range markers are the &lsquo;loop&rsquo; and &lsquo;punch&rsquo; ranges.  The loop
+range can be played back in a loop when the <emphasis>play loop
+range</emphasis> button is clicked.  The punch range will be used with
+punch-in recording.
+</para>
+
+</section>
+</section>
+
+<section>
+<title>Clocks</title>
+
+<para>
+This area contains two clocks, the primary and secondary.  They both
+show the location of the playhead, but can be set to different time
+representations.  By default, for example, the primary clock shows
+position as a time-code, and the secondary shows bars, beats and
+ticks.
+</para>
+
+<para>
+Right-clicking on a clock pops up a menu from which you can choose the
+time representation from one of the following:
+</para>
+
+<itemizedlist>
+<listitem>
+<emphasis>Timecode</emphasis> &mdash; shows time as
+  hours:minutes:seconds:frames.  The number of frames per second is
+  set by the session property &lsquo;timecode frames-per-second&rsquo; (see
+  <xref linkend="sec-session-properties-timecode"/>).
+</listitem>
+<listitem>
+<emphasis>Bars:Beats</emphasis> &mdash; shows time as
+  bars|beats|text|ticks (there are 1920 ticks per beat).
+</listitem>
+<listitem>
+<emphasis>Minutes:Seconds</emphasis> &mdash; shows time as
+  hours:minutes:seconds:milliseconds.
+</listitem>
+<listitem>
+<emphasis>Samples</emphasis> &mdash; shows time as samples (according to the
+  sampling rate that JACK is using).
+</listitem>
+</itemizedlist>
+
+<para>
+In addition to the time, the clock shows some other information.
+</para>
+
+<para>
+When set to &lsquo;timecode&rsquo;, the clock also shows the timecode reference
+source; this defaults to &lsquo;INT&rsquo; for internal, but can also be &lsquo;JACK&rsquo; if
+JACK is the timecode reference, &lsquo;MTC&rsquo; if Ardour is syncing to MIDI
+time-code or &lsquo;M-Clock&rsquo; if Ardour is synced to MIDI clock.  To the
+right of the timecode reference is the number of frames per second
+(suffixed by &lsquo;D&rsquo;) if drop-frame is being used.
+</para>
+
+<para>
+In &lsquo;Bars:Beats&rsquo; mode, the area underneath the time shows the tempo (in
+beats per minute) and time signature that are currently in effect.
+</para>
+
+</section>
+
+<section>
+<title>Times area</title>
+
+<para>
+The times area of the editor window shows a few useful bits of
+information about any current selection and punch in/out range.  The
+&lsquo;selection&rsquo; area shows the start, end and length of anything that is
+currently selected (which may be a set of regions, a time range, or
+whatever).  The &lsquo;punch&rsquo; area shows the punch range, and also whether
+punch in and punch out are enabled; clicking &lsquo;In&rsquo; or &lsquo;Out&rsquo; will enable
+punch in and out respectively, and the buttons will turn red in colour
+to indicate that the corresponding punch is switched on.
+</para>
+
+</section>
+
+<section xml:id="sec-edit-point-selector">
+<title>Edit point selector</title>
+<indexterm><primary>edit point</primary></indexterm>
+
+<para>
+The &lsquo;edit point&rsquo; is a point in time within the session that is used
+for a variety of different editing operations.  The edit point
+selector is used to choose where the edit point should be; it can be
+either at the playhead, at the selected marker or at the
+mouse pointer position.
+</para>
+
+</section>
+
+<section>
+<title>Zoom controls</title>
+<indexterm><primary>zoom</primary></indexterm>
+
+The zoom controls are shown in <xref linkend="fig-zoom-controls"/>.
+
+<figure id="fig-zoom-controls"> 
+  <title>The zoom controls</title> 
+  <mediaobject>
+    <imageobject> 
+      <imagedata fileref="diagrams/zoom-controls&dia;"/>
+    </imageobject> 
+  </mediaobject>
+</figure>
+
+<para>
+The zoom in and out controls zoom the editor window in and out in
+terms of time; the &lsquo;zoom to session&rsquo; button zooms the editor window so
+that the whole session is visible.  The &lsquo;zoom focus button&rsquo; selects
+a reference point to decide which part of the session the editor window
+should display after the zoom.  These reference points are as follows:
+
+<itemizedlist>
+<listitem>
+<emphasis>Left</emphasis> &mdash; the left-hand side of the editor
+window remains at the same point in time.
+</listitem>
+<listitem>
+<emphasis>Right</emphasis> &mdash; the right-hand side of the editor
+window remains at the same point in time.
+</listitem>
+<listitem>
+<emphasis>Center</emphasis> &mdash; the centre of the editor window
+remains at the same point in time.
+</listitem>
+<listitem>
+<emphasis>Playhead</emphasis> &mdash; the playhead will be kept in the
+centre of the editor window (where possible).
+</listitem>
+<listitem>
+<emphasis>Mouse</emphasis> &mdash; the point of the session that the
+mouse pointer is over will be kept at the same point in the editor
+window.
+</listitem>
+<listitem>
+<emphasis>Edit point</emphasis> &mdash; the current edit point will be
+used as a reference.
+</listitem>
+</itemizedlist>
+</para>
+
+</section>
+
+<section>
+<title>Grid controls</title>
+<indexterm><primary>grid</primary></indexterm>
+
+<para>
+Ardour has an optional &lsquo;grid&rsquo; which can be used to align things
+precisely in time.  The grid can either be disabled (by choosing &lsquo;No
+Grid&rsquo; from the drop-down box), fully enabled (&lsquo;Grid&rsquo;) or &lsquo;Magnetic&rsquo;.
+When the grid is fully enabled, any object that is moved (regions,
+MIDI notes or automation points, for example) will be forcibly snapped
+to the grid.  In &lsquo;magnetic&rsquo; mode, it is possible to move things off
+the grid, but when they get close to a grid intersection they will be
+snapped.
+</para>
+
+<para>
+Next to the grid on/off drop-down box is a selector for the interval
+to snap to.  There are a large variety of options here, most of which
+are self explanatory.  &lsquo;Region starts/ends/syncs/bounds&rsquo; snaps to
+various parts of existing regions, which can be useful when alignment
+needs to be relative to existing material rather than some arbitrary
+grid.
+</para>
+
+</section>
+
+<section>
+<title>Nudge controls</title>
+<indexterm><primary>nudge</primary></indexterm>
+
+<para>
+The nudge controls allow objects to be &lsquo;nudged&rsquo;, or moved by a fixed
+amount backward or forward.  The left and right buttons move currently
+selected things either backward or forward in time, and the small
+clock to the left of these buttons sets the amount of time to nudge
+by.  As with all other clocks, you can right-click on the clock to
+choose the time representation you want to use.
+</para>
+
+</section>
+
+<section>
+<title>The editor lists</title>
+
+<para>
+At the right of the editor is an optional area which provides one of a
+range of useful lists of parts of your session.  The list can be
+hidden or shown using the <guimenuitem>Show Editor List</guimenuitem>
+option from the <guimenu>View</guimenu> menu.  The very right-hand
+side of the list gives a selection of tabs which are used to choose
+the list to view.  The left-hand border of the list can be dragged to
+vary the width of the list.
+</para>
+
+<section xml:id="sec-region-list">
+<title>Region list</title>
+<indexterm><primary>region list</primary></indexterm>
+
+<para>
+The region list shows all the regions in the session.  The left-hand
+column gives the region name, and there are a range of times given for
+information.  At the right of the list are four columns of flags that can be altered:
+</para>
+
+<itemizedlist>
+<listitem>
+<emphasis>L</emphasis> &mdash; whether the region position is locked, so that it
+  cannot be moved.
+</listitem>
+<listitem>
+<emphasis>G</emphasis> &mdash; whether the region's position is &lsquo;glued&rsquo; to bars
+  and beats.  If so, the region will stay at the same position in bars
+  and beats even if the tempo and/or time signature change.
+</listitem>
+<listitem>
+<emphasis>M</emphasis> &mdash; whether the region is muted, so that it will not be heard.
+</listitem>
+<listitem>
+<emphasis>O</emphasis> &mdash; whether the region is opaque; opaque regions
+  &lsquo;block&rsquo; regions below them from being heard, whereas &lsquo;transparent&rsquo;
+  regions have their contents mixed with whatever is underneath.
+</listitem>
+</itemizedlist>
+
+<para>
+Hovering the mouse pointer over a column heading shows a tool-tip
+which can be handy to remember what the columns are for.
+</para>
+
+<para>
+A handy feature of the region list is that its regions can be dragged
+and dropped into a suitable track in the session.
+</para>
+
+</section>
+
+<section>
+<title>Tracks &amp; Busses</title>
+
+<para>
+This lists the tracks and busses that are present in the session.  The
+list order reflects the order in the editor, and you can drag-and-drop
+track or bus names in the editor list to re-order them in the editor.
+The columns in the list can all be clicked to alter the track/bus
+state, and they represent the following:
+</para>
+
+<itemizedlist>
+<listitem> <emphasis>V</emphasis> &mdash; whether the track or bus is visible; they can be
+  hidden, in which case they will still play, but just not be visible
+  in the editor; this can be useful for keeping the display uncluttered.
+</listitem><listitem> <emphasis>A</emphasis> &mdash; whether the track or bus is active; unactive
+  tracks will not play, and will not consume any CPU.
+</listitem><listitem> <emphasis>I</emphasis> &mdash; for MIDI tracks, whether the MIDI input is
+  enabled; this dictates whether MIDI data from the track's inputs
+  ports will be passed through the track.
+</listitem><listitem> <emphasis>R</emphasis> &mdash; whether the track is record-enabled.
+</listitem><listitem> <emphasis>M</emphasis> &mdash; whether the track is muted.
+</listitem><listitem> <emphasis>S</emphasis> &mdash; track solo state.
+</listitem><listitem> <emphasis>SI</emphasis> &mdash; track solo-isolated state.
+</listitem><listitem> <emphasis>SS</emphasis> &mdash; solo safe state.
+</listitem>
+</itemizedlist>
+
+<para>
+As with the region list, hovering the mouse pointer over a column
+heading shows a tool-tip which can be handy to remember what the
+columns are for.
+</para>
+
+</section>
+<section><title>Snapshots</title>
+<indexterm><primary>snapshot</primary></indexterm>
+
+<para>
+This list gives the snapshots that exist of this session.  Clicking on
+a snapshot name will load that snapshot.
+</para>
+
+</section>
+<section><title>Track &amp; Bus Groups</title>
+
+<para>
+This shows the track/bus groups that exist in the session.  These
+groups allow related tracks to share various properties (such as mute
+or record enable state).  For full details, see
+<xref linkend="sec-track-and-bus-groups"/>.
+</para>
+
+<para>
+The columns in this list are as follows:
+</para>
+
+<itemizedlist>
+<listitem>
+<emphasis>Col</emphasis> &mdash; the colour that the group uses for its tab in the editor.
+</listitem>
+<listitem>
+<emphasis>Name</emphasis> &mdash; the group name.
+</listitem>
+<listitem>
+<emphasis>V</emphasis> &mdash; whether the tracks and busses in the group are visible.
+</listitem>
+<listitem>
+<emphasis>On</emphasis> &mdash; whether the group is enabled.
+</listitem>
+<listitem>
+<emphasis>G</emphasis> &mdash; ticked if the constituents of the group are sharing gain settings.
+</listitem>
+<listitem>
+<emphasis>Rel</emphasis> &mdash; ticked if shared gains are relative.
+</listitem>
+<listitem>
+<emphasis>M</emphasis> &mdash; ticked if the constituents share mute status.
+</listitem>
+<listitem>
+<emphasis>S</emphasis> &mdash; ticked if the constituents share solo status.
+</listitem>
+<listitem>
+<emphasis>Rec</emphasis> &mdash; ticked if the constituents share record-enable status.
+</listitem>
+<listitem>
+<emphasis>Mon</emphasis> &mdash; whether the constituents share monitor settings.
+</listitem>
+<listitem>
+<emphasis>Sel</emphasis> &mdash; whether the constituents are selected together.
+</listitem>
+<listitem>
+<emphasis>E</emphasis> &mdash; whether edits to the constituents are performed to all others.
+</listitem>
+<listitem>
+<emphasis>A</emphasis> &mdash; whether the constituents share active status.
+</listitem>
+</itemizedlist>
+
+</section>
+
+<section>
+<title>Ranges &amp; Marks</title>
+
+This lists the ranges and markers that exist in the session, and
+allows them to be edited.  First, there is the current loop and punch
+range; there are three clocks, being the start of the range, the end
+of the range and the length of the range.  The start and end points
+have a &lsquo;Use PH&rsquo; button beside them, which you can click to set the
+corresponding position using the current position of the playhead.
+
+Following this is a list of the session's markers, and finally there
+is a list of the range markers.
+
+At the bottom of the list are buttons to add new markers or ranges.
+
+The <guibutton>-</guibutton> button beside each marker and range
+allows that particular mark to be removed.
+
+</section>
+</section>
+
+<section>
+<title>Other buttons</title>
+
+The editor window contains a few other buttons, which are described here.
+
+<section>
+<title>Solo</title>
+
+This button flashes red if any tracks are soloed, and you can click it
+to turn off all solos.
+
+</section>
+
+<section>
+<title>Feedback</title>
+<indexterm><primary>feedback</primary></indexterm>
+
+It is possible to connect things up so that there are feedback loops;
+a simple example might be connecting the output of a track to its
+input, but obviously there are much more convoluted arrangements
+possible.  Ardour detects any feedback that exists, and will keep its
+signal processing pathways in the state they were in just before the
+feedback was introduced.  If Ardour is doing this, it flashes the
+feedback button to let you know that the routing in effect may not be
+what the user interface is showing.  You should remove the feedback
+path, upon which this light will stop flashing.
+
+<!-- XXX
+Metronome
+Audition}
+Internal
+Auto Play
+Auto Return
+-->
+
+</section>
+</section>
+
+<section>
+<title>The transport controls</title>
+
+Ardour uses the term &lsquo;transport&rsquo; in a sense that might be similar to
+those who have used tape machines.  The transport is said to be
+&lsquo;moving&rsquo; (or &lsquo;rolling&rsquo;, as with tape) when Ardour is playing back or
+recording, and &lsquo;stopped&rsquo; when it is not.  The transport can be
+controlled using the buttons shown in
+<xref linkend="fig-transport-controls2"/>.
+
+<figure id="fig-transport-controls2"> 
+  <title>Main transport controls</title> 
+  <mediaobject>
+    <imageobject> 
+      <imagedata fileref="screenshots/transport-controls&scs;"/>
+    </imageobject> 
+  </mediaobject>
+</figure>
+
+From left to right, these controls are:
+<itemizedlist>
+<listitem>
+<imagedata fileref="screenshots/midi-panic&scs;"/> &mdash;
+  <emphasis>MIDI panic</emphasis> &mdash; click this to send note-offs and reset
+  controller messages on all MIDI channels.  This is useful if, for
+  example, a MIDI synthesizer has a stuck note and you want to silence
+  it.
+</listitem>
+<listitem>
+<imagedata fileref="screenshots/go-to-start&scs;"/> &mdash;
+  <emphasis>Start of session</emphasis> &mdash; moves the playhead to the session
+  start marker.
+</listitem>
+<listitem>
+<imagedata fileref="screenshots/go-to-end&scs;"/> &mdash; <emphasis>End
+of session</emphasis> &mdash; moves the playhead to the session end
+marker.
+</listitem>
+<listitem>
+<imagedata fileref="screenshots/loop&scs;"/> &mdash; <emphasis>Play
+loop</emphasis> &mdash; this starts playback in looped mode, so that
+the current loop range will be played repeatedly.
+</listitem>
+<listitem>
+<imagedata fileref="screenshots/play-range&scs;"/> &mdash;
+<emphasis>Play range or selection</emphasis> &mdash; if there is a
+selected time range, it will be played back.
+</listitem>
+<listitem>
+<imagedata fileref="screenshots/play&scs;"/> &mdash;
+<emphasis>Play</emphasis> &mdash; this starts playback of the session
+from wherever the playhead currently is (in other words, it sets the
+transport &lsquo;rolling&rsquo;, or moving)
+</listitem>
+<listitem> 
+<imagedata fileref="screenshots/stop&scs;"/> &mdash;
+<emphasis>Stop</emphasis> &mdash; this stops playback or record.
+</listitem>
+<listitem>
+<imagedata fileref="screenshots/session-record&scs;"/> &mdash;
+<emphasis>Record</emphasis> &mdash; if this is clicked so that it
+flashes red, Ardour will record onto record-enabled tracks when the
+transport is moving.
+</listitem>
+</itemizedlist>
+
+</section>
+
+<section xml:id="sec-summary">
+<title>The summary</title>
+<indexterm><primary>summary</primary></indexterm>
+
+<para>
+The summary area of the editor window gives an overview of your entire
+session.  No matter how long the session is, or how many tracks it
+has, the summary will arrange itself so that the entire session is
+drawn within it.  Inside the summary tracks are represented as
+light-grey bars, regions as coloured bars, the playhead as a vertical
+red line and the session start and end markers as vertical yellow
+lines.  On top of the summary is drawn a light-grey translucent box
+(the &lsquo;view box&rsquo;) which indicates the part of the session that is
+currently visible in the main part of the editor window.
+</para>
+
+<para>
+The summary is intended for two main purposes: firstly, to get an idea
+of the whole session at a glance, and secondly to navigate around it
+easily.  You can use the summary to do the following things:
+</para>
+
+<itemizedlist>
+<listitem>Dragging the view box around will move the view of the session
+  in the main editor window.
+</listitem>
+<listitem>Resizing the view box (by clicking and dragging on its edges)
+  will zoom into or out of the session.
+</listitem>
+<listitem>Clicking with <keycap>&modtwo;</keycap> held down will move
+the playhead to the click position.
+</listitem>
+<listitem>Clicking with <keycap>&modtertiary;</keycap> held down will
+centre the editor's view at the click position.
+</listitem>
+<listitem>Moving the mouse's scroll-wheel will scroll the editor's view.
+</listitem>
+<listitem>Moving the mouse's scroll-wheel with <keycap>&modone;</keycap> held down will
+  zoom the editor's view in or out.
+</listitem>
+<listitem>Moving the mouse's scroll-wheel with <keycap>&modtwo;</keycap> held down will
+  scroll the editor's view left or right.
+</listitem>
+</itemizedlist>
+
+The left, right, up and down buttons to either side of the summary
+allow the editor window to be scrolled in each direction.
+
+<section>
+<title>The status bar</title>
+
+This contains the following things:
+<itemizedlist>
+<listitem>
+<emphasis>File</emphasis> &mdash; the type of file that Ardour is using to record audio;
+this can be change from the <guilabel>Media</guilabel> tab of the <guilabel>Session
+Properties dialogue</guilabel> (see <xref linkend="sec-session-properties-media"/>).
+</listitem>
+<listitem>
+<emphasis>JACK</emphasis> &mdash; the sampling rate that JACK (and therefore Ardour) is
+ using, and the duration of one JACK period.
+</listitem>
+<listitem>
+ <emphasis>Buffers</emphasis> &mdash; how full the &lsquo;playback buffers&rsquo; are (prefixed &lsquo;p&rsquo;),
+  and how empty the &lsquo;capture buffers&rsquo; (prefixed &lsquo;c&rsquo;).  The playback
+  buffers are areas of memory that Ardour uses to store audio and MIDI
+  data while it is being passed from the disk to the audio outputs;
+  Ardour tries to keep them full (so that there is always data
+  available for playback), but if you have a lot of tracks and (or)
+  slow disks, Ardour may not be able to keep up.  The closer the
+  playback buffer number is to 100%, the better.  Similarly, as data
+  is being captured for record, Ardour tries to write it to disk; if
+  it cannot write the data quickly enough, the record buffers will
+  fill and problems will occur.
+</listitem>
+<listitem>
+<indexterm><primary>DSP</primary></indexterm><emphasis>DSP</emphasis>
+&mdash; an estimate of the amount of time that Ardour is spending
+doing digital signal processing (DSP) of your session.  If this gets
+near 100% it indicates that your system is being overloaded, and you
+may get glitches or &lsquo;pops&rsquo; in your audio.  First steps to fixing this
+are:
+</listitem>
+
+<itemizedlist>
+<listitem>
+Reduce the number of plugins you are using (especially complicated ones like reverbs).
+</listitem>
+<listitem>
+&lsquo;Freeze&rsquo; some tracks.
+</listitem>
+<listitem>
+Increase JACK's buffer size.
+</listitem>
+<listitem>
+Get a faster computer!
+</listitem>
+</itemizedlist>
+
+<sidebar>
+<para>
+Every time JACK calls Ardour, to give it audio from inputs and take
+away audio from outputs, Ardour has until the next JACK call to do its
+processing.  The DSP load is the percentage of this available time
+that Ardour is taking up.  More than 100% means that Ardour will not
+have performed one lot of processing before JACK asks it to do more,
+so the system is critically overloaded.  As suggested above, one can
+increase Ardour's chances of getting everything finished by increasing
+the period between JACK's calls (by increasing the JACK buffer size),
+or by reducing the amount of time Ardour requires to do its work (by
+reducing plugin count, or using faster hardware).
+</para>
+
+<para>
+Note that DSP load will probably not vary predictably with CPU speed.
+Many other things are involved in the timing of the sound-card / JACK
+/ Ardour interaction; including the real-time performance of your
+system and kernel, the details of your hardware, and in some cases
+blind (good or bad) luck.
+</para>
+</sidebar>
+
+<listitem>
+<emphasis>Disk</emphasis> &mdash; the amount of time for which you can record (on the
+  tracks that are currently record-enabled) given the amount of disk
+  space you have available.  If no tracks are record-enabled, the time
+  remaining is computed assuming that you are recording one track.
+</listitem>
+<listitem>
+And finally, the time (using the 24-hour clock), just in case you have somewhere to be.
+</listitem>
+</itemizedlist>
+
+<para>
+The various parts of the status bar can be shown or hidden by
+right-clicking and choosing the elements that you want to see.  This
+can be useful for reducing the editor window's width for use on small
+screens.
+</para>
+
+</section>
+</section>
+</chapter>
