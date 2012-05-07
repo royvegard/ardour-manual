@@ -2144,7 +2144,7 @@ parts of the bus should be muted. <!-- detail of muting options -->
 <listitem>
 <emphasis>'s'</emphasis> &mdash; solo &mdash; solo the bus.  The
 behaviour of the solo system is described in detail in <xref
-linkend="todo"/>.
+linkend="sec-mute-and-solo"/>.
 </listitem>
 <listitem>
 <emphasis>'a'</emphasis> &mdash; automation &mdash; click to open a
@@ -2769,7 +2769,8 @@ a 2-track output recorder.
 </para>
 
 </section>
-<section xml:id="sec-mute-and-solo"><title>Mute and solo</title>
+<section xml:id="sec-mute-and-solo">
+<title>Mute and solo</title>
 
 <para>
 Each track and bus has two buttons which have important implications
