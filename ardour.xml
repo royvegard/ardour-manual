@@ -799,7 +799,7 @@ card so that it can record incoming audio.
 <para>
 Perhaps the easiest way to connect up this new track is to open its
 editor mixer strip.  Do this now by pressing
-<keycombo>Shift+E</keycombo> or choosing <guimenuitem>Show Editor
+<keycombo><keycap>Shift</keycap><keycap>E</keycap></keycombo> or choosing <guimenuitem>Show Editor
 Mixer</guimenuitem> from the <guimenu>View</guimenu> menu.  The top of
 the mixer strip that appears looks like that in <xref
 linkend="fig-top-of-mixer-strip"/>.
@@ -975,7 +975,7 @@ and processing later, but for now we will just set the relative levels
 of the two tracks.  The easiest way to do this is to open the
 <emphasis>mixer</emphasis> window, either by selecting
 <guimenuitem>Mixer</guimenuitem> from the <guimenu>Window</guimenu>
-menu or by pressing <keycombo>Alt+M</keycombo>.  The mixer window is
+menu or by pressing <keycombo><keycap>Alt</keycap><keycap>M</keycap></keycombo>.  The mixer window is
 shown in <xref linkend="fig-mixer-window"/>.
 </para>
 
@@ -2707,6 +2707,7 @@ Metering!
 </section>
 </section>
 </section>
+
 <section><title>Overall signal flow and solo / mute</title>
 
 <para>
@@ -2716,8 +2717,7 @@ within Ardour as a whole, particularly with regard to track soloing and
 muting.
 </para>
 
-<section>
-<title>The master bus</title>
+<section><title>The master bus</title>
 
 <para>
 Ardour sessions always contain a special bus called the <emphasis>master
@@ -2739,9 +2739,9 @@ some ports on a physical sound card so that the mix makes it
 out into the real world to be listened to.
 </para>
 
-</section>
-<section>
-<title>The monitor bus</title>
+</section> <!-- The master bus -->
+
+<section><title>The monitor bus</title>
 
 <para>
 The monitor bus is an additional, optional, and more specialised type
@@ -2764,9 +2764,9 @@ bus connected to the control room outputs and the mix bus connected to
 a 2-track output recorder.
 </para>
 
-</section>
-<section xml:id="sec-mute-and-solo">
-<title>Mute and solo</title>
+</section> <!-- The monitor bus -->
+
+<section xml:id="sec-mute-and-solo"><title>Mute and solo</title>
 
 <para>
 Each track and bus has two buttons which have important implications
@@ -2775,7 +2775,6 @@ buttons is configurable in Ardour, so that they can behave in one of a
 few different ways to suit different studio set-ups.
 </para>
 
-</section>
 <section><title>Without a monitor bus</title>
 
 <para>
@@ -2792,7 +2791,8 @@ one way in which mute and solo will work.  Without a monitor bus:
   </listitem>
 </itemizedlist>
 
-</section>
+</section> <!-- Without a monitor bus -->
+
 <section><title>With a monitor bus</title>
 
 <para>
@@ -2871,7 +2871,72 @@ tracks; with solo (rather then listen), the monitor out is fed from
 the master bus.
 </para>
 
-</section>
+</section> <!-- With a monitor bus -->
+
+<section><title>Other solo options</title>
+
+<para>
+There are a few other configuration options related to the behaviour
+of solo.  They can be found in the <guilabel>Solo / Mute</guilabel>
+tab of <guilabel>Ardour Preferences</guilabel> dialogue.
+</para>
+
+<section><title>Solo-in-place mute cut</title>
+
+<para>
+When using &lsquo;solo-in-place&rsquo; (SiP), in other words when soloed tracks
+are being listened to on the master bus, this fader specifies the gain
+that will be applied to other tracks in order to mute them.  Setting
+this level to &infin;dB will mean that other tracks will not be
+heard at all; setting to some higher value less than 0dB means that
+other non-soloed tracks will be heard, just reduced in volume compared
+to the soloed tracks.
+</para>
+
+</section> <!-- Solo-in-place mute cut -->
+
+<section><title>Exclusive solo</title>
+
+<para>
+If this is enabled, only one track or bus will ever be soloed at once;
+soloing track B while track A is currently soloed will un-solo
+track A before soloing track B.
+</para>
+
+</section> <!-- Exclusive solo -->
+
+<section><title>Show solo muting</title>
+
+<para>
+If this is enabled, the mute button of tracks and busses will be drawn
+outlined to indicate that the track or bus is muted because something
+else is soloed.
+</para>
+
+</section> <!-- Show solo muting -->
+
+<section><title>Soloing overrides muting</title>
+
+<para>
+If this is enabled, a track or bus that is both soloed and muted will
+behave as if it is soloed.
+</para>
+
+</section> <!-- Soloing overrides muting -->
+
+<section><title>Mute affects&hellip;</title>
+
+<para>
+These options dictate whether muting the track will affect various
+routes out of the track; through the sends, through the control
+outputs (to the monitor bus) and to the main outputs.
+</para>
+
+</section> <!-- Mute affects... -->
+
+</section> <!-- Other solo options -->
+</section> <!-- Mute and solo -->
+</section> <!-- Overall signal flow and solo / mute -->
 
 <section>
 <title>Connecting things</title>
@@ -3009,9 +3074,9 @@ Slightly different versions of the connection manager are available
 from different places in Ardour.  For a global view of all JACK audio
 connections, use the <guilabel>Audio Connection Manager</guilabel>
 which can be opened from the <guimenu>Window</guimenu> menu, or by
-using <keycombo>&modtwo;-P</keycombo>.  A corresponding <guilabel>MIDI
+using <keycombo><keycap>&modtwo;</keycap><keycap>P</keycap></keycombo>.  A corresponding <guilabel>MIDI
 Connection Manager</guilabel> can be opened using
-<keycombo>&modtertiary;-&modtwo;-P</keycombo>.
+<keycombo><keycap>&modtertiary;</keycap><keycap>&modtwo;</keycap><keycap>P</keycap></keycombo>.
 </para>
 
 <!-- try to explain rationale for having some MIDI connections in audio
@@ -3077,9 +3142,6 @@ to the destination.
 </section>
 
 </section>
-
-</section>
-
 
 </section>
 </chapter>
@@ -3388,7 +3450,7 @@ other.
 </section>
 </section>
 <section xml:id="sec-audio-region-gain"><title>Audio region gain</title>
-<indexterm><primary>gain!region</primary></indexterm>
+<indexterm><primary>region</primary><secondary>gain</secondary></indexterm>
 
 <para>
 In addition to the fade-in and fade-out curves, there are two other
@@ -3864,9 +3926,9 @@ reference to audio as well as MIDI automation.
 <para>
 Whenever you perform an operation which alters something on Ardour's
 timeline, a note is made so that it can be undone using
-<keycombo>&modone;-Z</keycombo> or by choosing
+<keycombo><keycap>&modone;</keycap><keycap>Z</keycap></keycombo> or by choosing
 <guimenuitem>Undo</guimenuitem> from the <guimenu>Edit</guimenu> menu.
-The operation can then be redone using <keycombo>&modone;-R</keycombo>
+The operation can then be redone using <keycombo><keycap>&modone;</keycap><keycap>R</keycap></keycombo>
 or with the <guimenuitem>Redo</guimenuitem> menu option.
 </para>
 
@@ -4815,7 +4877,7 @@ The reason CPUs slow down is that in some cases they think it more
 important to maintain precision with very small numbers than to
 process them quickly.  This is true for many applications, but not for
 audio.  The numbers involved are so small (usually around the
-1e-16 range) that small errors in their processing are, in most
+<inlineequation><alt>10^{-16}</alt>1e-16</inlineequation> range) that small errors in their processing are, in most
 cases, inaudible.  For audio applications it is generally preferable
 to lose some precision in order to keep things moving quickly.
 </para>
@@ -4864,103 +4926,7 @@ likely to solve the problem efficiently.
 
 </section>
 </section>
-<section><title>Solo / mute</title>
 
-<section><title>Solo-in-place mute cut</title>
-
-<para>
-When using &lsquo;solo-in-place&rsquo; (SiP), in other words when soloed tracks
-are being listened to on the master bus, this fader specifies the gain
-that will be applied to other tracks in order to mute them.  Setting
-this level to &infin;dB will mean that other tracks will not be
-heard at all; setting to some higher value less than 0dB means that
-other non-soloed tracks will be heard, just reduced in volume compared
-to the soloed tracks.
-</para>
-
-</section>
-<section><title>Solo controls are Listen controls</title>
-
-<para>
-As discussed in detail in <xref linkend="sec-mute-and-solo"/>, enabling
-this option makes solo buttons into listen controls (AFL or PFL).
-This means that the &lsquo;solo&rsquo; (or now &lsquo;listen&rsquo;) buttons will not affect
-the master bus, but instead will send the soloed tracks to the monitor
-bus.
-</para>
-
-<para>
-This option is desensitised if you are not using a monitor bus.
-</para>
-
-</section>
-<section><title>Listen Position</title>
-
-<para>
-If &lsquo;Solo Controls are Listen controls&rsquo; is enabled, this option
-specifies where the solo feed comes from; it can either be pre- or
-post-fader.
-</para>
-
-</section>
-</section>
-<section>
-<title>PFL signals come from</title>
-
-<para>
-If PFL is selected for the listen position, this drop-down specifies
-precisely where the pre-fader signals come from.
-</para>
-
-</section>
-<section>
-<title>AFL signals come from</title>
-
-<para>
-If AFL is selected for the listen position, this drop-down specifies
-precisely where the post-fader signals come from.
-</para>
-
-</section>
-<section>
-<title>Exclusive solo</title>
-
-<para>
-If this is enabled, only one track or bus will ever be soloed at once;
-soloing track B while track A is currently soloed will un-solo
-track A before soloing track B.
-</para>
-
-</section>
-<section>
-<title>Show solo muting</title>
-
-<para>
-If this is enabled, the mute button of tracks and busses will be drawn
-outlined to indicate that the track or bus is muted because something
-else is soloed.
-</para>
-
-</section>
-<section>
-<title>Soloing overrides muting</title>
-
-<para>
-If this is enabled, a track or bus that is both soloed and muted will
-behave as if it is soloed.
-</para>
-
-</section>
-<section>
-<title>Mute affects&hellip;</title>
-
-<para>
-These options dictate whether muting the track will affect various
-routes out of the track; through the sends, through the control
-outputs (to the monitor bus) and to the main outputs.
-</para>
-
-</section>
 <section>
 <title>MIDI</title>
 </section>
