@@ -566,7 +566,7 @@ VST plugins on Linux, or AU on Mac OS X.
 This section gives an overview of Ardour's main interface elements.
 </para>
 
-<section><title>The editor window</title>
+<section id="sec-editor-window"><title>The editor window</title>
 
 <indexterm><primary>editor</primary></indexterm>
 
@@ -670,7 +670,7 @@ shown in <xref linkend="fig-welcome-to-ardour"/>.  Click <guibutton>Forward</gui
   <title>Welcome to Ardour!</title> 
   <mediaobject>
     <imageobject> 
-      <imagedata fileref="screenshots/welcome-to-ardour&scs;"/>
+      <imagedata fileref="screenshots/welcome-to-ardour&scs;" scale="75"/>
     </imageobject> 
   </mediaobject>
 </figure>
@@ -688,39 +688,41 @@ clicking on the button and selecting an alternative directory.
   <title>Default folder for new sessions</title> 
   <mediaobject>
     <imageobject> 
-      <imagedata fileref="screenshots/default-folder-for-new-sessions&scs;"/>
+      <imagedata fileref="screenshots/default-folder-for-new-sessions&scs;" scale="75"/>
     </imageobject> 
   </mediaobject>
 </figure>
 
 <para>
 The next choice governs how Ardour will handle monitoring, as shown in
-<xref linkend="fig-monitoring-choices"/>.  For the purposes of this test,
-choose &lsquo;Ask Ardour to playback material as it is being recorded', as
-this makes things slightly clearer in many cases.
+<xref linkend="fig-monitoring-choices"/>.  For the purposes of this
+test, choose &lsquo;Ask Ardour to playback material as it is being
+recorded'; this is probably the most widely-useful of the options.
+More detail on monitoring options can be found in <xref
+linkend="sec-monitoring"/>.
 </para>
 
 <figure id="fig-monitoring-choices"> 
-  <title>Default folder for new sessions</title> 
+  <title>Monitoring choices</title> 
   <mediaobject>
     <imageobject> 
-      <imagedata fileref="screenshots/monitoring-choices&scs;"/>
+      <imagedata fileref="screenshots/monitoring-choices&scs;" scale="75"/>
     </imageobject> 
   </mediaobject>
 </figure>
 
 <para>
 Following this, Ardour asks for a choice with respect to a monitor
-section (see <xref linkend="fig-monitor-section"/>).  This is explained in
-more detail later; for now, just choose the default &lsquo;use a master bus
-directly'.
+section (see <xref linkend="fig-monitor-section"/>).  This is
+explained in more detail in <xref linkend="sec-mute-and-solo"/>; for
+now, just choose the default &lsquo;use a master bus directly&rsquo;.
 </para>
 
 <figure id="fig-monitor-section">
   <title>Monitor section</title> 
   <mediaobject>
     <imageobject> 
-      <imagedata fileref="screenshots/monitor-section&scs;"/>
+      <imagedata fileref="screenshots/monitor-section&scs;" scale="75"/>
     </imageobject> 
   </mediaobject>
 </figure>
@@ -744,7 +746,7 @@ here, consult <xref linkend="ch-jack"/>.
   <title>Audio/MIDI setup &mdash; device</title> 
   <mediaobject>
     <imageobject> 
-      <imagedata fileref="screenshots/audio-midi-setup-device&scs;"/>
+      <imagedata fileref="screenshots/audio-midi-setup-device&scs;" scale="75"/>
     </imageobject> 
   </mediaobject>
 </figure>
@@ -760,7 +762,7 @@ The final step in creating our session is to give it a name, as in
   <title>New session</title>
   <mediaobject>
     <imageobject> 
-      <imagedata fileref="screenshots/new-session&scs;"/>
+      <imagedata fileref="screenshots/new-session&scs;" scale="75"/>
     </imageobject> 
   </mediaobject>
 </figure>
@@ -789,7 +791,7 @@ the editor window.  This will bring up a dialogue box, as shown in
   <title><guilabel>Add Track or Bus</guilabel> dialogue</title>
   <mediaobject>
     <imageobject>
-      <imagedata fileref="screenshots/add-track-or-bus&scs;"/>
+      <imagedata fileref="screenshots/add-track-or-bus&scs;" scale="50"/>
     </imageobject>
   </mediaobject>
 </figure>
@@ -813,7 +815,7 @@ linkend="fig-top-of-mixer-strip"/>.
   <title>Top part of a mixer strip</title>
   <mediaobject>
     <imageobject>
-      <imagedata fileref="screenshots/top-of-mixer-strip&scs;"/>
+      <imagedata fileref="screenshots/top-of-mixer-strip&scs;" scale="35"/>
     </imageobject>
   </mediaobject>
 </figure>
@@ -837,7 +839,7 @@ linkend="fig-input-port-matrix"/>.
   <title>Input port matrix</title>
   <mediaobject>
     <imageobject>
-      <imagedata fileref="screenshots/input-port-matrix&scs;"/>
+      <imagedata fileref="screenshots/input-port-matrix&scs;" scale="75"/>
     </imageobject>
   </mediaobject>
 </figure>
@@ -884,7 +886,7 @@ the transport.
   <title>Track controls area</title>
   <mediaobject>
     <imageobject>
-      <imagedata fileref="screenshots/track-controls&scs;"/>
+      <imagedata fileref="screenshots/track-controls&scs;" scale="50"/>
     </imageobject>
   </mediaobject>
 </figure>
@@ -893,13 +895,13 @@ the transport.
   <title>Main transport controls</title>
   <mediaobject>
     <imageobject>
-      <imagedata fileref="screenshots/transport-controls&scs;"/>
+      <imagedata fileref="screenshots/transport-controls&scs;" scale="60"/>
     </imageobject>
   </mediaobject>
 </figure>
 
 <para>
-Ardour is now recording; the play-head will move, and a red rectangle
+Ardour is now recording; the playhead will move, and a red rectangle
 will be drawn where the recording is taking place.  Make a noise with
 your external sound source!  When you have finished recording, click
 the Stop button in the transport controls area.  You should now have a
@@ -911,23 +913,22 @@ region containing your recording on the &lsquo;Audio 1&rsquo; track, as in
   <title>Editor window after recording a region</title>
   <mediaobject>
     <imageobject>
-      <imagedata fileref="screenshots/recorded-one-region&scs;"/>
+      <imagedata fileref="screenshots/recorded-one-region&scs;" scale="75"/>
     </imageobject>
   </mediaobject>
 </figure>
 
 </section>
 
-<section><title>Playing back your recording</title>
+<section>
+<title>Playing back your recording</title>
 
 <para>
 Now we can play back the audio that you have just recorded.  First,
 you will need to move the playhead back to a point before your
 recorded region.  Perhaps the easiest way to do this is to click
-somewhere within the rulers area of the editor window.
+somewhere within the rulers area of the editor window (as shown in <xref linkend="sec-editor-window"/>).
 </para>
-
-<!-- some picture of where this is, or a back-link to the editor window -->
 
 <para>
 Once the playhead is located before your recording, click the &lsquo;Play&rsquo;
@@ -988,7 +989,7 @@ shown in <xref linkend="fig-mixer-window"/>.
   <title>The mixer window</title> 
   <mediaobject>
     <imageobject> 
-      <imagedata fileref="screenshots/mixer-window&scs;"/>
+      <imagedata fileref="screenshots/mixer&scs;" scale="75"/>
     </imageobject> 
   </mediaobject>
 </figure>
@@ -1026,9 +1027,18 @@ dialogue will open, as shown in <xref
 linkend="fig-export-dialogue"/>.
 </para>
 
+<figure id="fig-export-dialogue">
+  <title>The export dialogue</title> 
+  <mediaobject>
+    <imageobject> 
+      <imagedata fileref="screenshots/export-dialogue&scs;" scale="75"/>
+    </imageobject> 
+  </mediaobject>
+</figure>
+
 <para>
 First, we have to specify the format that we will export in.  Fill in
-the <guilabel>Label</guilabel> field with some name like &lsquo;WAV for CD', then click
+the <guilabel>preset label</guilabel> field with some name like &lsquo;WAV for CD&rsquo;, then click
 the <guibutton>New</guibutton> button beside the Format entry in the dialogue, and
 click on <guibutton>CD</guibutton>, <guibutton>Lossless (linear PCM)</guibutton>, <guibutton>WAV</guibutton> and
 <guibutton>44.1kHz</guibutton> entries.  Then click <guibutton>Save</guibutton> to save the export
@@ -2946,7 +2956,7 @@ Right-clicking anywhere on a track (including over a region) displays
 the track menu.  The top entry in this menu will be the name of the
 region that was clicked on, and this entry's submenu offers a large
 selection of operations which can be applied to the region.  These
-operations are described in Chapter <xref linkend="ch-region-ops"/>.
+operations are described in Chapter <xref linkend="ch-region-op"/>.
 </para>
 
 <section>
@@ -5287,35 +5297,36 @@ to your <code>&lt;DeviceInfo></code> node, so that it reads something like
 This will make Ardour more efficient in handling your controls.
 
 </section>
-<section><title>A complete (though muddled) example</title>
+<section>
+<title>A complete (though muddled) example</title>
 
 <programlisting>
 &lt;?xml version="1.0" encoding="UTF-8"?>
-<ArdourMIDIBindings version="1.0.0" name="pc1600x transport controls">
-<DeviceInfo bank-size="16"/>
-<Binding channel="1" ctl="1"   uri="/route/gain B1"/>
-<Binding channel="1" ctl="2"   uri="/route/gain B2"/>
-<Binding channel="1" ctl="3"   uri="/route/send/gain B1 1"/>
-<Binding channel="1" ctl="4"   uri="/route/plugin/parameter B1 1 1"/>
-<Binding channel="1" ctl="6"   uri="/bus/gain master"/>
+&lt;ArdourMIDIBindings version="1.0.0" name="pc1600x transport controls">
+&lt;DeviceInfo bank-size="16"/>
+&lt;Binding channel="1" ctl="1"   uri="/route/gain B1"/>
+&lt;Binding channel="1" ctl="2"   uri="/route/gain B2"/>
+&lt;Binding channel="1" ctl="3"   uri="/route/send/gain B1 1"/>
+&lt;Binding channel="1" ctl="4"   uri="/route/plugin/parameter B1 1 1"/>
+&lt;Binding channel="1" ctl="6"   uri="/bus/gain master"/>
 
-<Binding channel="1" note="1"  uri="/route/solo B1"/>
-<Binding channel="1" note="2"  uri="/route/solo B2" momentary="yes"/>
+&lt;Binding channel="1" note="1"  uri="/route/solo B1"/>
+&lt;Binding channel="1" note="2"  uri="/route/solo B2" momentary="yes"/>
 
-<Binding channel="1" note="15"  uri="/route/mute B1" momentary="yes"/>
-<Binding channel="1" note="16"  uri="/route/mute B2" momentary="yes"/>
+&lt;Binding channel="1" note="15"  uri="/route/mute B1" momentary="yes"/>
+&lt;Binding channel="1" note="16"  uri="/route/mute B2" momentary="yes"/>
 
-<Binding sysex="f0 0 0 e 9 0 5b f7" function="transport-start"/>
-<Binding sysex="f0 7f 0 6 7 f7" function="rec-disable"/>
-<Binding sysex="f0 7f 0 6 6 f7" function="rec-enable"/>
-<Binding sysex="f0 0 0 e 9 0 53 0 0 f7" function="loop-toggle"/>
+&lt;Binding sysex="f0 0 0 e 9 0 5b f7" function="transport-start"/>
+&lt;Binding sysex="f0 7f 0 6 7 f7" function="rec-disable"/>
+&lt;Binding sysex="f0 7f 0 6 6 f7" function="rec-enable"/>
+&lt;Binding sysex="f0 0 0 e 9 0 53 0 0 f7" function="loop-toggle"/>
 
-<Binding channel="1" note="13" function="transport-roll"/>
-<Binding channel="1" note="14" function="transport-stop"/>
-<Binding channel="1" note="12" function="transport-start"/>
-<Binding channel="1" note="11" function="transport-zero"/>
-<Binding channel="1" note="10" function="transport-end"/>
-</ArdourMIDIBindings>
+&lt;Binding channel="1" note="13" function="transport-roll"/>
+&lt;Binding channel="1" note="14" function="transport-stop"/>
+&lt;Binding channel="1" note="12" function="transport-start"/>
+&lt;Binding channel="1" note="11" function="transport-zero"/>
+&lt;Binding channel="1" note="10" function="transport-end"/>
+&lt;/ArdourMIDIBindings>
 </programlisting>
 
 Please note that channel, controller and note numbers are specified as
