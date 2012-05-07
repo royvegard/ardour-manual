@@ -5417,7 +5417,9 @@ which can be one of:
 </listitem>
 </itemizedlist>
 
+<para>
 It then requires an address.  For track-level controls (solo, gain, mute, record-enable), the address is one of:
+</para>
 
 <itemizedlist>
 <listitem> A number &mdash; the remote control ID of a track or bus
@@ -5426,40 +5428,50 @@ It then requires an address.  For track-level controls (solo, gain, mute, record
 </listitem>
 </itemizedlist>
 
+<para>
 For send, insert and plugin controls, the address consists of a track
 or bus address followed by a number identifying the plugin or send
 (starting from 1).  For plugin parameters, there is an additional third
 component: a number identifying the plugin parameter number (starting
 from 1).
+</para>
 
+<para>
 For solo and mute bindings, you can also add <code>momentary="yes"</code> after the
 control address. This is useful primarily for note-on bindings &mdash; when
 Ardour gets the note-on it will solo or mute the targetted track or
 bus, but then when a note-off arrives, it will un-solo or un-mute it.
+</para>
 
+<para>
 The specification of a track or bus binding is put inside a <code>uri</code> property.  For example,
-
+</para>
 <programlisting>
 &lt;Binding channel="1" ctl="20" uri="/route/gain 2">
 </programlisting>
 
+<para>
 binds a control change on controller 20, channel 1 to the gain of track 2.  As another example
+</para>
 
 <programlisting>
 &lt;Binding channel="4" note="20" uri="/route/recenable B5">
 </programlisting>
 
+<para>
 binds a note-on for note 20 on channel 4 to the record-enable state of
 the 5th track in the current bank.
-
+</para>
 
 </section>
 </section>
 <section><title>Binding to Ardour &lsquo;functions&rsquo;</title>
 
+<para>
 Rather than binding to a specific track/bus control, it may be useful
 to have a MIDI controller able to alter some part of Ardour's state. A
 binding definition that does this looks like this:
+</para>
 
 <programlisting>
 &lt;Binding channel="1" note="13" function="transport-roll"/>
@@ -5537,6 +5549,7 @@ the second field in the keybinding definition.
 <section>
 <title>Banks and banking</title>
 
+<para>
 Because many modern control surfaces offer per-track/bus controls for
 far fewer tracks and busses than many users want to control, Ardour
 offers the relatively common place concept of &lsquo;banks&rsquo;. Banks to allow
@@ -5545,12 +5558,15 @@ regardless of how many faders/knobs etc. your control surface has. To
 use banking, the control addresses must be specified using the bank
 relative format mentioned above (&lsquo;B1&rsquo; to identify the first track of a
 bank of tracks, rather than &lsquo;1&rsquo; to identify the first track).
+</para>
 
+<para>
 One very important extra piece of information is required to use
 banking: an extra line near the start of the list of bindings that
 specifies how many tracks/busses to use per bank. If the device has 8
 faders, then 8 would be a sensible value to use for this. The line
 looks like this:
+</para>
 
 <programlisting>
 &lt;DeviceInfo bank-size="8"/>
