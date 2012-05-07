@@ -2947,8 +2947,7 @@ of a session with the outside world (your sound card and other
 JACK-enabled applications).
 </para>
 
-<section>
-<title>Automatic connections</title>
+<section xml:id="sec-automation-connections"><title>Automatic connections</title>
 
 <para>
 There are some connections which are reasonably common and therefore
@@ -3696,15 +3695,16 @@ another is fading in, is called <emphasis>cross-fading</emphasis>.
 
 <para>
 So useful is this property that Ardour will arrange for cross-fades to
-be present whenever regions overlap.  There are some options to decide
-what form these automatically-generated crossfades will take, as
-described in <xref linkend="sec-session-properties-fades"/>.  The
-automatic crossfades can be set to span the entire overlap of the
-regions involved, or to be short.  In general, if you want the basic
-property of &lsquo;de-clicking&rsquo; region overlaps, crossfades should be set to be
-&lsquo;short&rsquo;.  The long-crossfade options are more useful for
-artistic use of fades, where two regions must merge slowly into each
-other.
+be present whenever regions overlap.  The <guilabel>Fades</guilabel>
+tab of the <guilabel>Session Properties</guilabel> dialogue contains
+some options to specify what form these automatically-generated
+crossfades will take described.  The automatic crossfades can be set
+to span the entire overlap of the regions involved, or to be short.
+In general, if you want the basic property of
+&lsquo;de-clicking&rsquo; region overlaps, crossfades should be set to
+be &lsquo;short&rsquo;.  The long-crossfade options are more useful
+for artistic use of fades, where two regions must merge slowly into
+each other.
 </para>
 
 
@@ -4181,8 +4181,7 @@ reference to audio as well as MIDI automation.
 
 </section>
 
-<section>
-<title>Undo and redo</title>
+<section xml:id="sec-undo-and-redo"><title>Undo and redo</title>
 
 <para>
 Whenever you perform an operation which alters something on Ardour's
@@ -4691,6 +4690,17 @@ Remove
 
 
 
+
+
+
+
+
+
+
+
+
+
+
 <!-- ==================================================================================== -->
 <!-- CONFIGURATION                                                                        -->
 <!-- ==================================================================================== -->
@@ -4739,8 +4749,9 @@ Session properties are arranged into five groups, whose contents are
 discussed below.
 </para>
 
-<section xml:id="sec-session-properties-timecode">
-<title>Timecode</title>
+<!-- ==================================================================== -->
+<section xml:id="sec-session-properties-timecode"><title>Timecode</title>
+<!-- ==================================================================== -->
 
 <section>
 <title>External timecode source</title>
@@ -4836,39 +4847,27 @@ throughout the system.
 
 </section>
 
-</section>
-<section xml:id="sec-session-properties-fades">
-<title>Fades</title>
+</section> <!-- Timecode -->
+
+<!-- ============================================================== -->
+<section xml:id="sec-session-properties-fades"><title>Fades</title>
+<!-- ============================================================== -->
 
 <para>
 These options govern the properties of fades involving audio regions.
-For more details, see <xref linkend="sec-audio-region-fades"/>.
+See <xref linkend="sec-audio-region-fades"/>.
 </para>
 
-<section>
-<title>Crossfades are created</title>
+</section> <!-- Fades -->
 
-<para>
-When Ardour creates a crossfade between two regions, it can
-either be &lsquo;long&rsquo; or &lsquo;short&rsquo;.  Long crossfades
-span the entire overlap between the two regions, whereas short
-crossfades are of fixed length, and are usually set to last a few tens of milliseconds.
-</para>
-
-</section>
-
-<section>
-<title>Crossfade type</title>
-
-</section>
-
-</section>
+<!-- ============================================================== -->
 <section xml:id="sec-session-properties-media"><title>Media</title>
+<!-- ============================================================== -->
 
 <para>
-The <emphasis>audio file format</emphasis> section governs the sample format, bit
-depth and file type that Ardour will use when recording audio.  The
-sample format can be one of:
+The <emphasis>audio file format</emphasis> section governs the sample
+format, bit depth and file type that Ardour will use when recording
+audio.  The sample format can be one of:
 </para>
 
 <itemizedlist>
@@ -4910,23 +4909,54 @@ CAF &mdash; Core Audio Format, as developed by Apple Computer for use on Mac OS 
 </listitem>
 </itemizedlist>
 
-</section>
-<section>
-<title>Monitoring</title>
+</section> <!-- Media -->
 
-</section>
-<section>
-<title>Misc</title>
+<!-- ============================= -->
+<section><title>Monitoring</title>
+<!-- ============================= -->
+<para>
+See <xref linkend="sec-monitoring"/>
+</para>
+</section> <!-- Monitoring -->
 
-
-</section>
-
-</section>
-<section><title>Ardour preferences</title>
-
+<!-- ======================= -->
 <section><title>Misc</title>
+<!-- ======================= -->
 
+<!-- ================================================= -->
+<section><title>MIDI region copies are independent</title>
+<!-- ================================================= -->
+
+</section> <!-- MIDI region copies are independent -->
+
+<!-- ======================================================== -->
+<section><title>Policy for handling overlapping notes</title>
+<!-- ======================================================== -->
+
+</section> <!-- Policy for handling overlapping notes -->
+
+<!-- ========================================= -->
+<section><title>Glue to bars and beats</title>
+<!-- ========================================= -->
+
+</section> <!-- Glue to bars and beats -->
+
+</section> <!-- Misc -->
+
+</section>
+
+
+<!-- ===================================== -->
+<section><title>Ardour preferences</title>
+<!-- ===================================== -->
+
+<!-- ======================= -->
+<section><title>Misc</title>
+<!-- ======================= -->
+
+<!-- ====================================== -->
 <section><title>DSP CPU Utilization</title>
+<!-- ====================================== -->
 
 <para>
 If you run Ardour on a computer with more than one processor, or more
@@ -4937,9 +4967,15 @@ processors that Ardour should use for signal processing.  This setting
 will only take effect once you re-start Ardour.
 </para>
 
+</section> <!-- DSP CPU Utilization -->
+
+<section><title>Undo</title>
+<para>See <xref linkend="sec-undo-and-redo"/></para>
 </section>
 
+<!-- ===================================== -->
 <section><title>Session management</title>
+<!-- ===================================== -->
 
 <para>
 The <emphasis>always copy imported files</emphasis> option will force Ardour never
@@ -4958,8 +4994,11 @@ sessions that Ardour will offer in the startup dialogue and also in
 <guimenuitem>Recent&hellip;</guimenuitem> from the <guimenu>Session</guimenu> menu.
 </para>
 
-</section>
+</section> <!-- Session management -->
+
+<!-- ======================= -->
 <section><title>Click</title>
+<!-- ======================= -->
 
 <para>
 This section allows you to specify the sound files that will be used
@@ -4968,12 +5007,19 @@ beat of the bar.  The <emphasis>click gain level</emphasis> adjusts the volume o
 the click.
 </para>
 
-</section>
-<section><title>Automation</title>
+</section> <!-- Click -->
 
-</section>
-</section>
+<!-- ============================= -->
+<section><title>Automation</title>
+<!-- ============================= -->
+
+</section> <!-- Automation -->
+
+</section> <!-- Misc -->
+
+<!-- ============================ -->
 <section><title>Transport</title>
+<!-- ============================ -->
 
 <itemizedlist>
 <listitem> <emphasis>Keep record-enable engaged on stop</emphasis> &mdash; selecting this
@@ -5011,8 +5057,11 @@ the click.
   </listitem>
 </itemizedlist>
 
-</section>
+</section> <!-- Transport -->
+
+<!-- ================================================================ -->
 <section xml:id="sec-ardour-preferences-editor"><title>Editor</title>
+<!-- ================================================================ -->
 
 <itemizedlist>
 <listitem>
@@ -5076,16 +5125,15 @@ the click.
   </listitem>
 </itemizedlist>
 
-</section>
-<section>
-<title>Audio</title>
+</section> <!-- Editor -->
 
-<section>
-<title>Replicate missing region channels</title>
+<!-- ======================== -->
+<section><title>Audio</title>
+<!-- ======================== -->
 
-</section>
-<section>
-<title>Buffering</title>
+<!-- ============================ -->
+<section><title>Buffering</title>
+<!-- ============================ -->
 
 <para>
 These options govern how much memory Ardour will use to buffer signals
@@ -5097,7 +5145,10 @@ minute or more) to help ensure trouble-free recordings.
 </para>
 
 </section>
+
+<!-- ============================= -->
 <section><title>Monitoring</title>
+<!-- ============================= -->
 
 <para>
 The options here are:
@@ -5118,13 +5169,18 @@ by Ardour (in which case Ardour does things itself).  See <xref linkend="sec-mon
 </listitem>
 </itemizedlist>
 
+</section> <!-- Monitoring -->
+
+<!-- ================================================== -->
+<section><title>Connection of tracks and busses</title>
+<!-- ================================================== -->
+<para>See <xref linkend="sec-automatic-connections"/>.</para>
 </section>
-<section>
-<title>Connection of tracks and busses</title>
 
 
-</section>
+<!-- ============================ -->
 <section><title>Denormals</title>
+<!-- ============================ -->
 
 <para>
 &lsquo;Denormals&rsquo; are very small floating point numbers which can be
@@ -5168,47 +5224,79 @@ likely to solve the problem efficiently.
 </listitem>
 </itemizedlist>
 
-</section>
+</section> <!-- Denormals -->
+
+<!-- ========================== -->
 <section><title>Plugins</title>
+<!-- ========================== -->
 
 <itemizedlist>
-<listitem> <emphasis>Silence plugins when the transport is stopped</emphasis> &mdash; when
-  enabled, this option will &lsquo;flush&rsquo; all plugins when the transport is
-  stopped.  This will prevent plugins such as delays and reverbs from
-  continuing to sound when stop is pressed.
-</listitem><listitem> <emphasis>Disable plugins during recording</emphasis> &mdash; this will turn off
-  all plugins during recording, which may help to ensure trouble-free
-  recordings if you have a complicated session which is running on the
-  limits of your CPU power.
-</listitem><listitem> <emphasis>Make new plugins active</emphasis> &mdash; enabling this option will
-  make newly-added plugins active by default.
-</listitem><listitem> <emphasis>Enable automatic analysis of audio</emphasis> &mdash; <!-- think this
-  should be reworked -->
-  </listitem>
+<listitem>
+<emphasis>Silence plugins when the transport is stopped</emphasis>
+&mdash; when enabled, this option will &lsquo;flush&rsquo; all plugins
+when the transport is stopped.  This will prevent plugins such as
+delays and reverbs from continuing to sound when stop is pressed.
+</listitem>
+<listitem>
+<emphasis>Disable plugins during recording</emphasis> &mdash; this
+will turn off all plugins during recording, which may help to ensure
+trouble-free recordings if you have a complicated session which is
+running on the limits of your CPU power.
+</listitem>
+<listitem>
+<emphasis>Make new plugins active</emphasis> &mdash; enabling this
+option will make newly-added plugins active by default.
+</listitem>
+<listitem>
+<emphasis>Enable automatic analysis of audio</emphasis> &mdash; <!-- think this should be reworked -->
+</listitem>
+<listitem>
+<emphasis>Replicate missing region channels</emphasis> &mdash;
+</listitem>
 </itemizedlist>
 
-</section>
-</section>
+</section> <!-- Plugins -->
 
-<section>
-<title>MIDI</title>
-</section>
-<section>
-<title>User interaction</title>
-</section>
-<section>
-<title>Interface</title>
-</section>
+</section> <!-- Audio -->
 
-</section>
+<!-- ============================== -->
+<section><title>Solo / mute</title>
+<!-- ============================== -->
+<para>See <xref linkend="sec-mute-and-solo"/>.</para>
+</section> <!-- Solo / mute -->
+
+<!-- ======================= -->
+<section><title>MIDI</title>
+<!-- ======================= -->
+</section> <!-- MIDI -->
+
+<!-- =================================== -->
+<section><title>User interaction</title>
+<!-- =================================== -->
+</section> <!-- User interaction -->
+
+<!-- ============================ -->
+<section><title>Interface</title>
+<!-- ============================ -->
+</section> <!-- Interface -->
+
+</section> <!-- Ardour Properties -->
 </chapter>
 
-<!-- ====================================================================================
-     JACK
-     ==================================================================================== -->
 
-<chapter xml:id="ch-jack">
-<title>JACK</title>
+
+
+
+
+
+
+
+
+<!-- ==================================================================================== -->
+<!-- JACK                                                                                 -->
+<!-- ==================================================================================== -->
+
+<chapter xml:id="ch-jack"><title>JACK</title>
 <indexterm><primary>JACK</primary></indexterm>
 
 <section><title>Introduction</title>
