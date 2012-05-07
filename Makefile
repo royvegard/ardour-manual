@@ -44,8 +44,7 @@ pdf/ardour.pdf:	ardour.xml ardour-pdf.xsl extensions-pdf.ent screenshots/*.png $
 
 	mkdir -p pdf
 
-# 	-P <foo> removes the revhistory table
-	dblatex -P doc.collab.show=0 -P latex.output.revhistory=0 -p ardour-pdf.xsl -s ardour.sty -r pptex.py -T native ardour.xml -t pdf -o pdf/ardour.pdf
+	dblatex -p ardour-pdf.xsl -s ardour.sty -r pptex.py -T native ardour.xml -t pdf -o pdf/ardour.pdf
 
 
 tex:	tex/ardour.tex
