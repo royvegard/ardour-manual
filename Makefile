@@ -4,8 +4,8 @@ all:	html pdf
 
 DIAGRAMS := ardour-monitoring.svg audio-region.svg basic-processor-list.svg basic-track-signal-flow.svg crossfades.svg \
 	dragging-fades.svg editor-summary.svg external-monitoring.svg jack-monitoring.svg mixer-strip-summary.svg \
-	mixer-summary.svg overlapping-regions.svg route-in-detail.svg solo-mute.svg swing.svg toolbar-annotated.svg \
-	typical-jack-session.svg typical-midi-track-controls.svg zoom-controls.svg
+	mixer-summary.svg overlapping-regions.svg route-in-detail.svg solo-mute.svg step-entry.svg swing.svg \
+	toolbar-annotated.svg typical-jack-session.svg typical-midi-track-controls.svg zoom-controls.svg
 
 SCREENSHOTS := add-track-or-bus.png audio-midi-setup-advanced.png audio-midi-setup-device.png audio-midi-setup-options.png \
 	automation-lane.png default-folder-for-new-sessions.png editor.png export-dialogue.png fades-menu.png go-to-end.png \
@@ -14,7 +14,8 @@ SCREENSHOTS := add-track-or-bus.png audio-midi-setup-advanced.png audio-midi-set
 	quantize.png recorded-one-region.png record.png region-fades.png region-gain-line.png region-trim-end.png rhythm-ferret-dialogue.png \
 	route-group-dialogue.png stop.png strip-silence-dialogue.png tool-draw-midi.png tool-listen.png tool-objects.png tool-ranges.png \
 	tool-region-contents.png tool-region-gain.png tool-stretch.png tool-zoom.png top-of-mixer-strip.png track-controls.png track-in-group.png \
-	transport-controls.png typical-audio-track-controls.png typical-bus-controls.png welcome-to-ardour.png connection-manager.png
+	transport-controls.png typical-audio-track-controls.png typical-bus-controls.png welcome-to-ardour.png connection-manager.png \
+	punch-in-out-buttons.png punch-range-marker.png
 
 #
 # For the HTML, default to copying the screenshots direct
