@@ -17,6 +17,10 @@ SCREENSHOTS := add-track-or-bus.png audio-midi-setup-advanced.png audio-midi-set
 	transport-controls.png typical-audio-track-controls.png typical-bus-controls.png welcome-to-ardour.png connection-manager.png \
 	punch-in-out-buttons.png punch-range-marker.png track-record.png
 
+XML := advanced_jack.xml ardour.xml automation.xml configuration.xml editing.xml editor_window.xml introduction.xml jack.xml \
+	misc.xml overview.xml quick_start.xml recording.xml region_operations.xml sessions.xml signal_flow_and_the_mixer.xml \
+	tracks_and_busses.xml
+
 #
 # For the HTML, default to copying the screenshots direct
 #
@@ -75,7 +79,7 @@ diagrams/%.pdf:	diagrams/%.svg
 # HTML
 #
 
-html:	ardour.xml ardour-html.xsl extensions-html.ent ardour.css \
+html:	$(XML) ardour-html.xsl extensions-html.ent ardour.css \
 	$(addprefix html/screenshots/,$(SCREENSHOTS)) \
 	$(subst .svg,.png,$(addprefix diagrams/,$(DIAGRAMS)))
 
@@ -91,13 +95,11 @@ html:	ardour.xml ardour-html.xsl extensions-html.ent ardour.css \
 	cp diagrams/*.png html/diagrams
 	cp ardour.css html
 
-pdf:	pdf/ardour.pdf
-
 #
 # PDF
 #
 
-pdf/ardour.pdf:	ardour.xml ardour-pdf.xsl extensions-pdf.ent screenshots/*.png $(subst .svg,.pdf,$(addprefix diagrams/,$(DIAGRAMS)))
+pdf:	$(XML) ardour-pdf.xsl extensions-pdf.ent screenshots/*.png $(subst .svg,.pdf,$(addprefix diagrams/,$(DIAGRAMS)))
 
 # 	The DocBook needs to know what file extensions to look for
 # 	for screenshots and diagrams; use the correct file to tell it.
@@ -108,13 +110,11 @@ pdf/ardour.pdf:	ardour.xml ardour-pdf.xsl extensions-pdf.ent screenshots/*.png $
 	dblatex -p ardour-pdf.xsl -s ardour.sty -r pptex.py -T native ardour.xml -t pdf -o pdf/ardour.pdf
 
 
-tex:	tex/ardour.tex
-
 #
 # LaTeX (handy for debugging)
 #
 
-tex/ardour.tex:	ardour.xml ardour-pdf.xsl extensions-pdf.ent
+tex:	$(XML) ardour-pdf.xsl extensions-pdf.ent
 
 # 	The DocBook needs to know what file extensions to look for
 # 	for screenshots and diagrams; use the correct file to tell it.
