@@ -14,7 +14,7 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.48.3.1 r9886"
-   sodipodi:docname="New document 1">
+   sodipodi:docname="session.svg">
   <defs
      id="defs4" />
   <sodipodi:namedview
@@ -24,9 +24,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.3492277"
-     inkscape:cx="301.02349"
-     inkscape:cy="958.56429"
+     inkscape:zoom="1.6756998"
+     inkscape:cx="308.15286"
+     inkscape:cy="962.03182"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -148,98 +148,94 @@
            id="tspan3780"
            sodipodi:role="line">midifiles</tspan></text>
     </g>
-    <g
-       id="g3874"
-       transform="translate(0,-6.0185344)">
-      <text
-         sodipodi:linespacing="125%"
-         id="text3764"
-         y="91.610527"
+    <text
+       xml:space="preserve"
+       style="font-size:12px;font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Inconsolata;-inkscape-font-specification:Inconsolata Medium"
+       x="86.063019"
+       y="85.591995"
+       id="text3764"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3766"
          x="86.063019"
-         style="font-size:12px;font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Inconsolata;-inkscape-font-specification:Inconsolata Medium"
-         xml:space="preserve"><tspan
-           y="91.610527"
-           x="86.063019"
-           id="tspan3766"
-           sodipodi:role="line">interchange</tspan></text>
-      <text
-         sodipodi:linespacing="125%"
-         id="text3782"
-         y="91.610527"
+         y="85.591995">interchange</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:12px;font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Inconsolata;-inkscape-font-specification:Inconsolata Medium"
+       x="163.79243"
+       y="85.591995"
+       id="text3782"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3784"
          x="163.79243"
-         style="font-size:12px;font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Inconsolata;-inkscape-font-specification:Inconsolata Medium"
-         xml:space="preserve"><tspan
-           y="91.610527"
-           x="163.79243"
-           id="tspan3784"
-           sodipodi:role="line">foo.ardour</tspan></text>
-      <text
-         sodipodi:linespacing="125%"
-         id="text3786"
-         y="91.610527"
+         y="85.591995">fred.ardour</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:12px;font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Inconsolata;-inkscape-font-specification:Inconsolata Medium"
+       x="235.74988"
+       y="85.591995"
+       id="text3786"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3788"
          x="235.74988"
-         style="font-size:12px;font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Inconsolata;-inkscape-font-specification:Inconsolata Medium"
-         xml:space="preserve"><tspan
-           y="91.610527"
-           x="235.74988"
-           id="tspan3788"
-           sodipodi:role="line">bar.ardour</tspan></text>
-      <text
-         sodipodi:linespacing="125%"
-         id="text3790"
-         y="91.610527"
+         y="85.591995">bar.ardour</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:12px;font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Inconsolata;-inkscape-font-specification:Inconsolata Medium"
+       x="307.70724"
+       y="85.591995"
+       id="text3790"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3792"
          x="307.70724"
-         style="font-size:12px;font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Inconsolata;-inkscape-font-specification:Inconsolata Medium"
-         xml:space="preserve"><tspan
-           y="91.610527"
-           x="307.70724"
-           id="tspan3792"
-           sodipodi:role="line">plugins</tspan></text>
-      <text
-         sodipodi:linespacing="125%"
-         id="text3794"
-         y="91.610527"
+         y="85.591995">plugins</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:12px;font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Inconsolata;-inkscape-font-specification:Inconsolata Medium"
+       x="361.43665"
+       y="85.591995"
+       id="text3794"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3796"
          x="361.43665"
-         style="font-size:12px;font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Inconsolata;-inkscape-font-specification:Inconsolata Medium"
-         xml:space="preserve"><tspan
-           y="91.610527"
-           x="361.43665"
-           id="tspan3796"
-           sodipodi:role="line">peaks</tspan></text>
-      <text
-         sodipodi:linespacing="125%"
-         id="text3798"
-         y="91.610527"
+         y="85.591995">peaks</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:12px;font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Inconsolata;-inkscape-font-specification:Inconsolata Medium"
+       x="403.29807"
+       y="85.591995"
+       id="text3798"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3800"
          x="403.29807"
-         style="font-size:12px;font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Inconsolata;-inkscape-font-specification:Inconsolata Medium"
-         xml:space="preserve"><tspan
-           y="91.610527"
-           x="403.29807"
-           id="tspan3800"
-           sodipodi:role="line">export</tspan></text>
-      <text
-         sodipodi:linespacing="125%"
-         id="text3802"
-         y="91.610527"
+         y="85.591995">export</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:12px;font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Inconsolata;-inkscape-font-specification:Inconsolata Medium"
+       x="511.11685"
+       y="85.591995"
+       id="text3802"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3804"
          x="511.11685"
-         style="font-size:12px;font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Inconsolata;-inkscape-font-specification:Inconsolata Medium"
-         xml:space="preserve"><tspan
-           y="91.610527"
-           x="511.11685"
-           id="tspan3804"
-           sodipodi:role="line">dead</tspan></text>
-      <text
-         sodipodi:linespacing="125%"
-         id="text3806"
-         y="91.610527"
+         y="85.591995">dead</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:12px;font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Inconsolata;-inkscape-font-specification:Inconsolata Medium"
+       x="451.20746"
+       y="85.591995"
+       id="text3806"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3808"
          x="451.20746"
-         style="font-size:12px;font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Inconsolata;-inkscape-font-specification:Inconsolata Medium"
-         xml:space="preserve"><tspan
-           y="91.610527"
-           x="451.20746"
-           id="tspan3808"
-           sodipodi:role="line">analysis</tspan></text>
-    </g>
+         y="85.591995">analysis</tspan></text>
     <g
        id="g3862"
        transform="translate(0,-16.020853)">
@@ -288,11 +284,11 @@
        x="358.06839"
        y="72.457237" />
     <rect
-       style="color:#000000;fill:none;stroke:#000000;stroke-width:0.62500000000000000;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       style="color:#000000;fill:none;stroke:#000000;stroke-width:0.625;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
        id="rect2989-4-1-2-3"
        width="45.283298"
        height="20.317518"
-       x="400.69235"
+       x="398.60843"
        y="72.457237" />
     <rect
        style="color:#000000;fill:none;stroke:#000000;stroke-width:0.62500000000000000;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"

@@ -201,6 +201,8 @@ the stack.
 </para>
 
 </section>
+
+
 </section>
 
 <section id="sec-audio-region-fades">
@@ -734,7 +736,7 @@ This feature is probably most easily explored by listening!
 </itemizedlist>
 
 </section>
-<section><title>Fork</title>
+<section xml:id="sec-fork"><title>Fork</title>
 <indexterm><primary>fork</primary></indexterm>
 
 <para>
@@ -830,6 +832,81 @@ plugins, fader levels or any such like.
 </para>
 
 </section>
+
+<section xml:id="sec-time"><title>Time</title>
+
+<para>
+Ardour has a few ways of expressing time on its timeline.  The most
+fundamental is the <emphasis>frame</emphasis>.  One frame is the
+duration of a single sample at whatever sampling rate the session is
+running at.  In other words, a frame lasts
+<inlineequation><alt>1/F_S</alt>1 / Fs</inlineequation> seconds, where
+<inlineequation><alt>F_S</alt>Fs</inlineequation> is the sampling
+rate.
+</para>
+
+<para>
+Use of frames makes sense in many situations, but sometimes it is more
+useful to think of time in terms of musical bars and beats.  In this
+way, rather than having a region at, say, 176400 frames (4 seconds at
+44.1kHz), we might want to think of the region as being at beat 1 of
+bar 2 (which is the same position if the tempo is 60 beats per minute
+and the time signature is 4/4).  If the session has a fixed tempo, the
+representation does not make a lot of difference; using bars and beats
+is merely a different way of looking at the same thing.
+</para>
+
+<para>
+Consider, instead, the case when a region is beat 1 of bar 2 with the
+tempo set at 60 beats per minute, as shown in <xref
+linkend="fig-time-tempo-changes1"/>.
+</para>
+
+<figure id="fig-time-tempo-changes1">
+  <title>A region at one tempo</title>
+  <mediaobject>
+    <imageobject> 
+      <imagedata fileref="diagrams/time-tempo-changes1&dia;"/>
+    </imageobject> 
+  </mediaobject>
+</figure>
+
+<para>
+Here we have a region (the green box) at beat 1 of bar 2.  At 44.1kHz
+this corresponds to 176400 frames.  Now imagine that we change the
+tempo to 120 beats per minute, as in <xref linkend="fig-time-tempo-changes2"/>.
+</para>
+
+<figure id="fig-time-tempo-changes2">
+  <title>Possible region positions after changing tempo</title>
+  <mediaobject>
+    <imageobject> 
+      <imagedata fileref="diagrams/time-tempo-changes2&dia;"/>
+    </imageobject> 
+  </mediaobject>
+</figure>
+
+<para>
+Now there are two places where one might expect the region to end up,
+represented by the blue and green rectangles.  If you are thinking in
+terms of music, the region should move as the blue rectangle in order
+to maintain its bar/beat position.  This is half the number of frames
+as the original, as the tempo has doubled.
+</para>
+
+<para>
+Alternatively one might equally want the region to stay where it is in
+terms of frames, in which case it would remain where the green
+rectangle is.
+</para>
+
+<para>
+The choice of which option to take is represented in Ardour by a
+<emphasis>glue bars to beats</emphasis> option, which is available for
+regions and markers.
+</para>
+
+</section> <!-- Time -->
 
 </chapter>
 

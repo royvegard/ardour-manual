@@ -55,9 +55,7 @@ Session properties are arranged into five groups, whose contents are
 discussed below.
 </para>
 
-<!-- ==================================================================== -->
 <section xml:id="sec-session-properties-timecode"><title>Timecode</title>
-<!-- ==================================================================== -->
 
 <section>
 <title>External timecode source</title>
@@ -155,9 +153,7 @@ throughout the system.
 
 </section> <!-- Timecode -->
 
-<!-- ============================================================== -->
 <section xml:id="sec-session-properties-fades"><title>Fades</title>
-<!-- ============================================================== -->
 
 <para>
 These options govern the properties of fades involving audio regions.
@@ -166,9 +162,7 @@ See <xref linkend="sec-audio-region-fades"/>.
 
 </section> <!-- Fades -->
 
-<!-- ============================================================== -->
 <section xml:id="sec-session-properties-media"><title>Media</title>
-<!-- ============================================================== -->
 
 <para>
 The <emphasis>audio file format</emphasis> section governs the sample
@@ -217,33 +211,44 @@ CAF &mdash; Core Audio Format, as developed by Apple Computer for use on Mac OS 
 
 </section> <!-- Media -->
 
-<!-- ============================= -->
 <section><title>Monitoring</title>
-<!-- ============================= -->
 <para>
 See <xref linkend="sec-monitoring"/>
 </para>
 </section> <!-- Monitoring -->
 
-<!-- ======================= -->
 <section><title>Misc</title>
-<!-- ======================= -->
 
-<!-- ================================================= -->
 <section><title>MIDI region copies are independent</title>
-<!-- ================================================= -->
+
+<para>
+Enabling this option will result in all MIDI regions being
+&lsquo;forks&rsquo; of their source regions; see <xref
+linkend="sec-fork"/>.
+</para>
 
 </section> <!-- MIDI region copies are independent -->
 
-<!-- ======================================================== -->
 <section><title>Policy for handling overlapping notes</title>
-<!-- ======================================================== -->
+
+<para>
+never allow them
+don't do anything in particular
+replace any overlapped existing note
+shorten the overlapped existing note
+shorten the overlapping new note
+replace both overlapping notes with a single note
+
+</para>
 
 </section> <!-- Policy for handling overlapping notes -->
 
-<!-- ========================================= -->
 <section><title>Glue to bars and beats</title>
-<!-- ========================================= -->
+
+<para>
+These options, when enabled, will make new markers and/or new regions
+glued to bars and beats by default (see <xref linkend="sec-time"/>).
+</para>
 
 </section> <!-- Glue to bars and beats -->
 
@@ -252,17 +257,11 @@ See <xref linkend="sec-monitoring"/>
 </section>
 
 
-<!-- ===================================== -->
 <section><title>Ardour preferences</title>
-<!-- ===================================== -->
 
-<!-- ======================= -->
 <section><title>Misc</title>
-<!-- ======================= -->
 
-<!-- ====================================== -->
 <section><title>DSP CPU Utilization</title>
-<!-- ====================================== -->
 
 <para>
 If you run Ardour on a computer with more than one processor, or more
@@ -279,9 +278,7 @@ will only take effect once you re-start Ardour.
 <para>See <xref linkend="sec-undo-and-redo"/></para>
 </section>
 
-<!-- ===================================== -->
 <section><title>Session management</title>
-<!-- ===================================== -->
 
 <para>
 The <emphasis>always copy imported files</emphasis> option will force Ardour never
@@ -302,9 +299,7 @@ sessions that Ardour will offer in the startup dialogue and also in
 
 </section> <!-- Session management -->
 
-<!-- ======================= -->
 <section><title>Click</title>
-<!-- ======================= -->
 
 <para>
 This section allows you to specify the sound files that will be used
@@ -315,9 +310,11 @@ the click.
 
 </section> <!-- Click -->
 
-<!-- ============================= -->
 <section><title>Automation</title>
-<!-- ============================= -->
+
+<para>
+See <xref linkend="sec-automation-thinning"/>.
+</para>
 
 </section> <!-- Automation -->
 
@@ -328,39 +325,62 @@ the click.
 <!-- ============================ -->
 
 <itemizedlist>
-<listitem> <emphasis>Keep record-enable engaged on stop</emphasis> &mdash; selecting this
-  option will mean that after a recording pass, the main session
-  record-enable will remain switched on; otherwise it will be switched
-  off when the transport stops.
-</listitem><listitem> <emphasis>Stop recording when an xrun occurs</emphasis> &mdash; an xrun (see
-  <xref linkend="sec-xruns"/>) during recording could well mean that the
-  recording has been corrupted by a small (or not-so-small) pop or
-  click.  If this option is enabled, recording will stop if an xrun is
-  detected, which may be useful to draw the fact to your attention.
-  It may <emphasis>not</emphasis> be desirable on long or unattended recording
-  sessions!
-</listitem><listitem> <emphasis>Create markers where xruns occur</emphasis> &mdash; a less drastic
-  option for observing xruns is to enable this option, which creates a
-  marker wherever in a session an xrun occurs during recording.  The
-  marker makes it easy to check out the area later and inspect the
-  damage.
-</listitem><listitem> <emphasis>Stop at the end of the session</emphasis> &mdash; if this is enabled,
-  the transport will stop at the end-of-session marker <!-- (does it
-    stop during record too?) -->
-</listitem><listitem> <emphasis>Do seamless looping &mdash; <!-- hmm! --></emphasis>
-</listitem><listitem> <emphasis>Primary clock delta to edit cursor</emphasis>
-</listitem><listitem> <emphasis>Secondary clock delta to edit cursor</emphasis>
-</listitem><listitem> <emphasis>Disable per-track record disarm while rolling</emphasis> &mdash; if
-  this is enabled it will be impossible to disarm a track from
-  recording while the transport is moving.  This may be useful as a
-  safety feature to prevent unwitting clicks on record enable buttons
-  from dropping tracks out of record.
-</listitem><listitem> <emphasis>12dB gain reduction during fast-forward and fast-rewind</emphasis>
-  &mdash; fast-forward/rewind can, by their nature, generate
-  unpleasant-sounding transients and high-frequency content which may
-  be trying to tired ears.  With this option enabled, Ardour will drop
-  the output by 12dB when doing &lsquo;winds&rsquo;.
-  </listitem>
+<listitem>
+<emphasis>Keep record-enable engaged on stop</emphasis> &mdash;
+selecting this option will mean that after a recording pass, the main
+session record-enable will remain switched on; otherwise it will be
+switched off when the transport stops.
+</listitem>
+<listitem>
+<emphasis>Stop recording when an xrun occurs</emphasis> &mdash; an
+xrun (see <xref linkend="sec-xruns"/>) during recording could well
+mean that the recording has been corrupted by a small (or
+not-so-small) pop or click.  If this option is enabled, recording will
+stop if an xrun is detected, which may be useful to draw the fact to
+your attention.  It may <emphasis>not</emphasis> be desirable on long
+or unattended recording sessions!
+</listitem>
+<listitem>
+<emphasis>Create markers where xruns occur</emphasis> &mdash; a less
+drastic option for observing xruns is to enable this option, which
+creates a marker wherever in a session an xrun occurs during
+recording.  The marker makes it easy to check out the area later and
+inspect the damage.
+</listitem>
+<listitem>
+<emphasis>Stop at the end of the session</emphasis> &mdash; if this is
+enabled, the transport will stop at the end-of-session marker. <!--
+(does it stop during record too?) -->
+</listitem>
+<listitem>
+<emphasis>Do seamless looping</emphasis> &mdash; this option enables code in
+Ardour to perform loops &lsquo;seamlessly&rsquo;; that is, without
+any break at all between the end of the loop and the start.
+<!-- why is this here? -->
+</listitem>
+<listitem>
+<emphasis>Primary / secondary clock delta to edit cursor</emphasis>
+&mdash; these options will, when enabled, set one or both of the two
+main clocks in the editor window to display the current transport
+position as a time delta (difference) from the edit point.  That is,
+the clock displays the amount of time between the playhead and the
+edit point; if the playhead is ahead of the edit point, this time is
+positive, otherwise it is negative.
+</listitem>
+<listitem>
+<emphasis>Disable per-track record disarm while rolling</emphasis>
+&mdash; if this is enabled it will be impossible to disarm a track
+from recording while the transport is moving.  This may be useful as a
+safety feature to prevent unwitting clicks on record enable buttons
+from dropping tracks out of record.
+</listitem>
+<listitem>
+<emphasis>12dB gain reduction during fast-forward and
+fast-rewind</emphasis> &mdash; fast-forward/rewind can, by their
+nature, generate unpleasant-sounding transients and high-frequency
+content which may be trying to tired ears.  With this option enabled,
+Ardour will drop the output by 12dB when doing &lsquo;winds&rsquo;.
+</listitem>
 </itemizedlist>
 
 </section> <!-- Transport -->
@@ -385,7 +405,7 @@ the click.
   Disabling it will provide a slight drop in CPU load.
 </listitem>
 <listitem>
-<emphasis>Use overlap equivalency for regions} &mdash; <!-- ?! --></emphasis>
+<emphasis>Use overlap equivalency for regions} &mdash; <!-- XXX: ?! --></emphasis>
 </listitem><listitem> <emphasis>Make rubberband selection rectangle snap to the grid</emphasis>
   &mdash; when selecting things by dragging a &lsquo;rubberband&rsquo; or &lsquo;lassoo&rsquo;
   rectangle, this option makes that rectangle snap to any active grid.
@@ -565,25 +585,49 @@ option will make newly-added plugins active by default.
 
 </section> <!-- Audio -->
 
-<!-- ============================== -->
 <section><title>Solo / mute</title>
-<!-- ============================== -->
 <para>See <xref linkend="sec-mute-and-solo"/>.</para>
 </section> <!-- Solo / mute -->
 
-<!-- ======================= -->
 <section><title>MIDI</title>
-<!-- ======================= -->
+Send midi clock
+Send MIDI time code
+Percentage either side of normal transport speed to transmit MTC
+Obey MMC commands
+Send MMC commands
+Send MIDI control feedback
+Inbound MMC device ID
+Outbound MMC device ID
+Initial program change
+Display first midi bank/program as 0
+Never display periodic MIDI messages (MTC, MIDI Clock)
+Sound MIDI notes as they are selected
 </section> <!-- MIDI -->
 
-<!-- =================================== -->
 <section><title>User interaction</title>
-<!-- =================================== -->
+
+Keyboard; edit using +b, delete using +b, insert note using+b, toggle snap using, keyboard layout
+
+Control surfaces
+OSC
+Generic MIDI
+Mackie
+Control surface remote ID follows order of mixer / editor / assigned by user
+
+
 </section> <!-- User interaction -->
 
-<!-- ============================ -->
 <section><title>Interface</title>
-<!-- ============================ -->
+
+Graphically indicate mouse pointer hovering over various widgets
+Font scaling
+Use plugins' own interfaces instead of Ardour's
+Mixer strip display
+Use narrow mixer strips by default
+Metering:
+meter hold time 
+meter fall off
+
 </section> <!-- Interface -->
 
 </section> <!-- Ardour Properties -->

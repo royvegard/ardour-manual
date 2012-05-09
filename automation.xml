@@ -149,5 +149,40 @@ lane where its parent track does not have a region.  If you want to
 add automation without any note data, simply create an empty region
 before adding the automation.
 
+</section> <!-- MIDI `automation' -->
+
+<section xml:id="sec-automation-thinning"><title>Thinning</title>
+
+<para>
+When a session is loaded, the automation data is
+<emphasis>thinned</emphasis>.  This is a process of removing
+automation points that are not particularly important.  Consider the
+simple case in <xmlref linkend="fig-thinning"/>.
+</para>
+
+<!-- why only on load? -->
+
+<figure id="fig-thinning"> 
+  <title>Thinning automation data</title> 
+  <mediaobject>
+    <imageobject> 
+      <imagedata fileref="diagrams/thinning&dia;"/>
+    </imageobject> 
+  </mediaobject>
+</figure>
+
+<para>
+Here we can see that very little accuracy would be lost if the middle
+point were removed; the line is almost straight so it can be described
+well by just its end points.
+</para>
+
+<para>
+The amount of thinning is configurable using the <guilabel>thinning
+factor</guilabel> control in the <guilabel>Misc</guilabel> tab of
+<guilabel>Ardour Preferences</guilabel>.
+</para>
+
 </section>
+
 </chapter>

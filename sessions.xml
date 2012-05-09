@@ -168,7 +168,7 @@ soundcard's inputs, and record-enabled.
 
 </section> <!-- Session templates -->
 
-<section xml:id="sec-session-cleanup"><title>Session clean-up</title>
+<section xml:id="sec-session-clean-up"><title>Session clean-up</title>
 
 <para>
 Generally speaking, Ardour is averse to deleting data.  If you delete

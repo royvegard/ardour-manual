@@ -189,7 +189,7 @@ them into this strip.
 
 <para>
 Perhaps the most common use for the processor box is to add
-<emphasis>plugins</emphasis>.  These are self-contained pieces of code which peform
+<emphasis>plugins</emphasis>.  These are self-contained pieces of code which perform
 some processing on the signal; typical examples of plugins might
 include compressors, equalisers, reverbs and so on.
 </para>
@@ -202,21 +202,41 @@ downloaded from various places on the internet, or can be bought from
 commercial companies.
 </para>
 
-<!--% more detail about plugins availability, standards, etc. etc.-->
+<para>
+A plugin will be written to support one (or maybe more) plugin
+standards.  These standards describe how the &lsquo;host&rsquo;
+(Ardour) and the plugin interact with each other.  Ardour supports
+three main standards, LADSPA, LV2, Linux VST (on Linux) and AU (on Mac
+OS X), so plugins will need to be written for one of them in order to
+work.
+</para>
+
+<para>
+It is important to note that VST plugins written for Windows are not
+generally supported by Ardour.  There is way in which it can be made
+to work, sometimes, and with varying results, but it is technically
+involved and essentially unsupported by the Ardour developers.  It is
+strongly recommended that you look for alternatives to Windows VST
+plugins.
+</para>
 
 <para>
 To add a plugin to a strip, right-click over the processor box and
-choosing &lsquo;New Plugin&rsquo;.  You can choose one straight from the
-menu, or open the &lsquo;Plugin Manager&rsquo; which gives a few extra
-facilities for finding the right plugin.  Once a plugin is selected,
-it will appear in the strip and start processing the signals that flow
-down the strip.  Double-clicking on a plugin's name in the processor
-box will open its editor window, which allows you to alter its
-parameters.  Alternatively, right-clicking on the plugin and selecting
-<guimenuitem>Show All Controls</guimenuitem> from the
-<guimenu>Controls</guimenu> menu adds the plugins controls directly to
-the processor box.  This may be convenient for plugins with few
-controls, such as the plate reverb shown in the example screenshot.
+choosing &lsquo;New Plugin&rsquo;.  You can choose one straight from
+the menu, or open the &lsquo;Plugin Manager&rsquo; which gives a few
+extra facilities for finding the right plugin.  Note that the position
+of the right click in the processor box is the place where the plugin
+will be inserted; any existing processors underneath the click will
+move apart to indicate where the new one will be placed.  Once a
+plugin is selected, it will appear in the strip and start processing
+the signals that flow down the strip.  Double-clicking on a plugin's
+name in the processor box will open its editor window, which allows
+you to alter its parameters.  Alternatively, right-clicking on the
+plugin and selecting <guimenuitem>Show All Controls</guimenuitem> from
+the <guimenu>Controls</guimenu> menu adds the plugins controls
+directly to the processor box.  This may be convenient for plugins
+with few controls, such as the plate reverb shown in the example
+screenshot.
 </para>
 
 </section>
