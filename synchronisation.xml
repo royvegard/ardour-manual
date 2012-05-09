@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE book [
+<!ENTITY % sgml.features "IGNORE">
+<!ENTITY % xml.features "INCLUDE">
+<!ENTITY % dbcent PUBLIC "-//OASIS//ENTITIES DocBook Character Entities V4.5//EN"
+   "/usr/share/xml/docbook/schema/dtd/4.5/dbcentx.mod">
+%dbcent;
+<!ENTITY % keys SYSTEM "keys.ent">
+%keys;
+<!ENTITY % extensions SYSTEM "extensions.ent">
+%extensions;
+]>
+
+<chapter xmlns="http://docbook.org/ns/docbook" version="5.0" xml:lang="en">
+<title>Synchronisation</title>
+
+<para>
+Ardour provides various facilities for synchronising itself with other
+programs or devices.  There are a couple of slightly different
+approaches to doing this.  Firstly, we may want to synchronise our
+transport speed with something else.  Secondly, it is often useful to
+<emphasis>also</emphasis> synchronise time code, so that if the
+&lsquo;playheads&rsquo; of all synchronised things are in the same
+place.
+</para>
+
+<para>
+Ardour can synchronise both transport speed and time code using one of two methods:
+</para>
+
+<itemizedlist>
+<listitem>
+<emphasis>MIDI time code (MTC)</emphasis> &mdash; this is a protocol which
+communicates time code over MIDI; it is commonly used with
+external devices such as tape or digital recorders.
+</listitem>
+<listitem>
+<emphasis>JACK transport</emphasis> &mdash; JACK provides support to
+synchronise client applications, including Ardour.
+</listitem>
+</itemizedlist>
+
+<para>
+If only speed synchronisation is required, there is the other option
+of MIDI clock.  This is another MIDI protocol, but is much simpler
+(and less capable) than MIDI time code.  It is often used by
+synthesizers to synchronise the speed of delays, and so on.
+</para>
+
+
+<section><title>MIDI time code</title>
+
+<para>
+Ardour can both transmit and receive (chase) MIDI time code.  To
+transmit it, tick the <guilabel>Send MIDI Time Code</guilabel> option
+in the <guilabel>MIDI</guilabel> tab of <guilabel>Ardour
+Preferences</guilabel>.  Ardour will then emit MTC from its &lsquo;MTC
+out&rsquo; port.  Use the MIDI connection manager (see <xref
+labelend="sec-manual-connections"/>) to connect this port to anything
+that should chase Ardour's MTC.
+</para>
+
+<para>
+Ardour will stop transmitting time code when the transport speed is a
+certain percentage faster or slower than normal.  The amount either
+side of normal speed to keep transmitting MTC is configurable in the
+<guilabel>MIDI</guilabel> tab of <guilabel>Ardour
+Preferences</guilabel>.
+</para>
+
+<para>In order to chase incoming MIDI time code, set the external time
+code source to be &lsquo;MIDI Timecode&rsquo; in the
+<guilabel>Timecode</guilabel> tab of the <guilabel>Session
+Properties</guilabel> dialogue.  Note that if the positional sync
+button in the editor window (see <xref labelend="ch-positional-sync-button"/> is already
+set to something other than internal, you will need to set it back to
+internal first.  Connect your MIDI time code source to Ardour's
+&lsquo;MTC in&rsquo; port using the MIDI connection manager.  Then
+click the positional sync button to enable chase.
+</para>
+
+</section> <!-- MIDI timecode -->
+
+
+<section><title>JACK transport</title>
+
+<para>
+To enable synchronisation via JACK transport, set the external
+timecode source to &lsquo;JACK&rsquo; in the
+<guilabel>Timecode</guilabel> tab of the <guilabel>Session
+Properties</guilabel> dialogue.  Note that if the positional sync
+button in the editor window (see <xref
+labelend="ch-positional-sync-button"/> is already set to something
+other than internal, you will need to set it back to internal first.
+Finally, click the positional sync button in the editor window (see
+<xref labelend="ch-positional-sync-button"/>) so that is says
+&lsquo;JACK&rsquo;.
+</para>
+
+<para>
+If you want Ardour to be the JACK &lsquo;time master&rsquo;, that is
+the program that dictates tempo and other information to the other
+applications, tick the &lsquo;Ardour is JACK Time Master&rsquo; button
+at the bottom of the <guilabel>Timecode</guilabel> tab in
+<guilabel>Session Properties</guilabel>.
+</para>
+
+</section> <!-- JACK transport -->
+
+
+<section><title>MIDI clock</title>
+
+<para>
+To set Ardour to transmit MIDI clock, tick the <guilabel>Send MIDI
+Clock</guilabel> option in the <guilabel>MIDI</guilabel> tab of
+<guilabel>Ardour Preferences</guilabel>.  Ardour will then emit MIDI clock
+from its &lsquo;MIDI clock out&rsquo; port.  Use the MIDI connection manager
+(see <xref labelend="sec-manual-connections"/>) to connect this port
+to anything that should listen to Ardour's MIDI clock.
+</para>
+
+<para>In order to chase incoming MIDI clock, set the external time
+code source to be &lsquo;MIDI Clock&rsquo; in the
+<guilabel>Timecode</guilabel> tab of the <guilabel>Session
+Properties</guilabel> dialogue.  Note that if the positional sync
+button in the editor window (see <xref labelend="ch-positional-sync-button"/> is already
+set to something other than internal, you will need to set it back to
+internal first.  Connect your MIDI clock source to Ardour's
+&lsquo;MIDI clock in&rsquo; port using the MIDI connection manager.  Then
+click the positional sync button to enable synchronisation.
+</para>
+
+</section> <!-- MIDI clock -->
+
+<section><title>Timecode options</title>
+
+<para>
+There are some other time code options in the
+<guilabel>Timecode</guilabel> tab of the <guilabel>Session
+Properties</guilabel> dialogue.
+</para>
+
+<section>
+<title>Timecode frames-per-second</title>
+
+<para>
+This should be set to the frames-per-second count for the timecode
+that you are syncing to, or that you want Ardour to generate.
+</para>
+
+</section>
+
+<section>
+<title>Subframes per frame</title>
+
+<para>
+This should be set to the number of subframes per frame for the
+timecode you are syncing to, or that you want Ardour to generate.
+</para>
+
+</section>
+
+<section>
+<title>Timecode source shares sample clock with audio interface</title>
+
+<para>
+Enabling this option will make Ardour assume that the timecode is
+exactly synchronised with the audio sample clock; in this case, the
+two cannot drift apart.
+</para>
+
+</section>
+
+<section>
+<title>Pull up/pull-down</title>
+
+<para>
+This should be set to the pull-up or pull-down for the
+timecode you are syncing to, or that you want Ardour to generate.
+</para>
+
+</section>
+
+<section>
+<title>Timecode offset (and timecode offset negative)</title>
+
+<para>
+These options should be set to reflect any required offset between
+Ardour's session times and the timecode being received or
+generated.
+</para>
+
+<para>
+If the timecode is &lsquo;ahead&rsquo; of Ardour's timeline, the
+offset should be positive; otherwise, set it negative.
+</para>
+
+</section>
+
+</section> <!-- Other timecode options -->
+
+</chapter>
+

@@ -56,111 +56,18 @@ discussed below.
 </para>
 
 <section xml:id="sec-session-properties-timecode"><title>Timecode</title>
-
-<section>
-<title>External timecode source</title>
-
 <para>
-This specifies the place that Ardour should get a timecode signal from
-when it is slaving.  The external sync button in the editor window can
-be clicked to switch from internal sync to whichever external choice
-is made here. The options are:
+See <xref linkend="ch-synchronisation"/>.
 </para>
-
-<itemizedlist>
-<listitem>
-<emphasis>JACK</emphasis> &mdash; this synchronises Ardour to the JACK transport.
-</listitem>
-<listitem>
-<emphasis>MIDI Timecode</emphasis> &mdash; this makes Ardour chase
-MIDI timecode.  The timecode source should be connected to Ardour's
-&lsquo;MTC in&rsquo; port.
-</listitem>
-<listitem>
-<emphasis>Midi Clock</emphasis> &mdash; synchronise to MIDI clock;
-this should be connected to Ardour's &lsquo;MIDI clock in&rsquo; port.
-</listitem>
-</itemizedlist>
-
-</section>
-
-<section>
-<title>Timecode frames-per-second</title>
-
-<para>
-This should be set to the frames-per-second count for the timecode
-that you are syncing to, or that you want Ardour to generate.
-</para>
-
-</section>
-
-<section>
-<title>Subframes per frame</title>
-
-<para>
-This should be set to the number of subframes per frame for the
-timecode you are syncing to, or that you want Ardour to generate.
-</para>
-
-</section>
-
-<section>
-<title>Timecode source shares sample clock with audio interface</title>
-
-<para>
-Enabling this option will make Ardour assume that the timecode is
-exactly synchronised with the audio sample clock; in this case, the
-two cannot drift apart.
-</para>
-
-</section>
-
-<section>
-<title>Pull up/pull-down</title>
-
-<para>
-This should be set to the pull-up or pull-down for the
-timecode you are syncing to, or that you want Ardour to generate.
-</para>
-
-</section>
-
-<section>
-<title>Timecode offset (and timecode offset negative)</title>
-
-<para>
-These options should be set to reflect any required offset between
-Ardour's session times and the timecode being received or
-generated.
-</para>
-
-<para>
-If the timecode is &lsquo;ahead&rsquo; of Ardour's timeline, the
-offset should be positive; otherwise, set it negative.
-</para>
-
-</section>
-
-<section>
-<title>Ardour is JACK time master</title>
-
-<para> Enable this option if you are syncing to JACK and you want
-Ardour to be the &lsquo;controller&rsquo; of the current time
-throughout the system.
-</para>
-
-</section>
-
 </section> <!-- Timecode -->
 
 <section xml:id="sec-session-properties-fades"><title>Fades</title>
-
 <para>
 These options govern the properties of fades involving audio regions.
 See <xref linkend="sec-audio-region-fades"/>.
 </para>
-
 </section> <!-- Fades -->
+
 
 <section xml:id="sec-session-properties-media"><title>Media</title>
 
@@ -275,7 +182,7 @@ will only take effect once you re-start Ardour.
 </section> <!-- DSP CPU Utilization -->
 
 <section><title>Undo</title>
-<para>See <xref linkend="sec-undo-and-redo"/></para>
+<para>See <xref linkend="sec-undo-and-redo"/></para>.
 </section>
 
 <section><title>Session management</title>
@@ -590,18 +497,55 @@ option will make newly-added plugins active by default.
 </section> <!-- Solo / mute -->
 
 <section><title>MIDI</title>
-Send midi clock
-Send MIDI time code
-Percentage either side of normal transport speed to transmit MTC
+
+<para>
+The <emphasis>Send MIDI clock</emphasis>, <emphasis>Send MIDI time code</emphasis> and <emphasis>Percentage
+either side of normal transport speed to transmit MTC</emphasis> are
+discussed in <xref linkend="ch-synchronisation"/>.
+</para>
+
+<para>
+The other options are:
+</para>
+
+<itemizedlist>
+<listitem>
 Obey MMC commands
+</listitem>
+<listitem>
 Send MMC commands
+</listitem>
+<listitem>
 Send MIDI control feedback
+</listitem>
+<listitem>
 Inbound MMC device ID
+</listitem>
+<listitem>
 Outbound MMC device ID
+</listitem>
+<listitem>
 Initial program change
-Display first midi bank/program as 0
-Never display periodic MIDI messages (MTC, MIDI Clock)
-Sound MIDI notes as they are selected
+</listitem>
+<listitem>
+<emphasis>Display first midi bank/program as 0</emphasis> &mdash; if
+enabled, this will count MIDI bank and program numbers from 0;
+otherwise, they are counted from 1.
+</listitem>
+<listitem>
+<emphasis>Never display periodic MIDI messages (MTC, MIDI
+Clock)</emphasis> &mdash; it is somewhat pointless to display some
+MIDI messages inside regions.  Display of MTC and MIDI clock messages
+can be disabled by ticking this option.  Doing so will improve the
+speed of displaying MIDI regions which contain such messages.
+</listitem>
+<listitem>
+<emphasis>Sound MIDI notes as they are selected</emphasis> &mdash;
+enabling this option will transmit MIDI note messages corresponding to
+notes that are selected.
+</listitem>
+</itemizedlist>
+
 </section> <!-- MIDI -->
 
 <section><title>User interaction</title>

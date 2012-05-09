@@ -414,8 +414,7 @@ the list to view.  The left-hand border of the list can be dragged to
 vary the width of the list.
 </para>
 
-<section xml:id="sec-region-list">
-<title>Region list</title>
+<section xml:id="sec-region-list"><title>Region list</title>
 <indexterm><primary>region list</primary></indexterm>
 
 <para>
@@ -454,7 +453,7 @@ A handy feature of the region list is that its regions can be dragged
 and dropped into a suitable track in the session.
 </para>
 
-</section>
+</section> <!-- Region list -->
 
 <section>
 <title>Tracks &amp; Busses</title>
@@ -499,7 +498,8 @@ This list gives the snapshots that exist of this session.  Clicking on
 a snapshot name will load that snapshot.
 </para>
 
-</section>
+</section> <!-- Tracks & Busses -->
+
 <section><title>Track &amp; Bus Groups</title>
 
 <para>
@@ -555,7 +555,7 @@ The columns in this list are as follows:
 </listitem>
 </itemizedlist>
 
-</section>
+</section> <!-- Track & Bus Groups -->
 
 <section>
 <title>Ranges &amp; Marks</title>
@@ -575,26 +575,28 @@ At the bottom of the list are buttons to add new markers or ranges.
 The <guibutton>-</guibutton> button beside each marker and range
 allows that particular mark to be removed.
 
-</section>
-</section>
+</section> <!-- Ranges & Marks -->
+</section> <!-- The editor lists -->
 
-<section>
-<title>Other buttons</title>
+<section><title>Other buttons</title>
 
+<para>
 The editor window contains a few other buttons, which are described here.
+</para>
 
 <section>
 <title>Solo</title>
-
+<para>
 This button flashes red if any tracks are soloed, and you can click it
 to turn off all solos.
-
-</section>
+</para>
+</section> <!-- Solo -->
 
 <section>
 <title>Feedback</title>
 <indexterm><primary>feedback</primary></indexterm>
 
+<para>
 It is possible to connect things up so that there are feedback loops;
 a simple example might be connecting the output of a track to its
 input, but obviously there are much more convoluted arrangements
@@ -604,6 +606,7 @@ feedback was introduced.  If Ardour is doing this, it flashes the
 feedback button to let you know that the routing in effect may not be
 what the user interface is showing.  You should remove the feedback
 path, upon which this light will stop flashing.
+</para>
 
 <!-- XXX
 Metronome
@@ -613,8 +616,22 @@ Auto Play
 Auto Return
 -->
 
-</section>
-</section>
+</section> <!-- Feedback -->
+
+<section xml:id="sec-positional-sync-button"><title>Positional sync button</title>
+
+<para>
+The positional sync button is located to the left of the clocks, and
+initially marked <guilabel>Internal</guilabel> to indicate that Ardour
+is not synchronising to anything else.  Clicking this button will
+enable synchronisation to the source configured in the
+<guilabel>Timecode</guilabel> tab of the <guilabel>Session
+Properties</guilabel> dialogue.  See <xref labelend="ch-synchronisation"/>.
+</para>
+
+</section> <!-- Positional sync button -->
+
+</section> <!-- Other Buttons -->
 
 <section>
 <title>The transport controls</title>
