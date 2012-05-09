@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE book [
+<!ENTITY % sgml.features "IGNORE">
+<!ENTITY % xml.features "INCLUDE">
+<!ENTITY % dbcent PUBLIC "-//OASIS//ENTITIES DocBook Character Entities V4.5//EN"
+   "/usr/share/xml/docbook/schema/dtd/4.5/dbcentx.mod">
+%dbcent;
+<!ENTITY % keys SYSTEM "keys.ent">
+%keys;
+<!ENTITY % extensions SYSTEM "extensions.ent">
+%extensions;
+]>
+
+<chapter xmlns="http://docbook.org/ns/docbook" version="5.0" xml:lang="en">
+<title>Sessions</title>
+
+<para>
+This chapter discusses Ardour sessions in more detail.
+</para>
+
+<section><title>Sessions, session files and snapshots</title>
+
+<para>
+Generally speaking when we talk about an Ardour &lsquo;session&rsquo;
+we mean a directory that contains everything related to the session:
+all Ardour's data and the sound files.
+</para>
+
+<para>
+A session consists of two main things.  Firstly, we have the session
+state file: this is Ardour's description of what happens in the
+session.  It contains lists of tracks, regions, what sound files are
+used, automation data, the connections between things, and so on.  It
+does <emphasis>not</emphasis>, however, contain any audio or MIDI
+data.  These data are kept separately, in their own files, using
+standard formats.
+</para>
+
+<para>
+The session state file is stored on disk with the suffix <code>.ardour</code>.
+</para>
+
+<para>
+It is eminently possible that we might have more than one session
+state file describing a different arrangement of the same sound files.
+Perhaps there is a mix that was sent to a client, and a new mix that
+you are working on, and you want to be able to refer back to the old
+mix.  Alternatively, perhaps you are about to try something drastic
+with a session, and it would make sense to keep an old copy of the
+session just in case you change your mind.  Ardour can manage these
+situations using <emphasis>snapshots</emphasis>.
+</para>
+
+<para>
+A snapshot is simply a session state file.  A particular session
+directory may contain many snapshots, each looking at the same set of
+audio and MIDI data and describing a different arrangement of the raw
+data.
+</para>
+
+<section><title>Taking and switching between snapshots</title>
+
+<para>
+To make a snapshot of the current state of a session, simply choose
+<guimenuitem>Snapshot&hellip;</guimenuitem> from the
+<guimenu>Session</guimenu> menu or press
+<keycombo><keycap>&modtertiary;</keycap><keycap>&modone;</keycap><keycap>S</keycap></keycombo>.
+This will open a dialogue box for you to give the name of the new
+snapshot; the name is initially filled in with the current date and
+time.  Clicking <guibutton>Save</guibutton> will create the snapshot.
+</para>
+
+<para>
+To look at the snapshots of the current session, open the editor list
+and select the <guibutton>Snapshots</guibutton> tab.  The list will
+show the existing snapshots, with a blue highlight on the current one.
+Clicking on an alternate snapshot will switch to it.
+</para>
+
+<para>
+You can rename or remove snapshots by right-clicking on their
+names in the editor list and choosing an option from the menu.
+</para>
+
+<para>
+Edits that you make to the session are always saved to the current snapshot.
+</para>
+
+</section> <!-- Taking and switching between snapshots -->
+
+</section> <!-- Sessions, session files and snapshots -->
+
+</chapter>
