@@ -18,56 +18,105 @@
 This chapter discusses Ardour sessions in more detail.
 </para>
 
-<section><title>Sessions, session files and snapshots</title>
+<section><title>Sessions and session files</title>
 
 <para>
-Generally speaking when we talk about an Ardour &lsquo;session&rsquo;
-we mean a directory that contains everything related to the session:
-all Ardour's data and the sound files.
+Generally speaking when we refer to a &lsquo;session&rsquo; we mean a
+directory that Ardour has created which has a special structure.
+Sessions can be used to contain any amount of data; a song, an album,
+an live recording or whatever best suits you.
 </para>
 
 <para>
-A session consists of two main things.  Firstly, we have the session
-state file: this is Ardour's description of what happens in the
-session.  It contains lists of tracks, regions, what sound files are
-used, automation data, the connections between things, and so on.  It
-does <emphasis>not</emphasis>, however, contain any audio or MIDI
-data.  These data are kept separately, in their own files, using
-standard formats.
+The two most important parts of a session are the <emphasis>state
+files</emphasis> and the audio / MIDI data.  The state files are
+written by Ardour (in XML) and hold details of what is in the session;
+its tracks, busses, details of regions, automation, and much more.
+The state file does not, however, contain any actual audio or MIDI
+data.  These data are held in separate files, in standard formats
+(typically WAV, AIFF and SMF<footnote><para>Standard MIDI
+File</para></footnote>).  It is possible for more than one state file
+to reference the same set of audio and MIDI data.
 </para>
 
 <para>
-The session state file is stored on disk with the suffix <code>.ardour</code>.
+<xref linkend="fig-session"/> shows the structure of an Ardour session on disk.
+</para>
+
+<figure id="fig-session">
+  <title>A session</title> 
+  <mediaobject>
+    <imageobject> 
+      <imagedata fileref="diagrams/session&dia;"/>
+    </imageobject> 
+  </mediaobject>
+</figure>
+
+<para>
+Note first the two files suffixed <code>.ardour</code>.  These are
+state files.  They can have any names, but usually a session directory
+contains one state file with the same name as the directory.
 </para>
 
 <para>
-It is eminently possible that we might have more than one session
-state file describing a different arrangement of the same sound files.
-Perhaps there is a mix that was sent to a client, and a new mix that
-you are working on, and you want to be able to refer back to the old
-mix.  Alternatively, perhaps you are about to try something drastic
-with a session, and it would make sense to keep an old copy of the
-session just in case you change your mind.  Ardour can manage these
-situations using <emphasis>snapshots</emphasis>.
+The audio and MIDI data for the session is held within the
+<code>interchange</code> sub-directory, and Ardour will put any
+exported files from your session into the <code>export</code>
+sub-directory.
 </para>
 
 <para>
-A snapshot is simply a session state file.  A particular session
-directory may contain many snapshots, each looking at the same set of
-audio and MIDI data and describing a different arrangement of the raw
-data.
+There are a few other directories within a session which you will usually not need to be concerned with:
 </para>
 
-<section><title>Taking and switching between snapshots</title>
+<itemizedlist>
+<listitem>
+<code>plugins</code> &mdash; where data needed by plugins is stored.
+</listitem>
+<listitem>
+<code>peaks</code> &mdash; Ardour uses this directory to store
+&lsquo;peak files&rsquo; these are representations of audio regions
+that it uses when displaying waveforms within regions.  They are
+pre-computed and stored on disk to speed the response of the editor
+window.
+</listitem>
+<listitem>
+<code>analysis</code> &mdash; used to store spectral analysis data.
+</listitem>
+<listitem>
+<code>dead</code> &mdash; this is where Ardour will move unused
+files when you perform a session clean-up (see <xref
+linkend="sec-session-clean-up"/>).
+</listitem>
+</itemizedlist>
+
+</section> <!-- Sessions and session files -->
+
+<section><title>Snapshots and save-as</title>
 
 <para>
-To make a snapshot of the current state of a session, simply choose
-<guimenuitem>Snapshot&hellip;</guimenuitem> from the
-<guimenu>Session</guimenu> menu or press
-<keycombo><keycap>&modtertiary;</keycap><keycap>&modone;</keycap><keycap>S</keycap></keycombo>.
-This will open a dialogue box for you to give the name of the new
-snapshot; the name is initially filled in with the current date and
-time.  Clicking <guibutton>Save</guibutton> will create the snapshot.
+As mentioned above, a session directory can contain more than one
+state file.  There will always be one &lsquo;active&rsquo; state file
+that you are currently working with, but there may be others on disk.
+There are two ways to create new state files for a session:
+<emphasis>snapshot</emphasis> (the
+<guimenuitem>Snapshot&hellip;</guimenuitem> on the
+<guimenu>Session</guimenu> menu) and <emphasis>save-as</emphasis> (the
+<guimenuitem>Save As&hellip;</guimenuitem>).
+</para>
+
+<para>
+Both of these options take a copy of the currently-loaded session's
+state and save it to a new state file.  The difference is that
+<emphasis>after</emphasis> saving a snapshot, the session you are
+editing remains the same as the one you were editing before.  After a
+save-as, you are editing the newly-created state file.
+</para>
+
+<para>
+Snapshot is useful, for example, when you are about to try something
+drastic to a session which might not work; taking a snapshot before
+you start makes it easy to revert back to how things were.
 </para>
 
 <para>
@@ -82,12 +131,89 @@ You can rename or remove snapshots by right-clicking on their
 names in the editor list and choosing an option from the menu.
 </para>
 
+</section> <!-- Snapshots and save-as -->
+
+<section><title>Session templates</title>
+
 <para>
-Edits that you make to the session are always saved to the current snapshot.
+By default, Ardour starts with an empty session containing only a
+master bus.  If you frequently find yourself setting up the same
+things when you create a new session, you may save time by using a
+session template.  This is simply a session which can be used as a
+basis when creating other sessions.
 </para>
 
-</section> <!-- Taking and switching between snapshots -->
+<para>
+To create a session template from the current session, choose
+<guimenuitem>Save Template&hellip;</guimenuitem> from the
+<guimenu>Session</guimenu> menu.  You will be prompted to give a name
+for the template.  From this point on, when creating a new session you
+will be offered the option to create it based on your new template.
+You can define as many templates as you wish.
+</para>
 
-</section> <!-- Sessions, session files and snapshots -->
+<sidebar>
+<para>
+Session templates are stored in <code>~/.config/ardour3/templates</code>.
+</para>
+</sidebar>
+
+<para>
+Typical uses of templates might be to ensure that a particular session
+property is always set up how you like, or to set up for a particular
+recording situation; a &lsquo;live recording&rsquo; template, for
+example, might have 32 numbered tracks set up, connected to your
+soundcard's inputs, and record-enabled.
+</para>
+
+</section> <!-- Session templates -->
+
+<section xml:id="sec-session-cleanup"><title>Session clean-up</title>
+
+<para>
+Generally speaking, Ardour is averse to deleting data.  If you delete
+a region, the note Ardour has of the region's presence on its track is
+removed, but the audio or MIDI data itself is not deleted.  This can
+be handy if you change your mind about a deletion, and is of course
+necessary to allow Ardour to offer undo.  Keeping audio or MIDI data
+around does, however, require disk space.  To recover disk space from
+unused audio and MIDI data by deleting them, you can use
+<emphasis>session clean-up</emphasis>.
+</para>
+
+<para>
+Clean-up proceeds in two phases.  First, select <guimenuitem>Clean-up
+unused sources&hellip;</guimenuitem> from the
+<guimenuitem>Clean-up</guimenuitem> submenu of the
+<guimenu>Session</guimenu> menu.  This will search all playlists in
+all snapshots of the current session, looking for audio or MIDI files
+that are not being used.  These files will be moved to the
+<code>dead</code> folder within the session folder, and Ardour will
+tell you which files it moved.  Note that this operation destroys the
+undo record, as Ardour can no longer undo some things if it has no
+sound files to undo with.
+</para>
+
+<para>
+On performing the clean-up, Ardour will tell you how much disk space
+can be recovered by permanently deleting the &lsquo;dead&rsquo; sound
+files.  To do this, re-start Ardour then choose <guimenuitem>Flush
+Wastebasket</guimenuitem> from the <guimenuitem>Clean-up</guimenuitem>
+menu.  <emphasis>This will permanently delete the files, with no hope
+of recovery!</emphasis>
+</para>
+
+</section> <!-- Session clean-up -->
+
+<section><title>Renaming</title>
+
+<para>
+Sessions can be renamed using the
+<guimenuitem>Rename&hellip;</guimenuitem> option on the
+<guimenu>Session</guimenu> menu.  Both the session's directory and
+the current state file will be renamed.
+</para>
+
+</section> <!-- Renaming -->
 
 </chapter>

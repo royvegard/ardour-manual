@@ -5,7 +5,8 @@ all:	html pdf
 DIAGRAMS := ardour-monitoring.svg audio-region.svg basic-processor-list.svg basic-track-signal-flow.svg crossfades.svg \
 	dragging-fades.svg editor-summary.svg external-monitoring.svg jack-monitoring.svg mixer-strip-summary.svg \
 	mixer-summary.svg overlapping-regions.svg route-in-detail.svg solo-mute.svg step-entry.svg swing.svg \
-	toolbar-annotated.svg typical-jack-session.svg typical-midi-track-controls.svg zoom-controls.svg
+	toolbar-annotated.svg typical-jack-session.svg typical-midi-track-controls.svg zoom-controls.svg \
+	session.svg
 
 SCREENSHOTS := add-track-or-bus.png audio-midi-setup-advanced.png audio-midi-setup-device.png audio-midi-setup-options.png \
 	automation-lane.png default-folder-for-new-sessions.png editor.png export-dialogue.png fades-menu.png go-to-end.png \
