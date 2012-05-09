@@ -626,7 +626,7 @@ initially marked <guilabel>Internal</guilabel> to indicate that Ardour
 is not synchronising to anything else.  Clicking this button will
 enable synchronisation to the source configured in the
 <guilabel>Timecode</guilabel> tab of the <guilabel>Session
-Properties</guilabel> dialogue.  See <xref labelend="ch-synchronisation"/>.
+Properties</guilabel> dialogue.  See <xref linkend="ch-synchronisation"/>.
 </para>
 
 </section> <!-- Positional sync button -->

@@ -56,9 +56,7 @@ discussed below.
 </para>
 
 <section xml:id="sec-session-properties-timecode"><title>Timecode</title>
-<para>
-See <xref linkend="ch-synchronisation"/>.
-</para>
+<para>See <xref linkend="ch-synchronisation"/>.</para>
 </section> <!-- Timecode -->
 
 <section xml:id="sec-session-properties-fades"><title>Fades</title>
@@ -119,9 +117,7 @@ CAF &mdash; Core Audio Format, as developed by Apple Computer for use on Mac OS 
 </section> <!-- Media -->
 
 <section><title>Monitoring</title>
-<para>
-See <xref linkend="sec-monitoring"/>
-</para>
+<para>See <xref linkend="sec-monitoring"/>.</para>
 </section> <!-- Monitoring -->
 
 <section><title>Misc</title>
@@ -182,7 +178,7 @@ will only take effect once you re-start Ardour.
 </section> <!-- DSP CPU Utilization -->
 
 <section><title>Undo</title>
-<para>See <xref linkend="sec-undo-and-redo"/></para>.
+<para>See <xref linkend="sec-undo-and-redo"/>.</para>
 </section>
 
 <section><title>Session management</title>
@@ -218,11 +214,7 @@ the click.
 </section> <!-- Click -->
 
 <section><title>Automation</title>
-
-<para>
-See <xref linkend="sec-automation-thinning"/>.
-</para>
-
+<para>See <xref linkend="sec-automation-thinning"/>.</para>
 </section> <!-- Automation -->
 
 </section> <!-- Misc -->

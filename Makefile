@@ -20,7 +20,7 @@ SCREENSHOTS := add-track-or-bus.png audio-midi-setup-advanced.png audio-midi-set
 
 XML := advanced_jack.xml ardour.xml automation.xml configuration.xml editing.xml editor_window.xml introduction.xml jack.xml \
 	misc.xml overview.xml quick_start.xml recording.xml region_operations.xml sessions.xml signal_flow_and_the_mixer.xml \
-	tracks_and_busses.xml
+	tracks_and_busses.xml troubleshooting.xml synchronisation.xml control_surfaces.xml
 
 #
 # For the HTML, default to copying the screenshots direct

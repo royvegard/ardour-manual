@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE book [
+<!ENTITY % sgml.features "IGNORE">
+<!ENTITY % xml.features "INCLUDE">
+<!ENTITY % dbcent PUBLIC "-//OASIS//ENTITIES DocBook Character Entities V4.5//EN"
+   "/usr/share/xml/docbook/schema/dtd/4.5/dbcentx.mod">
+%dbcent;
+<!ENTITY % keys SYSTEM "keys.ent">
+%keys;
+<!ENTITY % extensions SYSTEM "extensions.ent">
+%extensions;
+]>
+
+<chapter xml:id="ch-troubleshooting" xmlns="http://docbook.org/ns/docbook" version="5.0" xml:lang="en">
+<title>Troubleshooting</title>
+
+<para>
+Into each life a little rain must fall.  This chapter discusses what
+to do if you are having problems with Ardour.
+</para>
+
+<section><title>Starting Ardour from the terminal</title>
+
+<para> Much troubleshooting is made easier if you start Ardour from a
+terminal such as &lsquo;GNOME Terminal&rsquo; or &lsquo;kterm&rsquo;.
+Ardour prints useful messages to the terminal when it starts, and as
+it runs, and they can give clues to your troubles.  Once you have
+opened a terminal window you can often start Ardour with:
+</para>
+
+<programlisting>
+ardour3
+</programlisting>
+
+<para>
+If you are using a beta release of Ardour, try something like:
+</para>
+
+<programlisting>
+/opt/Ardour-3.0beta3_11482-dbg/bin/ardour3
+</programlisting>
+
+<para>
+replacing <code>Ardour-3.0beta3_11482-dbg</code> with the name of a
+folder in <code>/opt</code>.
+</para>
+
+</section> <!-- Starting Ardour from the terminal -->
+
+<section><title>Startup warnings</title>
+
+<section><title>Your system has a limit for maximum amount of locked memory!</title>
+
+<para>
+This warning can range in importance from minor to major, but is worth
+fixing anyway as it can cause very strange misbehaviours when you
+least expect them.
+</para>
+
+<sidebar>
+<para>
+Modern operating systems use <emphasis>swap files</emphasis>, which
+are areas of hard disk used like extra (very slow) RAM.  Swap files
+can improve overall system performance greatly, as if there are areas
+of memory that are not being accessed very much they can be kept
+(temporarily) on disk, and the memory used instead for more helpful
+things like caches.  The use of swap files means, however, that an
+application may find that a simple access to its memory may lead to a
+potentially long disk access that it was not expecting.  For many
+applications this is not a problem, but for audio software is is
+disastrous, as the delay in response may mean that time deadlines for
+processing audio are missed.  To avoid this problem, Ardour tells the
+operating system that it should not swap any of its memory to disk.
+However, the ability to do this can be used for nefarious purposes by
+ill-behaved applications, so it is usually limited by the operating
+system.  This warning means that your machine has a limit for the
+amount of locked memory.  If Ardour asks for more than that limit, the
+operating system will refuse, potentially leading to problems.
+Usually the most practical answer to this is to set your machine to
+have a fairly large limit on locked memory (say, for example,
+three-quarters of your total RAM).
+</para>
+</sidebar>
+
+<para>
+The fix for this warning is to edit a file which, on most Linux
+distributions, is called <code>/etc/security/limits.conf</code>.  The
+bottom of this file will usually look something like this:
+</para>
+
+<programlisting>
+#&lt;domain>      &lt;type>  &lt;item>         &lt;value>
+#
+
+#*               soft    core            0
+#root            hard    core            100000
+#*               hard    rss             10000
+#@student        hard    nproc           20
+#@faculty        soft    nproc           20
+#@faculty        hard    nproc           50
+#ftp             hard    nproc           0
+#ftp             -       chroot          /ftp
+#@student        -       maxlogins       4
+
+@audio           -       rtprio          99
+@audio 		 -       memlock         4121440
+</programlisting>
+
+</section> <!-- Your system has a limit for maximum amount of locked memory! -->
+
+</section> <!-- Startup warnings -->
+
+</chapter>

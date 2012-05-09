@@ -157,7 +157,7 @@ before adding the automation.
 When a session is loaded, the automation data is
 <emphasis>thinned</emphasis>.  This is a process of removing
 automation points that are not particularly important.  Consider the
-simple case in <xmlref linkend="fig-thinning"/>.
+simple case in <xref linkend="fig-thinning"/>.
 </para>
 
 <!-- why only on load? -->

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE book [
+<!ENTITY % sgml.features "IGNORE">
+<!ENTITY % xml.features "INCLUDE">
+<!ENTITY % dbcent PUBLIC "-//OASIS//ENTITIES DocBook Character Entities V4.5//EN"
+   "/usr/share/xml/docbook/schema/dtd/4.5/dbcentx.mod">
+%dbcent;
+<!ENTITY % keys SYSTEM "keys.ent">
+%keys;
+<!ENTITY % extensions SYSTEM "extensions.ent">
+%extensions;
+]>
+
+<chapter xml:id="ch-control" xmlns="http://docbook.org/ns/docbook" version="5.0" xml:lang="en">
+<title>Control surfaces</title>
+
+<para>
+Whilst Ardour can be controlled using the keyboard and mouse, a
+<emphasis>control surface</emphasis> can make life a lot easier.  This
+is some external piece of hardware that has some combination of
+buttons, knobs, faders and displays that you can use to control
+Ardour, mimicing to some extent the feel of having a real mixing desk
+or tape machine.
+</para>
+
+<para>
+Ardour directly supports several different control surfaces, and some
+of those that are not ready-to-use can be set up if you are willing to
+spend some extra time configuring things.
+</para>
+
+<para>
+The support for control surfaces is divided up into groups based on
+the protocol that the surface uses to communicate.  The next two
+sections discuss these two groups.
+</para>
+
+<section><title>Generic MIDI surfaces</title>
+
+<para>
+&lsquo;Generic MIDI surfaces&rsquo; are those that have a fairly
+simple protocol based on MIDI.  This covers quite a wide range of
+surfaces.  A specific surface requires Ardour to have a
+<emphasis>binding map</emphasis>, which describes the MIDI messages
+that the surface sends when its controls are operated, and any
+messages it expects to receive in return.
+</para>
+
+<para>
+Ardour's generic MIDI surface code has support for the following devices:
+</para>
+
+<itemizedlist>
+<listitem>Behringer DDX3216</listitem>
+<listitem>Behringer BCF2000</listitem>
+<listitem>EMU XBoard 61</listitem>
+<listitem>Korg nanoKONTROL</listitem>
+<listitem>M-Audio Axiom 25 (its transport controls)</listitem>
+<listitem>M-Audio Oxygen8 V2</listitem>
+<listitem>Roland SI-24</listitem>
+</itemizedlist>
+
+<para>
+To set up a generic MIDI control, it is first necessary to connect it
+to your computer.  This may be done with MIDI or USB.  Those devices
+which use USB generally appear as MIDI ports to Ardour.
+</para>
+
+<para>
+The next step is to enable the generic MIDI surface in Ardour and
+select the map that Ardour should use, based on the hardware that you
+have.  Open the <guilabel>Ardour Preferences</guilabel> dialogue and
+select the <guilabel>User interaction</guilabel> tab.  At the bottom
+of the window is a list of the available control surface groups.  Tick
+the <guilabel>Enabled</guilabel> box for &lsquo;Generic MIDI&rsquo;.
+If your device has motorised faders, or knobs or displays that
+indicate their status, Ardour can provide feedback so that the
+surface's state matches that of Ardour's mixer.  To enable this, tick
+the <guilabel>Feedback</guilabel> checkbox.
+</para>
+
+<para>
+Next, double-click the &lsquo;Generic MIDI&rsquo; entry in the
+dialogue box, and a settings window will appear.  Choose the device
+that you are using from the drop-down list.
+</para>
+
+<para>
+Finally, you need to connect the MIDI ports of your device to Ardour.
+Open the MIDI connections manager and connect Ardour's &lsquo;MIDI
+control out&rsquo; to the input port for your device, and Ardour's
+&lsquo;MIDI control in&rsquo; to your device's output port.  Some
+devices present a few different ports, and often the easiest way to
+find the correct one is to connect them all, verify that things work,
+and then disconnect them one by one to find the one that is required.
+</para>
+
+
+</section> <!-- Generic MIDI surfaces -->
+
+</chapter>

@@ -11,7 +11,7 @@
 %extensions;
 ]>
 
-<chapter xmlns="http://docbook.org/ns/docbook" version="5.0" xml:lang="en">
+<chapter xml:id="ch-synchronisation" xmlns="http://docbook.org/ns/docbook" version="5.0" xml:lang="en">
 <title>Synchronisation</title>
 
 <para>
@@ -56,7 +56,7 @@ transmit it, tick the <guilabel>Send MIDI Time Code</guilabel> option
 in the <guilabel>MIDI</guilabel> tab of <guilabel>Ardour
 Preferences</guilabel>.  Ardour will then emit MTC from its &lsquo;MTC
 out&rsquo; port.  Use the MIDI connection manager (see <xref
-labelend="sec-manual-connections"/>) to connect this port to anything
+linkend="sec-manual-connections"/>) to connect this port to anything
 that should chase Ardour's MTC.
 </para>
 
@@ -72,7 +72,7 @@ Preferences</guilabel>.
 code source to be &lsquo;MIDI Timecode&rsquo; in the
 <guilabel>Timecode</guilabel> tab of the <guilabel>Session
 Properties</guilabel> dialogue.  Note that if the positional sync
-button in the editor window (see <xref labelend="ch-positional-sync-button"/> is already
+button in the editor window (see <xref linkend="sec-positional-sync-button"/> is already
 set to something other than internal, you will need to set it back to
 internal first.  Connect your MIDI time code source to Ardour's
 &lsquo;MTC in&rsquo; port using the MIDI connection manager.  Then
@@ -90,10 +90,10 @@ timecode source to &lsquo;JACK&rsquo; in the
 <guilabel>Timecode</guilabel> tab of the <guilabel>Session
 Properties</guilabel> dialogue.  Note that if the positional sync
 button in the editor window (see <xref
-labelend="ch-positional-sync-button"/> is already set to something
+linkend="sec-positional-sync-button"/> is already set to something
 other than internal, you will need to set it back to internal first.
 Finally, click the positional sync button in the editor window (see
-<xref labelend="ch-positional-sync-button"/>) so that is says
+<xref linkend="sec-positional-sync-button"/>) so that is says
 &lsquo;JACK&rsquo;.
 </para>
 
@@ -115,7 +115,7 @@ To set Ardour to transmit MIDI clock, tick the <guilabel>Send MIDI
 Clock</guilabel> option in the <guilabel>MIDI</guilabel> tab of
 <guilabel>Ardour Preferences</guilabel>.  Ardour will then emit MIDI clock
 from its &lsquo;MIDI clock out&rsquo; port.  Use the MIDI connection manager
-(see <xref labelend="sec-manual-connections"/>) to connect this port
+(see <xref linkend="sec-manual-connections"/>) to connect this port
 to anything that should listen to Ardour's MIDI clock.
 </para>
 
@@ -123,7 +123,7 @@ to anything that should listen to Ardour's MIDI clock.
 code source to be &lsquo;MIDI Clock&rsquo; in the
 <guilabel>Timecode</guilabel> tab of the <guilabel>Session
 Properties</guilabel> dialogue.  Note that if the positional sync
-button in the editor window (see <xref labelend="ch-positional-sync-button"/> is already
+button in the editor window (see <xref linkend="sec-positional-sync-button"/> is already
 set to something other than internal, you will need to set it back to
 internal first.  Connect your MIDI clock source to Ardour's
 &lsquo;MIDI clock in&rsquo; port using the MIDI connection manager.  Then
