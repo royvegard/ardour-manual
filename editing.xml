@@ -705,11 +705,10 @@ The quantization options are as follows:
   two input notes as shown in <xref linkend="fig-swing"/>, the
   quantizer will put the second note at a time t where
 
-<!--
-\begin{equation}
-t = q + \frac{2}{3} \frac{F_S}{100} L
-\end{equation}
--->
+<equation>
+<alt>t = q + \frac{2}{3} \frac{F_S}{100} L</alt>
+t = q + (2.Fs.L) / 300 
+</equation>
 
 <para>
 where F<subscript>S</subscript> is the swing factor specified in the <guilabel>Quantize</guilabel>

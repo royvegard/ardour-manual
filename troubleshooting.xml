@@ -101,10 +101,48 @@ bottom of this file will usually look something like this:
 #ftp             hard    nproc           0
 #ftp             -       chroot          /ftp
 #@student        -       maxlogins       4
-
-@audio           -       rtprio          99
-@audio 		 -       memlock         4121440
 </programlisting>
+
+<para>
+To set up a limit for locked memory for members of the
+<code>audio</code> group, add a line like this:
+</para>
+
+<programlisting>
+@audio - memlock 4121440
+</programlisting>
+
+<para>
+where the number at the end is the maximum amount of locked memory (in
+kilobytes).  We suggest that you use three-quarters of the total, so
+work out this number <inlineequation><alt>M</alt>M</inlineequation> using
+</para>
+
+<equation>
+<alt>M = 786432 T</alt>
+M = 786432 T
+</equation>
+
+<para>
+where <inlineequation><alt>T</alt>T</inlineequation> is your total
+memory in gigabytes.  So, for example for a machine with 2Gb of memory, add the line:
+</para>
+
+<programlisting>
+@audio - memlock 1572864
+</programlisting>
+
+<para>
+to the end of your <code>/etc/security/limits.conf</code>.  Finally, add your user to the audio group using
+</para>
+
+<programlisting>
+sudo usermod -a -G audio fred
+</programlisting>
+
+<para>
+where <code>fred</code> is your username.  Then log out and log in again so that the changes take effect.
+</para>
 
 </section> <!-- Your system has a limit for maximum amount of locked memory! -->
 
