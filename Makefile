@@ -22,6 +22,8 @@ XML := advanced_jack.xml ardour.xml automation.xml configuration.xml editing.xml
 	misc.xml overview.xml quick_start.xml recording.xml region_operations.xml sessions.xml signal_flow_and_the_mixer.xml \
 	tracks_and_busses.xml troubleshooting.xml synchronisation.xml control_surfaces.xml
 
+GRAPHICS := cc.png
+
 #
 # For the HTML, default to copying the screenshots direct
 #
@@ -82,7 +84,8 @@ diagrams/%.pdf:	diagrams/%.svg
 
 html:	$(XML) ardour-html.xsl extensions-html.ent ardour.css \
 	$(addprefix html/screenshots/,$(SCREENSHOTS)) \
-	$(subst .svg,.png,$(addprefix diagrams/,$(DIAGRAMS)))
+	$(subst .svg,.png,$(addprefix diagrams/,$(DIAGRAMS))) \
+	$(subst .svg,.png,$(addprefix graphics/,$(GRAPHICS))) \
 
 # 	The DocBook needs to know what file extensions to look for
 # 	for screenshots and diagrams; use the correct file to tell it.
@@ -92,8 +95,9 @@ html:	$(XML) ardour-html.xsl extensions-html.ent ardour.css \
 	xmlto html -m ardour-html.xsl ardour.xml --skip-validation -o html
 
 #	Copy graphics and CSS in
-	mkdir -p html/diagrams
+	mkdir -p html/diagrams html/graphics
 	cp diagrams/*.png html/diagrams
+	cp graphics/*.png html/graphics
 	cp ardour.css html
 
 #

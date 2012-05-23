@@ -1,4 +1,5 @@
 Ardour manual
+-------------
 
 The source is in DocBook (ardour.xml), screenshots are PNG and
 diagrams are SVG (created with Inkscape).
@@ -26,3 +27,11 @@ factors to the HTML output, so they are set to be ignored in the HTML
 (ignore.image.scaling in ardour-html.xsl).  The scaling factors
 in the docbook are for the LaTeX output only (where they map directly
 to scale=foo in the \includegraphics).
+
+Licence
+-------
+
+This manual is licensed under a Creative Commons
+Attribution-NonCommercial-ShareAlke 3.0 Unported License.
+
+See http://creativecommons.org/licenses/by-nc-sa/3.0/
