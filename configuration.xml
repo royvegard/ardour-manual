@@ -542,6 +542,46 @@ notes that are selected.
 
 <section><title>User interaction</title>
 
+<section><title>Keyboard</title>
+
+<para>
+This section sets up which combinations of keypress and mouse button
+operate various Ardour functions.  Keys are chosen by picking the name
+from the drop-down list, and the mouse button is chosen by number;
+button 1 is the left mouse button, button 2 the middle and button 3
+the right.
+</para>
+
+<para>
+Key/button combinations can be set for the following functions:
+</para>
+
+<itemizedlist>
+<listitem>
+<emphasis>Edit</emphasis> &mdash; click on something with this
+combination to edit details using a dialogue box (regions, markers,
+control points, notes, route groups, plugins).
+</listitem>
+<listitem>
+<emphasis>Delete</emphasis> &mdash; clicking on something with this
+combination will delete it.
+</listitem>
+<listitem>
+<emphasis>Insert note</emphasis> &mdash; this combination can be used
+to add MIDI notes when in <guilabel>select/move objects</guilabel> mode
+with <guilabel>edit region contents</guilabel> enabled.
+</listitem>
+<listitem>
+<emphasis>Toggle snap using</emphasis> &mdash;
+</listitem>
+</itemizedlist>
+
+<para>
+
+</para>
+
+</section> <!-- Keyboard -->
+
 Keyboard; edit using +b, delete using +b, insert note using+b, toggle snap using, keyboard layout
 
 Control surfaces
