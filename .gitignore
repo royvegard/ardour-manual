@@ -13,7 +13,6 @@
 *.lof
 *.out
 diagrams/*.png
-graphics/*.png
 extensions.ent
 html
 tex

@@ -64,7 +64,22 @@ Patches to the manual are most welcome.
 </para>
 </sidebar>
 
+<section><title>Licence</title>
+
+<para>
+This manual is licensed under a Creative Commons
+Attribution-NonCommercial-ShareAlike 3.0 Unported License.  Please see
+<ulink
+url="http://creativecommons.org/licenses/by-nc-sa/3.0/">http://creativecommons.org/licenses/by-nc-sa/3.0/</ulink>
+for a human-readable summary of what this means.
+</para>
+
+<imagedata fileref="graphics/cc.png"/>
+
 </section>
+
+
+</section> <!-- About this manual -->
 
 <section>
 <title>Getting help with Ardour</title>
