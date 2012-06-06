@@ -130,7 +130,7 @@ Finally, points may be cut, copied and pasted, just as regions, by
 selecting them and using the standard key shortcuts <keycap>&modone;-X</keycap>
 for cut, <keycap>&modone;-C</keycap> for copy or
 <keycap>&modone;-V</keycap> for paste).  Pastes are made at the edit
-point.
+point (see <xref linkend="sec-edit-point-selector"/>).
 </para>
 
 </section>
