@@ -550,7 +550,7 @@ The first step to editing a MIDI region's contents is to click the
 &lsquo;edit region contents&rsquo; tool (<imagedata scale="75" fileref="screenshots/tool-region-contents&scs;"/>).
 On doing this, the bodies of the regions in the session will fade out
 to indicate that you are now editing their contents.  You can also
-edit this mode by double-clicking on a MIDI region.
+enter this mode by double-clicking on a MIDI region.
 </para>
 
 <para>
@@ -605,7 +605,7 @@ note to be played back on.
 </para>
 
 <para>
-The full gory details of a note can be edited numerically by
+The full details of a note can be edited numerically by
 &modone;-right-clicking a selected note.  This opens a dialogue box
 with all the notes details; modifying the values in the dialogue box
 will change the note.
@@ -631,6 +631,37 @@ Notes can be added to MIDI regions using the &lsquo;draw MIDI&rsquo; tool
 to add a note which is the same length as the current grid interval,
 or click and drag to add a note of any length.
 </para>
+
+<para>
+Alternatively, if the &lsquo;select/move objects&rsquo; tool (<imagedata
+scale="75" fileref="screenshots/tool-objects&scs;"/>) is selected,
+notes may be added by clicking or dragging with
+<keycap>&modone;</keycap> held down.
+</para>
+
+<section><title>Editing velocities of multiple notes</title>
+
+<para>
+To change the velocities of several MIDI notes to the same value,
+select them and press <keycap>V</keycap> to open the small dialogue
+shown in <xref linkend="fig-set-note-velocity"/>.
+</para>
+
+<figure id="fig-set-note-velocity">
+  <title>Setting note velocity</title>
+  <mediaobject>
+    <imageobject> 
+      <imagedata fileref="screenshots/set-note-velocity&scs;"/>
+    </imageobject> 
+  </mediaobject>
+</figure>
+
+<para>
+Choose the velocity that you want, then click <guilabel>OK</guilabel>
+to set all selected notes to that velocity.
+</para>
+
+</section> <!-- Editing velocities of multiple notes -->
 
 </section>
 </section>
