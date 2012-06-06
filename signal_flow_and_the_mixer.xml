@@ -292,7 +292,110 @@ to 37 outputs).
 
 <para>
 Ardour will try to pick a good panner for each particular situation.
+Ardour 3 supports three different panners:
 </para>
+
+<itemizedlist>
+<listitem>
+<emphasis>1-in 2-out</emphasis> &mdash; this pans a mono
+signal to a stereo output.  You can control the
+<emphasis>position</emphasis> of the signal within the stereo field,
+from 100% left (the mono signal comes out of the left speaker only) to
+100% right (the mono signal comes out of the right speaker only).
+</listitem>
+<listitem>
+<emphasis>2-in 2-out</emphasis> &mdash; this pans a stereo signal to a
+stereo output.  As with the 1-in, 2-out panner you can control the
+position of the signal within the stereo field, and also the
+<emphasis>width</emphasis>.  This corresponds to the separation
+between the left and right input channels.  
+</listitem>
+<listitem>
+<emphasis>Vector-based amplitude panning (VBAP) </emphasis> &mdash;
+this panner can map any number of inputs to any number of outputs.
+</listitem>
+</itemizedlist>
+
+<para>
+The panner for each track will be selected by Ardour, based on the
+number of inputs and outputs that it has.  The number of panner inputs
+is equal to the number of outputs of the last processor in the track's
+chain, and the number of panner outputs corresponds to the number of
+track outputs.
+</para>
+
+<section><title>1-in 2-out panners</title>
+
+<para>
+<xref linkend="fig-1in2out-panner"/> shows a 1-in, 2-out panner within
+a mixer strip.
+</para>
+
+<figure id="fig-1in2out-panner">
+  <title>A 1-in, 2-out panner</title> 
+  <mediaobject>
+    <imageobject> 
+      <imagedata fileref="screenshots/1in2out-panner&scs;"/>
+    </imageobject> 
+  </mediaobject>
+</figure>
+
+<para>
+In this example, the marker indicating the pan position is toward the
+right of the stereo field.  Click and drag the marker to move it
+around.  Double-clicking toward the left of the panner will pan the
+signal hard-left; similarly double-clicking to the right will pan
+hard-right, and double-clicking in the centre will move the marker to
+the centre of the stereo field.  &modtertiary;-clicking resets the pan
+position to centre.  &modone;-right-clicking will open a dialogue box with
+which precise pan values can be set.
+</para>
+
+</section> <!-- 1-in 2-out panners -->
+
+<section><title>2-in 2-out panners</title>
+
+<para>
+<xref linkend="fig-2in2out-panner"/> shows a 2-in, 2-out panner within
+a mixer strip.
+</para>
+
+<figure id="fig-2in2out-panner">
+  <title>A 2-in, 2-out panner</title> 
+  <mediaobject>
+    <imageobject> 
+      <imagedata fileref="screenshots/2in2out-panner&scs;"/>
+    </imageobject> 
+  </mediaobject>
+</figure>
+
+<para>
+Here we can see that a 2-in, 2-out panner has both a position and a
+width.  The position represents the position of the input within the
+output stereo field, as before, and the width represents the stereo
+width that the input will have in the output.  If, for example, width
+is set to 100% it will be not be possible to change position &mdash;
+there is nowhere for the input signal to &lsquo;go&rsquo;, as it is
+full-width.
+</para>
+
+<para>
+If the width control is reduced, it is possible to alter the position.
+Width can be reduced down to 0, and can also be made negative &mdash;
+a negative width is the same as the corresponding positive width
+except that the left and right input signals are swapped.
+</para>
+
+<para>
+Clicking and dragging in the top half of the 2-in 2-out panner will
+alter the position, and doing the same in the bottom half will alter
+the width.  As with the 1-in panner, &modtertiary;-clicking resets the
+pan position to centre and the width to its maximum.
+&modone;-right-clicking will open a dialogue box with which precise
+pan values can be set.
+</para>
+
+</section> <!-- 2-in 2-out panners -->
 
 </section>
 <section>
@@ -334,10 +437,11 @@ There are three basic ways in which monitoring may be approached:
 </para>
 
 <itemizedlist>
-<listitem> External monitoring &mdash; this is where Ardour plays no
-role in monitoring at all.  Perhaps the recording set-up has an
-external mixer which can be used to set up monitor mixes, or perhaps
-the sound-card being used has some &lsquo;listen to the
+<listitem>
+<emphasis>External monitoring</emphasis> &mdash; this is where Ardour
+plays no role in monitoring at all.  Perhaps the recording set-up has
+an external mixer which can be used to set up monitor mixes, or
+perhaps the sound-card being used has some &lsquo;listen to the
 input&rsquo;-style feature.  This approach often has the advantage of
 zero or near-zero latency.  On the other hand it requires external
 hardware, and the monitoring settings are not saved with the session.
@@ -354,13 +458,15 @@ setup.
 </figure>
 
 </listitem>
-<listitem> JACK-based &lsquo;hardware&rsquo; monitoring &mdash; some sound cards have the
-  ability to mix signals from their inputs to their outputs with zero-
-  or low-latency.  Furthermore, on some cards these features can be
-  controlled by JACK.  This is a nice arrangement, if the sound card
-  supports it, as it combines the convenience of having the monitoring
-  controlled by Ardour with the low latency operation of doing it
-  externally.  See <xref linkend="fig-jack-monitoring"/>.
+<listitem>
+<emphasis>JACK-based &lsquo;hardware&rsquo;
+monitoring</emphasis> &mdash; some sound cards have the ability to mix
+signals from their inputs to their outputs with zero- or low-latency.
+Furthermore, on some cards these features can be controlled by JACK.
+This is a nice arrangement, if the sound card supports it, as it
+combines the convenience of having the monitoring controlled by Ardour
+with the low latency operation of doing it externally.  See <xref
+linkend="fig-jack-monitoring"/>.
 
 <figure id="fig-jack-monitoring">
   <title>JACK-based &lsquo;hardware&rsquo; monitoring</title> 
@@ -371,13 +477,16 @@ setup.
   </mediaobject>
 </figure>
 
-</listitem><listitem> Software monitoring &mdash; this where all monitoring is performed
-  by Ardour; it makes track inputs available at track outputs, under
-  the influence of various controls.  This approach will almost always
-  have more routing flexibility than JACK-based monitoring.  The
-  disadvantage is that there will be a latency between the input and
-  the output which will depend mainly on the JACK buffer size that is
-  being used.
+</listitem>
+
+<listitem>
+<emphasis>Software monitoring</emphasis> &mdash; this where all
+monitoring is performed by Ardour; it makes track inputs available at
+track outputs, under the influence of various controls.  This approach
+will almost always have more routing flexibility than JACK-based
+monitoring.  The disadvantage is that there will be a latency between
+the input and the output which will depend mainly on the JACK buffer
+size that is being used.
 
 <figure id="fig-ardour-monitoring">
   <title>Software monitoring</title> 
