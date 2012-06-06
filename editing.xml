@@ -639,6 +639,8 @@ notes may be added by clicking or dragging with
 <keycap>&modone;</keycap> held down.
 </para>
 
+</section> <!-- Adding notes -->
+
 <section><title>Editing velocities of multiple notes</title>
 
 <para>
@@ -664,7 +666,7 @@ to set all selected notes to that velocity.
 </section> <!-- Editing velocities of multiple notes -->
 
 </section>
-</section>
+
 <section><title>Other MIDI operations</title>
 
 <para>
