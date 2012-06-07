@@ -886,7 +886,7 @@ linkend="fig-connection-manager"/>.
 </figure>
 
 <para>
-The connection manager presents two groups of ports; one set of source
+The connection manager presents two groups of ports; one set of sources
 (which produce data), and one of destinations (which consume data).
 Depending on the relative number of each, the sources will be placed
 on the left or the top of the dialogue, and the destinations on the
@@ -896,9 +896,8 @@ left to right or bottom.
 
 <para>
 Both sources and destinations are divided up into groups, with each
-group being given a tab.  To show the ports in each group
-(&lsquo;Ardour Busses&rsquo;, &lsquo;Ardour Tracks&rsquo; and so on),
-simply click on the tab.
+group being given a tab.  Click on the appropriate tab to show the ports in each group
+(&lsquo;Ardour Busses&rsquo;, &lsquo;Ardour Tracks&rsquo; and so on).
 </para>
 
 <para>
