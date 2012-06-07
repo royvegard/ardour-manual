@@ -72,7 +72,7 @@ Right-clicking anywhere on a track (including over a region) displays
 the track menu.  The top entry in this menu will be the name of the
 region that was clicked on, and this entry's submenu offers a large
 selection of operations which can be applied to the region.  These
-operations are described in Chapter <xref linkend="ch-region-operations"/>.
+operations are described in <xref linkend="ch-region-operations"/>.
 </para>
 
 <section>
@@ -869,7 +869,7 @@ and pasted with its region.
 </para>
 
 <para>
-Automation is covered full in Chapter <xref linkend="ch-automation"/>, with
+Automation is covered full in <xref linkend="ch-automation"/>, with
 reference to audio as well as MIDI automation.
 </para>
 
