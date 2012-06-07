@@ -82,7 +82,7 @@ operations are described in Chapter <xref linkend="ch-region-operations"/>.
 Regions can be split into two or more new regions using the
 &lsquo;split&rsquo; command.  This is available from the region context
 menu's <guimenu>Split</guimenu> item from the <guimenu>Edit</guimenu>
-menu.  (or bound to <keycap>S</keycap>).  The split will happen at the
+menu (or by pressing <keycap>S</keycap>).  The split will happen at the
 edit point (see <xref linkend="sec-edit-point-selector"/>).
 </para>
 
@@ -110,7 +110,7 @@ contain selected regions, will be split.
 This makes more sense in practice than it does written down!  In
 general, the easiest approach to getting the split you want is often
 to select the regions that you want to split, put the edit point at
-the split, then hit &lsquo;S&rsquo;.
+the split, then hit <keycap>S</keycap>.
 </para>
 
 <para>
@@ -186,7 +186,7 @@ Another option is to put a region's track into
 track controls area and choose <guimenuitem>Stacked</guimenuitem> from
 the <guimenu>Layers</guimenu> menu. In this mode, rather than
 overlapping regions being drawn on top of each other, regions are
-drawn more like those in <xref linkend="fig-overlapping-regions"/>.
+drawn like those in <xref linkend="fig-overlapping-regions"/>.
 This makes the arrangement of the track's regions a little more
 obvious.  Areas of regions that will not be played back are shaded
 dark-grey to make things clearer.
@@ -351,7 +351,7 @@ menu.
 <para>
 For more involved changes to region gain, regions can also have their
 own variable gain envelopes.  This overlaps somewhat with automation
-(discussed in Chapter <xref linkend="ch-automation"/>), but can be
+(discussed in <xref linkend="ch-automation"/>), but can be
 useful to alter the sound of particular features within the region.
 </para>
 
@@ -377,7 +377,7 @@ the following ways:
   region gain line point.
 </listitem><listitem> Dragging a point will move it.
 </listitem><listitem> Dragging a line segment will move points at each end of the segment.
-</listitem><listitem> Right-clicking on a point will offer a small
+</listitem><listitem> Right-clicking on a point will offer a
   menu from which you can delete the point or edit its value
   numerically.
 </listitem><listitem> &modone;-right-clicking on a point is a short-cut to opening
@@ -437,7 +437,7 @@ options.
 
 <para>
 With some recordings, it is desirable to remove regions which are, or
-are &lsquo;nearly&rsquo;, silent.  This can be done automatically using the
+are nearly, silent.  This can be done automatically using the
 <guimenuitem>Strip Silence&hellip;</guimenuitem> item on the region
 context&rsquo;s menu <guimenuitem>Edit</guimenuitem> item.  Selecting this
 option will open the dialogue shown in <xref
@@ -455,11 +455,12 @@ linkend="fig-strip-silence-dialogue"/>.
 
 <para>
 In addition, your target regions will be overlaid with light-blue
-areas which represent that the strip silence dialogue currently
-considers &lsquo;silence&rsquo;.  The main adjustment for this is the threshold;
-this is the level below which the region will be considered silent.
-In addition, the minimum length of a silent period can be specified,
-so that shorter below-threshold periods will be ignored.
+areas which represent the areas that the strip silence dialogue
+currently considers to be &lsquo;silence&rsquo;.  The main adjustment
+for this is the threshold; this is the level below which the region
+will be considered silent.  In addition, the minimum length of a
+silent period can be specified, so that shorter below-threshold
+periods will be ignored.
 </para>
 
 <para>
@@ -509,7 +510,7 @@ correct features have been found, you can choose what to do with them
 using the &lsquo;Operation&rsquo; drop-down:
 </para>
 
-<!--Not sure what the parameters do -->
+<!-- Not sure what the parameters do -->
 
 <itemizedlist>
 <listitem>
@@ -586,6 +587,32 @@ will display information about its note value, channel and velocity.
 </para>
 
 <para>
+In addition to editing region contents, MIDI tracks can also have a
+variety of controls in the track header.  If you increase the height
+of a MIDI track, various new controls will become available, as shown
+in <xref linkend="fig-extra-midi-controls"/>.
+</para>
+
+<figure id="fig-extra-midi-controls"> 
+  <title>Extra MIDI track controls</title> 
+  <mediaobject>
+    <imageobject> 
+      <imagedata fileref="diagrams/extra-midi-controls&dia;"/>
+    </imageobject> 
+  </mediaobject>
+</figure>
+
+<para>
+The keyboard shows the pitches of notes in the region in terms of a
+piano keyboard.  Dragging the keyboard range up and down will change
+the range of pitches that the track displays, and the ends of the
+keyboard range can also be dragged to show a wider or narrower range
+of pitches.
+</para>
+
+<section><title>Channel selection</title>
+
+<para>
 Right-clicking on a selected note will display a channel selector, as
 shown in <xref linkend="fig-midi-edit5"/>.
 </para>
@@ -604,6 +631,10 @@ Once this is displayed, click on the MIDI channel that you want the
 note to be played back on.
 </para>
 
+</section> <!-- Channel selection -->
+
+<section><title>Full note details</title>
+
 <para>
 The full details of a note can be edited numerically by
 &modone;-right-clicking a selected note.  This opens a dialogue box
@@ -611,9 +642,9 @@ with all the notes details; modifying the values in the dialogue box
 will change the note.
 </para>
 
+</section> <!-- Full note details -->
 
-<section>
-<title>Cutting, copying and pasting notes</title>
+<section><title>Cutting, copying and pasting notes</title>
 
 <para>
 Selected notes can be cut using <keycap>&modone;-X</keycap>, copied with
@@ -622,7 +653,8 @@ Once cut or copied they can also be pasted; pastes will be placed at
 the current edit point (see <xref linkend="sec-edit-point-selector"/>).
 </para>
 
-</section>
+</section> <!-- Cutting, copying and pasting notes -->
+
 <section><title>Adding notes</title>
 
 <para>
@@ -665,6 +697,37 @@ to set all selected notes to that velocity.
 
 </section> <!-- Editing velocities of multiple notes -->
 
+<section><title>Patch Changes</title>
+
+<para>
+A &lsquo;patch change&rsquo; is Ardour's description for a combination
+of MIDI program change and bank select messages, that (typically)
+instruct a synthesizer or sampler to select a different sound to use
+on a particular channel.
+</para>
+
+<para>
+Patch changes are shown within MIDI regions as small rectangles, as
+shown in <xref linkend="fig-patch-changes"/>.
+</para>
+
+<figure id="fig-patch-changes"> 
+  <title>A couple of patch changes</title>
+  <mediaobject>
+    <imageobject> 
+      <imagedata fileref="screenshots/patch-changes&scs;"/>
+    </imageobject> 
+  </mediaobject>
+</figure>
+
+<para> This figure indicates a a couple of different ways that patch
+changes can be displayed.  The first is shown with numbers; it is a
+change using program change 42 on bank 1.  The second is shown using a
+name: &lsquo;West Coast&rsquo;
+</para>
+
+</section> <!-- Patch Changes -->
+
 </section>
 
 <section><title>Other MIDI operations</title>
@@ -685,11 +748,7 @@ the notes in the region.
 </para>
 
 </section>
-<section><title>Insert Patch Change</title>
 
-<!-- hmm -->
-
-</section>
 <section><title>Quantize</title>
 <indexterm><primary>quantize</primary></indexterm>
 
@@ -797,16 +856,16 @@ make to the numbers will be reflected in the region.
 
 </section>
 </section>
-<section xml:id="sec-midi-non-note"><title>MIDI data other than notes</title>
+<section xml:id="sec-midi-non-note"><title>Non-note MIDI data</title>
 
 <para>
-Ardour treats all MIDI note data differently to other types of
-messages (control changes, pitch bends and so on).  All the other
-types of data are represented as automation data, drawn with
-continuous lines.  The resulting &lsquo;automation&rsquo; is converted back to
-MIDI and played back in the same stream as the note data, and MIDI
-automation data is always attached to a region, so it moves in time
-and is copied and pasted with its region.
+Ardour treats MIDI note data differently to other types of messages
+(control changes, pitch bends and so on).  Most of the other types of
+data are represented as automation data, drawn with continuous lines.
+The resulting &lsquo;automation&rsquo; is converted back to MIDI and
+played back in the same stream as the note data, and MIDI automation
+data is always attached to a region, so it moves in time and is copied
+and pasted with its region.
 </para>
 
 <para>
