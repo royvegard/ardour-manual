@@ -16,7 +16,8 @@ SCREENSHOTS := add-track-or-bus.png audio-midi-setup-advanced.png audio-midi-set
 	route-group-dialogue.png stop.png strip-silence-dialogue.png tool-draw-midi.png tool-listen.png tool-objects.png tool-ranges.png \
 	tool-region-contents.png tool-region-gain.png tool-stretch.png tool-zoom.png top-of-mixer-strip.png track-controls.png track-in-group.png \
 	transport-controls.png typical-audio-track-controls.png typical-bus-controls.png welcome-to-ardour.png connection-manager.png \
-	punch-in-out-buttons.png punch-range-marker.png track-record.png
+	punch-in-out-buttons.png punch-range-marker.png track-record.png 1in2out-panner.png 2in2out-panner.png patch-changes.png \
+	set-note-velocity.png
 
 XML := advanced_jack.xml ardour.xml automation.xml configuration.xml editing.xml editor_window.xml introduction.xml jack.xml \
 	misc.xml overview.xml quick_start.xml recording.xml region_operations.xml sessions.xml signal_flow_and_the_mixer.xml \
