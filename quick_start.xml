@@ -238,14 +238,14 @@ record from.
 <para>
 At this point, Ardour should be receiving a signal from some external sound
 source via the sound card.  It is now possible to make a test
-recording.  Click the record-enable button (red buttons with a pink
+recording.  Click the record-enable button (red button with a pink
 circle) in the &lsquo;Audio 1&rsquo; track controls area (shown in
 <xref linkend="fig-track-controls"/>).  At this point, the
 Audio 1 meter should display any signal that is being sent into the sound card.
-If this is not working, something has gone wrong.  Next click the record-enable
+If this is not working, something has gone wrong.  Next, click the record-enable
 button in the main transport controls (shown in
-<xref linkend="fig-transport-controls"/>), this will record-enable the session.
-Next click &lsquo;Play&rsquo; to start the transport.
+<xref linkend="fig-transport-controls"/>); this will record-enable the session.
+Finally, click &lsquo;Play&rsquo; to start the transport.
 </para>
 
 <figure id="fig-track-controls">
