@@ -227,24 +227,25 @@ At the bottom of the dialogue is the input to our track.
 In the example matrix, there is a green dot at the intersection of the
 &lsquo;L&rsquo; part of &lsquo;in 1+2&rsquo; and the &lsquo;Audio 1
 in&rsquo; port.  This means that the input of the &lsquo;Audio
-1&rsquo; track hardware input 1.  Change this connection, if
+1&rsquo; track is connected to hardware input 1.  Change this connection, if
 necessary, by clicking on the square which corresponds to the input to
-record from.  At this point, the Audio 1 meter should display any
-signal that is being sent into the sound card.  If this is not
-working, something has gone wrong.
+record from.
 </para>
 </section>
 
 <section><title>Recording</title>
 
 <para>
-At this point, Ardour is receiving a signal from some external sound
+At this point, Ardour should be receiving a signal from some external sound
 source via the sound card.  It is now possible to make a test
-recording.  Click the record-enable buttons (red buttons with a pink
-circle) in both the &lsquo;Audio 1&rsquo; track controls and the main transport
-controls (shown in <xref linkend="fig-track-controls"/> and
-<xref linkend="fig-transport-controls"/>), then click &lsquo;Play&rsquo; to start
-the transport.
+recording.  Click the record-enable button (red buttons with a pink
+circle) in the &lsquo;Audio 1&rsquo; track controls area (shown in
+<xref linkend="fig-track-controls"/>).  At this point, the
+Audio 1 meter should display any signal that is being sent into the sound card.
+If this is not working, something has gone wrong.  Next click the record-enable
+button in the main transport controls (shown in
+<xref linkend="fig-transport-controls"/>), this will record-enable the session.
+Next click &lsquo;Play&rsquo; to start the transport.
 </para>
 
 <figure id="fig-track-controls">
@@ -314,9 +315,10 @@ up to the input on your soundcard which your source is connected to.
 </para>
 
 <para>
-Now, record-enable the new track, move the playhead to before the
-previously recorded region, make sure the session is record-enabled
-and start the transport (by clicking &lsquo;Play&rsquo; or pressing the spacebar).
+Now, record-enable the new track and record-disable the first track, move the
+playhead to before the previously recorded region, make sure the session is
+record-enabled and start the transport (by clicking &lsquo;Play&rsquo; or
+pressing the spacebar).
 You should hear the previously-recorded audio on your monitor system
 while the new recording is in progress.  Record something suitable
 over the top of your first region.
@@ -366,7 +368,7 @@ recordings on disk, through the appropriate strip, and they are then
 mixed together and passed through the master strip.  The bottom half
 of each mixer strip contains a <emphasis>fader</emphasis>; this controls the level
 of each track.  You can adjust the levels of each of your recordings
-by dragging the mixer strip; the green marker indicates 0dBFS (&lsquo;unity
+by dragging the fader; the green marker indicates 0 dBFS (&lsquo;unity
 gain&rsquo;), at which the level of the track will be unaltered from the
 recording.
 </para>
