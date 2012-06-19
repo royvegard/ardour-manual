@@ -72,7 +72,7 @@ different tasks.
   <title>The Ardour toolbar</title>
   <mediaobject>
     <imageobject>
-      <imagedata fileref="diagrams/toolbar-annotated&dia;"/>
+      <imagedata fileref="diagrams/toolbar-annotated&dia;" scale="100"/>
     </imageobject>
   </mediaobject>
 </figure>
@@ -281,6 +281,23 @@ In &lsquo;Bars:Beats&rsquo; mode, the area underneath the time shows the tempo (
 beats per minute) and time signature that are currently in effect.
 </para>
 
+<para>
+The clocks can be used to move the playhead. Click the clock and use the
+keyboard to enter the time that the playhead should move to. You have to enter
+the most significant number first. For example to move the playhead to timecode
+00:00:14:00 (14 seconds), click a timecode clock and press 0 0 0 0 1 4 0 0, and
+then press enter. As you start typing, the numbers appear from right to left.
+</para>
+
+<para>
+Another way to move the playhead is by using the mouse-wheel. Point the mouse
+cursor to the clock numbers and use the mouse-wheel to move the playhead. The
+playhead will move by one unit of the number that you point to. For example if
+you point to the seconds part of a timecode clock, it will move by one second
+for every scroll step. If you point to the beats part of a clock, it will move
+by one beat for every scroll step, etc.
+</para>
+
 </section>
 
 <section>
@@ -323,7 +340,7 @@ The zoom controls are shown in <xref linkend="fig-zoom-controls"/>.
   <title>The zoom controls</title> 
   <mediaobject>
     <imageobject> 
-      <imagedata fileref="diagrams/zoom-controls&dia;"/>
+      <imagedata fileref="diagrams/zoom-controls&dia;" scale="100"/>
     </imageobject> 
   </mediaobject>
 </figure>
@@ -664,7 +681,7 @@ From left to right, these controls are:
 <imagedata fileref="screenshots/midi-panic&scs;"/> &mdash;
   <emphasis>MIDI panic</emphasis> &mdash; click this to send note-offs and reset
   controller messages on all MIDI channels.  This is useful if, for
-  example, when a MIDI synthesizer has a stuck note and you want to silence
+  example, a MIDI synthesizer has a stuck note and you want to silence
   it.
 </listitem>
 <listitem>
