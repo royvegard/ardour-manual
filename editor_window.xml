@@ -616,6 +616,14 @@ to turn off all solos.
 </section> <!-- Solo -->
 
 <section>
+<title>Audition</title>
+<para>
+This button flashes red if any region is being auditioned, and you can click it
+to stop the audition.
+</para>
+</section> <!-- Audition -->
+
+<section>
 <title>Feedback</title>
 <indexterm><primary>feedback</primary></indexterm>
 
@@ -631,15 +639,19 @@ what the user interface is showing.  You should remove the feedback
 path, upon which this light will stop flashing.
 </para>
 
-<!-- XXX
-Metronome
-Audition}
-Internal
-Auto Play
-Auto Return
--->
-
 </section> <!-- Feedback -->
+
+<section>
+<title>Metronome</title>
+<para>
+Click the Metronome button to toggle the metronome on and off . When active,
+there will be an audible click on every beat whenever the transport is rolling.
+The first beat of a bar will have a different sounding click, so that the start
+of a bar can be recognized. The actual sound and volume of the click can be
+configured. Right clicking the metronome button will open the Preferences dialog
+where the metronome can be configured.
+</para>
+</section> <!-- Metronome -->
 
 <section xml:id="sec-positional-sync-button"><title>Positional sync button</title>
 
@@ -653,6 +665,28 @@ Properties</guilabel> dialogue.  See <xref linkend="ch-synchronisation"/>.
 </para>
 
 </section> <!-- Positional sync button -->
+
+<section>
+<title>Auto Play</title>
+<para>
+Clicking the Auto Play button will toggle Auto Play on or off. The light on the
+right side of the button is lit when Auto Play is on. When Auto Play is on, the
+transport will start rolling when you complete a re-location of the playhead.
+For example if you click in the rulers area to re-locate the playhead, the
+transport will start rolling from the point where the playhead was re-located
+to.
+</para>
+</section> <!-- Auto Play -->
+
+<section>
+<title>Auto Return</title>
+<para>
+Like the Auto Play button the Auto Return button can be toggled on and off, and
+the light shows its status. When Auto Return is on; when the transport is
+stopped, the playhead will return to the same position that it was at when the
+transport was started.
+</para>
+</section> <!-- Auto Return -->
 
 </section> <!-- Other Buttons -->
 
@@ -721,6 +755,12 @@ flashes red, Ardour will record onto record-enabled tracks when the
 transport is moving.
 </listitem>
 </itemizedlist>
+
+<para>
+Below the transport controls is the Shuttle speed control. This can be used to
+roll the transport at varying speed and direction. Left click and drag to
+control speed and direction. Right click will open the options menu.
+</para>
 
 </section>
 
