@@ -217,6 +217,12 @@ the same edits to each track.
 </para>
 
 <para>
+Left clicking on a group tab will toggle the group between active and de-active
+(or enabled and disabled). To indicate that a group is de-active, the tab wil
+turn grey.
+</para>
+
+<para>
 Right-clicking on the group tab offers a further menu of group-related
 actions.  <guimenuitem>Create a New Group</guimenuitem> does as its name suggests, and
 there is also an option to create a new group and automatically put
@@ -236,10 +242,15 @@ placed pre- or post-fader.
 </para>
 
 <para>
-Finally, <guimenuitem>Fit to Window</guimenuitem> will zoom the member
+<guimenuitem>Fit to Window</guimenuitem> will zoom the member
 tracks so that they fill the editor window.
 </para>
+<guimenuitem>Enable All Groups</guimenuitem> and <guimenuitem>Disable All
+Groups</guimenuitem> will activate or de-activate all groups, including any
+hidden groups.
+<para>
 
+</para>
 </section>
 
 <section>
@@ -353,7 +364,7 @@ A typical control area for a MIDI track is shown in <xref linkend="fig-typical-m
   <title>Typical MIDI track controls</title> 
   <mediaobject>
     <imageobject> 
-      <imagedata fileref="diagrams/typical-midi-track-controls&dia;"/>
+      <imagedata fileref="diagrams/typical-midi-track-controls&dia;" scale ="80"/>
     </imageobject> 
   </mediaobject>
 </figure>

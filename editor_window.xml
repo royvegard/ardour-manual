@@ -23,7 +23,7 @@ A typical Ardour editor window is shown in <xref linkend="fig-typical-editor2"/>
   <title>A typical editor window</title>
   <mediaobject>
     <imageobject>
-      <imagedata fileref="diagrams/editor-summary&dia;"/>
+      <imagedata fileref="diagrams/editor-summary&dia;" scale="100"/>
     </imageobject>
   </mediaobject>
 </figure>
@@ -34,7 +34,7 @@ manipulated.  It offers a view of your session as it progresses in
 time, and allows the constituent parts (tracks, regions, playlists and
 so on) to be manipulated.  The contents of the main body of the window
 represent the session's tracks and busses, the functionality of which
-is discussed in Chapter <xref linkend="ch-tracks-and-busses"/>.
+is discussed in <xref linkend="ch-tracks-and-busses"/>.
 </para>
 
 <para>
@@ -72,7 +72,7 @@ different tasks.
   <title>The Ardour toolbar</title>
   <mediaobject>
     <imageobject>
-      <imagedata fileref="diagrams/toolbar-annotated&dia;"/>
+      <imagedata fileref="diagrams/toolbar-annotated&dia;" scale="100"/>
     </imageobject>
   </mediaobject>
 </figure>
@@ -113,7 +113,8 @@ more detail on their operation later.
   pitch-shifting algorithms) or MIDI notes.
 </listitem>
 <listitem>
-<emphasis>Listen</emphasis> -- <!-- XXX: TODO -->
+<emphasis>Listen</emphasis> &mdash; used to listen from the start of a region,
+  or to listen at varying speed and direction.
 </listitem>
 <listitem>
 <emphasis>Draw/edit MIDI notes</emphasis> &mdash; used to draw new MIDI notes
@@ -204,6 +205,11 @@ time range.
 </para>
 
 <para>
+The &lsquo;start&rsquo; and &lsquo;end&rsquo; location markers are special.
+They mark the start and end of the session.  They cannot be removed or renamed.
+</para>
+
+<para>
 There are some other special marker types.  CD markers are intended to
 indicate track marks for CD productions.  If a session has CD markers
 at the start of each track, Ardour can generate a table-of-contents
@@ -275,6 +281,23 @@ In &lsquo;Bars:Beats&rsquo; mode, the area underneath the time shows the tempo (
 beats per minute) and time signature that are currently in effect.
 </para>
 
+<para>
+The clocks can be used to move the playhead. Click the clock and use the
+keyboard to enter the time that the playhead should move to. You have to enter
+the most significant number first. For example to move the playhead to timecode
+00:00:14:00 (14 seconds), click a timecode clock and press 0 0 0 0 1 4 0 0, and
+then press enter. As you start typing, the numbers appear from right to left.
+</para>
+
+<para>
+Another way to move the playhead is by using the mouse-wheel. Point the mouse
+cursor to the clock numbers and use the mouse-wheel to move the playhead. The
+playhead will move by one unit of the number that you point to. For example if
+you point to the seconds part of a timecode clock, it will move by one second
+for every scroll step. If you point to the beats part of a clock, it will move
+by one beat for every scroll step, etc.
+</para>
+
 </section>
 
 <section>
@@ -317,7 +340,7 @@ The zoom controls are shown in <xref linkend="fig-zoom-controls"/>.
   <title>The zoom controls</title> 
   <mediaobject>
     <imageobject> 
-      <imagedata fileref="diagrams/zoom-controls&dia;"/>
+      <imagedata fileref="diagrams/zoom-controls&dia;" scale="100"/>
     </imageobject> 
   </mediaobject>
 </figure>
@@ -593,6 +616,14 @@ to turn off all solos.
 </section> <!-- Solo -->
 
 <section>
+<title>Audition</title>
+<para>
+This button flashes red if any region is being auditioned, and you can click it
+to stop the audition.
+</para>
+</section> <!-- Audition -->
+
+<section>
 <title>Feedback</title>
 <indexterm><primary>feedback</primary></indexterm>
 
@@ -608,15 +639,19 @@ what the user interface is showing.  You should remove the feedback
 path, upon which this light will stop flashing.
 </para>
 
-<!-- XXX
-Metronome
-Audition}
-Internal
-Auto Play
-Auto Return
--->
-
 </section> <!-- Feedback -->
+
+<section>
+<title>Metronome</title>
+<para>
+Click the Metronome button to toggle the metronome on and off . When active,
+there will be an audible click on every beat whenever the transport is rolling.
+The first beat of a bar will have a different sounding click, so that the start
+of a bar can be recognized. The actual sound and volume of the click can be
+configured. Right clicking the metronome button will open the Preferences dialog
+where the metronome can be configured.
+</para>
+</section> <!-- Metronome -->
 
 <section xml:id="sec-positional-sync-button"><title>Positional sync button</title>
 
@@ -630,6 +665,28 @@ Properties</guilabel> dialogue.  See <xref linkend="ch-synchronisation"/>.
 </para>
 
 </section> <!-- Positional sync button -->
+
+<section>
+<title>Auto Play</title>
+<para>
+Clicking the Auto Play button will toggle Auto Play on or off. The light on the
+right side of the button is lit when Auto Play is on. When Auto Play is on, the
+transport will start rolling when you complete a re-location of the playhead.
+For example if you click in the rulers area to re-locate the playhead, the
+transport will start rolling from the point where the playhead was re-located
+to.
+</para>
+</section> <!-- Auto Play -->
+
+<section>
+<title>Auto Return</title>
+<para>
+Like the Auto Play button the Auto Return button can be toggled on and off, and
+the light shows its status. When Auto Return is on; when the transport is
+stopped, the playhead will return to the same position that it was at when the
+transport was started.
+</para>
+</section> <!-- Auto Return -->
 
 </section> <!-- Other Buttons -->
 
@@ -698,6 +755,12 @@ flashes red, Ardour will record onto record-enabled tracks when the
 transport is moving.
 </listitem>
 </itemizedlist>
+
+<para>
+Below the transport controls is the Shuttle speed control. This can be used to
+roll the transport at varying speed and direction. Left click and drag to
+control speed and direction. Right click will open the options menu.
+</para>
 
 </section>
 
@@ -783,7 +846,6 @@ doing digital signal processing (DSP) of your session.  If this gets
 near 100% it indicates that your system is being overloaded, and you
 may get glitches or &lsquo;pops&rsquo; in your audio.  First steps to fixing this
 are:
-</listitem>
 
 <itemizedlist>
 <listitem>
@@ -799,7 +861,6 @@ Increase JACK's buffer size.
 Get a faster computer!
 </listitem>
 </itemizedlist>
-
 <sidebar>
 <para>
 Every time JACK calls Ardour, to give it audio from inputs and take
@@ -823,6 +884,7 @@ blind (good or bad) luck.
 </para>
 </sidebar>
 
+</listitem>
 <listitem>
 <emphasis>Disk</emphasis> &mdash; the amount of time for which you can record (on the
   tracks that are currently record-enabled) given the amount of disk
