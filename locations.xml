@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE book [
+<!ENTITY % sgml.features "IGNORE">
+<!ENTITY % xml.features "INCLUDE">
+<!ENTITY % dbcent PUBLIC "-//OASIS//ENTITIES DocBook Character Entities V4.5//EN"
+   "/usr/share/xml/docbook/schema/dtd/4.5/dbcentx.mod">
+%dbcent;
+<!ENTITY % keys SYSTEM "keys.ent">
+%keys;
+<!ENTITY % extensions SYSTEM "extensions.ent">
+%extensions;
+]>
+
+<chapter xml:id="ch-locations-markers" xmlns="http://docbook.org/ns/docbook" version="5.0" xml:lang="en">
+<title>Locations and markers</title>
+<indexterm><primary>locations</primary><primary>markers</primary></indexterm>
+
+<para>
+Ardour provides a few ways to mark up specific times or ranges of time
+in your sessions.  These are displayed, and can be edited from the
+rulers area of the editor window, as shown in <xref
+linkend="fig-typical-editor2"/>.
+</para>
+
+<para>
+Markers are divided up into the following categories, each of which is
+allotted a separate line in the rulers area:
+</para>
+
+<itemizedlist>
+<listitem>
+<emphasis>Location markers</emphasis> &mdash; these mark a single
+point in time.
+</listitem>
+<listitem>
+<emphasis>Range markers</emphasis> &mdash; these mark a range of time.
+</listitem>
+<listitem>
+<emphasis>Loop/punch ranges</emphasis> &mdash; these also mark a range
+of time, but are specifically for use when looping (see <xref
+linkend="sec-transport-controls"/> or punching (see <xref
+linkend="sec-punch-in-out"/>).
+</listitem>
+<listitem>
+<emphasis>CD markers</emphasis> &mdash; these can mark either a single
+point in time or a range, and can be used to add track marks to
+compact disc (CD) images; see <xref linkend="sec-cd-track-marks"/>
+</listitem>
+</itemizedlist>
+<section>
+<title>Location markers</title>
+
+<para>
+You can insert a location marker in a couple of ways; firstly, you can
+right-click on the location markers ruler to display the menu (as
+shown in <xref linkend="fig-location-markers-menu"/>) and then select
+<guilabel>New location marker</guilabel>.  Alternatively, choose
+<guilabel>Add Mark From Playhead</guilabel> from the
+<guilabel>Markers</guilabel> submenu of the
+<guilabel>Transport</guilabel> menu (or press <keycap>Enter</keycap>
+on the numeric keypad) to put a new location marker at the current
+playhead position.
+</para>
+
+<figure id="fig-location-markers-menu">
+  <title>The location markers context menu</title>
+  <mediaobject>
+    <imageobject> 
+      <imagedata fileref="screenshots/location-markers-menu&scs;"/>
+    </imageobject> 
+  </mediaobject>
+</figure>
+
+<para>
+Markers can be selected by left-clicking on them; this will draw a
+blue line at the marker's position.  Additional markers can then be
+selected by &modone;-clicking.  Selected markers can be dragged around
+in time.
+</para>
+
+<para>
+Several operations on markers are available by right-clicking them to
+open the marker context menu.  From this menu, you can:
+</para>
+
+<itemizedlist>
+<listitem>
+<emphasis>Locate to Here</emphasis> &mdash; move the playhead to this
+marker's position.
+</listitem>
+<listitem>
+<emphasis>Play from Here</emphasis> &mdash; start playback from this
+marker's position.
+</listitem>
+<listitem>
+<emphasis>Move Mark to Playhead</emphasis> &mdash; move this marker to
+the current playhead position.
+</listitem>
+<listitem>
+<emphasis>Create Range to Next Marker</emphasis> &mdash; create a
+range marker between this location and the next one along on the
+timeline.
+</listitem>
+<listitem>
+<emphasis>Hide</emphasis> &mdash; hide this marker from the view.  It
+can be re-shown from the <guilabel>Locations</guilabel> window (see
+<xref linkend="sec-locations-window"/>).
+</listitem>
+<listitem>
+<emphasis>Rename</emphasis> &mdash; change the name of the marker.
+</listitem>
+<listitem>
+<emphasis>Lock</emphasis> &mdash; if this is ticked, it will be
+impossible to drag the marker's position; useful if you want to
+prevent accidental movements.
+</listitem>
+<listitem>
+<emphasis>Glue to Bars and Beats</emphasis> &mdash; if this is ticked,
+the marker will maintain its position in bars and beats even if there
+are changes in tempo and meter (see <xref linkend="sec-time"/>).
+</listitem>
+<listitem>
+<emphasis>Remove</emphasis> &mdash; removes the marker.
+</listitem>
+</itemizedlist>
+
+<para>
+There are also a few options on the <guilabel>Active Mark</guilabel>
+submenu of the <guilabel>Transport</guilabel> menu.  These options
+apply to the currently selected location marker, and move it to a
+nearby region boundary, region sync point, or to the playhead or mouse.
+</para>
+
+</section> <!-- Location markers -->
+
+<section>
+<title>Range markers</title>
+
+<para>
+Range markers are somewhat similar to location markers, except that
+they cover a range of time.  They might be useful for marking out
+areas of a song (a chorus, perhaps).
+</para>
+
+<para>
+Create a range marker by &modone;-dragging from one part of the range
+markers ruler to another; when you release the mouse button, a range
+marker will be created.  Either end of this marker can be moved around
+with a drag.  &modone;-dragging one end of a range will move the other
+end in the same way.
+</para>
+
+<para>
+As with location markers, right-clicking on a range marker will offer
+a menu of useful things that you can do with the marker.  Some of the
+options operate on the range, and some on the start or end point
+(depending on which end of the marker you clicked on to open the
+menu).
+</para>
+
+<itemizedlist>
+<listitem>
+<emphasis>Play Range</emphasis> &mdash; play from the start to the end
+of the range, then stop.
+</listitem>
+<listitem>
+<emphasis>Locate to Range Mark</emphasis> &mdash; move the playhead to
+the start or end of the range.
+</listitem>
+<listitem>
+<emphasis>Play from Range Mark</emphasis> &mdash; start playback from
+the the start or end of the range.
+</listitem>
+<listitem>
+<emphasis>Loop Range</emphasis> &mdash; start looped playback of the range.
+</listitem>
+<listitem>
+<emphasis>Set Range Mark from Playhead</emphasis> &mdash; set the
+start or end of the range to the playhead position.
+</listitem>
+<listitem>
+<emphasis>Set Range from Range Selection</emphasis> &mdash; if you
+have selected a time range using the select/move ranges tool
+(<imagedata fileref="screenshots/tool-ranges&scs;"/>) this will set
+this range marker to cover the selected time range.
+</listitem>
+<listitem>
+<emphasis>Zoom to Range</emphasis> &mdash; this zooms in so that the
+time range of the marker (and a little either side) is displayed in
+the editor.
+</listitem>
+<listitem>
+<emphasis>Export Range&hellip;</emphasis> &mdash; this opens the
+<guilabel>export</guilabel> dialogue and sets it up to export the
+marker's time range.
+</listitem>
+<listitem>
+<emphasis>Hide Range</emphasis> &mdash;  hide this marker from the view.  It
+can be re-shown from the <guilabel>Locations</guilabel> window (see
+<xref linkend="sec-locations-window"/>).
+</listitem>
+<listitem>
+<emphasis>Rename Range&hellip;</emphasis> &mdash; change the name of the marker.
+</listitem>
+<listitem>
+<emphasis>Separate Regions in Range</emphasis> &mdash; this will look
+at any selected tracks, and split regions on those tracks at the start
+and end of the range.  This has the effect of &lsquo;chopping&rsquo;
+the sound within the range so that it can be copied, perhaps, or moved
+elsewhere.
+</listitem>
+<listitem>
+<emphasis>Select All in Range</emphasis> &mdash; this selects all
+regions which lie wholly or partly within the marker's range.
+</listitem>
+<listitem>
+<emphasis>Select Range</emphasis> &mdash; this selects the time range
+of the marker, moving into select/move ranges mode (<imagedata
+fileref="screenshots/tool-ranges&scs;"/>) if it is not already engaged.
+</listitem>
+</itemizedlist>
+
+</section> <!-- Range markers -->
+
+<section xml:id="sec-cd-track-marks">
+<title>CD track marks</title>
+
+<para>
+If your session contains markers on the <guilabel>CD
+Markers</guilabel> ruler, Ardour can export these as a TOC or CUE file
+which can be used when burning a CD to indicate where the track marks
+should be.  See <xref linkend="sec-ch-export"/> for more details on
+exporting.
+</para>
+
+</section> <!-- CD and DVD track marks -->
+
+<section xml:id="sec-locations-window">
+<title>The locations window</title>
+
+<para>
+It may sometimes be useful to see details of a particular marker, or
+of all the markers in the session.  This can be done in the
+<guilabel>Locations</guilabel> window, opened from the
+<guilabel>Window</guilabel> menu or by pressing
+<keycombo><keycap>Alt</keycap><keycap>L</keycap></keycombo>, as shown
+in <xref linkend="fig-locations-window"/>.
+</para>
+
+<figure id="fig-locations-window">
+  <title>The locations window</title>
+  <mediaobject>
+    <imageobject> 
+      <imagedata fileref="screenshots/locations-window&scs;"/>
+    </imageobject> 
+  </mediaobject>
+</figure>
+
+<para>
+In this window we see three distinct areas; these contain details of
+the loop and punch ranges, the location markers and the range markers.
+</para>
+
+<para>
+Each marker has a button to the left of its name which will remove the
+marker.  The marker can be renamed by editing its name entry.
+Location markers have a single clock which show the marker's position.
+This clock can be edited to move the marker, or the <guilabel>Use
+PH</guilabel> button will move the marker to the playhead position.
+Range markers have three clocks, one each for start time, end time and
+length.
+</para>
+
+<para>
+Markers can be set up to be hidden, locked, or glued to bars and beats
+using the appropriate checkboxes.  Finally, the two buttons at the
+bottom of the window allow new location makers or ranges to be added
+to the session.
+</para>
+
+</section> <!-- The locations window -->
+
+</chapter>

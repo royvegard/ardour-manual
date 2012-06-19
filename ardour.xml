@@ -38,6 +38,7 @@ control surfaces
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="editing.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="automation.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="sessions.xml"/>
+<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="locations.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="synchronisation.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="control_surfaces.xml"/>
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="region_operations.xml"/>

@@ -633,7 +633,7 @@ Properties</guilabel> dialogue.  See <xref linkend="ch-synchronisation"/>.
 
 </section> <!-- Other Buttons -->
 
-<section>
+<section xml:id="sec-transport-controls">
 <title>The transport controls</title>
 
 Ardour uses the term &lsquo;transport&rsquo; in a sense that might be similar to

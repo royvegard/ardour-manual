@@ -73,7 +73,8 @@ linkend="sec-monitoring"/>)
 
 </section> <!-- Basic recording -->
 
-<section><title>Punch in/out</title>
+<section xml:id="sec-punch-in-out">
+<title>Punch in/out</title>
 
 <para>
 Often it is necessary to record over a small section of an existing
