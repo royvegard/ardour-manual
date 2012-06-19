@@ -23,7 +23,7 @@ A typical Ardour editor window is shown in <xref linkend="fig-typical-editor2"/>
   <title>A typical editor window</title>
   <mediaobject>
     <imageobject>
-      <imagedata fileref="diagrams/editor-summary&dia;"/>
+      <imagedata fileref="diagrams/editor-summary&dia;" scale="100"/>
     </imageobject>
   </mediaobject>
 </figure>
@@ -34,7 +34,7 @@ manipulated.  It offers a view of your session as it progresses in
 time, and allows the constituent parts (tracks, regions, playlists and
 so on) to be manipulated.  The contents of the main body of the window
 represent the session's tracks and busses, the functionality of which
-is discussed in Chapter <xref linkend="ch-tracks-and-busses"/>.
+is discussed in <xref linkend="ch-tracks-and-busses"/>.
 </para>
 
 <para>
@@ -113,7 +113,8 @@ more detail on their operation later.
   pitch-shifting algorithms) or MIDI notes.
 </listitem>
 <listitem>
-<emphasis>Listen</emphasis> -- <!-- XXX: TODO -->
+<emphasis>Listen</emphasis> &mdash; used to listen from the start of a region,
+  or to listen at varying speed and direction.
 </listitem>
 <listitem>
 <emphasis>Draw/edit MIDI notes</emphasis> &mdash; used to draw new MIDI notes
@@ -201,6 +202,11 @@ The basic marker types for general purpose use are <emphasis>location
 markers</emphasis> and <emphasis>range markers</emphasis>.  Location markers are
 a point in time, and range markers represent, as one might expect, a
 time range.
+</para>
+
+<para>
+The &lsquo;start&rsquo; and &lsquo;end&rsquo; location markers are special.
+They mark the start and end of the session.  They cannot be removed or renamed.
 </para>
 
 <para>
@@ -658,7 +664,7 @@ From left to right, these controls are:
 <imagedata fileref="screenshots/midi-panic&scs;"/> &mdash;
   <emphasis>MIDI panic</emphasis> &mdash; click this to send note-offs and reset
   controller messages on all MIDI channels.  This is useful if, for
-  example, a MIDI synthesizer has a stuck note and you want to silence
+  example, when a MIDI synthesizer has a stuck note and you want to silence
   it.
 </listitem>
 <listitem>
@@ -783,7 +789,6 @@ doing digital signal processing (DSP) of your session.  If this gets
 near 100% it indicates that your system is being overloaded, and you
 may get glitches or &lsquo;pops&rsquo; in your audio.  First steps to fixing this
 are:
-</listitem>
 
 <itemizedlist>
 <listitem>
@@ -799,7 +804,6 @@ Increase JACK's buffer size.
 Get a faster computer!
 </listitem>
 </itemizedlist>
-
 <sidebar>
 <para>
 Every time JACK calls Ardour, to give it audio from inputs and take
@@ -823,6 +827,7 @@ blind (good or bad) luck.
 </para>
 </sidebar>
 
+</listitem>
 <listitem>
 <emphasis>Disk</emphasis> &mdash; the amount of time for which you can record (on the
   tracks that are currently record-enabled) given the amount of disk
