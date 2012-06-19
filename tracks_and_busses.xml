@@ -217,9 +217,8 @@ the same edits to each track.
 </para>
 
 <para>
-Left clicking on a group tab will toggle the group between active and de-active
-(or enabled and disabled). To indicate that a group is de-active, the tab wil
-turn grey.
+Clicking on a group tab will toggle the group between being enabled
+and disabled.  Tabs for disabled groups are coloured grey.
 </para>
 
 <para>
@@ -246,7 +245,7 @@ placed pre- or post-fader.
 tracks so that they fill the editor window.
 </para>
 <guimenuitem>Enable All Groups</guimenuitem> and <guimenuitem>Disable All
-Groups</guimenuitem> will activate or de-activate all groups, including any
+Groups</guimenuitem> will enable or disable all groups, including any
 hidden groups.
 <para>
 
@@ -364,7 +363,7 @@ A typical control area for a MIDI track is shown in <xref linkend="fig-typical-m
   <title>Typical MIDI track controls</title> 
   <mediaobject>
     <imageobject> 
-      <imagedata fileref="diagrams/typical-midi-track-controls&dia;" scale ="80"/>
+      <imagedata fileref="diagrams/typical-midi-track-controls&dia;"/>
     </imageobject> 
   </mediaobject>
 </figure>

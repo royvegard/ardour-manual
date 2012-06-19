@@ -23,7 +23,7 @@ A typical Ardour editor window is shown in <xref linkend="fig-typical-editor2"/>
   <title>A typical editor window</title>
   <mediaobject>
     <imageobject>
-      <imagedata fileref="diagrams/editor-summary&dia;" scale="100"/>
+      <imagedata fileref="diagrams/editor-summary&dia;"/>
     </imageobject>
   </mediaobject>
 </figure>
@@ -72,7 +72,7 @@ different tasks.
   <title>The Ardour toolbar</title>
   <mediaobject>
     <imageobject>
-      <imagedata fileref="diagrams/toolbar-annotated&dia;" scale="100"/>
+      <imagedata fileref="diagrams/toolbar-annotated&dia;"/>
     </imageobject>
   </mediaobject>
 </figure>
@@ -113,8 +113,8 @@ more detail on their operation later.
   pitch-shifting algorithms) or MIDI notes.
 </listitem>
 <listitem>
-<emphasis>Listen</emphasis> &mdash; used to listen from the start of a region,
-  or to listen at varying speed and direction.
+<emphasis>Listen</emphasis> &mdash; used to listen to regions at
+varying speed and in both directions.
 </listitem>
 <listitem>
 <emphasis>Draw/edit MIDI notes</emphasis> &mdash; used to draw new MIDI notes
@@ -136,12 +136,16 @@ more detail on their operation later.
 <section>
 <title>Rulers</title>
 
+<para>
 The rulers section of the editor gives the option of several views;
 some time indications, in different units, details of tempo and meter
 (time signature) changes, and a display of various types of marker.
+</para>
 
+<para>
 Right-clicking over the marker area offers a menu from which the
 displayed rulers can be chosen.
+</para>
 
 <section>
 <title>Time displays</title>
@@ -206,7 +210,7 @@ time range.
 
 <para>
 The &lsquo;start&rsquo; and &lsquo;end&rsquo; location markers are special.
-They mark the start and end of the session.  They cannot be removed or renamed.
+They mark the start and end of the session, and cannot be removed or renamed.
 </para>
 
 <para>
@@ -282,20 +286,24 @@ beats per minute) and time signature that are currently in effect.
 </para>
 
 <para>
-The clocks can be used to move the playhead. Click the clock and use the
-keyboard to enter the time that the playhead should move to. You have to enter
-the most significant number first. For example to move the playhead to timecode
-00:00:14:00 (14 seconds), click a timecode clock and press 0 0 0 0 1 4 0 0, and
-then press enter. As you start typing, the numbers appear from right to left.
+The clocks can be used to move the playhead. Click the clock and use
+the keyboard to enter the time that the playhead should move to,
+entering the most significant number first.  For example, to move the
+playhead to timecode 00:00:14:00 (14 seconds), click a timecode clock
+and press <keycap>0</keycap> <keycap>0</keycap> <keycap>0</keycap>
+<keycap>0</keycap> <keycap>1</keycap> <keycap>4</keycap>
+<keycap>0</keycap> <keycap>0</keycap>, and then press
+<keycap>enter</keycap>. As you start typing, the numbers appear from
+right to left.
 </para>
 
 <para>
-Another way to move the playhead is by using the mouse-wheel. Point the mouse
-cursor to the clock numbers and use the mouse-wheel to move the playhead. The
-playhead will move by one unit of the number that you point to. For example if
+Another way to move the playhead is to use the mouse-wheel.  Point the mouse
+cursor at the clock numbers and use the mouse-wheel to move the playhead. The
+playhead will move by one unit of the number that you point to.  For example, if
 you point to the seconds part of a timecode clock, it will move by one second
 for every scroll step. If you point to the beats part of a clock, it will move
-by one beat for every scroll step, etc.
+by one beat for every scroll step, and so on.
 </para>
 
 </section>
@@ -340,7 +348,7 @@ The zoom controls are shown in <xref linkend="fig-zoom-controls"/>.
   <title>The zoom controls</title> 
   <mediaobject>
     <imageobject> 
-      <imagedata fileref="diagrams/zoom-controls&dia;" scale="100"/>
+      <imagedata fileref="diagrams/zoom-controls&dia;"/>
     </imageobject> 
   </mediaobject>
 </figure>
@@ -610,16 +618,16 @@ The editor window contains a few other buttons, which are described here.
 <section>
 <title>Solo</title>
 <para>
-This button flashes red if any tracks are soloed, and you can click it
-to turn off all solos.
+This button flashes red if any tracks are soloed; click it to turn off
+all solos.
 </para>
 </section> <!-- Solo -->
 
 <section>
 <title>Audition</title>
 <para>
-This button flashes red if any region is being auditioned, and you can click it
-to stop the audition.
+This button flashes red if anything is being auditioned; click it to
+stop the audition.
 </para>
 </section> <!-- Audition -->
 
@@ -644,12 +652,13 @@ path, upon which this light will stop flashing.
 <section>
 <title>Metronome</title>
 <para>
-Click the Metronome button to toggle the metronome on and off . When active,
-there will be an audible click on every beat whenever the transport is rolling.
-The first beat of a bar will have a different sounding click, so that the start
-of a bar can be recognized. The actual sound and volume of the click can be
-configured. Right clicking the metronome button will open the Preferences dialog
-where the metronome can be configured.
+Click the <guilabel>Metronome</guilabel> button to toggle the
+metronome on and off.  When active, Ardour will generate an audible
+click on every beat whenever the transport is rolling.  The first beat
+of each bar will have a different sounding click, so that the start of a
+bar can be recognized.  The sound and volume of the click can be
+configured by right-clicking the metronome button and making changes
+in the Preferences dialog that is opened.
 </para>
 </section> <!-- Metronome -->
 
@@ -669,22 +678,22 @@ Properties</guilabel> dialogue.  See <xref linkend="ch-synchronisation"/>.
 <section>
 <title>Auto Play</title>
 <para>
-Clicking the Auto Play button will toggle Auto Play on or off. The light on the
-right side of the button is lit when Auto Play is on. When Auto Play is on, the
-transport will start rolling when you complete a re-location of the playhead.
-For example if you click in the rulers area to re-locate the playhead, the
-transport will start rolling from the point where the playhead was re-located
-to.
+Clicking the Auto Play button will toggle Auto Play on or off.  When
+Auto Play is on, the transport will start rolling whenever you move
+the playhead.  If, for example, you click in the rulers area to
+move the playhead, the transport will start rolling from the
+point where the playhead was moved to.
 </para>
 </section> <!-- Auto Play -->
 
 <section>
 <title>Auto Return</title>
 <para>
-Like the Auto Play button the Auto Return button can be toggled on and off, and
-the light shows its status. When Auto Return is on; when the transport is
-stopped, the playhead will return to the same position that it was at when the
-transport was started.
+Clicking the Auto Return button will toggle Auto Return on or off.  If
+Auto Return is on and the transport is stopped, the playhead will
+return to the point it was at when the transport was started.
+Otherwise, the playhead will remain in the same position when the
+transport is stopped.
 </para>
 </section> <!-- Auto Return -->
 
@@ -757,9 +766,10 @@ transport is moving.
 </itemizedlist>
 
 <para>
-Below the transport controls is the Shuttle speed control. This can be used to
-roll the transport at varying speed and direction. Left click and drag to
-control speed and direction. Right click will open the options menu.
+Below the transport controls is the Shuttle Speed control. This can be
+used to roll the transport at varying speed and direction.  Drag the
+shuttle control to control speed and direction. Right click will open
+the options menu.
 </para>
 
 </section>
