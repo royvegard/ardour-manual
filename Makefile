@@ -23,7 +23,7 @@ XML := advanced_jack.xml ardour.xml automation.xml configuration.xml editing.xml
 	misc.xml overview.xml quick_start.xml recording.xml region_operations.xml sessions.xml signal_flow_and_the_mixer.xml \
 	tracks_and_busses.xml troubleshooting.xml synchronisation.xml control_surfaces.xml
 
-GRAPHICS := cc.png
+GRAPHICS := ardour_bw.svg
 
 #
 # For the HTML, default to copying the screenshots direct
@@ -105,7 +105,8 @@ html:	$(XML) ardour-html.xsl extensions-html.ent ardour.css \
 # PDF
 #
 
-pdf:	$(XML) ardour-pdf.xsl extensions-pdf.ent screenshots/*.png $(subst .svg,.pdf,$(addprefix diagrams/,$(DIAGRAMS)))
+pdf:	$(XML) ardour-pdf.xsl extensions-pdf.ent screenshots/*.png \
+	$(subst .svg,.pdf,$(addprefix diagrams/,$(DIAGRAMS)))
 
 # 	The DocBook needs to know what file extensions to look for
 # 	for screenshots and diagrams; use the correct file to tell it.
@@ -132,5 +133,5 @@ tex:	$(XML) ardour-pdf.xsl extensions-pdf.ent
 	dblatex -P doc.collab.show=0 -P latex.output.revhistory=0 -p ardour-pdf.xsl -s ardour.sty -r pptex.py -T native ardour.xml -t tex -o tex/ardour.tex
 
 
-clean:;	rm -rf html pdf diagrams/*.pdf diagrams/*.png graphics/*.png *.aux ardour.cb ardour.cb2 ardour.glo ardour.idx ardour.ilg
+clean:;	rm -rf html pdf diagrams/*.pdf diagrams/*.png *.aux ardour.cb ardour.cb2 ardour.glo ardour.idx ardour.ilg
 	rm -rf ardour.ind ardour.lof ardour.log ardour.tex ardour.toc extensions.ent ardour.out
