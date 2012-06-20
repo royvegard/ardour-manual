@@ -239,8 +239,29 @@ with few controls, such as the plate reverb shown in the example
 screenshot.
 </para>
 
-</section>
-<section><title>Sends</title>
+</section> <!-- Adding plugins -->
+
+<section>
+<title>Instrument plugins</title>
+
+<para>
+In Ardour, MIDI &lsquo;instrument&rsquo; plugins (those that take some
+MIDI input and generate audio &mdash; samplers or synthesizers, for
+example) are treated the same as any other plugin.  Most of the time
+it makes sense to add them as plugins to MIDI tracks; in this way,
+they will receive MIDI data (either from a MIDI input or from a
+recorded MIDI region on disk) and will generate audio output.  Ardour
+will adapt the signal flow following an instrument, so that a MIDI
+track with an instrument plugin will appear like a MIDI track for its
+input and an audio track for its output.  In other words, a MIDI track
+with an instrument plugin will have a panner and audio outputs, just
+as an audio track would.
+</para>
+
+</section> <!-- Instrument plugins -->
+
+<section>
+<title>Sends</title>
 <indexterm><primary>send</primary></indexterm>
 
 <para>
@@ -854,13 +875,13 @@ the number of channels in your master bus (e.g. 2 for stereo).
 <!-- there is the monitor_bus_preferred_bundle but no-one sets it -->
 
 <para>
-&lsquo;Connect track inputs&rsquo; sets how new track inputs should be set up;
+<emphasis>Connect track inputs</emphasis> sets how new track inputs should be set up;
 they can either be automatically connected to physical inputs or left
 alone for you to connect yourself.
 </para>
 
 <para>
-&lsquo;Connect track and bus outputs&rsquo; sets how new track and bus outputs
+<emphasis>Connect track and bus outputs</emphasis> sets how new track and bus outputs
 should be set up; they can either be connected automatically to
 physical outputs, or to the master bus, or can be left alone for you to connect manually.
 </para>
@@ -1018,6 +1039,16 @@ corresponding channel of the destination (left to left, right to right
 and so on).  In this mode, a half-circle in the connection grid
 indicates that some (but not all) of the source's ports are connected
 to the destination.
+</listitem>
+<listitem>
+<emphasis>Flip</emphasis> &mdash; this will flip the visible ports on
+the vertical axis with those on the horizontal.  If, for example, the
+top of the connection manager is showing &lsquo;Ardour Busses&rsquo;
+and the right is showing &lsquo;Hardware&rsquo;,
+<emphasis>flip</emphasis> will swap the view to the opposite so that
+the top of the manager displays &lsquo;Hardware&rsquo; and the right
+&lsquo;Ardour Busses&rsquo;.  You can also make
+<empashis>flip</empashis> happen by pressing <keycap>F</keycap>.
 </listitem>
 </itemizedlist>
 

@@ -913,6 +913,27 @@ can be useful for reducing the editor window's width for use on small
 screens.
 </para>
 
-</section>
-</section>
+</section> <!-- The status bar -->
+</section> <!-- The summary -->
+
+<section>
+<title>The editor mixer strip</title>
+
+<para>
+An optional addition to the editor window is the editor mixer strip,
+to the left of the tracks area.  This is a copy of a single strip from
+the mixer, discussed in <xref
+linkend="ch-signal-flow-and-the-mixer"/>, and represents the mixer
+strip of the currently selected track.
+</para>
+
+<para>
+The mixer strip can be shown or hidden by pressing
+<keycombo><keycap>Shift</keycap><keycap>E</keycap></keycombo> or using
+the <guilabel>Show Editor Mixer</guilabel> option on the
+<guilabel>View</guilabel> menu.
+</para>
+
+</section> <!-- The editor mixer -->
+
 </chapter>
